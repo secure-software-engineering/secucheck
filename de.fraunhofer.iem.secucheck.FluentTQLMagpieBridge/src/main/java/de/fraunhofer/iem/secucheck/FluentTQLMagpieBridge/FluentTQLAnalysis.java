@@ -29,15 +29,30 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     private String fluentTQLSpecPath = "";
     private List<File> fluentTQLSpecList = new ArrayList<File>();
     private static HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
+    private HashMap<String, String> listOfJavaFiles = new HashMap<>();
 
+    private static List<ConfigurationOption> currentConfiguration = new ArrayList<>();
+
+    //Final variables to be sent to the analysis.
     private static List<TaintFlowQuery> listOfConfiguredTaintFlowQueries = new ArrayList<>();
+    private static List<String> javaFilesAsEntryPoints = new ArrayList<>();
 
     /**
      * Constructor sets the initial configuration option for the configuration page.
      */
     public FluentTQLAnalysis() {
-        ConfigurationOption pathRequesting = new ConfigurationOption("FluentTQL Specification's path", OptionType.text);
-        options.add(pathRequesting);
+        initialConfigurationOption();
+    }
+
+    /**
+     * Initial configuration option of the FluentTQL Magpie server.
+     */
+    private void initialConfigurationOption() {
+        options.clear();
+        ConfigurationOption specPathRequesting = new ConfigurationOption("FluentTQL Specification's path", OptionType.text);
+        ConfigurationOption javaPathRequesting = new ConfigurationOption("Path of Java files for entry points", OptionType.text);
+        options.add(specPathRequesting);
+        options.add(javaPathRequesting);
     }
 
     /**
@@ -58,8 +73,33 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      */
     public void analyze(Collection<? extends Module> files, AnalysisConsumer server, boolean rerun) {
         //Todo: Add running analysis code here.
-        System.out.println("Analysis is on progress");
-        System.out.println(listOfConfiguredTaintFlowQueries.size());
+
+        if ((listOfConfiguredTaintFlowQueries.size() == 0) || (javaFilesAsEntryPoints.size() == 0)) {
+            if (options.size() > 0)
+                options.clear();
+
+            options.addAll(clearAllAlertMessage(currentConfiguration));
+
+            ConfigurationOption o1 = new ConfigurationOption(
+                    "No specifications are selected. Please select the FluentTQL specifications",
+                    OptionType.alert
+            );
+            options.add(o1);
+        } else {
+            System.out.println("Analysis is on progress");
+
+            System.out.println("FluentTQL Specification: ");
+
+            for (FluentTQLSpecification fluentTQLSpecification : listOfConfiguredTaintFlowQueries) {
+                System.out.println("\t" + fluentTQLSpecification.toString());
+            }
+
+            System.out.println("Java files as entry points: ");
+
+            for (String javaFiles : javaFilesAsEntryPoints) {
+                System.out.println("\t" + javaFiles);
+            }
+        }
     }
 
     /**
@@ -81,66 +121,293 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     }
 
     /**
+     * This method processes the FluentTQL Specification path configuration option from the first Configuration page.
+     *
+     * @param configOption Configuration option
+     * @return Boolean - process success or not
+     */
+    private boolean processFluentTQLSpecificationsPath(ConfigurationOption configOption) {
+        String specPath = configOption.getValue();
+
+        if (specPath == null || "".equals(specPath)) {
+            initialConfigurationOption();
+            ConfigurationOption o1 = new ConfigurationOption(
+                    "FluentTQL Specification's path is invalid!!!",
+                    OptionType.alert
+            );
+            options.add(o1);
+            return false;
+        }
+
+        File file = new File(specPath);
+
+        if (file.exists()) {
+            if (file.isDirectory()) {
+                fluentTQLSpecPath = specPath;
+                fluentTQLSpecs.clear();
+                fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(file.getAbsolutePath()));
+
+                if (fluentTQLSpecs.size() > 0) {
+                    setConfig(fluentTQLSpecs);
+                } else {
+                    initialConfigurationOption();
+                    ConfigurationOption o1 = new ConfigurationOption(
+                            "No FluentTQL specifications present in the given path!!!",
+                            OptionType.alert
+                    );
+                    options.add(o1);
+                    return false;
+                }
+
+                currentConfiguration.clear();
+                currentConfiguration.addAll(options);
+            } else {
+                initialConfigurationOption();
+                ConfigurationOption o1 = new ConfigurationOption(
+                        "Given FluentTQL Specification's path is not a directory!!! \nPlease give valid directory name.",
+                        OptionType.alert
+                );
+                options.add(o1);
+                return false;
+            }
+        } else {
+            initialConfigurationOption();
+            ConfigurationOption o1 = new ConfigurationOption(
+                    "Given FluentTQL Specification's path does not exist!!!",
+                    OptionType.alert
+            );
+            options.add(o1);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * This method processes the FluentTQL Specification files configuration option from the second Configuration page.
+     *
+     * @param configOption Configuration option
+     * @return Boolean - process success or not
+     */
+    private boolean processFluentTQLSpecificationFiles(ConfigurationOption configOption) {
+        listOfConfiguredTaintFlowQueries.clear();
+
+        int selectedCount = 0;
+
+        for (ConfigurationOption configurationOption : configOption.getChildren()) {
+            if (configurationOption.getValueAsBoolean()) {
+                selectedCount += 1;
+
+                // Get the list of FluentTQLSpecification
+                List<FluentTQLSpecification> fluentTQLSpecificationList = fluentTQLSpecs.get(configurationOption.getName()).getFluentTQLSpecification();
+
+                addTaintFLowQueries(fluentTQLSpecificationList);
+            }
+        }
+
+        if (selectedCount == 0) {
+            options.clear();
+            options.addAll(clearAllAlertMessage(currentConfiguration));
+
+            ConfigurationOption o1 = new ConfigurationOption(
+                    "No specifications are selected. Please select the FluentTQL specifications",
+                    OptionType.alert
+            );
+            options.add(o1);
+            return false;
+        } else {
+            options.clear();
+            options.addAll(clearAllAlertMessage(currentConfiguration));
+        }
+        return true;
+    }
+
+    /**
+     * This method processes the Java files configuration option from the second Configuration page.
+     *
+     * @param configOption Configuration option
+     * @return Boolean - process success or not
+     */
+    private boolean processJavaFiles(ConfigurationOption configOption) {
+        javaFilesAsEntryPoints.clear();
+
+        int selectedCount = 0;
+
+        for (ConfigurationOption configurationOption : configOption.getChildren()) {
+            if (configurationOption.getValueAsBoolean()) {
+                selectedCount += 1;
+
+                javaFilesAsEntryPoints.add(listOfJavaFiles.get(configurationOption.getName()));
+            }
+        }
+
+        if (selectedCount == 0) {
+            options.clear();
+            options.addAll(clearAllAlertMessage(currentConfiguration));
+
+            ConfigurationOption o1 = new ConfigurationOption(
+                    "No Java files are selected. Please select the Java files as entry points",
+                    OptionType.alert
+            );
+            options.add(o1);
+            return false;
+        } else {
+            options.clear();
+            options.addAll(clearAllAlertMessage(currentConfiguration));
+        }
+        return true;
+    }
+
+    /**
+     * This method returns the list of all the Java file in the given path.
+     *
+     * @param javaFile Path to be searched for Java files
+     */
+    private void getListOfFiles(File javaFile) {
+        File[] files = javaFile.listFiles();
+
+        for (File file : files) {
+            String fileName = file.getName();
+            String filePath = file.getAbsolutePath();
+
+            if (file.isDirectory()) {
+                getListOfFiles(new File(filePath));
+            } else if (fileName.endsWith(".java")) {
+                listOfJavaFiles.put(fileName, filePath);
+            }
+        }
+    }
+
+    /**
+     * This method processes the Java files as entry points configuration option from the first Configuration page.
+     *
+     * @param configOption Configuration option
+     * @return Boolean - process success or not
+     */
+    private boolean processJavaFilesPath(ConfigurationOption configOption) {
+        String javaPath = configOption.getValue();
+
+        if (javaPath == null || "".equals(javaPath)) {
+            initialConfigurationOption();
+            ConfigurationOption o1 = new ConfigurationOption(
+                    "Path of Java files for entry points is invalid!!!",
+                    OptionType.alert
+            );
+            options.add(o1);
+            return false;
+        }
+
+        File javaFile = new File(javaPath);
+
+
+        if (javaFile.exists()) {
+            if (javaFile.isDirectory()) {
+                getListOfFiles(javaFile);
+
+                if (listOfJavaFiles.size() > 0)
+                    setConfigWithJavaFiles(listOfJavaFiles);
+                else {
+                    initialConfigurationOption();
+                    ConfigurationOption o1 = new ConfigurationOption(
+                            "No Java files present in the given path!!!",
+                            OptionType.alert
+                    );
+                    options.add(o1);
+                    return false;
+                }
+
+                currentConfiguration.addAll(options);
+            } else {
+                initialConfigurationOption();
+                ConfigurationOption o1 = new ConfigurationOption(
+                        "Given Path of Java files for entry points is not a directory!!! \nPlease give valid directory name.",
+                        OptionType.alert
+                );
+                options.add(o1);
+                return false;
+            }
+        } else {
+            initialConfigurationOption();
+            ConfigurationOption o1 = new ConfigurationOption(
+                    "Given Path of Java files for entry points does not exist",
+                    OptionType.alert
+            );
+            options.add(o1);
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * This method configures the analysis or configuration page based on the user input given in the previous
      * configuration page.
      *
      * @param configuration List of configuration options from the Magpie bridge
      */
     public void configure(List<ConfigurationOption> configuration) {
+        currentConfiguration.clear();
+        currentConfiguration.addAll(configuration);
+
         for (ConfigurationOption configOption : configuration) {
+
             if ("FluentTQL Specification's path".equals(configOption.getName())) {
-                String specPath = configOption.getValue();
+                boolean isSuccess = processFluentTQLSpecificationsPath(configOption);
 
-                if (specPath == null || "".equals(specPath)) {
-                    System.err.println("Invalid path");
+                if (!isSuccess)
                     return;
-                }
+            } else if ("Path of Java files for entry points".equals(configOption.getName())) {
+                boolean isSuccess = processJavaFilesPath(configOption);
 
-                File file = new File(specPath);
-
-                if (file.exists()) {
-                    if (file.isDirectory()) {
-                        fluentTQLSpecPath = specPath;
-
-                        fluentTQLSpecs = InternalFluentTQLIntegration.getSpecs(file.getAbsolutePath());
-
-                        if (fluentTQLSpecs.size() > 0)
-                            setConfig(fluentTQLSpecs);
-                        else
-                            System.err.println("No FluentTQL specifications present in the given path");
-                    } else {
-                        System.err.println("Given path is not a directory. Please give valid directory name.");
-                        return;
-                    }
-                } else {
-                    System.err.println("Path does not exist");
+                if (!isSuccess)
                     return;
-                }
             } else if ("FluentTQL Specification files".equals(configOption.getName())) {
-                listOfConfiguredTaintFlowQueries.clear();
+                boolean isSuccess = processFluentTQLSpecificationFiles(configOption);
 
-                for (ConfigurationOption configurationOption : configOption.getChildren()) {
-                    if (configurationOption.getValueAsBoolean()) {
-                        System.out.println(configurationOption.getName());
-                        // Get the list of FluentTQLSpecification
-                        List<FluentTQLSpecification> fluentTQLSpecificationList = fluentTQLSpecs.get(configurationOption.getName()).getFluentTQLSpecification();
+                if (!isSuccess)
+                    return;
+            } else if ("Select java files for entry points".equals(configOption.getName())) {
+                boolean isSuccess = processJavaFiles(configOption);
 
-                        // Get the TaintFLowQuery object.
-                        for (FluentTQLSpecification fluentTQLSpecification : fluentTQLSpecificationList) {
-                            if (fluentTQLSpecification instanceof TaintFlowQuery) {
-                                TaintFlowQuery taintFlowQuery = (TaintFlowQuery) fluentTQLSpecification;
-
-                                listOfConfiguredTaintFlowQueries.add(taintFlowQuery);
-                            } else if (fluentTQLSpecification instanceof QueriesSet) {
-                                QueriesSet queriesSet = (QueriesSet) fluentTQLSpecification;
-
-                                listOfConfiguredTaintFlowQueries.addAll(queriesSet.getTaintFlowQueries());
-                            }
-                        }
-                    }
-                }
+                if (!isSuccess)
+                    return;
             }
         }
+    }
+
+    /**
+     * This method adds all the TaintFlowQuery objects from the FluentTQLSpecification into a global variable
+     *
+     * @param fluentTQLSpecificationList List of all the FluentTQLSpecification objetcs.
+     */
+    private void addTaintFLowQueries(List<FluentTQLSpecification> fluentTQLSpecificationList) {
+        // Get the TaintFLowQuery object.
+        for (FluentTQLSpecification fluentTQLSpecification : fluentTQLSpecificationList) {
+            if (fluentTQLSpecification instanceof TaintFlowQuery) {
+                TaintFlowQuery taintFlowQuery = (TaintFlowQuery) fluentTQLSpecification;
+
+                listOfConfiguredTaintFlowQueries.add(taintFlowQuery);
+            } else if (fluentTQLSpecification instanceof QueriesSet) {
+                QueriesSet queriesSet = (QueriesSet) fluentTQLSpecification;
+
+                listOfConfiguredTaintFlowQueries.addAll(queriesSet.getTaintFlowQueries());
+            }
+        }
+    }
+
+    /**
+     * This removes all the alert box configuration options from the given list of configuration options.
+     *
+     * @param config List of configuration options.
+     * @return List of configuration options without alert box.
+     */
+    private List<ConfigurationOption> clearAllAlertMessage(List<ConfigurationOption> config) {
+        List<ConfigurationOption> refinedConfig = new ArrayList<>();
+
+        for (ConfigurationOption configurationOption : config) {
+            if (!(configurationOption.getType() == OptionType.alert))
+                refinedConfig.add(configurationOption);
+        }
+
+        return refinedConfig;
     }
 
     /**
@@ -149,6 +416,8 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param fluentSpecs FluentTQL specifications
      */
     private void setConfig(HashMap<String, FluentTQLUserInterface> fluentSpecs) {
+        listOfConfiguredTaintFlowQueries.clear();
+
         ConfigurationOption initialOption = new CheckBox(
                 "FluentTQL Specification files",
                 true);
@@ -163,9 +432,40 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             );
             myOption.setValue("on");
             initialOption.addChild(myOption);
+
+            addTaintFLowQueries(
+                    fluentSpecs.get(key).getFluentTQLSpecification()
+            );
         }
 
         options.clear();
+        options.add(initialOption);
+    }
+
+    /**
+     * This method sets the configuration options for Java files as entry point for the second configuration page from the
+     * first configuration page input.
+     *
+     * @param javaFiles HashMap - Java files.
+     */
+    private void setConfigWithJavaFiles(HashMap<String, String> javaFiles) {
+
+        ConfigurationOption initialOption = new CheckBox(
+                "Select java files for entry points",
+                true);
+        initialOption.setValue("on");
+
+        for (String javaFile : javaFiles.keySet()) {
+            ConfigurationOption myOption = new CheckBox(
+                    javaFile,
+                    true
+            );
+            myOption.setValue("on");
+            initialOption.addChild(myOption);
+
+            javaFilesAsEntryPoints.add(javaFile);
+        }
+
         options.add(initialOption);
     }
 

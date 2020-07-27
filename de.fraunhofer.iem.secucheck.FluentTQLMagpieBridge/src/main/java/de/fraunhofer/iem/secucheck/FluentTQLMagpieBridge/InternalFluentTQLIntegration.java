@@ -20,8 +20,6 @@ import java.util.List;
  * @author Ranjith Krishnamurthy
  */
 public class InternalFluentTQLIntegration {
-    //Store all the TaintFLowQuery object you read in this object and then send this list to the Analysis.
-    private static final List<TaintFlowQuery> taintFlowQueries = new ArrayList<>();
     private static List<String> fileList = new ArrayList<>();
     private static HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
 
@@ -121,9 +119,11 @@ public class InternalFluentTQLIntegration {
      */
     public static HashMap<String, FluentTQLUserInterface> getSpecs(String path) {
 
+        fluentTQLSpecs.clear();
+        fileList.clear();
+
         try {
             getListOfFiles(path);
-
             for (String fileName : fileList) {
                 File file = new File(fileName);
 
