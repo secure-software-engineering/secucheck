@@ -126,17 +126,14 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param configOption Configuration option
      * @return Boolean - process success or not
      */
-    private boolean processFluentTQLSpecificationsPath(ConfigurationOption configOption) {
+    private ConfigurationOption processFluentTQLSpecificationsPath(ConfigurationOption configOption) {
         String specPath = configOption.getValue();
 
         if (specPath == null || "".equals(specPath)) {
-            initialConfigurationOption();
-            ConfigurationOption o1 = new ConfigurationOption(
+            return new ConfigurationOption(
                     "FluentTQL Specification's path is invalid!!!",
                     OptionType.alert
             );
-            options.add(o1);
-            return false;
         }
 
         File file = new File(specPath);
@@ -150,36 +147,27 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                 if (fluentTQLSpecs.size() > 0) {
                     setConfig(fluentTQLSpecs);
                 } else {
-                    initialConfigurationOption();
-                    ConfigurationOption o1 = new ConfigurationOption(
+                    return new ConfigurationOption(
                             "No FluentTQL specifications present in the given path!!!",
                             OptionType.alert
                     );
-                    options.add(o1);
-                    return false;
                 }
 
                 currentConfiguration.clear();
                 currentConfiguration.addAll(options);
             } else {
-                initialConfigurationOption();
-                ConfigurationOption o1 = new ConfigurationOption(
+                return new ConfigurationOption(
                         "Given FluentTQL Specification's path is not a directory!!! \nPlease give valid directory name.",
                         OptionType.alert
                 );
-                options.add(o1);
-                return false;
             }
         } else {
-            initialConfigurationOption();
-            ConfigurationOption o1 = new ConfigurationOption(
+            return new ConfigurationOption(
                     "Given FluentTQL Specification's path does not exist!!!",
                     OptionType.alert
             );
-            options.add(o1);
-            return false;
         }
-        return true;
+        return null;
     }
 
     /**
@@ -283,17 +271,14 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param configOption Configuration option
      * @return Boolean - process success or not
      */
-    private boolean processJavaFilesPath(ConfigurationOption configOption) {
+    private ConfigurationOption processJavaFilesPath(ConfigurationOption configOption) {
         String javaPath = configOption.getValue();
 
         if (javaPath == null || "".equals(javaPath)) {
-            initialConfigurationOption();
-            ConfigurationOption o1 = new ConfigurationOption(
+            return new ConfigurationOption(
                     "Path of Java files for entry points is invalid!!!",
                     OptionType.alert
             );
-            options.add(o1);
-            return false;
         }
 
         File javaFile = new File(javaPath);
@@ -306,35 +291,26 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                 if (listOfJavaFiles.size() > 0)
                     setConfigWithJavaFiles(listOfJavaFiles);
                 else {
-                    initialConfigurationOption();
-                    ConfigurationOption o1 = new ConfigurationOption(
+                    return new ConfigurationOption(
                             "No Java files present in the given path!!!",
                             OptionType.alert
                     );
-                    options.add(o1);
-                    return false;
                 }
 
                 currentConfiguration.addAll(options);
             } else {
-                initialConfigurationOption();
-                ConfigurationOption o1 = new ConfigurationOption(
+                return new ConfigurationOption(
                         "Given Path of Java files for entry points is not a directory!!! \nPlease give valid directory name.",
                         OptionType.alert
                 );
-                options.add(o1);
-                return false;
             }
         } else {
-            initialConfigurationOption();
-            ConfigurationOption o1 = new ConfigurationOption(
+            return new ConfigurationOption(
                     "Given Path of Java files for entry points does not exist",
                     OptionType.alert
             );
-            options.add(o1);
-            return false;
         }
-        return true;
+        return null;
     }
 
     /**
@@ -350,15 +326,31 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         for (ConfigurationOption configOption : configuration) {
 
             if ("FluentTQL Specification's path".equals(configOption.getName())) {
-                boolean isSuccess = processFluentTQLSpecificationsPath(configOption);
+                ConfigurationOption alertConfig = processFluentTQLSpecificationsPath(configOption);
 
-                if (!isSuccess)
+                if (alertConfig != null) {
+                    configOption.setValue("");
+                    List<ConfigurationOption> newConfig = clearAllAlertMessage(configuration);
+
+                    options.clear();
+                    options.addAll(newConfig);
+                    options.add(alertConfig);
+
                     return;
+                }
             } else if ("Path of Java files for entry points".equals(configOption.getName())) {
-                boolean isSuccess = processJavaFilesPath(configOption);
+                ConfigurationOption alertConfig = processJavaFilesPath(configOption);
 
-                if (!isSuccess)
+                if (alertConfig != null) {
+                    configOption.setValue("");
+                    List<ConfigurationOption> newConfig = clearAllAlertMessage(configuration);
+
+                    options.clear();
+                    options.addAll(newConfig);
+                    options.add(alertConfig);
+
                     return;
+                }
             } else if ("FluentTQL Specification files".equals(configOption.getName())) {
                 boolean isSuccess = processFluentTQLSpecificationFiles(configOption);
 
