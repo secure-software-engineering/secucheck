@@ -124,7 +124,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * This method processes the FluentTQL Specification path configuration option from the first Configuration page.
      *
      * @param configOption Configuration option
-     * @return Boolean - process success or not
+     * @return ConfigurationOption - alert configuration if there is an error otherwise it returns null
      */
     private ConfigurationOption processFluentTQLSpecificationsPath(ConfigurationOption configOption) {
         String specPath = configOption.getValue();
@@ -269,7 +269,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * This method processes the Java files as entry points configuration option from the first Configuration page.
      *
      * @param configOption Configuration option
-     * @return Boolean - process success or not
+     * @return ConfigurationOption - alert configuration if there is an error otherwise it returns null
      */
     private ConfigurationOption processJavaFilesPath(ConfigurationOption configOption) {
         String javaPath = configOption.getValue();
