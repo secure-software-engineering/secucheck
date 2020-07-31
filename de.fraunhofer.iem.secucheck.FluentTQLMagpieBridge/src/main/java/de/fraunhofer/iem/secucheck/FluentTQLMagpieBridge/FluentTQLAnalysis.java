@@ -13,6 +13,8 @@ import magpiebridge.core.analysis.configuration.ConfigurationAction;
 import magpiebridge.core.analysis.configuration.ConfigurationOption;
 import magpiebridge.core.analysis.configuration.OptionType;
 import magpiebridge.core.analysis.configuration.htmlElement.CheckBox;
+import org.eclipse.lsp4j.MessageParams;
+import org.eclipse.lsp4j.MessageType;
 
 import java.io.File;
 import java.util.*;
@@ -25,23 +27,22 @@ import java.util.*;
  */
 public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
-    private List<ConfigurationOption> options = new ArrayList<ConfigurationOption>();
-    private String fluentTQLSpecPath = "";
-    private List<File> fluentTQLSpecList = new ArrayList<File>();
-    private static HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
-    private HashMap<String, String> listOfJavaFiles = new HashMap<>();
-
-    private static List<ConfigurationOption> currentConfiguration = new ArrayList<>();
+    private final List<ConfigurationOption> options = new ArrayList<>();
+    private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
+    private final HashMap<String, String> listOfJavaFiles = new HashMap<>();
+    private static final List<ConfigurationOption> currentConfiguration = new ArrayList<>();
+    private boolean firstConfigPageSuccess = false;
 
     //Final variables to be sent to the analysis.
-    private static List<TaintFlowQuery> listOfConfiguredTaintFlowQueries = new ArrayList<>();
-    private static List<String> javaFilesAsEntryPoints = new ArrayList<>();
+    private static final List<TaintFlowQuery> listOfConfiguredTaintFlowQueries = new ArrayList<>();
+    private static final List<String> javaFilesAsEntryPoints = new ArrayList<>();
 
     /**
      * Constructor sets the initial configuration option for the configuration page.
      */
     public FluentTQLAnalysis() {
         initialConfigurationOption();
+        currentConfiguration.addAll(options);
     }
 
     /**
@@ -67,24 +68,20 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     /**
      * This method runs the analysis
      *
-     * @param files
-     * @param server
-     * @param rerun
+     * @param files  Files
+     * @param server Analysis Server
+     * @param rerun  Is rerun
      */
     public void analyze(Collection<? extends Module> files, AnalysisConsumer server, boolean rerun) {
         //Todo: Add running analysis code here.
 
         if ((listOfConfiguredTaintFlowQueries.size() == 0) || (javaFilesAsEntryPoints.size() == 0)) {
-            if (options.size() > 0)
-                options.clear();
-
-            options.addAll(clearAllAlertMessage(currentConfiguration));
-
-            ConfigurationOption o1 = new ConfigurationOption(
-                    "No specifications are selected. Please select the FluentTQL specifications",
-                    OptionType.alert
-            );
-            options.add(o1);
+            FluentTQLMagpieBridgeMainServer
+                    .fluentTQLMagpieServer
+                    .forwardMessageToClient(
+                            new MessageParams(MessageType.Warning,
+                                    "Please give the path of the fluentTQL specifications and the Java files.")
+                    );
         } else {
             System.out.println("Analysis is on progress");
 
@@ -126,48 +123,59 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param configOption Configuration option
      * @return ConfigurationOption - alert configuration if there is an error otherwise it returns null
      */
-    private ConfigurationOption processFluentTQLSpecificationsPath(ConfigurationOption configOption) {
+    private boolean processFluentTQLSpecificationsPath(ConfigurationOption configOption) {
         String specPath = configOption.getValue();
 
         if (specPath == null || "".equals(specPath)) {
-            return new ConfigurationOption(
-                    "FluentTQL Specification's path is invalid!!!",
-                    OptionType.alert
-            );
+            FluentTQLMagpieBridgeMainServer
+                    .fluentTQLMagpieServer
+                    .forwardMessageToClient(
+                            new MessageParams(MessageType.Warning, "FluentTQL Specification's path is invalid!!!")
+                    );
+            firstConfigPageSuccess = false;
+            return false;
         }
 
         File file = new File(specPath);
 
         if (file.exists()) {
             if (file.isDirectory()) {
-                fluentTQLSpecPath = specPath;
                 fluentTQLSpecs.clear();
                 fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(file.getAbsolutePath()));
 
                 if (fluentTQLSpecs.size() > 0) {
-                    setConfig(fluentTQLSpecs);
+                    setConfig();
+                    firstConfigPageSuccess = true;
+                    currentConfiguration.clear();
+                    currentConfiguration.addAll(options);
+                    return true;
                 } else {
-                    return new ConfigurationOption(
-                            "No FluentTQL specifications present in the given path!!!",
-                            OptionType.alert
-                    );
+                    FluentTQLMagpieBridgeMainServer
+                            .fluentTQLMagpieServer
+                            .forwardMessageToClient(
+                                    new MessageParams(MessageType.Warning, "No FluentTQL specifications present in the given path!!!")
+                            );
+                    firstConfigPageSuccess = false;
+                    return false;
                 }
-
-                currentConfiguration.clear();
-                currentConfiguration.addAll(options);
             } else {
-                return new ConfigurationOption(
-                        "Given FluentTQL Specification's path is not a directory!!! \nPlease give valid directory name.",
-                        OptionType.alert
-                );
+                FluentTQLMagpieBridgeMainServer
+                        .fluentTQLMagpieServer
+                        .forwardMessageToClient(
+                                new MessageParams(MessageType.Warning, "Given FluentTQL Specification's path is not a directory!!! \nPlease give valid directory name.")
+                        );
+                firstConfigPageSuccess = false;
+                return false;
             }
         } else {
-            return new ConfigurationOption(
-                    "Given FluentTQL Specification's path does not exist!!!",
-                    OptionType.alert
-            );
+            FluentTQLMagpieBridgeMainServer
+                    .fluentTQLMagpieServer
+                    .forwardMessageToClient(
+                            new MessageParams(MessageType.Warning, "Given FluentTQL Specification's path does not exist!!!")
+                    );
+            firstConfigPageSuccess = false;
+            return false;
         }
-        return null;
     }
 
     /**
@@ -192,19 +200,18 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             }
         }
 
+        options.clear();
+        options.addAll(currentConfiguration);
         if (selectedCount == 0) {
-            options.clear();
-            options.addAll(clearAllAlertMessage(currentConfiguration));
 
-            ConfigurationOption o1 = new ConfigurationOption(
-                    "No specifications are selected. Please select the FluentTQL specifications",
-                    OptionType.alert
-            );
-            options.add(o1);
+            FluentTQLMagpieBridgeMainServer
+                    .fluentTQLMagpieServer
+                    .forwardMessageToClient(
+                            new MessageParams(MessageType.Warning,
+                                    "No specifications are selected. \nPlease select the FluentTQL specifications"
+                            ));
+
             return false;
-        } else {
-            options.clear();
-            options.addAll(clearAllAlertMessage(currentConfiguration));
         }
         return true;
     }
@@ -228,19 +235,17 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             }
         }
 
+        options.clear();
+        options.addAll(currentConfiguration);
         if (selectedCount == 0) {
-            options.clear();
-            options.addAll(clearAllAlertMessage(currentConfiguration));
 
-            ConfigurationOption o1 = new ConfigurationOption(
-                    "No Java files are selected. Please select the Java files as entry points",
-                    OptionType.alert
-            );
-            options.add(o1);
+            FluentTQLMagpieBridgeMainServer
+                    .fluentTQLMagpieServer
+                    .forwardMessageToClient(
+                            new MessageParams(MessageType.Warning,
+                                    "No Java files are selected as entry points. \nPlease select the Java files for entry points"
+                            ));
             return false;
-        } else {
-            options.clear();
-            options.addAll(clearAllAlertMessage(currentConfiguration));
         }
         return true;
     }
@@ -253,14 +258,16 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     private void getListOfFiles(File javaFile) {
         File[] files = javaFile.listFiles();
 
-        for (File file : files) {
-            String fileName = file.getName();
-            String filePath = file.getAbsolutePath();
+        if (files != null) {
+            for (File file : files) {
+                String fileName = file.getName();
+                String filePath = file.getAbsolutePath();
 
-            if (file.isDirectory()) {
-                getListOfFiles(new File(filePath));
-            } else if (fileName.endsWith(".java")) {
-                listOfJavaFiles.put(fileName, filePath);
+                if (file.isDirectory()) {
+                    getListOfFiles(new File(filePath));
+                } else if (fileName.endsWith(".java")) {
+                    listOfJavaFiles.put(fileName, filePath);
+                }
             }
         }
     }
@@ -271,14 +278,16 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param configOption Configuration option
      * @return ConfigurationOption - alert configuration if there is an error otherwise it returns null
      */
-    private ConfigurationOption processJavaFilesPath(ConfigurationOption configOption) {
+    private boolean processJavaFilesPath(ConfigurationOption configOption) {
         String javaPath = configOption.getValue();
 
         if (javaPath == null || "".equals(javaPath)) {
-            return new ConfigurationOption(
-                    "Path of Java files for entry points is invalid!!!",
-                    OptionType.alert
-            );
+            FluentTQLMagpieBridgeMainServer
+                    .fluentTQLMagpieServer
+                    .forwardMessageToClient(
+                            new MessageParams(MessageType.Warning, "Path of Java files for entry points is invalid!!!")
+                    );
+            return false;
         }
 
         File javaFile = new File(javaPath);
@@ -286,31 +295,39 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         if (javaFile.exists()) {
             if (javaFile.isDirectory()) {
+                listOfJavaFiles.clear();
                 getListOfFiles(javaFile);
 
-                if (listOfJavaFiles.size() > 0)
-                    setConfigWithJavaFiles(listOfJavaFiles);
-                else {
-                    return new ConfigurationOption(
-                            "No Java files present in the given path!!!",
-                            OptionType.alert
-                    );
+                if (listOfJavaFiles.size() > 0) {
+                    if (firstConfigPageSuccess) {
+                        setConfigWithJavaFiles(listOfJavaFiles);
+                        currentConfiguration.addAll(options);
+                    }
+                    return true;
+                } else {
+                    FluentTQLMagpieBridgeMainServer
+                            .fluentTQLMagpieServer
+                            .forwardMessageToClient(
+                                    new MessageParams(MessageType.Warning, "No Java files present in the given path!!!")
+                            );
+                    return false;
                 }
-
-                currentConfiguration.addAll(options);
             } else {
-                return new ConfigurationOption(
-                        "Given Path of Java files for entry points is not a directory!!! \nPlease give valid directory name.",
-                        OptionType.alert
-                );
+                FluentTQLMagpieBridgeMainServer
+                        .fluentTQLMagpieServer
+                        .forwardMessageToClient(
+                                new MessageParams(MessageType.Warning, "Given Path of Java files for entry points is not a directory!!! \nPlease give valid directory name.")
+                        );
+                return false;
             }
         } else {
-            return new ConfigurationOption(
-                    "Given Path of Java files for entry points does not exist",
-                    OptionType.alert
-            );
+            FluentTQLMagpieBridgeMainServer
+                    .fluentTQLMagpieServer
+                    .forwardMessageToClient(
+                            new MessageParams(MessageType.Warning, "Given Path of Java files for entry points does not exist")
+                    );
+            return false;
         }
-        return null;
     }
 
     /**
@@ -326,41 +343,35 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         for (ConfigurationOption configOption : configuration) {
 
             if ("FluentTQL Specification's path".equals(configOption.getName())) {
-                ConfigurationOption alertConfig = processFluentTQLSpecificationsPath(configOption);
+                boolean isSuccess = processFluentTQLSpecificationsPath(configOption);
 
-                if (alertConfig != null) {
+                if (!isSuccess) {
                     configOption.setValue("");
-                    List<ConfigurationOption> newConfig = clearAllAlertMessage(configuration);
-
                     options.clear();
-                    options.addAll(newConfig);
-                    options.add(alertConfig);
-
-                    return;
+                    options.addAll(configuration);
                 }
             } else if ("Path of Java files for entry points".equals(configOption.getName())) {
-                ConfigurationOption alertConfig = processJavaFilesPath(configOption);
+                boolean isSuccess = processJavaFilesPath(configOption);
 
-                if (alertConfig != null) {
+                if (!isSuccess) {
                     configOption.setValue("");
-                    List<ConfigurationOption> newConfig = clearAllAlertMessage(configuration);
-
                     options.clear();
-                    options.addAll(newConfig);
-                    options.add(alertConfig);
-
-                    return;
+                    options.addAll(configuration);
                 }
             } else if ("FluentTQL Specification files".equals(configOption.getName())) {
                 boolean isSuccess = processFluentTQLSpecificationFiles(configOption);
 
-                if (!isSuccess)
-                    return;
+                if (!isSuccess) {
+                    options.clear();
+                    options.addAll(configuration);
+                }
             } else if ("Select java files for entry points".equals(configOption.getName())) {
                 boolean isSuccess = processJavaFiles(configOption);
 
-                if (!isSuccess)
-                    return;
+                if (!isSuccess) {
+                    options.clear();
+                    options.addAll(configuration);
+                }
             }
         }
     }
@@ -386,35 +397,16 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     }
 
     /**
-     * This removes all the alert box configuration options from the given list of configuration options.
-     *
-     * @param config List of configuration options.
-     * @return List of configuration options without alert box.
-     */
-    private List<ConfigurationOption> clearAllAlertMessage(List<ConfigurationOption> config) {
-        List<ConfigurationOption> refinedConfig = new ArrayList<>();
-
-        for (ConfigurationOption configurationOption : config) {
-            if (!(configurationOption.getType() == OptionType.alert))
-                refinedConfig.add(configurationOption);
-        }
-
-        return refinedConfig;
-    }
-
-    /**
      * This method sets the new configuration option for new configuration page.
-     *
-     * @param fluentSpecs FluentTQL specifications
      */
-    private void setConfig(HashMap<String, FluentTQLUserInterface> fluentSpecs) {
+    private void setConfig() {
         listOfConfiguredTaintFlowQueries.clear();
 
         CheckBox initialOption = new CheckBox(
                 "FluentTQL Specification files",
                 "true");
 
-        Set<String> keys = fluentSpecs.keySet();
+        Set<String> keys = FluentTQLAnalysis.fluentTQLSpecs.keySet();
 
         for (String key : keys) {
             CheckBox myOption = new CheckBox(
@@ -425,7 +417,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             initialOption.addChild(myOption);
 
             addTaintFLowQueries(
-                    fluentSpecs.get(key).getFluentTQLSpecification()
+                    FluentTQLAnalysis.fluentTQLSpecs.get(key).getFluentTQLSpecification()
             );
         }
 
@@ -440,7 +432,6 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param javaFiles HashMap - Java files.
      */
     private void setConfigWithJavaFiles(HashMap<String, String> javaFiles) {
-
         CheckBox initialOption = new CheckBox(
                 "Select java files for entry points",
                 "true");

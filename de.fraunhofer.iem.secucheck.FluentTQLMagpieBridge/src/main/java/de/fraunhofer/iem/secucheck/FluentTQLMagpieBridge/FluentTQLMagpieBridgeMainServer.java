@@ -11,6 +11,7 @@ import org.eclipse.lsp4j.jsonrpc.messages.Either;
  */
 public class FluentTQLMagpieBridgeMainServer {
 
+    public static MagpieServer fluentTQLMagpieServer;
     /**
      * Main method of the FluentTQL Magpie bridge server.
      *
@@ -32,16 +33,16 @@ public class FluentTQLMagpieBridgeMainServer {
 
         defaultConfig.setShowConfigurationPage(true, true);
 
-        MagpieServer server = new MagpieServer(defaultConfig);
+        fluentTQLMagpieServer = new MagpieServer(defaultConfig);
 
         String language = "java";
         IProjectService javaProjectService = new JavaProjectService();
 
         ServerAnalysis myAnalysis = new FluentTQLAnalysis();
-        server.addProjectService(language, javaProjectService);
+        fluentTQLMagpieServer.addProjectService(language, javaProjectService);
 
         Either<ServerAnalysis, ToolAnalysis> analysis = Either.forLeft(myAnalysis);
-        server.addAnalysis(analysis, language);
-        return server;
+        fluentTQLMagpieServer.addAnalysis(analysis, language);
+        return fluentTQLMagpieServer;
     }
 }
