@@ -418,19 +418,18 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     private void setConfig(HashMap<String, FluentTQLUserInterface> fluentSpecs) {
         listOfConfiguredTaintFlowQueries.clear();
 
-        ConfigurationOption initialOption = new CheckBox(
+        CheckBox initialOption = new CheckBox(
                 "FluentTQL Specification files",
-                true);
-        initialOption.setValue("on");
+                "true");
 
         Set<String> keys = fluentSpecs.keySet();
 
         for (String key : keys) {
-            ConfigurationOption myOption = new CheckBox(
+            CheckBox myOption = new CheckBox(
                     key,
-                    true
+                    "true"
             );
-            myOption.setValue("on");
+
             initialOption.addChild(myOption);
 
             addTaintFLowQueries(
@@ -450,17 +449,16 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      */
     private void setConfigWithJavaFiles(HashMap<String, String> javaFiles) {
 
-        ConfigurationOption initialOption = new CheckBox(
+        CheckBox initialOption = new CheckBox(
                 "Select java files for entry points",
-                true);
-        initialOption.setValue("on");
+                "true");
 
         for (String javaFile : javaFiles.keySet()) {
-            ConfigurationOption myOption = new CheckBox(
+            CheckBox myOption = new CheckBox(
                     javaFile,
-                    true
+                    "true"
             );
-            myOption.setValue("on");
+
             initialOption.addChild(myOption);
 
             javaFilesAsEntryPoints.add(javaFile);
