@@ -32,6 +32,21 @@
             <artifactId>de.fraunhofer.iem.secucheck.InternalFluentTQL</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.11</version>
+		</dependency>
+		<dependency>
+			<groupId>de.fraunhofer.iem.secucheck</groupId>
+			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>de.fraunhofer.iem.secucheck.analysis</artifactId>
+		</dependency>
+        <dependency>
+		    <groupId>de.fraunhofer.iem.secucheck</groupId>
+		    <artifactId>de.fraunhofer.iem.secucheck.analysis.process.client</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
     </dependencies>
 
     <build>

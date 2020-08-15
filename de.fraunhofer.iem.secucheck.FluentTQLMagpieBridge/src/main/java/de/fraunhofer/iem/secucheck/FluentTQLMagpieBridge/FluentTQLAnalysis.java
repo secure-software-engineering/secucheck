@@ -1,14 +1,14 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
 import com.ibm.wala.classLoader.Module;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
+
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisWrapper;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecucheckMagpieBridgeAnalysis;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
+
 import magpiebridge.core.AnalysisConsumer;
 import magpiebridge.core.AnalysisResult;
 import magpiebridge.core.ServerAnalysis;
@@ -18,12 +18,18 @@ import magpiebridge.core.analysis.configuration.ConfigurationOption;
 import magpiebridge.core.analysis.configuration.OptionType;
 import magpiebridge.core.analysis.configuration.htmlElement.CheckBox;
 import magpiebridge.projectservice.java.JavaProjectService;
+
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is the FluentTQL Taint analysis. This implements the configuration options for configuration pages.
@@ -33,29 +39,34 @@ import java.util.*;
  */
 public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
-    private final List<ConfigurationOption> options = new ArrayList<>();
-    private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
-    private final HashMap<String, String> listOfJavaFiles = new HashMap<>();
-    private static final List<ConfigurationOption> currentConfiguration = new ArrayList<>();
-    private boolean isFirstPageDone = false;
-    private String source = null;
-    private final Set<String> classNames = new HashSet<>();
-    private JavaProjectService javaProjectService = null;
-
-    //Final variables to be sent to the analysis.
-    private static final List<TaintFlowQuery> listOfConfiguredTaintFlowQueries = new ArrayList<>();
-    private static final List<String> javaFilesAsEntryPoints = new ArrayList<>();
+	private static final Logger logger = Logger.getLogger("main");
+	
+    private static final List<String> entryPoints = new ArrayList<>();
     private static final Set<Path> classPath = new HashSet<>();
     private static final Set<Path> libraryPath = new HashSet<>();
+    private static final List<TaintFlowQuery> taintFlowQueries = new ArrayList<>();
+	private static final List<ConfigurationOption> currentConfiguration = new ArrayList<>();
+	private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
+	
     private static Path projectRootPath = null;
 
-
+    private final Set<String> classNames = new HashSet<>();
+    private final List<ConfigurationOption> options = new ArrayList<>();
+    private final HashMap<String, String> listOfJavaFiles = new HashMap<>();
+    private final SecucheckMagpieBridgeAnalysis secucheckAnalysis = new SecuCheckAnalysisWrapper(true);
+    
+    private boolean isFirstPageDone = false;
+    private String source = null;
+    private JavaProjectService javaProjectService = null;
+    private Future<?> lastAnalysisTask;
+    private ExecutorService execService;
     /**
      * Constructor sets the initial configuration option for the configuration page.
      */
     public FluentTQLAnalysis() {
         initialConfigurationOption();
         currentConfiguration.addAll(options);
+        execService = Executors.newSingleThreadExecutor();
     }
 
     /**
@@ -104,12 +115,39 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param rerun  Is rerun
      */
     public void analyze(Collection<? extends Module> files, AnalysisConsumer server, boolean rerun) {
-        if ((listOfConfiguredTaintFlowQueries.size() == 0) || (javaFilesAsEntryPoints.size() == 0)) {
+    	if (lastAnalysisTask != null && !lastAnalysisTask.isDone()) {
+    		lastAnalysisTask.cancel(false);
+    		if (lastAnalysisTask.isCancelled()) {
+    			logger.log(Level.INFO, "Last running analysis has been cancelled.");
+    		}
+	    }
+    	
+    	// Perform validation synchronously and run analysis asynchronously.
+    	if (validateQueriesAndEntryPoints()) {
+    		Runnable analysisTask = () -> {
+        		try {
+                	Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries, 
+                			entryPoints, classPath, libraryPath, projectRootPath.toAbsolutePath().toString());
+                	server.consume(results, "secucheck-analysis");
+        		} catch (Exception e) {
+        			FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
+        				.forwardMessageToClient(new MessageParams(MessageType.Error, 
+        						"Problem occured while running the analysis: " + e.getMessage()));
+        			logger.log(Level.SEVERE, "Problem occured while running the analysis: " + e.getMessage());
+        		}
+    		};
+    		
+    		lastAnalysisTask = execService.submit(analysisTask);
+    	}
+    }
+    
+    private boolean validateQueriesAndEntryPoints() {
+        if ((taintFlowQueries.size() == 0) || (entryPoints.size() == 0)) {
             if (isFirstPageDone) {
-                String message = "";
-                if ((listOfConfiguredTaintFlowQueries.size() == 0) && (javaFilesAsEntryPoints.size() == 0))
+                String message;
+                if ((taintFlowQueries.size() == 0) && (entryPoints.size() == 0))
                     message = "Please select both FluentTQL specification files and Java files for entry points.";
-                else if (listOfConfiguredTaintFlowQueries.size() == 0)
+                else if (taintFlowQueries.size() == 0)
                     message = "Please select FluentTQL specification files.";
                 else
                     message = "Please select Java files for entry points.";
@@ -128,105 +166,9 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                                         "Please give the path of the fluentTQL specifications.")
                         );
             }
-        } else {
-            //Todo: Call the API with the required arguments for the analysis. Below is the example on how to use TaintFlowQuery objects
-
-            System.out.println("Analysis is on progress");
-
-            System.out.println("####################################################################################");
-            System.out.println("Java files as entry points: ");
-
-            for (String javaFiles : javaFilesAsEntryPoints) {
-                System.out.println("\t" + javaFiles);
-            }
-
-            System.out.println("####################################################################################");
-            System.out.println("\nProject root path = " + projectRootPath + "\n");
-            System.out.println("####################################################################################");
-            System.out.println("\nProject class path = " + classPath + "\n");
-            System.out.println("####################################################################################");
-            System.out.println("\nProject library path = " + libraryPath + "\n");
-            System.out.println("####################################################################################");
-
-            System.out.println("FluentTQL Specification: ");
-
-            for (TaintFlowQuery taintFlowQuery : listOfConfiguredTaintFlowQueries) {
-                System.out.println("**************************************************************************");
-                //Report Message
-                System.out.println("ReportMessage = " + taintFlowQuery.getReportMessage());
-                //Report Location
-                System.out.println("ReportLocation = " + taintFlowQuery.getReportLocation());
-
-                for (TaintFlow taintFlow : taintFlowQuery.getTaintFlows()) {
-                    FlowParticipant from = taintFlow.getFrom();
-                    List<FlowParticipant> through = taintFlow.getThrough();
-                    List<FlowParticipant> notThrough = taintFlow.getNotThrough();
-                    FlowParticipant to = taintFlow.getTo();
-
-                    //From
-                    if (from instanceof Method) {
-                        System.out.println("From = \n" + ((Method) from).getSignature());
-                        /*
-                        InputDeclaration inputDeclaration = ((Method) from).getInputDeclaration();
-                        List<Input> inputs = inputDeclaration.getInputs();
-
-                        for (Input input : inputs) {
-                            if (input instanceof Parameter) {
-                                ((Parameter) input).getParameterId();
-                            } else if (input instanceof ThisObject) {
-                                //Todo:
-                            }
-                        }*/
-                    } else {
-                        System.out.println("From = \n");
-                        for (Method method : ((MethodSet) from).getMethods()) {
-                            System.out.println(method.getSignature());
-                        }
-                    }
-
-                    //Through
-                    if (through != null) {
-                        if (through.size() > 0) {
-                            for (FlowParticipant flowParticipantTemp : through) {
-                                if (flowParticipantTemp instanceof Method) {
-                                    System.out.println("Through = \n" + ((Method) flowParticipantTemp).getSignature());
-                                } else {
-                                    System.out.println("Through = \n");
-                                    for (Method method : ((MethodSet) flowParticipantTemp).getMethods()) {
-                                        System.out.println(method.getSignature());
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    //NotThrough
-                    if (notThrough != null) {
-                        if (notThrough.size() > 0) {
-                            for (FlowParticipant flowParticipantTemp : notThrough) {
-                                if (flowParticipantTemp instanceof Method) {
-                                    System.out.println("NotThrough = \n" + ((Method) flowParticipantTemp).getSignature());
-                                } else {
-                                    System.out.println("NotThrough = \n");
-                                    for (Method method : ((MethodSet) flowParticipantTemp).getMethods()) {
-                                        System.out.println(method.getSignature());
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    if (to instanceof Method) {
-                        System.out.println("To = \n" + ((Method) to).getSignature());
-                    } else {
-                        System.out.println("To = \n");
-                        for (Method method : ((MethodSet) to).getMethods()) {
-                            System.out.println(method.getSignature());
-                        }
-                    }
-                }
-            }
+            return false;
         }
+        return true;
     }
 
     /**
@@ -317,7 +259,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @return Boolean - process success or not
      */
     private boolean processFluentTQLSpecificationFiles(ConfigurationOption configOption) {
-        listOfConfiguredTaintFlowQueries.clear();
+        taintFlowQueries.clear();
 
         int selectedCount = 0;
 
@@ -355,7 +297,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @return Boolean - process success or not
      */
     private boolean processJavaFiles(ConfigurationOption configOption) {
-        javaFilesAsEntryPoints.clear();
+        entryPoints.clear();
 
         int selectedCount = 0;
 
@@ -363,7 +305,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             if (configurationOption.getValueAsBoolean()) {
                 selectedCount += 1;
 
-                javaFilesAsEntryPoints.add(listOfJavaFiles.get(configurationOption.getName().replace(".java", "")));
+                entryPoints.add(listOfJavaFiles.get(configurationOption.getName().replace(".java", "")));
             }
         }
 
@@ -433,11 +375,11 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             if (fluentTQLSpecification instanceof TaintFlowQuery) {
                 TaintFlowQuery taintFlowQuery = (TaintFlowQuery) fluentTQLSpecification;
 
-                listOfConfiguredTaintFlowQueries.add(taintFlowQuery);
+                taintFlowQueries.add(taintFlowQuery);
             } else if (fluentTQLSpecification instanceof QueriesSet) {
                 QueriesSet queriesSet = (QueriesSet) fluentTQLSpecification;
 
-                listOfConfiguredTaintFlowQueries.addAll(queriesSet.getTaintFlowQueries());
+                taintFlowQueries.addAll(queriesSet.getTaintFlowQueries());
             }
         }
     }
@@ -446,7 +388,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * This method sets the new configuration option for new configuration page.
      */
     private void setConfig() {
-        listOfConfiguredTaintFlowQueries.clear();
+        taintFlowQueries.clear();
 
         CheckBox initialOption = new CheckBox(
                 "FluentTQL Specification files",
@@ -494,7 +436,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         Collections.sort(sortedClassNames);
 
         for (String javaFile : sortedClassNames) {
-            javaFilesAsEntryPoints.add(listOfJavaFiles.get(javaFile));
+            entryPoints.add(listOfJavaFiles.get(javaFile));
       //      javaFilesAsEntryPoints.add(javaFile);
             String[] str = javaFile.split("\\.");
             String key = str[str.length - 1];
