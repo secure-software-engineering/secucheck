@@ -208,7 +208,7 @@ public final class Utility {
 				inputParameter.setNumber(parameter.getParameterId());
 				inputParams.add(inputParameter);
 			} else if (input instanceof ThisObject) {
-				// Remaining...
+				methodImpl.setInputThis(true);
 			}
 		}
 		methodImpl.setInputParameters(inputParams);
@@ -222,7 +222,7 @@ public final class Utility {
 				outputParameter.setNumber(parameter.getParameterId());
 				outputParams.add(outputParameter);
 			} else if (output instanceof ThisObject) {
-				// Remaining ...
+				methodImpl.setOutputThis(true);
 			} else if (output instanceof Return) {
 				returnValue = new ReturnValue();
 			}
