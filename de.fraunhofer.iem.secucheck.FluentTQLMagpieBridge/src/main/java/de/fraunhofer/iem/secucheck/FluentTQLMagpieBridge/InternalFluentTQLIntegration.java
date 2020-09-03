@@ -1,8 +1,9 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import net.openhft.compiler.CompilerUtils;
+import org.eclipse.lsp4j.MessageParams;
+import org.eclipse.lsp4j.MessageType;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +21,8 @@ import java.util.List;
  * @author Ranjith Krishnamurthy
  */
 public class InternalFluentTQLIntegration {
-    private static List<String> fileList = new ArrayList<>();
-    private static HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
+    private static final List<String> fileList = new ArrayList<>();
+    private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
 
     /**
      * This method scans the given path recursively and retrieves all the Java files.
@@ -33,6 +34,9 @@ public class InternalFluentTQLIntegration {
         File f = new File(pathName);
 
         File[] files = f.listFiles();
+
+        if (files == null)
+            return;
 
         for (File file : files) {
             String fileName = file.getName();
@@ -54,7 +58,9 @@ public class InternalFluentTQLIntegration {
      * @param filePath Full absolute path of that file.
      * @throws IOException I/O exception while reading the list of files
      */
-    private static void readJavaCode(String fileName, String filePath) throws IOException {
+    private static String[] readJavaCode(String fileName, String filePath) throws IOException {
+        String[] result = new String[2];
+
         // Reads the Java code as list of String
         List<String> javaCodeAsList = Files.readAllLines(Paths.get(filePath));
         String javaCode = "";
@@ -75,8 +81,10 @@ public class InternalFluentTQLIntegration {
 
         className += "." + fileName.replace(".java", "");
 
-        // This loads the Java code just now we read in the currently running JVM.
-        compileAndGetTaintFlowQueryObject(className, javaCode, fileName);
+        result[0] = className;
+        result[1] = javaCode;
+
+        return result;
     }
 
     /**
@@ -87,7 +95,7 @@ public class InternalFluentTQLIntegration {
      * @param javaCode  Java code
      * @param fileName  File name of the Java source code.
      */
-    private static void compileAndGetTaintFlowQueryObject(String className, String javaCode, String fileName) {
+    private static boolean compileAndGetTaintFlowQueryObject(String className, String javaCode, String fileName) {
         try {
             // Loads the Java code.
             Class<?> specClass = CompilerUtils.CACHED_COMPILER.loadFromJava(className, javaCode);
@@ -96,9 +104,9 @@ public class InternalFluentTQLIntegration {
 
             Object ob = null;
             try {
-                ob = constructor.newInstance(null);
+                ob = constructor.newInstance((Object[]) null);
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                return false;
             }
 
             if (ob instanceof FluentTQLUserInterface) {
@@ -107,8 +115,9 @@ public class InternalFluentTQLIntegration {
             }
 
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     /**
@@ -122,12 +131,57 @@ public class InternalFluentTQLIntegration {
         fluentTQLSpecs.clear();
         fileList.clear();
 
+        HashMap<String, String[]> fileWithClassAndJavaCode = new HashMap<>();
+
+        int previousFailedCount = 999;
+
         try {
+            //Try to get the source code.
             getListOfFiles(path);
             for (String fileName : fileList) {
                 File file = new File(fileName);
 
-                readJavaCode(file.getName(), file.getAbsolutePath());
+                String[] javaCodeWithClassName = readJavaCode(file.getName(), file.getAbsolutePath());
+                fileWithClassAndJavaCode.put(file.getName(), javaCodeWithClassName);
+            }
+
+            List<String> tempNotLoadedFileList = new ArrayList<>();
+            List<String> notLoadedFileList = new ArrayList<>(fileList);
+
+            do {
+                previousFailedCount = notLoadedFileList.size();
+                tempNotLoadedFileList.clear();
+
+                for (String fileName : notLoadedFileList) {
+                    File file = new File(fileName);
+
+                    boolean isSuccess = compileAndGetTaintFlowQueryObject(
+                            fileWithClassAndJavaCode.get(file.getName())[0],
+                            fileWithClassAndJavaCode.get(file.getName())[1],
+                            file.getName());
+
+                    if (!isSuccess) {
+                        tempNotLoadedFileList.add(fileName);
+                    }
+                }
+
+                notLoadedFileList.clear();
+                notLoadedFileList.addAll(tempNotLoadedFileList);
+            } while (notLoadedFileList.size() > 0 && notLoadedFileList.size() < previousFailedCount);
+
+            if (notLoadedFileList.size() != 0) {
+                String printList = "";
+                for (String fqFileName : notLoadedFileList) {
+                    String[] fileName = fqFileName.split("\\\\");
+                    printList += fileName[fileName.length - 1] + "\n";
+                }
+
+                FluentTQLMagpieBridgeMainServer
+                        .fluentTQLMagpieServer
+                        .forwardMessageToClient(
+                                new MessageParams(MessageType.Warning,
+                                        "Below FluentTQL specifications are invalid.\n" + printList)
+                        );
             }
         } catch (IOException e) {
             e.printStackTrace();
