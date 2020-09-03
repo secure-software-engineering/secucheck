@@ -39,27 +39,28 @@ import java.util.logging.Logger;
  */
 public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
-	private static final Logger logger = Logger.getLogger("main");
-	
+    private static final Logger logger = Logger.getLogger("main");
+
     private static final List<String> entryPoints = new ArrayList<>();
     private static final Set<Path> classPath = new HashSet<>();
     private static final Set<Path> libraryPath = new HashSet<>();
     private static final List<TaintFlowQuery> taintFlowQueries = new ArrayList<>();
-	private static final List<ConfigurationOption> currentConfiguration = new ArrayList<>();
-	private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
-	
+    private static final List<ConfigurationOption> currentConfiguration = new ArrayList<>();
+    private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
+
     private static Path projectRootPath = null;
 
     private final Set<String> classNames = new HashSet<>();
     private final List<ConfigurationOption> options = new ArrayList<>();
     private final HashMap<String, String> listOfJavaFiles = new HashMap<>();
     private final SecucheckMagpieBridgeAnalysis secucheckAnalysis = new SecuCheckAnalysisWrapper(true);
-    
+
     private boolean isFirstPageDone = false;
     private String source = null;
     private JavaProjectService javaProjectService = null;
     private Future<?> lastAnalysisTask;
     private ExecutorService execService;
+
     /**
      * Constructor sets the initial configuration option for the configuration page.
      */
@@ -115,32 +116,33 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param rerun  Is rerun
      */
     public void analyze(Collection<? extends Module> files, AnalysisConsumer server, boolean rerun) {
-    	if (lastAnalysisTask != null && !lastAnalysisTask.isDone()) {
-    		lastAnalysisTask.cancel(false);
-    		if (lastAnalysisTask.isCancelled()) {
-    			logger.log(Level.INFO, "Last running analysis has been cancelled.");
-    		}
-	    }
-    	
-    	// Perform validation synchronously and run analysis asynchronously.
-    	if (validateQueriesAndEntryPoints()) {
-    		Runnable analysisTask = () -> {
-        		try {
-                	Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries, 
-                			entryPoints, classPath, libraryPath, projectRootPath.toAbsolutePath().toString());
-                	server.consume(results, "secucheck-analysis");
-        		} catch (Exception e) {
-        			FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
-        				.forwardMessageToClient(new MessageParams(MessageType.Error, 
-        						"Problem occured while running the analysis: " + e.getMessage()));
-        			logger.log(Level.SEVERE, "Problem occured while running the analysis: " + e.getMessage());
-        		}
-    		};
-    		
-    		lastAnalysisTask = execService.submit(analysisTask);
-    	}
+        if (lastAnalysisTask != null && !lastAnalysisTask.isDone()) {
+            lastAnalysisTask.cancel(false);
+            if (lastAnalysisTask.isCancelled()) {
+                logger.log(Level.INFO, "Last running analysis has been cancelled.");
+            }
+        }
+
+        // Perform validation synchronously and run analysis asynchronously.
+        if (validateQueriesAndEntryPoints()) {
+            Runnable analysisTask = () -> {
+                try {
+                    Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
+                            entryPoints, classPath, libraryPath, projectRootPath.toAbsolutePath().toString());
+
+                    server.consume(results, "secucheck-analysis");
+                } catch (Exception e) {
+                    FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
+                            .forwardMessageToClient(new MessageParams(MessageType.Error,
+                                    "Problem occured while running the analysis: " + e.getMessage()));
+                    logger.log(Level.SEVERE, "Problem occured while running the analysis: " + e.getMessage());
+                }
+            };
+
+            lastAnalysisTask = execService.submit(analysisTask);
+        }
     }
-    
+
     private boolean validateQueriesAndEntryPoints() {
         if ((taintFlowQueries.size() == 0) || (entryPoints.size() == 0)) {
             if (isFirstPageDone) {
@@ -437,7 +439,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         for (String javaFile : sortedClassNames) {
             entryPoints.add(listOfJavaFiles.get(javaFile));
-      //      javaFilesAsEntryPoints.add(javaFile);
+            //      javaFilesAsEntryPoints.add(javaFile);
             String[] str = javaFile.split("\\.");
             String key = str[str.length - 1];
             CheckBox myOption = new CheckBox(
