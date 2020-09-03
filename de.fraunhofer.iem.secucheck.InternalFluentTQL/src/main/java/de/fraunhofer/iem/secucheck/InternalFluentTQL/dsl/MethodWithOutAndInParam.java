@@ -12,6 +12,7 @@ public class MethodWithOutAndInParam {
     }
 
     public Method configure() {
+        method.setInputDeclaration(inputDeclaration);
         return method;
     }
 

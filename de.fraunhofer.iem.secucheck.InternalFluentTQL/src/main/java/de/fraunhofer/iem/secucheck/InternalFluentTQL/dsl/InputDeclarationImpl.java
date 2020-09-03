@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 class InputDeclarationImpl implements InputDeclaration {
-    private List<Input> inputs = new ArrayList<Input>();
+    private final List<Input> inputs = new ArrayList<>();
 
     public List<Input> getInputs() {
         return inputs;
     }
 
-    public void addInput(Input intput) {
-        if (intput instanceof ThisObjectImpl) {
+    public void addInput(Input input) {
+        if (input instanceof ThisObjectImpl) {
             for (Input itr : inputs) {
                 if (itr instanceof ThisObject)
                     return;
@@ -23,7 +23,7 @@ class InputDeclarationImpl implements InputDeclaration {
 
             inputs.add(new ThisObjectImpl());
         } else {
-            inputs.add(intput);
+            inputs.add(input);
         }
     }
 }

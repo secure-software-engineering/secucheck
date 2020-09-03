@@ -28,10 +28,12 @@ public class MethodWithOutParam {
     }
 
     public Method configure() {
+        method.setOutputDeclaration(outputDeclaration);
         return method;
     }
 
     public MethodWithIn in() {
+        method.setOutputDeclaration(outputDeclaration);
         return new MethodWithIn(new InputDeclarationImpl(), method);
     }
 }

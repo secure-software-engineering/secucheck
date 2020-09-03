@@ -17,6 +17,7 @@ public class MethodWithOutAndInThisObj {
     }
 
     public Method configure() {
+        method.setInputDeclaration(inputDeclaration);
         return method;
     }
 }

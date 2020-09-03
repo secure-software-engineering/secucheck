@@ -23,6 +23,7 @@ public class MethodWithInAndOutThisObj {
     }
 
     public Method configure() {
+        method.setOutputDeclaration(outputDeclaration);
         return method;
     }
 }

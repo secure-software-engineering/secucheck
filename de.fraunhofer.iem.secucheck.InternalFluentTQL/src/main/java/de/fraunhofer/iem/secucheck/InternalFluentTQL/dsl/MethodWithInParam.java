@@ -12,10 +12,12 @@ public class MethodWithInParam {
     }
 
     public MethodWithInAndOut out() {
+        method.setInputDeclaration(inputDeclaration);
         return new MethodWithInAndOut(new OutputDeclarationImpl(), method);
     }
 
     public Method configure() {
+        method.setInputDeclaration(inputDeclaration);
         return method;
     }
 
