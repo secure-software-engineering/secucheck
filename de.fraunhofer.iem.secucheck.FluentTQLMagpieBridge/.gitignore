@@ -1,4 +1,4 @@
 target/
 .idea/
 out/
-FluentTQLMagpieBridge.iml
+*.iml
