@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<employees>
+   <employee ID="1">
+      <userName>user1</userName>
+	  <password>mySecret1</password>
+      <name>user1Name</name>
+      <acct>22646156</acct>
+   </employee>
+   <employee ID="2">
+      <userName>user2</userName>
+	  <password>mySecret2</password>
+      <name>user2Name</name>
+      <acct>25464135</acct>
+   </employee>
+</employees>
