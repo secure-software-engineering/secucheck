@@ -1,39 +1,16 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import org.apache.commons.lang3.SystemUtils;
-import org.eclipse.lsp4j.DiagnosticSeverity;
-
-import com.ibm.wala.cast.tree.CAstSourcePositionMap.Position;
-import com.ibm.wala.util.collections.Pair;
-
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysis;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.*;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Input;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Output;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Parameter;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Return;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.ThisObject;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
-import de.fraunhofer.iem.secucheck.analysis.query.OS;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.SameTypedPair;
-import de.fraunhofer.iem.secucheck.analysis.query.CompositeTaintFlowQueryImpl;
-import de.fraunhofer.iem.secucheck.analysis.query.EntryPoint;
-import de.fraunhofer.iem.secucheck.analysis.query.InputParameter;
-import de.fraunhofer.iem.secucheck.analysis.query.MethodImpl;
-import de.fraunhofer.iem.secucheck.analysis.query.OutputParameter;
-import de.fraunhofer.iem.secucheck.analysis.query.ReportSite;
-import de.fraunhofer.iem.secucheck.analysis.query.ReturnValue;
-import de.fraunhofer.iem.secucheck.analysis.query.TaintFlowQueryImpl;
+import de.fraunhofer.iem.secucheck.analysis.query.*;
 import de.fraunhofer.iem.secucheck.analysis.result.CompositeTaintFlowQueryResult;
 import de.fraunhofer.iem.secucheck.analysis.result.LocationDetails;
 import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
@@ -41,6 +18,16 @@ import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowQueryResult;
 import magpiebridge.core.AnalysisResult;
 import magpiebridge.core.Kind;
 import magpiebridge.util.SourceCodeReader;
+import org.apache.commons.lang3.SystemUtils;
+import org.eclipse.lsp4j.DiagnosticSeverity;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 public final class Utility {
 
@@ -301,10 +288,10 @@ public final class Utility {
                     break;
             }
         }
-        List<Pair<Position, String>> relatedInfo = new ArrayList<Pair<Position, String>>();
+    /*    List<Pair<Position, String>> relatedInfo = new ArrayList<Pair<Position, String>>();
         magpieBridgeResults.forEach(y -> relatedInfo.add(Pair.make(y.position(),
                 query.getReportMessage())));
-        magpieBridgeResults.forEach(y -> y.setRelated(relatedInfo));
+        magpieBridgeResults.forEach(y -> y.setRelated(relatedInfo));*/
         return new ArrayList<AnalysisResult>(magpieBridgeResults);
     }
 
@@ -352,11 +339,33 @@ public final class Utility {
 
     private static ReportPosition createReportPosition(LocationDetails locationInfo) {
         ReportPosition reportPosition = new ReportPosition();
-        
+
+        System.out.println(locationInfo.getUsageLineNumber());
         // Recheck and debug...
         reportPosition.setFirstLine(locationInfo.getUsageLineNumber());
         reportPosition.setLastLine(locationInfo.getUsageLineNumber());
-        reportPosition.setFirstCol(locationInfo.getUsageColumnNumber());
+        reportPosition.setFirstCol(1);
+        reportPosition.setLastCol(1);
+
+        for (Path sourcePath : FluentTQLAnalysis.sourcePath) {
+            String fqn = sourcePath +
+                    File.separator +
+                    locationInfo.getUsageClassName().replace(
+                            ".",
+                            File.separator
+                    ) +
+                    ".java";
+
+            File file = new File(fqn);
+
+            if (file.exists()) {
+                try {
+                    reportPosition.setUrl(file.toURI().toURL());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         // Some other source info already available for use
         // sourceLocation.getClassName();

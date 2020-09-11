@@ -43,6 +43,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
     private static final List<String> entryPoints = new ArrayList<>();
     private static final Set<Path> classPath = new HashSet<>();
+    public static final Set<Path> sourcePath = new HashSet<>();
     private static final Set<Path> libraryPath = new HashSet<>();
     private static final List<TaintFlowQuery> taintFlowQueries = new ArrayList<>();
     private static final List<ConfigurationOption> currentConfiguration = new ArrayList<>();
@@ -97,6 +98,8 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             classPath.clear();
             classPath.addAll(javaProjectService.getClassPath());
             classPath.removeAll(javaProjectService.getLibraryPath());
+
+            sourcePath.addAll(javaProjectService.getSourcePath());
 
             classNames.clear();
             classNames.addAll(javaProjectService.getSourceClassFullQualifiedNames());
