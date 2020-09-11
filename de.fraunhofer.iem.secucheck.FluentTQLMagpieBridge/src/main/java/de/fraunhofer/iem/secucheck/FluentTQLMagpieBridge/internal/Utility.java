@@ -352,11 +352,11 @@ public final class Utility {
 
     private static ReportPosition createReportPosition(LocationDetails locationInfo) {
         ReportPosition reportPosition = new ReportPosition();
-
+        
         // Recheck and debug...
-        reportPosition.setFirstLine(locationInfo.getLineNumber());
-        reportPosition.setLastLine(locationInfo.getLineNumber());
-        reportPosition.setFirstCol(locationInfo.ColumnNumber());
+        reportPosition.setFirstLine(locationInfo.getUsageLineNumber());
+        reportPosition.setLastLine(locationInfo.getUsageLineNumber());
+        reportPosition.setFirstCol(locationInfo.getUsageColumnNumber());
 
         // Some other source info already available for use
         // sourceLocation.getClassName();
