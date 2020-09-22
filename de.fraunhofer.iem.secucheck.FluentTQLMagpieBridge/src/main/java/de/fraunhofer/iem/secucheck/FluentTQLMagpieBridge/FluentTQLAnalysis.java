@@ -339,6 +339,9 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         currentConfiguration.clear();
         currentConfiguration.addAll(configuration);
 
+        boolean specFileSuccess = false;
+        boolean entryFileSuccess = false;
+
         for (ConfigurationOption configOption : configuration) {
 
             if ("FluentTQL Specification's path".equals(configOption.getName())) {
@@ -354,6 +357,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             } else if ("FluentTQL Specification files".equals(configOption.getName())) {
                 boolean isSuccess = processFluentTQLSpecificationFiles(configOption);
 
+                specFileSuccess = isSuccess;
                 if (!isSuccess) {
                     options.clear();
                     options.addAll(configuration);
@@ -361,11 +365,21 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             } else if ("Select java files for entry points".equals(configOption.getName())) {
                 boolean isSuccess = processJavaFiles(configOption);
 
+                entryFileSuccess = isSuccess;
                 if (!isSuccess) {
                     options.clear();
                     options.addAll(configuration);
                 }
             }
+        }
+
+        if (specFileSuccess && entryFileSuccess) {
+            FluentTQLMagpieBridgeMainServer
+                    .fluentTQLMagpieServer
+                    .forwardMessageToClient(
+                            new MessageParams(MessageType.Info,
+                                    "Configuration submitted successfully."
+                            ));
         }
     }
 
