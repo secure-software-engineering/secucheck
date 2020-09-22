@@ -48,6 +48,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     private static final List<TaintFlowQuery> taintFlowQueries = new ArrayList<>();
     private static final List<ConfigurationOption> currentConfiguration = new ArrayList<>();
     private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
+    private static String fluentTQLSpecPath = "";
 
     private static Path projectRootPath = null;
 
@@ -202,6 +203,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      */
     private boolean processFluentTQLSpecificationsPath(ConfigurationOption configOption) {
         String specPath = configOption.getValue();
+        fluentTQLSpecPath = specPath;
 
         if (specPath == null || "".equals(specPath)) {
             FluentTQLMagpieBridgeMainServer
@@ -254,6 +256,14 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         setConfigWithJavaFiles(classNames);
         isFirstPageDone = true;
+
+        ConfigurationOption recompileOption = new ConfigurationOption("Re-Compile fluentTQL specification", OptionType.checkbox);
+        List<ConfigurationOption> tempOptions = new ArrayList<>();
+        tempOptions.add(recompileOption);
+        tempOptions.addAll(options);
+
+        options.clear();
+        options.addAll(tempOptions);
         return true;
     }
 
@@ -263,8 +273,13 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param configOption Configuration option
      * @return Boolean - process success or not
      */
-    private boolean processFluentTQLSpecificationFiles(ConfigurationOption configOption) {
+    private boolean processFluentTQLSpecificationFiles(ConfigurationOption configOption, boolean isRecompile) {
         taintFlowQueries.clear();
+
+        if (isRecompile) {
+            fluentTQLSpecs.clear();
+            fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(fluentTQLSpecPath));
+        }
 
         int selectedCount = 0;
 
@@ -341,6 +356,13 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         boolean specFileSuccess = false;
         boolean entryFileSuccess = false;
+        boolean isRecompile = false;
+
+        for (ConfigurationOption configOption : configuration) {
+            if ("Re-Compile fluentTQL specification".equals(configOption.getName())) {
+                isRecompile = configOption.getValueAsBoolean();
+            }
+        }
 
         for (ConfigurationOption configOption : configuration) {
 
@@ -355,7 +377,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                     return;
                 }
             } else if ("FluentTQL Specification files".equals(configOption.getName())) {
-                boolean isSuccess = processFluentTQLSpecificationFiles(configOption);
+                boolean isSuccess = processFluentTQLSpecificationFiles(configOption, isRecompile);
 
                 specFileSuccess = isSuccess;
                 if (!isSuccess) {
