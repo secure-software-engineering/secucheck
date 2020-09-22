@@ -305,10 +305,9 @@ public final class Utility {
 
         // Start: Hard-coded.
         analysisResult.setKind(Kind.Diagnostic);
-        analysisResult.setSeverity(DiagnosticSeverity.Warning);
+        analysisResult.setSeverity(DiagnosticSeverity.Error);
         // End: Hard-coded.
 
-        analysisResult.setMessage(compositeQuery.getReportMessage());
         DifferentTypedPair<TaintFlowQueryImpl, SameTypedPair<LocationDetails>> pair;
         SameTypedPair<LocationDetails> locationPair;
 
@@ -318,12 +317,14 @@ public final class Utility {
                 pair = singleFlowQueryResult.getQueryResultMap().get(0);
                 locationPair = pair.getSecond();
                 analysisResult.setPosition(createReportPosition(locationPair.getFirst()));
+                analysisResult.setMessage("Source: " + compositeQuery.getReportMessage());
                 break;
             case Sink: // Last result will have sink in all the cases ...
                 pair = singleFlowQueryResult.getQueryResultMap().get(
                         singleFlowQueryResult.getQueryResultMap().size() - 1);
                 locationPair = pair.getSecond();
                 analysisResult.setPosition(createReportPosition(locationPair.getSecond()));
+                analysisResult.setMessage("Sink: " + compositeQuery.getReportMessage());
                 break;
         }
 
