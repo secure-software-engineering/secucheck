@@ -28,6 +28,7 @@ public class MethodWithInAndOutParam {
     }
 
     public Method configure() {
+        method.setOutputDeclaration(outputDeclaration);
         return method;
     }
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class OutputDeclarationImpl implements OutputDeclaration {
-    private List<Output> outputs = new ArrayList<Output>();
+    private final List<Output> outputs = new ArrayList<>();
 
     public List<Output> getOutputs() {
         return outputs;

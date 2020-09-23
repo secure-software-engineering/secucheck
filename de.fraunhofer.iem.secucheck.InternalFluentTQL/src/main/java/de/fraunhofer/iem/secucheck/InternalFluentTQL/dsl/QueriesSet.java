@@ -7,8 +7,8 @@ import java.util.List;
 
 public class QueriesSet extends FluentTQLSpecificationImpl {
     //    private String queriesSetName;
-    private String categoryName;
-    private List<TaintFlowQuery> taintFlowQueries = new ArrayList<TaintFlowQuery>();
+    private final String categoryName;
+    private final List<TaintFlowQuery> taintFlowQueries = new ArrayList<>();
 
     public QueriesSet(String categoryName) {
 //        this.queriesSetName = queriesSetName;

@@ -1,6 +1,6 @@
 .classpath
 .project
-de.fraunhofer.iem.secucheck.InternalFluentTQL.iml
+de.fraunhofer.iem.secucheck.fluentTQL2Eng.iml
 target/
 .idea/
 .settings/
