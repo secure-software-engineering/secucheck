@@ -3,16 +3,15 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleTest {
@@ -89,7 +88,7 @@ public class SimpleTest {
         }
     }
     @Test
-    public void test1() {
+    public void test1() throws FluentTQLException {
         FluentTQLSpecificationTestForNoSQLInjection simpleFluentTQLSpecification = new FluentTQLSpecificationTestForNoSQLInjection();
 
         List<FluentTQLSpecification> fluentTQLSpecifications = ProcessAnnotatedClass.processAnnotationAndGetSpecifications(

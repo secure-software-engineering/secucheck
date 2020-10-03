@@ -1,6 +1,10 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.*;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.DoesNotImplementFluentTQLUserInterfaceException;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNullPointerException;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.NotAFluentTQLSpecificationException;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
@@ -12,53 +16,50 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ProcessAnnotatedClass {
-    public static List<FluentTQLSpecification> processAnnotationAndGetSpecifications(Object fluentTQLSpec) {
-        Object obj = ProcessAnnotatedClass.processAnnotatedTaintFLow(
-                fluentTQLSpec
-        );
+    public static List<FluentTQLSpecification> processAnnotationAndGetSpecifications(Object fluentTQLSpec) throws NotAFluentTQLSpecificationException, DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException {
 
-        List<FluentTQLSpecification> fluentTQLSpecifications = new ArrayList<>();
-
-        if (obj instanceof FluentTQLUserInterface) {
-            fluentTQLSpecifications.addAll(
-                    ((FluentTQLUserInterface) obj).getFluentTQLSpecification()
-            );
-        }
-
-        return fluentTQLSpecifications;
-    }
-
-    public static Object processAnnotatedTaintFLow(Object fluentTQLSpec) {
-        if (fluentTQLSpec.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) {
-            if (!(fluentTQLSpec instanceof FluentTQLUserInterface)) {
-                //Todo: Throws an custom exception
-                System.out.println("Given Object does not implement FluentTQLUserInterface");
-            } else {
-                processEachField(fluentTQLSpec);
-        //        FluentTQLUserInterface fluentTQLUserInterface = (FluentTQLUserInterface) fluentTQLSpec;
-
-                return fluentTQLSpec;
-            }
+        if (!fluentTQLSpec.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) {
+            throw new NotAFluentTQLSpecificationException(fluentTQLSpec.getClass().getName());
         } else {
-            //Todo: Check it annotates ExportForFluentTQLSpec
-            System.out.println("Coming soon");
-        }
+            if (!(fluentTQLSpec instanceof FluentTQLUserInterface)) {
+                throw new DoesNotImplementFluentTQLUserInterfaceException(fluentTQLSpec.getClass().getName());
+            } else {
+                Object obj = ProcessAnnotatedClass.processFluentTQLAnnotation(
+                        fluentTQLSpec
+                );
 
-        return null;
+                List<FluentTQLSpecification> fluentTQLSpecifications = new ArrayList<>();
+
+                fluentTQLSpecifications.addAll(
+                        ((FluentTQLUserInterface) obj).getFluentTQLSpecification()
+                );
+
+                return fluentTQLSpecifications;
+            }
+        }
     }
 
-    private static void processEachField(Object fluentTQLSpec) {
+    public static Object processFluentTQLAnnotation(Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException {
+        processEachField(fluentTQLSpec);
+        return fluentTQLSpec;
+    }
+
+    private static void processEachField(Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException {
         System.out.println("\n\n*******" + fluentTQLSpec.getClass().getName() + "*****");
         for (Field field : fluentTQLSpec.getClass().getDeclaredFields()) {
             if (field.getType().equals(Method.class))
                 System.out.println("\t*******" + field.getName() + "*****");
-                processSingleField(field, fluentTQLSpec);
+            processSingleField(field, fluentTQLSpec);
         }
     }
 
-    private static void processSingleField(Field field, Object fluentTQLSpec) {
+    private static void processSingleField(Field field, Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException {
         try {
             Object obj = field.get(fluentTQLSpec);
+
+            if (obj == null) {
+                throw new FieldNullPointerException(field.getName(), fluentTQLSpec.getClass().getSimpleName());
+            }
 
             InputDeclarationImpl inputDeclaration = new InputDeclarationImpl();
             OutputDeclarationImpl outputDeclaration = new OutputDeclarationImpl();
@@ -98,13 +99,18 @@ public class ProcessAnnotatedClass {
                     );
                     System.out.println("\tOutThisObject");
                 } else if (annotation.annotationType().equals(ImportAndProcessAnnotation.class)) {
-                    processEachField(obj);
-                }
-            }
+                    if ((!obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) &&
+                            (!obj.getClass().isAnnotationPresent(FluentTQLRepositoryClass.class))) {
+                        throw new ImportAndProcessAnnotationException(obj.getClass().getName());
+                    }
 
-            if (obj instanceof MethodSelector) {
-                ((MethodSelector) obj).setOutputDeclaration(outputDeclaration);
-                ((MethodSelector) obj).setInputDeclaration(inputDeclaration);
+                    processFluentTQLAnnotation(obj);
+                }
+
+                if (obj instanceof MethodSelector) {
+                    ((MethodSelector) obj).setOutputDeclaration(outputDeclaration);
+                    ((MethodSelector) obj).setInputDeclaration(inputDeclaration);
+                }
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
