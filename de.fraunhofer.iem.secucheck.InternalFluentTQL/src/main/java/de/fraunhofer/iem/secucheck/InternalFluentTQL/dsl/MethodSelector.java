@@ -4,7 +4,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 
-class MethodImpl implements Method {
+public class MethodSelector implements Method {
     private String methodSignature;
     private MethodSet methodSet;
     private InputDeclaration inputDeclaration = null;
@@ -42,7 +42,7 @@ class MethodImpl implements Method {
         this.outputDeclaration = outputDeclaration;
     }
 
-    public MethodImpl(String methodSignature) {
+    public MethodSelector(String methodSignature) {
         this.methodSignature = methodSignature;
     }
 }

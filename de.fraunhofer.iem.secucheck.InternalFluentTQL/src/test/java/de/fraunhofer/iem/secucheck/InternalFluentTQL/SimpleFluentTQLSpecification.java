@@ -1,9 +1,12 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.InFlowParam;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.OutFlowReturnValue;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -12,22 +15,19 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 import java.util.ArrayList;
 import java.util.List;
 
+@FluentTQLSpecificationClass
 public class SimpleFluentTQLSpecification implements FluentTQLUserInterface {
-    static Method source = new MethodConfigurator("Test: java.lang.String getSecret()")
-            .out().returnValue()
-            .configure();
+    @OutFlowReturnValue
+    public Method source = new MethodSelector("Test: java.lang.String getSecret()");
 
-    static Method sanitizer = new MethodConfigurator("Test: java.lang.String sanitize(java.lang.String)")
-            .in().param(0)
-            .out().returnValue()
-            .configure();
+    @InFlowParam(parameterID = {0})
+    @OutFlowReturnValue
+    public static Method sanitizer = new MethodSelector("Test: java.lang.String sanitize(java.lang.String)");
 
-    static Method sink = new MethodConfigurator("Test: void printSecret(java.lang.String)")
-            .in().param(0)
-            .configure();
+    @InFlowParam(parameterID = {0})
+    public static Method sink = new MethodSelector("Test: void printSecret(java.lang.String)");
 
-    static MethodSet myMethodSet = new MethodSet("Testing MethodSet")
-            .addMethod(source)
+    public static MethodSet myMethodSet = new MethodSet("Testing MethodSet")
             .addMethod(sanitizer)
             .addMethod(sink);
 

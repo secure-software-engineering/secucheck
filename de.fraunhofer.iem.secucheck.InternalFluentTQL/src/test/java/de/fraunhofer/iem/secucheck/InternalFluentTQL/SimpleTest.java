@@ -1,15 +1,18 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleTest {
@@ -67,13 +70,13 @@ public class SimpleTest {
 
             if (taintFlow.getNotThrough() != null) {
                 System.out.println("Required Propagator : ");
-                for (FlowParticipant flowParticipant : taintFlow.getNotThrough()) {
+                for (FlowParticipant flowParticipant : taintFlow.getThrough()) {
                     displayFlowParticipant(flowParticipant);
                 }
             }
 
             if (taintFlow.getThrough() != null) {
-                for (FlowParticipant flowParticipant : taintFlow.getThrough()) {
+                for (FlowParticipant flowParticipant : taintFlow.getNotThrough()) {
                     System.out.println("Sanitizer : ");
                     displayFlowParticipant(flowParticipant);
                 }
@@ -89,7 +92,9 @@ public class SimpleTest {
     public void test1() {
         FluentTQLSpecificationTestForNoSQLInjection simpleFluentTQLSpecification = new FluentTQLSpecificationTestForNoSQLInjection();
 
-        List<FluentTQLSpecification> fluentTQLSpecifications = simpleFluentTQLSpecification.getFluentTQLSpecification();
+        List<FluentTQLSpecification> fluentTQLSpecifications = ProcessAnnotatedClass.processAnnotationAndGetSpecifications(
+                simpleFluentTQLSpecification
+        );
 
         for (FluentTQLSpecification fluentTQLSpecification : fluentTQLSpecifications) {
             if (fluentTQLSpecification instanceof TaintFlowQuery) {
