@@ -1,10 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.*;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.DoesNotImplementFluentTQLUserInterfaceException;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNullPointerException;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.NotAFluentTQLSpecificationException;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
@@ -12,11 +9,10 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ProcessAnnotatedClass {
-    public static List<FluentTQLSpecification> processAnnotationAndGetSpecifications(Object fluentTQLSpec) throws NotAFluentTQLSpecificationException, DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException {
+    public static List<FluentTQLSpecification> processAnnotationAndGetSpecifications(Object fluentTQLSpec) throws NotAFluentTQLSpecificationException, DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException {
 
         if (!fluentTQLSpec.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) {
             throw new NotAFluentTQLSpecificationException(fluentTQLSpec.getClass().getName());
@@ -39,24 +35,32 @@ public class ProcessAnnotatedClass {
         }
     }
 
-    public static Object processFluentTQLAnnotation(Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException {
+    public static Object processFluentTQLAnnotation(Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException {
         processEachField(fluentTQLSpec);
         return fluentTQLSpec;
     }
 
-    private static void processEachField(Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException {
+    private static void processEachField(Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException {
         for (Field field : fluentTQLSpec.getClass().getDeclaredFields()) {
             processSingleField(field, fluentTQLSpec);
         }
     }
 
-    private static void processSingleField(Field field, Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException {
+    private static void processSingleField(Field field, Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException {
         try {
             Object obj = field.get(fluentTQLSpec);
 
             if (obj == null) {
                 throw new FieldNullPointerException(field.getName(), fluentTQLSpec.getClass().getSimpleName());
             }
+
+            if (field.getType().equals(Method.class) &&
+                    !field.isAnnotationPresent(InFlowParam.class) &&
+                    !field.isAnnotationPresent(InFlowThisObject.class) &&
+                    !field.isAnnotationPresent(OutFlowParam.class) &&
+                    !field.isAnnotationPresent(OutFlowReturnValue.class) &&
+                    !field.isAnnotationPresent(OutFlowThisObject.class))
+                throw new IncompleteMethodDeclarationException(field.getName(), fluentTQLSpec.getClass().getSimpleName());
 
             InputDeclarationImpl inputDeclaration = new InputDeclarationImpl();
             OutputDeclarationImpl outputDeclaration = new OutputDeclarationImpl();
