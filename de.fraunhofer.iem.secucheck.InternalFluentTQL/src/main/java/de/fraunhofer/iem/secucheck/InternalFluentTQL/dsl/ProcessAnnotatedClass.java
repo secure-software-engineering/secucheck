@@ -45,10 +45,7 @@ public class ProcessAnnotatedClass {
     }
 
     private static void processEachField(Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException {
-        System.out.println("\n\n*******" + fluentTQLSpec.getClass().getName() + "*****");
         for (Field field : fluentTQLSpec.getClass().getDeclaredFields()) {
-            if (field.getType().equals(Method.class))
-                System.out.println("\t*******" + field.getName() + "*****");
             processSingleField(field, fluentTQLSpec);
         }
     }
@@ -73,7 +70,6 @@ public class ProcessAnnotatedClass {
                                 new ParameterImpl(paramID)
                         );
                     }
-                    System.out.println("\tInParam = " + Arrays.toString(((InFlowParam) annotation).parameterID()));
                 } else if (annotation.annotationType().equals(OutFlowParam.class)) {
                     int[] paramIDs = ((OutFlowParam) annotation).parameterID();
 
@@ -82,22 +78,18 @@ public class ProcessAnnotatedClass {
                                 new ParameterImpl(paramID)
                         );
                     }
-                    System.out.println("\tOutParam = " + Arrays.toString(((OutFlowParam) annotation).parameterID()));
                 } else if (annotation.annotationType().equals(InFlowThisObject.class)) {
                     inputDeclaration.addInput(
                             new ThisObjectImpl()
                     );
-                    System.out.println("\tInThisObject");
                 } else if (annotation.annotationType().equals(OutFlowReturnValue.class)) {
                     outputDeclaration.addOutput(
                             new ReturnImpl()
                     );
-                    System.out.println("\tOutReturnValue");
                 } else if (annotation.annotationType().equals(OutFlowThisObject.class)) {
                     outputDeclaration.addOutput(
                             new ThisObjectImpl()
                     );
-                    System.out.println("\tOutThisObject");
                 } else if (annotation.annotationType().equals(ImportAndProcessAnnotation.class)) {
                     if ((!obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) &&
                             (!obj.getClass().isAnnotationPresent(FluentTQLRepositoryClass.class))) {
@@ -106,11 +98,11 @@ public class ProcessAnnotatedClass {
 
                     processFluentTQLAnnotation(obj);
                 }
+            }
 
-                if (obj instanceof MethodSelector) {
-                    ((MethodSelector) obj).setOutputDeclaration(outputDeclaration);
-                    ((MethodSelector) obj).setInputDeclaration(inputDeclaration);
-                }
+            if (obj instanceof MethodSelector) {
+                ((MethodSelector) obj).setOutputDeclaration(outputDeclaration);
+                ((MethodSelector) obj).setInputDeclaration(inputDeclaration);
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
