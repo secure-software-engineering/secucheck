@@ -21,7 +21,7 @@ public class SimpleTest {
         if (method.getInputDeclaration() != null &&
                 method.getInputDeclaration().getInputs() != null) {
             List<Input> inputs = method.getInputDeclaration().getInputs();
-            System.out.println("\t\tInputDeclaration : ");
+            System.out.println("\t\tInputDeclaration : " + inputs.size());
             for (Input input : inputs) {
                 if (input instanceof Parameter) {
                     System.out.println("\t\t\tParameter " + ((Parameter) input).getParameterId());
@@ -34,7 +34,7 @@ public class SimpleTest {
         if (method.getOutputDeclaration() != null &&
                 method.getOutputDeclaration().getOutputs() != null) {
             List<Output> outputs = method.getOutputDeclaration().getOutputs();
-            System.out.println("\t\tOutputDeclaration : ");
+            System.out.println("\t\tOutputDeclaration : " + outputs.size());
             for (Output output : outputs) {
                 if (output instanceof Parameter) {
                     System.out.println("\t\t\tParameter " + ((Parameter) output).getParameterId());
@@ -83,7 +83,7 @@ public class SimpleTest {
 
             if (taintFlow.getTo() != null) {
                 System.out.println("Sink : ");
-                displayFlowParticipant(taintFlow.getFrom());
+                displayFlowParticipant(taintFlow.getTo());
             }
         }
     }
