@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * Interface for TaintFlowQuery
+ *
+ * @author Ranjith Krishnamurthy
  */
 public interface TaintFlowQuery extends FluentTQLSpecification {
     /**

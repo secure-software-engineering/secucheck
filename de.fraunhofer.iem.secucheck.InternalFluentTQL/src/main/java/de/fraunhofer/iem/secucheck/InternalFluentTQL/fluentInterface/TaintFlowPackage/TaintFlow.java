@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * Interface for TaintFlow
+ *
+ * @author Ranjith Krishnamurthy
  */
 public interface TaintFlow {
     /**

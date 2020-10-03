@@ -1,12 +1,15 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
+/**
+ * Annotation to configure the method, that there is a taint flow information coming out of the method through the given parameterID.
+ *
+ * @author Ranjith Krishnamurthy
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
+@Documented
 public @interface OutFlowParam {
     public int[] parameterID();
 }

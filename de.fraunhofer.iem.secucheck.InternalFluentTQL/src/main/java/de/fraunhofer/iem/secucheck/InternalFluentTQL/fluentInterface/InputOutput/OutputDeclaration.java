@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * Interface for OutputDeclaration
+ *
+ * @author Ranjith Krishnamurthy
  */
 public interface OutputDeclaration {
     /**

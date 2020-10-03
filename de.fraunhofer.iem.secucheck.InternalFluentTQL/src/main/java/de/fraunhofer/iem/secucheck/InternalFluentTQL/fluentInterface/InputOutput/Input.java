@@ -2,6 +2,8 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutpu
 
 /**
  * Interface between InputDeclaration and ThisObject, Parameter
+ *
+ * @author Ranjith Krishnamurthy
  */
 public interface Input {
 }

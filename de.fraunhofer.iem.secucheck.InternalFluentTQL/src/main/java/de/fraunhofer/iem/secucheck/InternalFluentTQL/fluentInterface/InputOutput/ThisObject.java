@@ -2,6 +2,8 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutpu
 
 /**
  * Interface for ThisObject
+ *
+ * @author Ranjith Krishnamurthy
  */
 public interface ThisObject extends Output, Input {
 }

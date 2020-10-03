@@ -7,6 +7,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of the TaintFlow
+ *
+ * @author Ranjith Krishnamurthy
+ */
 class TaintFlowImpl implements TaintFlow {
     private FlowParticipant from;
     private final List<FlowParticipant> notThrough = new ArrayList<FlowParticipant>();

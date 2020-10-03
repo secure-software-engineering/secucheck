@@ -7,6 +7,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of the InputDeclaration.
+ *
+ * @author Ranjith Krishnamurthy
+ */
 class InputDeclarationImpl implements InputDeclaration {
     private final List<Input> inputs = new ArrayList<>();
 

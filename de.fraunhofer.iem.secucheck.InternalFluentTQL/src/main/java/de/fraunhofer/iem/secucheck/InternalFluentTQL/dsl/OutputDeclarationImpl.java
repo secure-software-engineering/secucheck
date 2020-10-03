@@ -7,6 +7,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of the OutputDeclaration.
+ *
+ * @author Ranjith Krishnamurthy
+ */
 class OutputDeclarationImpl implements OutputDeclaration {
     private final List<Output> outputs = new ArrayList<>();
 

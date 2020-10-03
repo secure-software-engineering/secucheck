@@ -7,6 +7,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of TaintFlowQuery.
+ *
+ * @author Ranjith Krishnamurthy
+ */
 class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlowQuery {
     private final List<TaintFlow> taintFlows = new ArrayList<TaintFlow>();
     private String reportMessage = "";

@@ -35,9 +35,9 @@ public class ProcessAnnotatedClass {
         }
     }
 
-    public static Object processFluentTQLAnnotation(Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException {
-        processEachField(fluentTQLSpec);
-        return fluentTQLSpec;
+    public static Object processFluentTQLAnnotation(Object fluentTQLRelatedClass) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException {
+        processEachField(fluentTQLRelatedClass);
+        return fluentTQLRelatedClass;
     }
 
     private static void processEachField(Object fluentTQLSpec) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException {
@@ -105,8 +105,8 @@ public class ProcessAnnotatedClass {
             }
 
             if (obj instanceof MethodSelector) {
-                ((MethodSelector) obj).setOutputDeclaration(outputDeclaration);
-                ((MethodSelector) obj).setInputDeclaration(inputDeclaration);
+                ((MethodSelector) obj).getOutputDeclaration().getOutputs().addAll(outputDeclaration.getOutputs());
+                ((MethodSelector) obj).getInputDeclaration().getInputs().addAll(inputDeclaration.getInputs());
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();

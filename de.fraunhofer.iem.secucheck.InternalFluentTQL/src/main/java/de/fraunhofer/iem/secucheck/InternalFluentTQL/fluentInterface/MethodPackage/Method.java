@@ -7,6 +7,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 
 /**
  * Interface for Method
+ *
+ * @author Ranjith Krishnamurthy
  */
 public interface Method extends FlowParticipant {
 

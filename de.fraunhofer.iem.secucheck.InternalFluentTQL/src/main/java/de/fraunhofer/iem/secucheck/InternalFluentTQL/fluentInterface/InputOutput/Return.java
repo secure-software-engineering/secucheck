@@ -2,6 +2,8 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutpu
 
 /**
  * Interface for Return
+ *
+ * @author Ranjith Krishnamurthy
  */
 public interface Return extends Output {
 }

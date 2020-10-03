@@ -4,6 +4,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSp
 
 /**
  * Implementation of the FluentTQLSpecification
+ *
+ * @author Ranjith Krishnamurthy
  */
 class FluentTQLSpecificationImpl implements FluentTQLSpecification {
 }

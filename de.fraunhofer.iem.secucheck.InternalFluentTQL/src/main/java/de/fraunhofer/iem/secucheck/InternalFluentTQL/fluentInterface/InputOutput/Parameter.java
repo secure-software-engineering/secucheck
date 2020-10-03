@@ -2,6 +2,8 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutpu
 
 /**
  * Interface for Parameter
+ *
+ * @author Ranjith Krishnamurthy
  */
 public interface Parameter extends Output, Input {
     /**
