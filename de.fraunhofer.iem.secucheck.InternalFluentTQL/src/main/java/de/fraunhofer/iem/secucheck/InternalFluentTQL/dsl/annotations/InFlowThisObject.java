@@ -8,7 +8,7 @@ import java.lang.annotation.*;
  * @author Ranjith Krishnamurthy
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE_USE)
+@Target(ElementType.FIELD)
 @Documented
 public @interface InFlowThisObject {
 }
