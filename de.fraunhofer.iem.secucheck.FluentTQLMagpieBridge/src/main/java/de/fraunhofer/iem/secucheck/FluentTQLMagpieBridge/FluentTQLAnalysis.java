@@ -2,6 +2,7 @@ package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
 import com.ibm.wala.classLoader.Module;
 
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLCompiler.JarClassLoaderUtils;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisWrapper;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecucheckMagpieBridgeAnalysis;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
@@ -218,9 +219,15 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         File file = new File(specPath);
 
         if (file.exists()) {
-            if (file.isDirectory()) {
+      //      if (file.isDirectory()) {
                 fluentTQLSpecs.clear();
-                fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(file.getAbsolutePath()));
+                JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
+
+                //Todo:
+                fluentTQLSpecs.putAll(jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(file.getAbsolutePath()));
+                //fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(file.getAbsolutePath()));
+
+                //Todo: use this create a error file in source path.
 
                 if (fluentTQLSpecs.size() > 0) {
                     setConfig();
@@ -234,7 +241,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                             );
                     isFirstPageDone = false;
                     return false;
-                }
+                }/*
             } else {
                 FluentTQLMagpieBridgeMainServer
                         .fluentTQLMagpieServer
@@ -243,7 +250,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                         );
                 isFirstPageDone = false;
                 return false;
-            }
+            }*/
         } else {
             FluentTQLMagpieBridgeMainServer
                     .fluentTQLMagpieServer
@@ -278,7 +285,13 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         if (isRecompile) {
             fluentTQLSpecs.clear();
-            fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(fluentTQLSpecPath));
+            JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
+
+            //Todo:
+            fluentTQLSpecs.putAll(jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(fluentTQLSpecPath));
+            //fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(fluentTQLSpecPath));
+
+            //Todo: use this create a error file in source path.
         }
 
         int selectedCount = 0;
