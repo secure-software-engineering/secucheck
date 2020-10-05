@@ -72,7 +72,7 @@ public class JarClassLoaderUtils {
             } else {
                 ProcessAnnotatedClass.processFluentTQLAnnotation(obj);
             }
-        } catch (NotAFluentTQLSpecificationException | DoesNotImplementFluentTQLUserInterfaceException | ImportAndProcessAnnotationException | FieldNullPointerException | IncompleteMethodDeclarationException ex) {
+        } catch (NotAFluentTQLSpecificationException | DoesNotImplementFluentTQLUserInterfaceException | ImportAndProcessAnnotationException | FieldNullPointerException | IncompleteMethodDeclarationException | FieldNotPublicException ex) {
             errorModel.addNewError(obj.getClass().getName(), ex.getMessage());
         }
     }
