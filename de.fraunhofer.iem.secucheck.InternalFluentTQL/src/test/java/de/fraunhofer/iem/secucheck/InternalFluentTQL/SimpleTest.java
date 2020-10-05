@@ -46,6 +46,7 @@ public class SimpleTest {
             }
         }
     }
+
     private void displayFlowParticipant(FlowParticipant flowParticipant) {
         if (flowParticipant instanceof Method) {
             displayMethod((Method) flowParticipant);
@@ -55,6 +56,7 @@ public class SimpleTest {
             }
         }
     }
+
     private void displayTaintFlowQuery(TaintFlowQuery taintFlowQuery) {
         System.out.println("Report Message = " + taintFlowQuery.getReportMessage());
         System.out.println("Report Location = " + taintFlowQuery.getReportLocation());
@@ -87,13 +89,14 @@ public class SimpleTest {
             }
         }
     }
+
     @Test
     public void test1() throws FluentTQLException {
-        FluentTQLSpecificationTestForNoSQLInjection simpleFluentTQLSpecification = new FluentTQLSpecificationTestForNoSQLInjection();
+        SimpleFluentTQLSpecification simpleFluentTQLSpecification = new SimpleFluentTQLSpecification();
 
-        List<FluentTQLSpecification> fluentTQLSpecifications = ProcessAnnotatedClass.processAnnotationAndGetSpecifications(
+        List<FluentTQLSpecification> fluentTQLSpecifications = ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(
                 simpleFluentTQLSpecification
-        );
+        ).getFluentTQLSpecification();
 
         for (FluentTQLSpecification fluentTQLSpecification : fluentTQLSpecifications) {
             if (fluentTQLSpecification instanceof TaintFlowQuery) {

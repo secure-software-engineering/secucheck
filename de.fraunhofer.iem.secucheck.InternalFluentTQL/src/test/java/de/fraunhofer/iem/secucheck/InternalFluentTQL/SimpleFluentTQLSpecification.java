@@ -17,34 +17,42 @@ import java.util.List;
 
 @FluentTQLSpecificationClass
 public class SimpleFluentTQLSpecification implements FluentTQLUserInterface {
+    /**
+     * Source
+     */
     @OutFlowReturnValue
-    public Method source = new MethodSelector("Test: java.lang.String getSecret()");
+    public Method source = new MethodSelector("java.util.Scanner: java.lang.String nextLine()");
 
+    /**
+     * sanitize method is OWASP HTML sanitizer, that sanitizes the special characters, so that SQL Injection does not occur. It is a simple example, For security its better to use
+     * encodeForSQL or make the settings of sanitize method to avoid SQL Injection.
+     */
     @InFlowParam(parameterID = {0})
-    @OutFlowReturnValue
-    public static Method sanitizer = new MethodSelector("Test: java.lang.String sanitize(java.lang.String)");
+    public Method sanitizer = new MethodSelector("org.owasp.html.PolicyFactory: java.lang.String sanitize(java.lang.String)");
 
+    /**
+     * Sink
+     */
     @InFlowParam(parameterID = {0})
-    public static Method sink = new MethodSelector("Test: void printSecret(java.lang.String)");
+    public Method sink = new MethodSelector("java.sql.Statement: java.sql.ResultSet executeQuery(java.lang.String)");
 
-    public static MethodSet myMethodSet = new MethodSet("Testing MethodSet")
-            .addMethod(sanitizer)
-            .addMethod(sink);
-
-    @Override
+    /**
+     * Returns the Internal FluentTQL specification
+     *
+     * @return Internal FluentTQL specification
+     */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-
-        TaintFlowQuery simpleTaintFlow = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(source)
                 .notThrough(sanitizer)
                 .to(sink)
-                .report("A simple TaintFlow is present here!!!")
+                .report("There is a SQL Injection - CWE89!!!")
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        List<FluentTQLSpecification> myFluentTQLSpecification = new ArrayList<FluentTQLSpecification>();
-        myFluentTQLSpecification.add(simpleTaintFlow);
+        List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();
+        myFluentTQLSpecs.add(myTF);
 
-        return myFluentTQLSpecification;
+        return myFluentTQLSpecs;
     }
 }
