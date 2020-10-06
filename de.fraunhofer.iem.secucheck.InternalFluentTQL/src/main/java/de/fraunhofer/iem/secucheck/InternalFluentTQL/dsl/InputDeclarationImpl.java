@@ -15,10 +15,20 @@ import java.util.List;
 class InputDeclarationImpl implements InputDeclaration {
     private final List<Input> inputs = new ArrayList<>();
 
+    /**
+     * This method returns the List of Inputs.
+     *
+     * @return List of Inputs.
+     */
     public List<Input> getInputs() {
         return inputs;
     }
 
+    /**
+     * This method adds a single Input to the list
+     *
+     * @param input Input
+     */
     public void addInput(Input input) {
         if (input instanceof ThisObjectImpl) {
             for (Input itr : inputs) {

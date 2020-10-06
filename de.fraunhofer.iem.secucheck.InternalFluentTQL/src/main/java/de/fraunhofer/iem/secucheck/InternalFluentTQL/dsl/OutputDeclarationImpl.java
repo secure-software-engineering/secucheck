@@ -15,10 +15,20 @@ import java.util.List;
 class OutputDeclarationImpl implements OutputDeclaration {
     private final List<Output> outputs = new ArrayList<>();
 
+    /**
+     * This method returns the List of Outputs.
+     *
+     * @return List of Outputs.
+     */
     public List<Output> getOutputs() {
         return outputs;
     }
 
+    /**
+     * This method adds a single Output to the list.
+     *
+     * @param output Output
+     */
     public void addOutput(Output output) {
         if (output instanceof ThisObjectImpl) {
             for (Output itr : outputs) {
