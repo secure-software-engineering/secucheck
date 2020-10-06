@@ -39,7 +39,7 @@ public class JarClassLoaderUtils {
                     }
 
                     jarClassLoader.loadClass(className);
-                } catch (Exception ex) {
+                } catch (Exception | UnsupportedClassVersionError ex) {
                     //Todo:
                     errorModel.addNewError(loadedResourcesKey.toString(), ex.getMessage());
                 }
