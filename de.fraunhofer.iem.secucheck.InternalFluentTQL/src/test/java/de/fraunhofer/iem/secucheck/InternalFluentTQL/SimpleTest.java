@@ -92,7 +92,7 @@ public class SimpleTest {
 
     @Test
     public void test1() throws FluentTQLException {
-        SimpleFluentTQLSpecification simpleFluentTQLSpecification = new SimpleFluentTQLSpecification();
+        FluentTQLSpecificationTestForNoSQLInjection simpleFluentTQLSpecification = new FluentTQLSpecificationTestForNoSQLInjection();
 
         List<FluentTQLSpecification> fluentTQLSpecifications = ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(
                 simpleFluentTQLSpecification

@@ -4,6 +4,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.ImportAndProcessAnnotation;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.ImportAndProcessOnlyStaticFields;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
@@ -11,11 +12,9 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 import java.util.ArrayList;
 import java.util.List;
 
+@ImportAndProcessOnlyStaticFields(classList = {MethodDeclarationForNoSQLInjection.class})
 @FluentTQLSpecificationClass
 public class FluentTQLSpecificationTestForNoSQLInjection implements FluentTQLUserInterface {
-    @ImportAndProcessAnnotation
-    public MethodDeclarationForNoSQLInjection methods = new MethodDeclarationForNoSQLInjection();
-
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
 
         TaintFlowQuery noSQLInjection = new TaintFlowQueryBuilder()

@@ -11,5 +11,10 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Documented
 public @interface InFlowParam {
+    /**
+     * Parameter ID, Note: First parameter id is 0.
+     *
+     * @return Parameter ID.
+     */
     public int[] parameterID();
 }
