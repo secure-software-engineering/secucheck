@@ -19,6 +19,7 @@ public class JarClassLoaderUtils {
 
     public HashMap<String, FluentTQLUserInterface> loadAppAndGetFluentTQLSpecification(String path) {
         errorModel.getError().clear();
+        fluentTQLSpecs.clear();
 
         JarClassLoader jarClassLoader = new JarClassLoader();
         jarClassLoader.add(path);
@@ -72,7 +73,7 @@ public class JarClassLoaderUtils {
             } else {
                 ProcessAnnotatedClass.processFluentTQLAnnotation(obj);
             }
-        } catch (NotAFluentTQLSpecificationException | DoesNotImplementFluentTQLUserInterfaceException | ImportAndProcessAnnotationException | FieldNullPointerException | IncompleteMethodDeclarationException | FieldNotPublicException ex) {
+        } catch (FluentTQLException ex) {
             errorModel.addNewError(obj.getClass().getName(), ex.getMessage());
         }
     }
