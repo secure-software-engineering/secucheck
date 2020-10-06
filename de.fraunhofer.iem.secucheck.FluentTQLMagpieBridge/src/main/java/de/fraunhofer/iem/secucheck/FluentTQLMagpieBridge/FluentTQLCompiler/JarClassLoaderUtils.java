@@ -7,18 +7,20 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 
 public class JarClassLoaderUtils {
-    private final ErrorModel errorModel = new ErrorModel();
+    private final Errors errors = new Errors();
     private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
 
-    public ErrorModel getErrorModel() {
-        return errorModel;
+    public Errors getErrorModel() {
+        return errors;
     }
 
     public HashMap<String, FluentTQLUserInterface> loadAppAndGetFluentTQLSpecification(String path) {
-        errorModel.getError().clear();
+        errors.getErrors().clear();
         fluentTQLSpecs.clear();
 
         JarClassLoader jarClassLoader = new JarClassLoader();
@@ -34,14 +36,20 @@ public class JarClassLoaderUtils {
                             .replace(".class", "");
 
                     if (className.startsWith(".")) {
-                        errorModel.addNewError(loadedResourcesKey.toString(), "Do not keep the class in default package");
+                        errors.addError(
+                                new ErrorModel(errors.getErrors().size() + 1, loadedResourcesKey.toString(), "Do not keep the class in default package")
+                        );
                         continue;
                     }
 
                     jarClassLoader.loadClass(className);
-                } catch (Exception | UnsupportedClassVersionError ex) {
-                    //Todo:
-                    errorModel.addNewError(loadedResourcesKey.toString(), ex.getMessage());
+                } catch (Exception | Error ex) {
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    errors.addError(
+                            new ErrorModel(errors.getErrors().size() + 1, loadedResourcesKey.toString(), ex.getMessage(), sw.toString())
+                    );
                 }
             }
         }
@@ -58,8 +66,12 @@ public class JarClassLoaderUtils {
 
                 processFluentTQLAnnotation(obj);
             } catch (Exception ex) {
-                //Todo:
-                errorModel.addNewError(loadedClassesKey.toString(), ex.getMessage());
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                ex.printStackTrace(pw);
+                errors.addError(
+                        new ErrorModel(errors.getErrors().size() + 1, loadedClassesKey.toString(), ex.getMessage(), sw.toString())
+                );
             }
         }
         return fluentTQLSpecs;
@@ -74,7 +86,12 @@ public class JarClassLoaderUtils {
                 ProcessAnnotatedClass.processFluentTQLAnnotation(obj);
             }
         } catch (FluentTQLException ex) {
-            errorModel.addNewError(obj.getClass().getName(), ex.getMessage());
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            ex.printStackTrace(pw);
+            errors.addError(
+                    new ErrorModel(errors.getErrors().size() + 1, obj.getClass().getName(), ex.getMessage(), sw.toString())
+            );
         }
     }
 }

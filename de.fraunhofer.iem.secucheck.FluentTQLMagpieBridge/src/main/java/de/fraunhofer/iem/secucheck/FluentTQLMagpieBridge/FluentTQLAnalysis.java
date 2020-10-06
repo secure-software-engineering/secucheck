@@ -2,6 +2,8 @@ package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
 import com.ibm.wala.classLoader.Module;
 
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLCompiler.ErrorModel;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLCompiler.Errors;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLCompiler.JarClassLoaderUtils;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisWrapper;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecucheckMagpieBridgeAnalysis;
@@ -23,8 +25,12 @@ import magpiebridge.projectservice.java.JavaProjectService;
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -197,6 +203,32 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         return Collections.emptyList();
     }
 
+    private void createErrorText(Errors errors) {
+        if (errors.getErrors().size() > 0) {
+            File file = new File(projectRootPath + System.getProperty("file.separator") + "FluentTQLError.txt");
+
+            try {
+                if (file.exists()) {
+                    file.delete();
+                    file.createNewFile();
+                }
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+
+                bufferedWriter.write("FluentTQL:     " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "\n");
+
+                for (ErrorModel errorModel : errors.getErrors()) {
+                    bufferedWriter.append(errorModel.toString());
+                }
+
+                bufferedWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
     /**
      * This method processes the FluentTQL Specification path configuration option from the first Configuration page.
      *
@@ -227,6 +259,8 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             //Todo:
             fluentTQLSpecs.putAll(jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(file.getAbsolutePath()));
             //fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(file.getAbsolutePath()));
+
+            createErrorText(jarClassLoaderUtils.getErrorModel());
 
             //Todo: use this create a error file in source path.
 
@@ -272,6 +306,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         options.clear();
         options.addAll(tempOptions);
+        currentConfiguration.addAll(options);
         return true;
     }
 
@@ -280,20 +315,26 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      *
      * @param configOption Configuration option
      * @return Boolean - process success or not
+     * 0 - Success.
+     * 50 - No specifications are selected, go ahead and process Java Entry files configuration.
+     * 100 - GoBackToPreviousPage.
+     * 150 - ConfigurationPage Updated return immediately, do not process remaining current configuration settings.
      */
-    private boolean processFluentTQLSpecificationFiles(ConfigurationOption configOption, boolean isRecompile) {
+    private int processFluentTQLSpecificationFiles(ConfigurationOption configOption, boolean isRecompile) {
         taintFlowQueries.clear();
 
         if (isRecompile) {
             fluentTQLSpecs.clear();
 
-            boolean isSuccess = processFluentTQLSpecificationsPath(
-                    new ConfigurationOption(fluentTQLSpecPath, OptionType.checkbox)
-            );
+            ConfigurationOption temp = new ConfigurationOption(fluentTQLSpecPath, OptionType.checkbox);
+            temp.setValue(fluentTQLSpecPath);
+            boolean isSuccess = processFluentTQLSpecificationsPath(temp);
 
             if (!isSuccess) {
                 goBackToPreviousPage = true;
-                return false;
+                return 100;
+            } else {
+                return 150;
             }
             /*
             JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
@@ -331,9 +372,9 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                                     "No specifications are selected. \nPlease select the FluentTQL specifications"
                             ));
 
-            return false;
+            return 50;
         }
-        return true;
+        return 0;
     }
 
     /**
@@ -403,17 +444,17 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                     return;
                 }
             } else if ("FluentTQL Specification files".equals(configOption.getName())) {
-                boolean isSuccess = processFluentTQLSpecificationFiles(configOption, isRecompile);
+                int status = processFluentTQLSpecificationFiles(configOption, isRecompile);
 
-                specFileSuccess = isSuccess;
-                if (!isSuccess) {
-                    if (goBackToPreviousPage) {
-                        initialConfigurationOption();
-                        return;
-                    } else {
-                        options.clear();
-                        options.addAll(configuration);
-                    }
+                if (status == 100) {
+                    initialConfigurationOption();
+                    return;
+                } else if (status == 150) {
+                    return;
+                } else if (status == 0) {
+                    specFileSuccess = true;
+                } else {
+                    specFileSuccess = false;
                 }
             } else if ("Select java files for entry points".equals(configOption.getName())) {
                 boolean isSuccess = processJavaFiles(configOption);
