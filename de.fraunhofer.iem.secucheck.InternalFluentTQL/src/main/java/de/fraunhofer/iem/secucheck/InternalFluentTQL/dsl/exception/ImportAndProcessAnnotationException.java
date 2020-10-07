@@ -9,10 +9,12 @@ public class ImportAndProcessAnnotationException extends FluentTQLException {
     /**
      * Constructs the ImportAndProcessAnnotationException with the corresponding error message.
      *
-     * @param className Field's class Name.
+     * @param classNameToImport Class name that should be import and process
+     * @param classThatImports  Class that is trying to import
+     * @param reason            Reason for error
      */
-    public ImportAndProcessAnnotationException(String className) {
-        super("\nFailed to import and process \"" + className + "\". " +
-                "To import and process, class should have either FluentTQLSpecificationClass or FluentTQLRepositoryClass annotation.");
+    public ImportAndProcessAnnotationException(String classNameToImport, String classThatImports, String reason) {
+        super("Failed to import and process \"" + classNameToImport + "\" in \"" + classThatImports + "\". \n" +
+                "Reason: " + reason);
     }
 }

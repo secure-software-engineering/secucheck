@@ -8,7 +8,6 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
 /**
@@ -81,37 +80,7 @@ public class ProcessAnnotatedClass {
         isValidFluentTQLRelatedClass(fluentTQLRelatedClass);
 
         if (fluentTQLRelatedClass.getClass().isAnnotationPresent(ImportAndProcessOnlyStaticFields.class)) {
-            ImportAndProcessOnlyStaticFields importAndProcessOnlyStaticFields = fluentTQLRelatedClass.getClass().getAnnotation(ImportAndProcessOnlyStaticFields.class);
-            for (Class<?> className : importAndProcessOnlyStaticFields.classList()) {
-                Constructor<?> constructor = null;
-
-                boolean hasValidConstructor = false;
-                for (Constructor<?> cons : className.getConstructors()) {
-                    if (cons.getParameterCount() == 0) {
-                        hasValidConstructor = true;
-                        constructor = cons;
-                        break;
-                    }
-                }
-
-                if (!hasValidConstructor)
-                    throw new NotFoundZeroArgumentConstructorException(className.getSimpleName());
-
-                Object ob = null;
-                try {
-                    ob = constructor.newInstance((Object[]) null);
-                    //Todo: decide what to do with these exceptions
-                } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-                isValidFluentTQLRelatedClass(ob);
-
-                processEachField(ob, true);
-
-            }
+            importAndProcessStaticOnly(fluentTQLRelatedClass);
         }
 
         processEachField(fluentTQLRelatedClass, false);
@@ -213,12 +182,7 @@ public class ProcessAnnotatedClass {
                             new ThisObjectImpl()
                     );
                 } else if (annotation.annotationType().equals(ImportAndProcessAnnotation.class)) {
-                    if ((!obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) &&
-                            (!obj.getClass().isAnnotationPresent(FluentTQLRepositoryClass.class))) {
-                        throw new ImportAndProcessAnnotationException(obj.getClass().getName());
-                    }
-
-                    processFluentTQLAnnotation(obj);
+                    importAndProcess(obj, fluentTQLSpec);
                 }
             }
 
@@ -231,6 +195,82 @@ public class ProcessAnnotatedClass {
             }
         } catch (IllegalAccessException e) {
             throw new FieldNotPublicException(field.getName(), fluentTQLSpec.getClass().getSimpleName());
+        }
+    }
+
+    /**
+     * This method tries to import and process the annotation of a field annotated with ImportAndProcessAnnotation
+     *
+     * @param obj           Object
+     * @param fluentTQLSpec Object that tries to import and process the above Object
+     * @throws ImportAndProcessAnnotationException If fails to import and process the field's annotation. It wraps all the exception in this method and adds the reason in this exception
+     */
+    private static void importAndProcess(Object obj, Object fluentTQLSpec) throws ImportAndProcessAnnotationException {
+        if ((!obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) &&
+                (!obj.getClass().isAnnotationPresent(FluentTQLRepositoryClass.class))) {
+            throw new ImportAndProcessAnnotationException(obj.getClass().getSimpleName(),
+                    fluentTQLSpec.getClass().getSimpleName(), obj.getClass() + " is not a FluentTQL related class. Use one of the " +
+                    "[FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation to make it FluentTQL related class.");
+        }
+
+        try {
+            processFluentTQLAnnotation(obj);
+        } catch (ImportAndProcessAnnotationException | FieldNullPointerException | IncompleteMethodDeclarationException | FieldNotPublicException | MissingFluentTQLSpecificationClassAnnotationException | NotAFluentTQLRelatedClassException | DoesNotImplementFluentTQLUserInterfaceException | NotFoundZeroArgumentConstructorException e) {
+            throw new ImportAndProcessAnnotationException(
+                    obj.getClass().getSimpleName(),
+                    fluentTQLSpec.getClass().getSimpleName(),
+                    e.getMessage()
+            );
+        }
+    }
+
+    /**
+     * This method tries to process the ImportAndProcessOnlyStaticFields annotation of a class.
+     *
+     * @param fluentTQLRelatedClass Object with ImportAndProcessOnlyStaticFields annotation
+     * @throws NotFoundZeroArgumentConstructorException Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
+     * @throws ImportAndProcessAnnotationException      If fails to import and process the field's annotation. It wraps all the exception in this method and adds the reason in this exception
+     */
+    private static void importAndProcessStaticOnly(Object fluentTQLRelatedClass) throws NotFoundZeroArgumentConstructorException, ImportAndProcessAnnotationException {
+        ImportAndProcessOnlyStaticFields importAndProcessOnlyStaticFields = fluentTQLRelatedClass.getClass().getAnnotation(ImportAndProcessOnlyStaticFields.class);
+        for (Class<?> className : importAndProcessOnlyStaticFields.classList()) {
+            Constructor<?> constructor = null;
+
+            boolean hasValidConstructor = false;
+            for (Constructor<?> cons : className.getConstructors()) {
+                if (cons.getParameterCount() == 0) {
+                    hasValidConstructor = true;
+                    constructor = cons;
+                    break;
+                }
+            }
+
+            if (!hasValidConstructor)
+                throw new NotFoundZeroArgumentConstructorException(className.getSimpleName());
+
+            Object ob = null;
+            try {
+                ob = constructor.newInstance((Object[]) null);
+                //Todo: decide what to do with these exceptions
+            } catch (Exception | Error ex) {
+                throw new ImportAndProcessAnnotationException(
+                        className.getSimpleName(),
+                        fluentTQLRelatedClass.getClass().getSimpleName(),
+                        ex.getMessage()
+                );
+            }
+
+            try {
+                isValidFluentTQLRelatedClass(ob);
+
+                processEachField(ob, true);
+            } catch (ImportAndProcessAnnotationException | NotAFluentTQLRelatedClassException | FieldNullPointerException | MissingFluentTQLSpecificationClassAnnotationException | DoesNotImplementFluentTQLUserInterfaceException | FieldNotPublicException | IncompleteMethodDeclarationException e) {
+                throw new ImportAndProcessAnnotationException(
+                        className.getSimpleName(),
+                        fluentTQLRelatedClass.getClass().getSimpleName(),
+                        e.getMessage()
+                );
+            }
         }
     }
 }
