@@ -26,7 +26,7 @@ public class ProcessAnnotatedClass {
      * @throws NotAFluentTQLRelatedClassException                    If class is not annotated with one of the [FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation.
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      */
-    private static boolean isValidFluentTQLRelatedClass(Object obj) throws DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException {
+    private boolean isValidFluentTQLRelatedClass(Object obj) throws DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException {
         if (!obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class) &&
                 !obj.getClass().isAnnotationPresent(FluentTQLRepositoryClass.class)) {
             throw new NotAFluentTQLRelatedClassException(obj.getClass().getName());
@@ -57,9 +57,9 @@ public class ProcessAnnotatedClass {
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      */
-    public static FluentTQLUserInterface processFluentTQLSpecificationClassAnnotation(Object fluentTQLSpec) throws DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException, NotFoundZeroArgumentConstructorException {
+    public FluentTQLUserInterface processFluentTQLSpecificationClassAnnotation(Object fluentTQLSpec) throws DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException, NotFoundZeroArgumentConstructorException {
         isValidFluentTQLRelatedClass(fluentTQLSpec);
-        return (FluentTQLUserInterface) ProcessAnnotatedClass.processFluentTQLAnnotation(fluentTQLSpec);
+        return (FluentTQLUserInterface) processFluentTQLAnnotation(fluentTQLSpec);
     }
 
     /**
@@ -76,7 +76,7 @@ public class ProcessAnnotatedClass {
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      */
-    public static Object processFluentTQLAnnotation(Object fluentTQLRelatedClass) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException {
+    public Object processFluentTQLAnnotation(Object fluentTQLRelatedClass) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException {
         isValidFluentTQLRelatedClass(fluentTQLRelatedClass);
 
         if (fluentTQLRelatedClass.getClass().isAnnotationPresent(ImportAndProcessOnlyStaticFields.class)) {
@@ -101,7 +101,7 @@ public class ProcessAnnotatedClass {
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      */
-    private static void processEachField(Object fluentTQLSpec, boolean isProcessOnlyStatic) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException {
+    private void processEachField(Object fluentTQLSpec, boolean isProcessOnlyStatic) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException {
         for (Field field : fluentTQLSpec.getClass().getDeclaredFields()) {
             if (isProcessOnlyStatic) {
                 if (Modifier.isStatic(field.getModifiers())) {
@@ -128,7 +128,7 @@ public class ProcessAnnotatedClass {
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      */
-    private static void processSingleField(Field field, Object fluentTQLSpec, boolean isStaticField) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException {
+    private void processSingleField(Field field, Object fluentTQLSpec, boolean isStaticField) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException {
         try {
             Object obj;
 
@@ -205,7 +205,7 @@ public class ProcessAnnotatedClass {
      * @param fluentTQLSpec Object that tries to import and process the above Object
      * @throws ImportAndProcessAnnotationException If fails to import and process the field's annotation. It wraps all the exception in this method and adds the reason in this exception
      */
-    private static void importAndProcess(Object obj, Object fluentTQLSpec) throws ImportAndProcessAnnotationException {
+    private void importAndProcess(Object obj, Object fluentTQLSpec) throws ImportAndProcessAnnotationException {
         if ((!obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) &&
                 (!obj.getClass().isAnnotationPresent(FluentTQLRepositoryClass.class))) {
             throw new ImportAndProcessAnnotationException(obj.getClass().getSimpleName(),
@@ -219,7 +219,7 @@ public class ProcessAnnotatedClass {
             throw new ImportAndProcessAnnotationException(
                     obj.getClass().getSimpleName(),
                     fluentTQLSpec.getClass().getSimpleName(),
-                    e.getMessage()
+                    "(" + e.getClass().getSimpleName() + ") " + e.getMessage()
             );
         }
     }
@@ -231,7 +231,7 @@ public class ProcessAnnotatedClass {
      * @throws NotFoundZeroArgumentConstructorException Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      * @throws ImportAndProcessAnnotationException      If fails to import and process the field's annotation. It wraps all the exception in this method and adds the reason in this exception
      */
-    private static void importAndProcessStaticOnly(Object fluentTQLRelatedClass) throws NotFoundZeroArgumentConstructorException, ImportAndProcessAnnotationException {
+    private void importAndProcessStaticOnly(Object fluentTQLRelatedClass) throws NotFoundZeroArgumentConstructorException, ImportAndProcessAnnotationException {
         ImportAndProcessOnlyStaticFields importAndProcessOnlyStaticFields = fluentTQLRelatedClass.getClass().getAnnotation(ImportAndProcessOnlyStaticFields.class);
         for (Class<?> className : importAndProcessOnlyStaticFields.classList()) {
             Constructor<?> constructor = null;
@@ -256,7 +256,7 @@ public class ProcessAnnotatedClass {
                 throw new ImportAndProcessAnnotationException(
                         className.getSimpleName(),
                         fluentTQLRelatedClass.getClass().getSimpleName(),
-                        ex.getMessage()
+                        "(" + ex.getClass().getSimpleName() + ") " + ex.getMessage()
                 );
             }
 
@@ -268,7 +268,7 @@ public class ProcessAnnotatedClass {
                 throw new ImportAndProcessAnnotationException(
                         className.getSimpleName(),
                         fluentTQLRelatedClass.getClass().getSimpleName(),
-                        e.getMessage()
+                        "(" + e.getClass().getSimpleName() + ") " + e.getMessage()
                 );
             }
         }

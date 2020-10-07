@@ -78,12 +78,14 @@ public class JarClassLoaderUtils {
     }
 
     private void processFluentTQLAnnotation(Object obj) {
+        ProcessAnnotatedClass processAnnotatedClass = new ProcessAnnotatedClass();
+
         try {
             if (obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) {
-                FluentTQLUserInterface fluentTQLUserInterface = ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(obj);
+                FluentTQLUserInterface fluentTQLUserInterface = processAnnotatedClass.processFluentTQLSpecificationClassAnnotation(obj);
                 fluentTQLSpecs.put(obj.getClass().getSimpleName(), fluentTQLUserInterface);
             } else {
-                ProcessAnnotatedClass.processFluentTQLAnnotation(obj);
+                processAnnotatedClass.processFluentTQLAnnotation(obj);
             }
         } catch (FluentTQLException ex) {
             StringWriter sw = new StringWriter();
