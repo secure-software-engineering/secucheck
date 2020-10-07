@@ -2,13 +2,21 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.*;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Input;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Output;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class processes the FluentTQL related annotations and configure the Specification.
@@ -57,9 +65,11 @@ public class ProcessAnnotatedClass {
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      */
-    public FluentTQLUserInterface processFluentTQLSpecificationClassAnnotation(Object fluentTQLSpec) throws DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException, NotFoundZeroArgumentConstructorException {
+    public FluentTQLUserInterface processFluentTQLSpecificationClassAnnotation(Object fluentTQLSpec) throws DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException, NotFoundZeroArgumentConstructorException, InvalidTaintFlowException {
         isValidFluentTQLRelatedClass(fluentTQLSpec);
-        return (FluentTQLUserInterface) processFluentTQLAnnotation(fluentTQLSpec);
+        FluentTQLUserInterface fluentTQLUserInterface = (FluentTQLUserInterface) processFluentTQLAnnotation(fluentTQLSpec);
+        isValidTaintFlowSpecification(fluentTQLUserInterface);
+        return fluentTQLUserInterface;
     }
 
     /**
@@ -280,6 +290,138 @@ public class ProcessAnnotatedClass {
                         "(" + e.getClass().getSimpleName() + ") " + e.getMessage()
                 );
             }
+        }
+    }
+
+    private final List<String> erroneousMethods = new ArrayList<>();
+
+    /**
+     * This method checks whether the given FluentTQLSpecification is valid or not.
+     *
+     * @param fluentTQLUserInterface FluentTQLSpecifcation
+     * @throws InvalidTaintFlowException If there is some method that is not configured correctly.
+     */
+    private void isValidTaintFlowSpecification(FluentTQLUserInterface fluentTQLUserInterface) throws InvalidTaintFlowException {
+        erroneousMethods.clear();
+
+        List<FluentTQLSpecification> fluentTQLSpecifications = fluentTQLUserInterface.getFluentTQLSpecification();
+        List<String> missingConfigurationMethods = new ArrayList<>();
+
+        for (FluentTQLSpecification fluentTQLSpecification : fluentTQLSpecifications) {
+            if (fluentTQLSpecification instanceof TaintFlowQuery)
+                isValidTaintFlowQuery((TaintFlowQuery) fluentTQLSpecification);
+            else if (fluentTQLSpecification instanceof QueriesSet)
+                isValidTaintQueriesSet((QueriesSet) fluentTQLSpecification);
+        }
+
+        if (erroneousMethods.size() > 0) {
+            throw new InvalidTaintFlowException(erroneousMethods);
+        }
+    }
+
+    /**
+     * This method checks whether the given TaintFlowQuery is valid or not.
+     *
+     * @param taintFlowQuery TaintFlowQuery
+     */
+    private void isValidTaintFlowQuery(TaintFlowQuery taintFlowQuery) {
+        List<TaintFlow> taintFlows = taintFlowQuery.getTaintFlows();
+
+        for (TaintFlow taintFlow : taintFlows) {
+            FlowParticipant from = taintFlow.getFrom();
+            List<FlowParticipant> through = taintFlow.getThrough();
+            List<FlowParticipant> notThrough = taintFlow.getNotThrough();
+            FlowParticipant to = taintFlow.getTo();
+
+            //From
+            if (from instanceof Method) {
+                isValidMethod((Method) from);
+            } else if (from instanceof MethodSet) {
+                isValidMethodSet((MethodSet) from);
+            }
+
+            //through
+            for (FlowParticipant flowParticipant : through) {
+                if (flowParticipant instanceof Method) {
+                    isValidMethod((Method) flowParticipant);
+                } else if (flowParticipant instanceof MethodSet) {
+                    isValidMethodSet((MethodSet) flowParticipant);
+                }
+            }
+
+            //notThrough
+            for (FlowParticipant flowParticipant : notThrough) {
+                if (flowParticipant instanceof Method) {
+                    isValidMethod((Method) flowParticipant);
+                } else if (flowParticipant instanceof MethodSet) {
+                    isValidMethodSet((MethodSet) flowParticipant);
+                }
+            }
+
+            //to
+            if (to instanceof Method) {
+                isValidMethod((Method) to);
+            } else if (from instanceof MethodSet) {
+                isValidMethodSet((MethodSet) to);
+            }
+        }
+    }
+
+    /**
+     * This method checks whether the given Method is valid, If it is valid then it logs the method signature.
+     *
+     * @param method Method
+     */
+    private void isValidMethod(Method method) {
+        //Todo: Also add to check for valid Signature.
+
+        boolean emptyInputs = isEmptyInputs(method.getInputDeclaration().getInputs());
+        boolean emptyOutputs = isEmptyOutputs(method.getOutputDeclaration().getOutputs());
+
+        if (emptyInputs && emptyOutputs) {
+            erroneousMethods.add(method.getSignature());
+        }
+    }
+
+    /**
+     * This method checks whether the given Inputs contains at least one Inputs.
+     *
+     * @param inputs List of Inputs
+     * @return true if it is empty
+     */
+    private boolean isEmptyInputs(List<Input> inputs) {
+        return inputs.size() == 0;
+    }
+
+    /**
+     * This method checks whether the given Outputs contains at least one Output.
+     *
+     * @param outputs List of Outputs
+     * @return true if it is empty
+     */
+    private boolean isEmptyOutputs(List<Output> outputs) {
+        return outputs.size() == 0;
+    }
+
+    /**
+     * This method recursively checks all the Method in MethodSet are valid.
+     *
+     * @param methodSet MethodSet
+     */
+    private void isValidMethodSet(MethodSet methodSet) {
+        for (Method method : methodSet.getMethods()) {
+            isValidMethod(method);
+        }
+    }
+
+    /**
+     * This method recursively checks all the TaintFLowQuery in QueriesSet are valid.
+     *
+     * @param queriesSet QueriesSet
+     */
+    private void isValidTaintQueriesSet(QueriesSet queriesSet) {
+        for (TaintFlowQuery taintFlowQuery : queriesSet.getTaintFlowQueries()) {
+            isValidTaintFlowQuery(taintFlowQuery);
         }
     }
 }
