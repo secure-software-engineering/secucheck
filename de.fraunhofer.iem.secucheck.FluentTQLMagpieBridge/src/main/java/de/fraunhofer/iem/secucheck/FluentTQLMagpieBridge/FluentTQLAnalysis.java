@@ -225,7 +225,13 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            FluentTQLMagpieBridgeMainServer
+                    .fluentTQLMagpieServer
+                    .forwardMessageToClient(
+                            new MessageParams(MessageType.Warning,
+                                    "There some errors while processing some specifications. Please check the below file for more details.\n" +
+                                            file.getAbsolutePath().toString())
+                    );
         }
     }
 
