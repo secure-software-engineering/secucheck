@@ -268,31 +268,29 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         File file = new File(specPath);
 
         if (file.exists()) {
-            //      if (file.isDirectory()) {
-            fluentTQLSpecs.clear();
-            JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
+            if (file.isDirectory()) {
+                fluentTQLSpecs.clear();
+                JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
 
-            //Todo:
-            fluentTQLSpecs.putAll(jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(file.getAbsolutePath()));
-            //fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(file.getAbsolutePath()));
+                //Todo:
+                fluentTQLSpecs.putAll(jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(file.getAbsolutePath()));
+                //fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(file.getAbsolutePath()));
 
-            createErrorText(jarClassLoaderUtils.getErrorModel());
+                createErrorText(jarClassLoaderUtils.getErrorModel());
 
-            //Todo: use this create a error file in source path.
-
-            if (fluentTQLSpecs.size() > 0) {
-                setConfig();
-                currentConfiguration.clear();
-                currentConfiguration.addAll(options);
-            } else {
-                FluentTQLMagpieBridgeMainServer
-                        .fluentTQLMagpieServer
-                        .forwardMessageToClient(
-                                new MessageParams(MessageType.Warning, "No FluentTQL specifications present in the given path!!!")
-                        );
-                isFirstPageDone = false;
-                return false;
-            }/*
+                if (fluentTQLSpecs.size() > 0) {
+                    setConfig();
+                    currentConfiguration.clear();
+                    currentConfiguration.addAll(options);
+                } else {
+                    FluentTQLMagpieBridgeMainServer
+                            .fluentTQLMagpieServer
+                            .forwardMessageToClient(
+                                    new MessageParams(MessageType.Warning, "No FluentTQL specifications present in the given path!!!")
+                            );
+                    isFirstPageDone = false;
+                    return false;
+                }
             } else {
                 FluentTQLMagpieBridgeMainServer
                         .fluentTQLMagpieServer
@@ -301,7 +299,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                         );
                 isFirstPageDone = false;
                 return false;
-            }*/
+            }
         } else {
             FluentTQLMagpieBridgeMainServer
                     .fluentTQLMagpieServer
