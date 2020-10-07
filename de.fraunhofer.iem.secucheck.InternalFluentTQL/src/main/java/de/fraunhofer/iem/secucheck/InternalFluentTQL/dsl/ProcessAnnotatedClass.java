@@ -130,6 +130,10 @@ public class ProcessAnnotatedClass {
      */
     private void processSingleField(Field field, Object fluentTQLSpec, boolean isStaticField) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException {
         try {
+            if (!field.getType().equals(Method.class) && !field.getType().equals(MethodSet.class))
+                if (!field.isAnnotationPresent(ImportAndProcessAnnotation.class))
+                    return;
+
             Object obj;
 
             if (isStaticField)
@@ -139,6 +143,13 @@ public class ProcessAnnotatedClass {
 
             if (obj == null) {
                 throw new FieldNullPointerException(field.getName(), fluentTQLSpec.getClass().getSimpleName());
+            }
+
+            if (!field.getType().equals(Method.class) && !field.getType().equals(MethodSet.class)) {
+                if (field.isAnnotationPresent(ImportAndProcessAnnotation.class)) {
+                    importAndProcess(obj, fluentTQLSpec);
+                }
+                return;
             }
 
             if (field.getType().equals(Method.class) &&
@@ -181,8 +192,6 @@ public class ProcessAnnotatedClass {
                     outputDeclaration.addOutput(
                             new ThisObjectImpl()
                     );
-                } else if (annotation.annotationType().equals(ImportAndProcessAnnotation.class)) {
-                    importAndProcess(obj, fluentTQLSpec);
                 }
             }
 
