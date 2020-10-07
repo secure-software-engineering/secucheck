@@ -48,6 +48,11 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
     private static final Logger logger = Logger.getLogger("main");
 
+    private static final String FLUENT_SPEC_PATH_CONFIG_CONS = "FluentTQL Specifications Jar path:  ";
+    private static final String RECOMPILE_CONFIG_CONS = "Re-Compile fluentTQL specifications";
+    private static final String FLUENT_FILES_CONFIG_CONS = "FluentTQL Specification files:";
+    private static final String ENTRY_POINTS_CONFIG_CONS = "Select java files for entry points:";
+
     private static final List<String> entryPoints = new ArrayList<>();
     private static final Set<Path> classPath = new HashSet<>();
     public static final Set<Path> sourcePath = new HashSet<>();
@@ -85,7 +90,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      */
     private void initialConfigurationOption() {
         options.clear();
-        ConfigurationOption specPathRequesting = new ConfigurationOption("FluentTQL Specification's path", OptionType.text);
+        ConfigurationOption specPathRequesting = new ConfigurationOption(FLUENT_SPEC_PATH_CONFIG_CONS, OptionType.text);
         options.add(specPathRequesting);
     }
 
@@ -203,6 +208,11 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         return Collections.emptyList();
     }
 
+    /**
+     * This method creates a FluentTQLError.txt with the errors found while processing the FluentTQL specifications
+     *
+     * @param errors Errors
+     */
     private void createErrorText(Errors errors) {
         if (errors.getErrors().size() > 0) {
             File file = new File(projectRootPath + System.getProperty("file.separator") + "FluentTQLError.txt");
@@ -305,7 +315,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         setConfigWithJavaFiles(classNames);
         isFirstPageDone = true;
 
-        ConfigurationOption recompileOption = new ConfigurationOption("Re-Compile fluentTQL specification", OptionType.checkbox);
+        ConfigurationOption recompileOption = new ConfigurationOption(RECOMPILE_CONFIG_CONS, OptionType.checkbox);
         List<ConfigurationOption> tempOptions = new ArrayList<>();
         tempOptions.add(recompileOption);
         tempOptions.addAll(options);
@@ -432,14 +442,14 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         boolean isRecompile = false;
 
         for (ConfigurationOption configOption : configuration) {
-            if ("Re-Compile fluentTQL specification".equals(configOption.getName())) {
+            if (RECOMPILE_CONFIG_CONS.equals(configOption.getName())) {
                 isRecompile = configOption.getValueAsBoolean();
             }
         }
 
         for (ConfigurationOption configOption : configuration) {
 
-            if ("FluentTQL Specification's path".equals(configOption.getName())) {
+            if (FLUENT_SPEC_PATH_CONFIG_CONS.equals(configOption.getName())) {
                 boolean isSuccess = processFluentTQLSpecificationsPath(configOption);
 
                 if (!isSuccess) {
@@ -449,7 +459,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
                     return;
                 }
-            } else if ("FluentTQL Specification files".equals(configOption.getName())) {
+            } else if (FLUENT_FILES_CONFIG_CONS.equals(configOption.getName())) {
                 int status = processFluentTQLSpecificationFiles(configOption, isRecompile);
 
                 if (status == 100) {
@@ -462,7 +472,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                 } else {
                     specFileSuccess = false;
                 }
-            } else if ("Select java files for entry points".equals(configOption.getName())) {
+            } else if (ENTRY_POINTS_CONFIG_CONS.equals(configOption.getName())) {
                 boolean isSuccess = processJavaFiles(configOption);
 
                 entryFileSuccess = isSuccess;
@@ -510,7 +520,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         taintFlowQueries.clear();
 
         CheckBox initialOption = new CheckBox(
-                "FluentTQL Specification files",
+                FLUENT_FILES_CONFIG_CONS,
                 "true");
 
         Set<String> keys = FluentTQLAnalysis.fluentTQLSpecs.keySet();
@@ -540,7 +550,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      */
     private void setConfigWithJavaFiles(Set<String> classNames) {
         CheckBox initialOption = new CheckBox(
-                "Select java files for entry points",
+                ENTRY_POINTS_CONFIG_CONS,
                 "true");
 
         List<String> sortedClassNames = new ArrayList<>();
