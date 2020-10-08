@@ -21,7 +21,7 @@ public class TaintFlowWithReportMessage {
      * @param taintFlowQuery TaintFlowQuery
      * @param taintFlow      TaintFlow
      */
-    public TaintFlowWithReportMessage(TaintFlowQuery taintFlowQuery, TaintFlow taintFlow) {
+    TaintFlowWithReportMessage(TaintFlowQuery taintFlowQuery, TaintFlow taintFlow) {
         this.taintFlow = (TaintFlowImpl) taintFlow;
         this.taintFlowQuery = (TaintFlowQueryImpl) taintFlowQuery;
     }

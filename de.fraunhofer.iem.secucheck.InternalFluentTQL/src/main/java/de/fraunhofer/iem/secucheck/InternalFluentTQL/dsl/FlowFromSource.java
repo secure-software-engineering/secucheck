@@ -21,7 +21,7 @@ public class FlowFromSource {
      * @param taintFlowQuery  TaintFlowQuery
      * @param singleTaintFlow TaintFlow
      */
-    public FlowFromSource(TaintFlowQuery taintFlowQuery, TaintFlow singleTaintFlow) {
+    FlowFromSource(TaintFlowQuery taintFlowQuery, TaintFlow singleTaintFlow) {
         this.taintFlowQuery = (TaintFlowQueryImpl) taintFlowQuery;
         this.singleTaintFlow = (TaintFlowImpl) singleTaintFlow;
     }

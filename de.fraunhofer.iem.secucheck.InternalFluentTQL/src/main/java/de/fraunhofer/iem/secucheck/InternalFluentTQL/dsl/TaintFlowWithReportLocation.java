@@ -15,7 +15,7 @@ public class TaintFlowWithReportLocation {
      *
      * @param taintFlowQuery TaintFlowQuery
      */
-    public TaintFlowWithReportLocation(TaintFlowQuery taintFlowQuery) {
+    TaintFlowWithReportLocation(TaintFlowQuery taintFlowQuery) {
         this.taintFlowQuery = (TaintFlowQueryImpl) taintFlowQuery;
     }
 

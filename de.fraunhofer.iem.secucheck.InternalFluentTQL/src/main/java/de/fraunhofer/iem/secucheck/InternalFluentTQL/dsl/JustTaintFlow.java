@@ -20,7 +20,7 @@ public class JustTaintFlow {
      * @param taintFlowQuery TaintFlowQuery
      * @param taintFlow      TaintFlow
      */
-    public JustTaintFlow(TaintFlowQuery taintFlowQuery, TaintFlow taintFlow) {
+    JustTaintFlow(TaintFlowQuery taintFlowQuery, TaintFlow taintFlow) {
         this.taintFlow = (TaintFlowImpl) taintFlow;
         this.taintFlowQuery = (TaintFlowQueryImpl) taintFlowQuery;
     }

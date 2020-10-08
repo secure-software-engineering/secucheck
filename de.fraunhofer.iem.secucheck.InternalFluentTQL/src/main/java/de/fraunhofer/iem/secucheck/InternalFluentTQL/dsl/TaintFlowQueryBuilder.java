@@ -17,8 +17,7 @@ public class TaintFlowQueryBuilder {
      * Constructs the TaintFLowQueryBuilder to build the TaintFLowQuery
      */
     public TaintFlowQueryBuilder() {
-        if (taintFlowQuery == null)
-            taintFlowQuery = new TaintFlowQueryImpl();
+        taintFlowQuery = new TaintFlowQueryImpl();
     }
 
     /**
@@ -26,7 +25,7 @@ public class TaintFlowQueryBuilder {
      *
      * @param taintFlowQuery TaintFlowQuery
      */
-    public TaintFlowQueryBuilder(TaintFlowQuery taintFlowQuery) {
+    TaintFlowQueryBuilder(TaintFlowQuery taintFlowQuery) {
         this.taintFlowQuery = (TaintFlowQueryImpl) taintFlowQuery;
     }
 
