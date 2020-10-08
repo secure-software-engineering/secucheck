@@ -48,7 +48,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
     private static final Logger logger = Logger.getLogger("main");
 
-    private static final String FLUENT_SPEC_PATH_CONFIG_CONS = "FluentTQL Specifications Jar path:  ";
+    private static final String FLUENT_SPEC_PATH_CONFIG_CONS = "FluentTQL Specifications path (Directory containing compiled Jar):  ";
     private static final String RECOMPILE_CONFIG_CONS = "Re-Compile fluentTQL specifications";
     private static final String FLUENT_FILES_CONFIG_CONS = "FluentTQL Specification files:";
     private static final String ENTRY_POINTS_CONFIG_CONS = "Select java files for entry points:";
