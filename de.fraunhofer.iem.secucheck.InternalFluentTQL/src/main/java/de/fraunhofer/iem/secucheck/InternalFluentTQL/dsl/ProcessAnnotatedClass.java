@@ -17,6 +17,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class processes the FluentTQL related annotations and configure the Specification.
@@ -65,7 +66,23 @@ public class ProcessAnnotatedClass {
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      */
-    public FluentTQLUserInterface processFluentTQLSpecificationClassAnnotation(Object fluentTQLSpec) throws DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException, NotFoundZeroArgumentConstructorException, InvalidTaintFlowException {
+    /**
+     * This method tries to process the given object and get the FluentTQL Specification class i.e. FluentTQLUserInterface. Object has to be annotated with FluentTQLSpecificationClass and
+     * must implement FluentTQLUserInterface.
+     *
+     * @param fluentTQLSpecObject
+     * @return FluentTQLUserInterface
+     * @throws DoesNotImplementFluentTQLUserInterfaceException       If class uses FluentTQLSpecificationClass annotation but does not implement FluentTQLUserInterface.
+     * @throws ImportAndProcessAnnotationException                   If fails to import and process the field's annotation.
+     * @throws FieldNullPointerException                             If the annotated field is not initialized while declaring it.
+     * @throws IncompleteMethodDeclarationException                  If the Method field is not configured with the taint flow information using the annotations.
+     * @throws FieldNotPublicException                               If the annotated field is not in public modifier.
+     * @throws NotAFluentTQLRelatedClassException                    If class is not annotated with one of the [FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation.
+     * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
+     * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
+     * @throws InvalidFluentTQLSpecificationException                If the empty specifications list is given or methods are not configured completely.
+     */
+    public FluentTQLUserInterface processFluentTQLSpecificationClassAnnotation(Object fluentTQLSpec) throws DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException, NotFoundZeroArgumentConstructorException, InvalidFluentTQLSpecificationException {
         isValidFluentTQLRelatedClass(fluentTQLSpec);
         FluentTQLUserInterface fluentTQLUserInterface = (FluentTQLUserInterface) processFluentTQLAnnotation(fluentTQLSpec);
         isValidTaintFlowSpecification(fluentTQLUserInterface);
@@ -129,16 +146,12 @@ public class ProcessAnnotatedClass {
      * @param field         Field
      * @param fluentTQLSpec Object that the field belongs to
      * @param isStaticField whether process only static field or all field
-     * @throws DoesNotImplementFluentTQLUserInterfaceException       If class uses FluentTQLSpecificationClass annotation but does not implement FluentTQLUserInterface.
      * @throws ImportAndProcessAnnotationException                   If fails to import and process the field's annotation.
      * @throws FieldNullPointerException                             If the annotated field is not initialized while declaring it.
      * @throws IncompleteMethodDeclarationException                  If the Method field is not configured with the taint flow information using the annotations.
      * @throws FieldNotPublicException                               If the annotated field is not in public modifier.
-     * @throws NotAFluentTQLRelatedClassException                    If class is not annotated with one of the [FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation.
-     * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
-     * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      */
-    private void processSingleField(Field field, Object fluentTQLSpec, boolean isStaticField) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException {
+    private void processSingleField(Field field, Object fluentTQLSpec, boolean isStaticField) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException {
         try {
             if (!field.getType().equals(Method.class) && !field.getType().equals(MethodSet.class))
                 if (!field.isAnnotationPresent(ImportAndProcessAnnotation.class))
@@ -299,23 +312,42 @@ public class ProcessAnnotatedClass {
      * This method checks whether the given FluentTQLSpecification is valid or not.
      *
      * @param fluentTQLUserInterface FluentTQLSpecifcation
-     * @throws InvalidTaintFlowException If there is some method that is not configured correctly.
+     * @throws InvalidFluentTQLSpecificationException If the empty specifications list is given or methods are not configured completely.
      */
-    private void isValidTaintFlowSpecification(FluentTQLUserInterface fluentTQLUserInterface) throws InvalidTaintFlowException {
+    private void isValidTaintFlowSpecification(FluentTQLUserInterface fluentTQLUserInterface) throws InvalidFluentTQLSpecificationException {
         erroneousMethods.clear();
 
         List<FluentTQLSpecification> fluentTQLSpecifications = fluentTQLUserInterface.getFluentTQLSpecification();
         List<String> missingConfigurationMethods = new ArrayList<>();
 
+        Objects.requireNonNull(fluentTQLSpecifications, "FluentTQLSpecifications returned by the getFluentTQLSpecification()" +
+                " method in " + fluentTQLUserInterface.getClass().getSimpleName() + " is null.");
+
+        int specificationSize = fluentTQLSpecifications.size();
+
         for (FluentTQLSpecification fluentTQLSpecification : fluentTQLSpecifications) {
+            if (fluentTQLSpecification == null) {
+                --specificationSize;
+                continue;
+            }
+
             if (fluentTQLSpecification instanceof TaintFlowQuery)
                 isValidTaintFlowQuery((TaintFlowQuery) fluentTQLSpecification);
             else if (fluentTQLSpecification instanceof QueriesSet)
                 isValidTaintQueriesSet((QueriesSet) fluentTQLSpecification);
         }
 
+        if (specificationSize == 0)
+            throw new InvalidFluentTQLSpecificationException("FluentTQLSPecificaions list returned by the getFluentTQLSpecification()" +
+                    " method in " + fluentTQLUserInterface.getClass().getSimpleName() + " is empty.");
+
         if (erroneousMethods.size() > 0) {
-            throw new InvalidTaintFlowException(erroneousMethods);
+            throw new InvalidFluentTQLSpecificationException("Below method(s) are not configured and has invalid taint flow. Please " +
+                    "use FluentTQL annotation to configure the methods. \n" +
+                    erroneousMethods.toString()
+                            .replaceAll("\\[", "* ")
+                            .replaceAll("]", "")
+                            .replaceAll(", ", "\n* "));
         }
     }
 
