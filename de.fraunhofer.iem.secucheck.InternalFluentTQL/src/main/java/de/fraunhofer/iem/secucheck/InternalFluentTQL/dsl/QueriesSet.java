@@ -4,6 +4,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class combines the multiple TaintFlowQuery into one (equivalent to OR operator).
@@ -30,6 +31,8 @@ public class QueriesSet extends FluentTQLSpecificationImpl {
      * @return QueriesSet
      */
     public QueriesSet addTaintFlowQuery(TaintFlowQuery taintFlowQuery) {
+        Objects.requireNonNull(taintFlowQuery);
+
         taintFlowQueries.add(taintFlowQuery);
         return this;
     }

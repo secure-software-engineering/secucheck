@@ -5,6 +5,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class combines the multiple Method into one (equivalent to OR operator).
@@ -31,6 +32,8 @@ public class MethodSet implements FlowParticipant {
      * @return MethodSet
      */
     public MethodSet addMethod(Method method) {
+        Objects.requireNonNull(method);
+
         methods.add(method);
         ((MethodSelector) method).setMethodSet(this);
         return this;

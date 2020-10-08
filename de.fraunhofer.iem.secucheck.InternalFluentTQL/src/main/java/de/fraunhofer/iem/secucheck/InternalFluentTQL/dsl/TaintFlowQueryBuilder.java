@@ -3,6 +3,8 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 
+import java.util.Objects;
+
 /**
  * This class is the Builder to build the TaintFlowQuery.
  *
@@ -35,6 +37,8 @@ public class TaintFlowQueryBuilder {
      * @return FlowFromSource: Indicates that it contains incomplete TaintFlow started from Source Method/MethodSet
      */
     public FlowFromSource from(FlowParticipant source) {
+        Objects.requireNonNull(source);
+
         TaintFlowImpl singleTaintFlow = new TaintFlowImpl();
 
         singleTaintFlow.setFrom(source);

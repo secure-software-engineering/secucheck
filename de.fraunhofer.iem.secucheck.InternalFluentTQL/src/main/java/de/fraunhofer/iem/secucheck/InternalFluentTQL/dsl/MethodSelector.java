@@ -4,6 +4,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 
+import java.util.Objects;
+
 /**
  * This class is used to instantiate the Method, that can be annotated with the FluentTQL annotation to configure the method
  * for the taint flow.
@@ -31,6 +33,8 @@ public class MethodSelector implements Method {
      * @param methodSignature Method signature.
      */
     public void setSignature(String methodSignature) {
+        Objects.requireNonNull(methodSignature);
+
         this.methodSignature = methodSignature;
     }
 
@@ -76,6 +80,8 @@ public class MethodSelector implements Method {
      * @param methodSignature Method Signature
      */
     public MethodSelector(String methodSignature) {
+        Objects.requireNonNull(methodSignature);
+
         this.methodSignature = methodSignature;
     }
 }

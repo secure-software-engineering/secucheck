@@ -4,6 +4,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 
+import java.util.Objects;
+
 /**
  * This class represents that it contains complete TaintFlow with Report Message.
  *
@@ -40,6 +42,8 @@ public class TaintFlowWithReportMessage {
      * @return TaintFlowWithReportLocation: Indicates that it contains complete TaintFlow, Report Message and the Report Location
      */
     public TaintFlowWithReportLocation at(LOCATION reportLocation) {
+        Objects.requireNonNull(reportLocation);
+
         taintFlowQuery.setReportLocation(reportLocation);
         return new TaintFlowWithReportLocation(taintFlowQuery);
     }

@@ -4,6 +4,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 
+import java.util.Objects;
+
 /**
  * This class represents the incomplete TaintFlow started from the Source Method/MethodSet.
  *
@@ -31,6 +33,8 @@ public class FlowFromSource {
      * @return FlowFromSource: Indicates that TaintFlow is still incomplete
      */
     public FlowFromSource notThrough(FlowParticipant sanitizer) {
+        Objects.requireNonNull(sanitizer);
+
         singleTaintFlow.addNotThrough(sanitizer);
         return this;
     }
@@ -42,6 +46,8 @@ public class FlowFromSource {
      * @return FlowFromSource: Indicates that TaintFlow is still incomplete
      */
     public FlowFromSource through(FlowParticipant requiredPropagator) {
+        Objects.requireNonNull(requiredPropagator);
+
         singleTaintFlow.addThrough(requiredPropagator);
         return this;
     }
@@ -53,6 +59,8 @@ public class FlowFromSource {
      * @return JustTaintFlow: Indicates that TaintFlow is complete, but it does not contain any report message or report location.
      */
     public JustTaintFlow to(FlowParticipant sink) {
+        Objects.requireNonNull(sink);
+
         singleTaintFlow.setTo(sink);
         singleTaintFlow.setTaintFlowQuery(taintFlowQuery);
         taintFlowQuery.addTaintFlow(singleTaintFlow);

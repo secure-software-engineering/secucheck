@@ -6,6 +6,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Implementation of the OutputDeclaration.
@@ -30,6 +31,8 @@ class OutputDeclarationImpl implements OutputDeclaration {
      * @param output Output
      */
     public void addOutput(Output output) {
+        Objects.requireNonNull(output);
+
         if (output instanceof ThisObjectImpl) {
             for (Output itr : outputs) {
                 if (itr instanceof ThisObject)

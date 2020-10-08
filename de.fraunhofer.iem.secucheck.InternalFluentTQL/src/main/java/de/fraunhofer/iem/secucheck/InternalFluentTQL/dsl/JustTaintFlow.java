@@ -3,6 +3,8 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 
+import java.util.Objects;
+
 /**
  * This class represents the complete TaintFlow, but it does not contain any report message or report location.
  *
@@ -30,6 +32,8 @@ public class JustTaintFlow {
      * @return TaintFlowWithReportMessage: Indicates that it contains complete TaintFlow and Report Message.
      */
     public TaintFlowWithReportMessage report(String reportMessage) {
+        Objects.requireNonNull(reportMessage);
+
         taintFlowQuery.setReportMessage(reportMessage);
         return new TaintFlowWithReportMessage(taintFlowQuery, taintFlow);
     }

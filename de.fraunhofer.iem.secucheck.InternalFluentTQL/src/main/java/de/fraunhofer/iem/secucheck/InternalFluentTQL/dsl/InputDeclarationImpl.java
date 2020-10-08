@@ -6,6 +6,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Implementation of the InputDeclaration.
@@ -30,6 +31,8 @@ class InputDeclarationImpl implements InputDeclaration {
      * @param input Input
      */
     public void addInput(Input input) {
+        Objects.requireNonNull(input);
+
         if (input instanceof ThisObjectImpl) {
             for (Input itr : inputs) {
                 if (itr instanceof ThisObject)
