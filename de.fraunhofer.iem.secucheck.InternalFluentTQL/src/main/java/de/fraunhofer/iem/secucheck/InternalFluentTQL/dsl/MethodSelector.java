@@ -80,7 +80,7 @@ public class MethodSelector implements Method {
      * @param methodSignature Method Signature
      */
     public MethodSelector(String methodSignature) {
-        Objects.requireNonNull(methodSignature);
+        Objects.requireNonNull(methodSignature, "methodSignature is null in MethodSelector constructor.");
 
         this.methodSignature = methodSignature;
     }

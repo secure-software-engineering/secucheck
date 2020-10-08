@@ -33,7 +33,7 @@ public class FlowFromSource {
      * @return FlowFromSource: Indicates that TaintFlow is still incomplete
      */
     public FlowFromSource notThrough(FlowParticipant sanitizer) {
-        Objects.requireNonNull(sanitizer);
+        Objects.requireNonNull(sanitizer, "notThrough() method's argument is null.");
 
         singleTaintFlow.addNotThrough(sanitizer);
         return this;
@@ -46,7 +46,7 @@ public class FlowFromSource {
      * @return FlowFromSource: Indicates that TaintFlow is still incomplete
      */
     public FlowFromSource through(FlowParticipant requiredPropagator) {
-        Objects.requireNonNull(requiredPropagator);
+        Objects.requireNonNull(requiredPropagator, "through() method's argument is null.");
 
         singleTaintFlow.addThrough(requiredPropagator);
         return this;
@@ -59,7 +59,7 @@ public class FlowFromSource {
      * @return JustTaintFlow: Indicates that TaintFlow is complete, but it does not contain any report message or report location.
      */
     public JustTaintFlow to(FlowParticipant sink) {
-        Objects.requireNonNull(sink);
+        Objects.requireNonNull(sink, "to() method's argument is null.");
 
         singleTaintFlow.setTo(sink);
         singleTaintFlow.setTaintFlowQuery(taintFlowQuery);

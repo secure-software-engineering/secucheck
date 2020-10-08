@@ -32,7 +32,7 @@ public class MethodSet implements FlowParticipant {
      * @return MethodSet
      */
     public MethodSet addMethod(Method method) {
-        Objects.requireNonNull(method);
+        Objects.requireNonNull(method, "addMethod() method's argument is null.");
 
         methods.add(method);
         ((MethodSelector) method).setMethodSet(this);

@@ -31,7 +31,7 @@ class OutputDeclarationImpl implements OutputDeclaration {
      * @param output Output
      */
     public void addOutput(Output output) {
-        Objects.requireNonNull(output);
+        Objects.requireNonNull(output, "addOutput() method's argument is null.");
 
         if (output instanceof ThisObjectImpl) {
             for (Output itr : outputs) {

@@ -37,7 +37,7 @@ public class TaintFlowQueryBuilder {
      * @return FlowFromSource: Indicates that it contains incomplete TaintFlow started from Source Method/MethodSet
      */
     public FlowFromSource from(FlowParticipant source) {
-        Objects.requireNonNull(source);
+        Objects.requireNonNull(source, "from() method's argument is null.");
 
         TaintFlowImpl singleTaintFlow = new TaintFlowImpl();
 

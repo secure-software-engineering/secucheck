@@ -32,7 +32,7 @@ public class JustTaintFlow {
      * @return TaintFlowWithReportMessage: Indicates that it contains complete TaintFlow and Report Message.
      */
     public TaintFlowWithReportMessage report(String reportMessage) {
-        Objects.requireNonNull(reportMessage);
+        Objects.requireNonNull(reportMessage, "report() method's argument is null.");
 
         taintFlowQuery.setReportMessage(reportMessage);
         return new TaintFlowWithReportMessage(taintFlowQuery, taintFlow);

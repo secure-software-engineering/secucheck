@@ -42,7 +42,7 @@ public class TaintFlowWithReportMessage {
      * @return TaintFlowWithReportLocation: Indicates that it contains complete TaintFlow, Report Message and the Report Location
      */
     public TaintFlowWithReportLocation at(LOCATION reportLocation) {
-        Objects.requireNonNull(reportLocation);
+        Objects.requireNonNull(reportLocation, "at() method's argument is null.");
 
         taintFlowQuery.setReportLocation(reportLocation);
         return new TaintFlowWithReportLocation(taintFlowQuery);

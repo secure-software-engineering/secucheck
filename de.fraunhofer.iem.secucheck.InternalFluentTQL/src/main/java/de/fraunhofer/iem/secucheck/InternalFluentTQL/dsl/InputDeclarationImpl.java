@@ -31,7 +31,7 @@ class InputDeclarationImpl implements InputDeclaration {
      * @param input Input
      */
     public void addInput(Input input) {
-        Objects.requireNonNull(input);
+        Objects.requireNonNull(input, "addInput() method's argument is null.");
 
         if (input instanceof ThisObjectImpl) {
             for (Input itr : inputs) {

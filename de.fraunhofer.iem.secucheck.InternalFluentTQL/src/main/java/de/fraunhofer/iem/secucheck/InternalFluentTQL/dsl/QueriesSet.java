@@ -31,7 +31,7 @@ public class QueriesSet extends FluentTQLSpecificationImpl {
      * @return QueriesSet
      */
     public QueriesSet addTaintFlowQuery(TaintFlowQuery taintFlowQuery) {
-        Objects.requireNonNull(taintFlowQuery);
+        Objects.requireNonNull(taintFlowQuery, "addTaintFlowQuery() method's argument is null.");
 
         taintFlowQueries.add(taintFlowQuery);
         return this;
