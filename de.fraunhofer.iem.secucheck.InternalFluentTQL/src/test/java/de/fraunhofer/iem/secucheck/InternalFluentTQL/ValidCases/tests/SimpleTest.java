@@ -1,5 +1,6 @@
-package de.fraunhofer.iem.secucheck.InternalFluentTQL;
+package de.fraunhofer.iem.secucheck.InternalFluentTQL.ValidCases.tests;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.ValidCases.specifications.FluentTQLSpecificationTestForNoSQLInjection;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;

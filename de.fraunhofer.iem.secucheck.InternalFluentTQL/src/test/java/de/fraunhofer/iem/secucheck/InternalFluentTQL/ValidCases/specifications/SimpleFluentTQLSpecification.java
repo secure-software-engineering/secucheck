@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.InternalFluentTQL;
+package de.fraunhofer.iem.secucheck.InternalFluentTQL.ValidCases.specifications;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
