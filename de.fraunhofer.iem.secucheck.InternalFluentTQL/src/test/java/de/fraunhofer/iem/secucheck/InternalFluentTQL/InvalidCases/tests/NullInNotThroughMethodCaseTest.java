@@ -1,7 +1,6 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.InvalidCases.tests;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.InvalidCases.specifications.NullInNotThroughMethodCaseSpec;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.InvalidCases.specifications.NullInThroughMethodCaseSpec;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FluentTQLException;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
