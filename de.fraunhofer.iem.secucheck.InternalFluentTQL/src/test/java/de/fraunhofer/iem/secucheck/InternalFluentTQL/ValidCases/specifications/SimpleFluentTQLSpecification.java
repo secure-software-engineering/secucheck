@@ -28,6 +28,7 @@ public class SimpleFluentTQLSpecification implements FluentTQLUserInterface {
      * encodeForSQL or make the settings of sanitize method to avoid SQL Injection.
      */
     @InFlowParam(parameterID = {0})
+    @OutFlowReturnValue
     public Method sanitizer = new MethodSelector("org.owasp.html.PolicyFactory: java.lang.String sanitize(java.lang.String)");
 
     /**

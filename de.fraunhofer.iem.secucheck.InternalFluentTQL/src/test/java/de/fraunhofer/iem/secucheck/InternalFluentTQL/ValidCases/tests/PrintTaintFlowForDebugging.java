@@ -1,21 +1,17 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.ValidCases.tests;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.ValidCases.specifications.FluentTQLSpecificationTestForNoSQLInjection;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
-import org.junit.Test;
 
 import java.util.List;
 
-public class SimpleTest {
+public class PrintTaintFlowForDebugging {
     private void displayMethod(Method method) {
         System.out.println("\t" + method.getSignature());
 
@@ -91,14 +87,8 @@ public class SimpleTest {
         }
     }
 
-    @Test
-    public void test1() throws FluentTQLException {
-        FluentTQLSpecificationTestForNoSQLInjection simpleFluentTQLSpecification = new FluentTQLSpecificationTestForNoSQLInjection();
-
-        List<FluentTQLSpecification> fluentTQLSpecifications = new ProcessAnnotatedClass().processFluentTQLSpecificationClassAnnotation(
-                simpleFluentTQLSpecification
-        ).getFluentTQLSpecification();
-
+    // Use this to print the FluentTQL Specifications for debugging
+    public void printFluentTQLSpecifications(List<FluentTQLSpecification> fluentTQLSpecifications) {
         for (FluentTQLSpecification fluentTQLSpecification : fluentTQLSpecifications) {
             if (fluentTQLSpecification instanceof TaintFlowQuery) {
                 displayTaintFlowQuery((TaintFlowQuery) fluentTQLSpecification);

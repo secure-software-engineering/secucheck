@@ -23,7 +23,7 @@ public class FluentTQLSpecificationTestForNoSQLInjection implements FluentTQLUse
                 .and()
                 .from(MethodDeclarationForNoSQLInjection.source3).notThrough(MethodDeclarationForNoSQLInjection.sanitizer).through(MethodDeclarationForNoSQLInjection.requiredPropagator2).to(MethodDeclarationForNoSQLInjection.sink)
                 .report("There is a No-SQL-Injection (CWE943) with multiple sources")
-                .at(LOCATION.SOURCEANDSINK)
+                .at(LOCATION.SOURCE)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();
