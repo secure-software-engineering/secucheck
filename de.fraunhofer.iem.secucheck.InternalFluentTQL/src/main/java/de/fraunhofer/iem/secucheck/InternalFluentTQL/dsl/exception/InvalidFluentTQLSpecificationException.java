@@ -1,7 +1,5 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
 
-import java.util.List;
-
 /**
  * This exception indicates that the fluentTQL specification is broken and some of the methods are not configured or empty specification list is returned.
  *

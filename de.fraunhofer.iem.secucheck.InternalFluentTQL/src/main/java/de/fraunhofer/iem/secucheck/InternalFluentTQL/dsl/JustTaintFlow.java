@@ -38,6 +38,11 @@ public class JustTaintFlow {
         return new TaintFlowWithReportMessage(taintFlowQuery, taintFlow);
     }
 
+    /**
+     * This method lets the user combines two or more TaintFlowQuery (Equivalent to AND operator)
+     *
+     * @return TaintFlowQueryBuilder
+     */
     public TaintFlowQueryBuilder and() {
         return new TaintFlowQueryBuilder(taintFlowQuery);
     }
