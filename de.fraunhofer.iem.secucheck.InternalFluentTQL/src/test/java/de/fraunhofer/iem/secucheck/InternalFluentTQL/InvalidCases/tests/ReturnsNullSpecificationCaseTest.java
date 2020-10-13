@@ -5,11 +5,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FluentTQLException;
 import org.junit.Test;
 
-public class ReturnsNullSpecificationCase {
+public class ReturnsNullSpecificationCaseTest {
     @Test(expected = NullPointerException.class)
-    public void test1() throws FluentTQLException {
+    public void ReturnsNullSpecificationCase() throws FluentTQLException {
         ReturnsNullSpecificationCaseSpec spec = new ReturnsNullSpecificationCaseSpec();
         ProcessAnnotatedClass processAnnotatedClass = new ProcessAnnotatedClass();
-        processAnnotatedClass.processFluentTQLSpecificationClassAnnotation(spec);
+        processAnnotatedClass.processFluentTQLSpecificationClassAnnotation(spec);   //Todo: This gives NullPointerException
     }
 }

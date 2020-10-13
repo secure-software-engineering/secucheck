@@ -8,7 +8,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 @FluentTQLRepositoryClass
 public class NullInMethodSelectorCaseSpec {
     @OutFlowReturnValue
-    Method source1 = new MethodSelector(null);
+    Method source1 = new MethodSelector(null);   //Fixme: This is the problem/error
 
     @OutFlowReturnValue
     Method source2 = new MethodSelector("de.ra.Test1: String getSecret()");

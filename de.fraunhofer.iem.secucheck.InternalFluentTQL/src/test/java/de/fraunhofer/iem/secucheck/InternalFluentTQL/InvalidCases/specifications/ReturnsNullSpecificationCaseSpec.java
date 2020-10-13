@@ -10,6 +10,6 @@ import java.util.List;
 public class ReturnsNullSpecificationCaseSpec implements FluentTQLUserInterface {
     @Override
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        return null;
+        return null;   //Fixme: This is the problem/error
     }
 }

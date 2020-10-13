@@ -11,6 +11,6 @@ import java.util.List;
 public class ReturnsEmptySpecificationCaseSpec implements FluentTQLUserInterface {
     @Override
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        return new ArrayList<>();
+        return new ArrayList<>();  //Fixme: This is the problem/error
     }
 }

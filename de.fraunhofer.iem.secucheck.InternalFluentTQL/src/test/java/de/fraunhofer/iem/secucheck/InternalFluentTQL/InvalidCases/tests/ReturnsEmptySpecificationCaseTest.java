@@ -6,11 +6,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FluentTQLExce
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.InvalidFluentTQLSpecificationException;
 import org.junit.Test;
 
-public class ReturnsEmptySpecificationCase {
+public class ReturnsEmptySpecificationCaseTest {
     @Test(expected = InvalidFluentTQLSpecificationException.class)
-    public void test1() throws FluentTQLException {
+    public void ReturnsEmptySpecificationCase() throws FluentTQLException {
         ReturnsEmptySpecificationCaseSpec spec = new ReturnsEmptySpecificationCaseSpec();
         ProcessAnnotatedClass processAnnotatedClass = new ProcessAnnotatedClass();
-        processAnnotatedClass.processFluentTQLSpecificationClassAnnotation(spec);
+        processAnnotatedClass.processFluentTQLSpecificationClassAnnotation(spec);  //Todo: This gives InvalidFluentTQLSpecificationException
     }
 }
