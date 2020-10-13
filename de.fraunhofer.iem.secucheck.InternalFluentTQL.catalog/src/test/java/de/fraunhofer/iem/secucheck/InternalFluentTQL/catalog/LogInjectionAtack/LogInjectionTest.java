@@ -54,6 +54,8 @@ public class LogInjectionTest {
      * This test case tests for the scenario where attacker is trying Log-Injection
      * on an application that does not use sanitizer, therefore Log-Injection
      * happens.
+     *
+     * @throws IOException If fails in response writer
      */
     @Test
     public void attackerAccessingTheDataWithoutSanitizer() throws IOException {
@@ -68,6 +70,9 @@ public class LogInjectionTest {
      * This test case tests for the scenario where attacker is trying Log-Injection
      * on an application that uses sanitizer, therefore Log-Injection
      * is avoided.
+     *
+     * @throws IOException       If fails in response writer
+     * @throws EncodingException If fails to encode
      */
     @Test
     public void attackerAccessingTheDataWithSanitizer() throws IOException, EncodingException {
@@ -82,6 +87,9 @@ public class LogInjectionTest {
      * This test case tests for the scenario where attacker is trying Log-Injection
      * on an application that uses sanitizer, therefore Log-Injection
      * is avoided.
+     *
+     * @throws IOException       If fails in response writer
+     * @throws EncodingException If fails to encode
      */
     @Test
     public void normalUserAccessingTheDataWithSanitizer() throws IOException, EncodingException {
@@ -95,6 +103,8 @@ public class LogInjectionTest {
     /**
      * This test case tests for the scenario where attacker is trying Log-Injection
      * on an application that uses sanitizer and behave normally.
+     *
+     * @throws IOException If fails in response writer
      */
     @Test
     public void normalUserAccessingTheDataWithoutSanitizer() throws IOException {

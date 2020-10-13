@@ -128,7 +128,7 @@ public class TestUtility {
     /**
      * Displays the given FluentTQL spcifications.
      *
-     * @param fluentTQLSpecifications List<FluentTQLSpecification>
+     * @param fluentTQLSpecifications List of FluentTQLSpecification
      */
     public static void displayFluentTQLSpecifications(List<FluentTQLSpecification> fluentTQLSpecifications) {
         for (FluentTQLSpecification fluentTQLSpecification : fluentTQLSpecifications) {
