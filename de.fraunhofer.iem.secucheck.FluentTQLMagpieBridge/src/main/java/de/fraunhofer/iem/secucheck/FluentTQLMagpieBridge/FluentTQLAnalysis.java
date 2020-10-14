@@ -2,9 +2,9 @@ package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
 import com.ibm.wala.classLoader.Module;
 
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLCompiler.ErrorModel;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLCompiler.Errors;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLCompiler.JarClassLoaderUtils;
+import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.ErrorModel;
+import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.Errors;
+import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisWrapper;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecucheckMagpieBridgeAnalysis;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;

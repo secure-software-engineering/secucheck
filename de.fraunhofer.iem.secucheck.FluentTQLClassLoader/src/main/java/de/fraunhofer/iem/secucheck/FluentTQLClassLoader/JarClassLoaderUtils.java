@@ -1,8 +1,8 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLCompiler;
+package de.fraunhofer.iem.secucheck.FluentTQLClassLoader;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.*;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FluentTQLException;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
@@ -11,14 +11,30 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
 
+/**
+ * This utility class provides the feature of loading the FluentTQL related class using the JarClassLoader.
+ *
+ * @author Ranjith Krishnamurthy
+ */
 public class JarClassLoaderUtils {
     private final Errors errors = new Errors();
     private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
 
+    /**
+     * Returns the Errors that occurred in the previous run of loadAppAndGetFluentTQLSpecification
+     *
+     * @return Errors
+     */
     public Errors getErrorModel() {
         return errors;
     }
 
+    /**
+     * This method tries to load the given Jar path resource and tries to loads the class in that Jar. If any errors it records in the Errors.
+     *
+     * @param path FluentTQL specifications Jar path
+     * @return HashMap of class name and its corresponding FluentTQLUserInterface
+     */
     public HashMap<String, FluentTQLUserInterface> loadAppAndGetFluentTQLSpecification(String path) {
         errors.getErrors().clear();
         fluentTQLSpecs.clear();
@@ -77,6 +93,11 @@ public class JarClassLoaderUtils {
         return fluentTQLSpecs;
     }
 
+    /**
+     * This method process the FluentTQL related classes
+     *
+     * @param obj FluentTQL related Object
+     */
     private void processFluentTQLAnnotation(Object obj) {
         ProcessAnnotatedClass processAnnotatedClass = new ProcessAnnotatedClass();
 
