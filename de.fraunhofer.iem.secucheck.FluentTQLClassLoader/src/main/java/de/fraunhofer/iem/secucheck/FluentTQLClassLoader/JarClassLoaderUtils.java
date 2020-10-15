@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class JarClassLoaderUtils {
     private final Errors errors = new Errors();
     private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
+    private final PrintUtils printUtils = new PrintUtils();
 
     /**
      * Returns the Errors that occurred in the previous run of loadAppAndGetFluentTQLSpecification
@@ -31,11 +32,23 @@ public class JarClassLoaderUtils {
 
     /**
      * This method tries to load the given Jar path resource and tries to loads the class in that Jar. If any errors it records in the Errors.
+     * By default PrettyPrint is disabled.
      *
      * @param path FluentTQL specifications Jar path
      * @return HashMap of class name and its corresponding FluentTQLUserInterface
      */
     public HashMap<String, FluentTQLUserInterface> loadAppAndGetFluentTQLSpecification(String path) {
+        return loadAppAndGetFluentTQLSpecification(path, false);
+    }
+
+    /**
+     * This method tries to load the given Jar path resource and tries to loads the class in that Jar. If any errors it records in the Errors.
+     *
+     * @param path          FluentTQL specifications Jar path
+     * @param isPrettyPrint Pretty Print the Status of each Class
+     * @return HashMap of class name and its corresponding FluentTQLUserInterface
+     */
+    public HashMap<String, FluentTQLUserInterface> loadAppAndGetFluentTQLSpecification(String path, boolean isPrettyPrint) {
         errors.getErrors().clear();
         fluentTQLSpecs.clear();
 
@@ -55,6 +68,13 @@ public class JarClassLoaderUtils {
                         errors.addError(
                                 new ErrorModel(errors.getErrors().size() + 1, loadedResourcesKey.toString(), "Do not keep the class in default package")
                         );
+
+                        if (isPrettyPrint)
+                            printUtils.printClassStatus(
+                                    loadedResourcesKey.toString().split("/")[loadedResourcesKey.toString().split("/").length - 1],
+                                    "Failed",
+                                    true);
+
                         continue;
                     }
 
@@ -66,6 +86,12 @@ public class JarClassLoaderUtils {
                     errors.addError(
                             new ErrorModel(errors.getErrors().size() + 1, loadedResourcesKey.toString(), ex.getMessage(), sw.toString())
                     );
+
+                    if (isPrettyPrint)
+                        printUtils.printClassStatus(
+                                loadedResourcesKey.toString().split("/")[loadedResourcesKey.toString().split("/").length - 1],
+                                "Failed",
+                                true);
                 }
             }
         }
@@ -80,7 +106,14 @@ public class JarClassLoaderUtils {
                         jarClassLoader, loadedClassesKey.toString().replaceAll("/", "\\.").replace(".class", "")
                 );
 
-                processFluentTQLAnnotation(obj);
+                processFluentTQLAnnotation(obj, isPrettyPrint);
+
+                if (isPrettyPrint)
+                    printUtils.printClassStatus(
+                            obj.getClass().getSimpleName(),
+                            "Verified",
+                            false);
+
             } catch (Exception | Error ex) {
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);
@@ -88,6 +121,12 @@ public class JarClassLoaderUtils {
                 errors.addError(
                         new ErrorModel(errors.getErrors().size() + 1, loadedClassesKey.toString(), ex.getMessage(), sw.toString())
                 );
+
+                if (isPrettyPrint)
+                    printUtils.printClassStatus(
+                            loadedClassesKey.toString().split("\\.")[loadedClassesKey.toString().split("\\.").length - 1],
+                            "Failed",
+                            true);
             }
         }
         return fluentTQLSpecs;
@@ -98,7 +137,7 @@ public class JarClassLoaderUtils {
      *
      * @param obj FluentTQL related Object
      */
-    private void processFluentTQLAnnotation(Object obj) {
+    private void processFluentTQLAnnotation(Object obj, boolean isPrettyPrint) {
         ProcessAnnotatedClass processAnnotatedClass = new ProcessAnnotatedClass();
 
         try {
@@ -115,6 +154,9 @@ public class JarClassLoaderUtils {
             errors.addError(
                     new ErrorModel(errors.getErrors().size() + 1, obj.getClass().getName(), ex.getMessage(), sw.toString())
             );
+
+            if (isPrettyPrint)
+                printUtils.printClassStatus(obj.getClass().getSimpleName(), "Failed", true);
         }
     }
 }
