@@ -107,13 +107,6 @@ public class JarClassLoaderUtils {
                 );
 
                 processFluentTQLAnnotation(obj, isPrettyPrint);
-
-                if (isPrettyPrint)
-                    printUtils.printClassStatus(
-                            obj.getClass().getSimpleName(),
-                            "Verified",
-                            false);
-
             } catch (Exception | Error ex) {
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);
@@ -147,6 +140,13 @@ public class JarClassLoaderUtils {
             } else {
                 processAnnotatedClass.processFluentTQLAnnotation(obj);
             }
+
+            if (isPrettyPrint)
+                printUtils.printClassStatus(
+                        obj.getClass().getSimpleName(),
+                        "Verified",
+                        false);
+
         } catch (FluentTQLException ex) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
