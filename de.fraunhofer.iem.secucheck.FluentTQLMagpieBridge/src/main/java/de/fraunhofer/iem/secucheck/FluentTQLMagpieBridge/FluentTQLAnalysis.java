@@ -22,14 +22,14 @@ import magpiebridge.core.analysis.configuration.OptionType;
 import magpiebridge.core.analysis.configuration.htmlElement.CheckBox;
 import magpiebridge.projectservice.java.JavaProjectService;
 
+import org.apache.commons.io.FileUtils;
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -246,6 +246,62 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     }
 
     /**
+     * This method recursively extract the Jar files present in the given directory and copies into the outDirectory.
+     * This method scans only till the depth level of 20 and scans only 20 sub-directories in the current directory.
+     *
+     * @param dir       Directory to scan for Jar files
+     * @param depth     Current depth of the sub-directories
+     * @param outPutDir Out put directory to copy the Jar files
+     */
+    private void extractJar(File dir, int depth, String outPutDir) {
+        if (depth > 10)
+            return;
+
+        FilenameFilter filenameFilter = new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                String lowercaseName = name.toLowerCase();
+                if (lowercaseName.endsWith(".jar")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+
+        File[] files = dir.listFiles(filenameFilter);
+
+        for (File file : files) {
+            Path src = Paths.get(file.getAbsolutePath());
+            Path dest = Paths.get(outPutDir + System.getProperty("file.separator") + file.getName());
+            try {
+                if (!dest.toFile().exists())
+                    Files.copy(src, dest);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        File[] directories = dir.listFiles(File::isDirectory);
+
+        for (int i = 0; i < Objects.requireNonNull(directories).length && i < 21; i++) {
+            extractJar(directories[i], depth + 1, outPutDir);
+        }
+    }
+
+    /**
+     * Deletes the given directory and all its content.
+     *
+     * @param dir File: directory
+     */
+    private void deleteDir(File dir) {
+        try {
+            FileUtils.deleteDirectory(dir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * This method processes the FluentTQL Specification path configuration option from the first Configuration page.
      *
      * @param configOption Configuration option
@@ -269,12 +325,51 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         if (file.exists()) {
             if (file.isDirectory()) {
+
+                File out = new File(file.getAbsolutePath() + System.getProperty("file.separator") + "fluentTQLTemp");
+
+                if (out.exists())
+                    deleteDir(out);
+
+                out.mkdir();
+
+                extractJar(file, 0, out.getAbsolutePath());
+
+                File[] files = out.listFiles(new FilenameFilter() {
+                    public boolean accept(File dir, String name) {
+                        String lowercaseName = name.toLowerCase();
+                        if (lowercaseName.endsWith(".jar")) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+
+                if (files.length == 0) {
+                    FluentTQLMagpieBridgeMainServer
+                            .fluentTQLMagpieServer
+                            .forwardMessageToClient(
+                                    new MessageParams(
+                                            MessageType.Warning,
+                                            "Given Path does not have any Jar files.\n" +
+                                                    "FluentTQL scans upto:\n" +
+                                                    "Max sub-directories in current dir = 20\n" +
+                                                    "Max depth of sub-directories = 20")
+                            );
+                    isFirstPageDone = false;
+                    deleteDir(out);
+                    return false;
+                }
+
                 fluentTQLSpecs.clear();
                 JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
 
                 //Todo:
-                fluentTQLSpecs.putAll(jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(file.getAbsolutePath()));
+                fluentTQLSpecs.putAll(jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(out.getAbsolutePath()));
                 //fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(file.getAbsolutePath()));
+
+                deleteDir(out);
 
                 createErrorText(jarClassLoaderUtils.getErrorModel());
 
