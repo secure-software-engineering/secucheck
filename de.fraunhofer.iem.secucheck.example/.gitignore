@@ -1,6 +1,7 @@
 HELP.md
 target/
 upload/
+.mvn/warrper
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -28,3 +29,8 @@ upload/
 
 ### VS Code ###
 .vscode/
+
+### Misc. ###
+.attach_pid*
+.DS_Store
+
