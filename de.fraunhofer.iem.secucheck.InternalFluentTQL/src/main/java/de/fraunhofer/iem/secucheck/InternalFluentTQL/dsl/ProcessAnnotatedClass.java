@@ -66,9 +66,14 @@ public class ProcessAnnotatedClass {
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      * @throws InvalidFluentTQLSpecificationException                If the empty specifications list is given or methods are not configured completely.
+     * @throws NotAFluentTQLSpecificationClassException              If the class is not annotated with FluentTQLSpecificationClass.
      */
-    public FluentTQLUserInterface processFluentTQLSpecificationClassAnnotation(Object fluentTQLSpec) throws DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException, NotFoundZeroArgumentConstructorException, InvalidFluentTQLSpecificationException {
+    public FluentTQLUserInterface processFluentTQLSpecificationClassAnnotation(Object fluentTQLSpec) throws DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException, NotFoundZeroArgumentConstructorException, InvalidFluentTQLSpecificationException, NotAFluentTQLSpecificationClassException {
         isValidFluentTQLRelatedClass(fluentTQLSpec);
+
+        if (!fluentTQLSpec.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class))
+            throw new NotAFluentTQLSpecificationClassException(fluentTQLSpec.getClass().getName());
+
         FluentTQLUserInterface fluentTQLUserInterface = (FluentTQLUserInterface) processFluentTQLAnnotation(fluentTQLSpec);
         isValidTaintFlowSpecification(fluentTQLUserInterface);
         return fluentTQLUserInterface;
