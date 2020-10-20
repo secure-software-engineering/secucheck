@@ -35,7 +35,7 @@ public class ProcessAnnotatedClass {
      * @throws NotAFluentTQLRelatedClassException                    If class is not annotated with one of the [FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation.
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      */
-    private boolean isValidFluentTQLRelatedClass(Object obj) throws DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException {
+    protected boolean isValidFluentTQLRelatedClass(Object obj) throws DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException {
         if (!obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class) &&
                 !obj.getClass().isAnnotationPresent(FluentTQLRepositoryClass.class)) {
             throw new NotAFluentTQLRelatedClassException(obj.getClass().getName());
