@@ -84,4 +84,17 @@ public class MethodSelector implements Method {
 
         this.methodSignature = methodSignature;
     }
+
+    @Override
+    public String toString() {
+        String str = "Method(\"" + methodSignature + "\")";
+
+        if (!".in()".equals(inputDeclaration.toString()))
+            str += inputDeclaration.toString();
+
+        if (!".out()".equals(outputDeclaration.toString()))
+            str += outputDeclaration.toString();
+
+        return str;
+    }
 }

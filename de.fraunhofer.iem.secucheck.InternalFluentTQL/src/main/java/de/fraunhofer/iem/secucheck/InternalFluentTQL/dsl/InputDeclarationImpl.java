@@ -4,9 +4,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.InputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.ThisObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Implementation of the InputDeclaration.
@@ -43,5 +41,43 @@ class InputDeclarationImpl implements InputDeclaration {
         } else {
             inputs.add(input);
         }
+    }
+
+    @Override
+    public String toString() {
+        String str = ".in()";
+
+        List<Integer> paramIDs = new ArrayList<>();
+
+        StringBuilder inflowParam = new StringBuilder();
+        StringBuilder inflowThisObject = new StringBuilder();
+
+        for (Input input : inputs) {
+            if (input instanceof ParameterImpl) {
+                ParameterImpl parameter = (ParameterImpl) input;
+                paramIDs.add(parameter.getParameterId());
+            } else if (input instanceof ThisObjectImpl) {
+                inflowThisObject.append(".thisObject()");
+            }
+        }
+
+        Collections.sort(paramIDs);
+
+        if (paramIDs.size() > 0)
+            inflowParam.append(".param(");
+
+        String separator = "";
+        for (Integer paramID : paramIDs) {
+            inflowParam.append(separator);
+            separator = ",";
+            inflowParam.append(paramID);
+        }
+
+        if (paramIDs.size() > 0)
+            inflowParam.append(")");
+
+        str += inflowParam.toString() + inflowThisObject.toString();
+
+        return str;
     }
 }
