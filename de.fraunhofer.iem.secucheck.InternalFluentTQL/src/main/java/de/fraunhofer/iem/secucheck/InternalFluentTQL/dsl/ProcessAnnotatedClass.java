@@ -92,8 +92,9 @@ public class ProcessAnnotatedClass {
      * @throws NotAFluentTQLRelatedClassException                    If class is not annotated with one of the [FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation.
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
+     * @throws InvalidFluentTQLSpecificationException                If the empty specifications list is given or methods are not configured completely.
      */
-    public Object processFluentTQLAnnotation(Object fluentTQLRelatedClass) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException {
+    public Object processFluentTQLAnnotation(Object fluentTQLRelatedClass) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException, InvalidFluentTQLSpecificationException {
         isValidFluentTQLRelatedClass(fluentTQLRelatedClass);
 
         if (fluentTQLRelatedClass.getClass().isAnnotationPresent(ImportAndProcessOnlyStaticFields.class)) {
@@ -101,6 +102,12 @@ public class ProcessAnnotatedClass {
         }
 
         processEachField(fluentTQLRelatedClass, false);
+
+        if (fluentTQLRelatedClass.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) {
+            FluentTQLUserInterface fluentTQLUserInterface = (FluentTQLUserInterface) fluentTQLRelatedClass;
+
+            isValidTaintFlowSpecification(fluentTQLUserInterface);
+        }
         return fluentTQLRelatedClass;
     }
 
@@ -238,7 +245,7 @@ public class ProcessAnnotatedClass {
 
         try {
             processFluentTQLAnnotation(obj);
-        } catch (ImportAndProcessAnnotationException | FieldNullPointerException | IncompleteMethodDeclarationException | FieldNotPublicException | MissingFluentTQLSpecificationClassAnnotationException | NotAFluentTQLRelatedClassException | DoesNotImplementFluentTQLUserInterfaceException | NotFoundZeroArgumentConstructorException e) {
+        } catch (ImportAndProcessAnnotationException | FieldNullPointerException | IncompleteMethodDeclarationException | FieldNotPublicException | MissingFluentTQLSpecificationClassAnnotationException | NotAFluentTQLRelatedClassException | DoesNotImplementFluentTQLUserInterfaceException | NotFoundZeroArgumentConstructorException | InvalidFluentTQLSpecificationException e) {
             throw new ImportAndProcessAnnotationException(
                     obj.getClass().getSimpleName(),
                     fluentTQLSpec.getClass().getSimpleName(),
