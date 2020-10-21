@@ -15,9 +15,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * This class processes the FluentTQL related annotations and configure the Specification.
@@ -26,6 +24,8 @@ import java.util.Objects;
  * @author Ranjith Krishnamurthy
  */
 public class ProcessAnnotatedClass {
+    private final List<String> listOfImportClassChain = new ArrayList<>();
+
     /**
      * This checks whether the given Object is a valid FluentTQL related class.
      *
@@ -67,8 +67,9 @@ public class ProcessAnnotatedClass {
      * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      * @throws InvalidFluentTQLSpecificationException                If the empty specifications list is given or methods are not configured completely.
      * @throws NotAFluentTQLSpecificationClassException              If the class is not annotated with FluentTQLSpecificationClass.
+     * @throws CyclicImportException                                 If there is a cyclic import annotations
      */
-    public FluentTQLUserInterface processFluentTQLSpecificationClassAnnotation(Object fluentTQLSpec) throws DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException, NotFoundZeroArgumentConstructorException, InvalidFluentTQLSpecificationException, NotAFluentTQLSpecificationClassException {
+    public FluentTQLUserInterface processFluentTQLSpecificationClassAnnotation(Object fluentTQLSpec) throws DoesNotImplementFluentTQLUserInterfaceException, ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, NotAFluentTQLRelatedClassException, MissingFluentTQLSpecificationClassAnnotationException, NotFoundZeroArgumentConstructorException, InvalidFluentTQLSpecificationException, NotAFluentTQLSpecificationClassException, CyclicImportException {
         isValidFluentTQLRelatedClass(fluentTQLSpec);
 
         if (!fluentTQLSpec.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class))
@@ -82,7 +83,7 @@ public class ProcessAnnotatedClass {
     /**
      * This class processes the given object for the FluentTQL related annotation and configures the methods and returns the Object. This can also be a FluentTQLRepositoryClass.
      *
-     * @param fluentTQLRelatedClass Object
+     * @param fluentTQLRelatedClass Object of a class that has to be processed
      * @return Processed Object
      * @throws DoesNotImplementFluentTQLUserInterfaceException       If class uses FluentTQLSpecificationClass annotation but does not implement FluentTQLUserInterface.
      * @throws ImportAndProcessAnnotationException                   If fails to import and process the field's annotation.
@@ -93,15 +94,50 @@ public class ProcessAnnotatedClass {
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      * @throws InvalidFluentTQLSpecificationException                If the empty specifications list is given or methods are not configured completely.
+     * @throws CyclicImportException                                 If there is a cyclic import annotations
      */
-    public Object processFluentTQLAnnotation(Object fluentTQLRelatedClass) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException, InvalidFluentTQLSpecificationException {
+    public Object processFluentTQLAnnotation(Object fluentTQLRelatedClass) throws NotFoundZeroArgumentConstructorException, DoesNotImplementFluentTQLUserInterfaceException, FieldNullPointerException, MissingFluentTQLSpecificationClassAnnotationException, CyclicImportException, NotAFluentTQLRelatedClassException, InvalidFluentTQLSpecificationException, FieldNotPublicException, ImportAndProcessAnnotationException, IncompleteMethodDeclarationException {
+        listOfImportClassChain.clear();
+
+        return processFluentTQLAnnotation(fluentTQLRelatedClass, false);
+    }
+
+    /**
+     * This class processes the given object for the FluentTQL related annotation and configures the methods and returns the Object.
+     * This can also be a FluentTQLRepositoryClass.
+     *
+     * @param fluentTQLRelatedClass Object
+     * @param isProcessOnlyStatic   whether process only static field or all field
+     * @return Processed Object
+     * @throws DoesNotImplementFluentTQLUserInterfaceException       If class uses FluentTQLSpecificationClass annotation but does not implement FluentTQLUserInterface.
+     * @throws ImportAndProcessAnnotationException                   If fails to import and process the field's annotation.
+     * @throws FieldNullPointerException                             If the annotated field is not initialized while declaring it.
+     * @throws IncompleteMethodDeclarationException                  If the Method field is not configured with the taint flow information using the annotations.
+     * @throws FieldNotPublicException                               If the annotated field is not in public modifier.
+     * @throws NotAFluentTQLRelatedClassException                    If class is not annotated with one of the [FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation.
+     * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
+     * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
+     * @throws InvalidFluentTQLSpecificationException                If the empty specifications list is given or methods are not configured completely.
+     * @throws CyclicImportException                                 If there is a cyclic import annotations
+     */
+    private Object processFluentTQLAnnotation(Object fluentTQLRelatedClass, boolean isProcessOnlyStatic) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException, InvalidFluentTQLSpecificationException, CyclicImportException {
+        if (listOfImportClassChain.contains(fluentTQLRelatedClass.getClass().getSimpleName())) {
+            listOfImportClassChain.add(fluentTQLRelatedClass.getClass().getSimpleName());
+            throw new CyclicImportException(listOfImportClassChain.toString()
+                    .replaceAll("\\[", "")
+                    .replaceAll("]", "")
+                    .replaceAll(",", " -->"));
+        }
+
+        listOfImportClassChain.add(fluentTQLRelatedClass.getClass().getSimpleName());
+
         isValidFluentTQLRelatedClass(fluentTQLRelatedClass);
 
         if (fluentTQLRelatedClass.getClass().isAnnotationPresent(ImportAndProcessOnlyStaticFields.class)) {
             importAndProcessStaticOnly(fluentTQLRelatedClass);
         }
 
-        processEachField(fluentTQLRelatedClass, false);
+        processEachField(fluentTQLRelatedClass, isProcessOnlyStatic);
 
         if (fluentTQLRelatedClass.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) {
             FluentTQLUserInterface fluentTQLUserInterface = (FluentTQLUserInterface) fluentTQLRelatedClass;
@@ -116,16 +152,16 @@ public class ProcessAnnotatedClass {
      *
      * @param fluentTQLSpec       Object
      * @param isProcessOnlyStatic whether process only static field or all field
-     * @throws DoesNotImplementFluentTQLUserInterfaceException       If class uses FluentTQLSpecificationClass annotation but does not implement FluentTQLUserInterface.
-     * @throws ImportAndProcessAnnotationException                   If fails to import and process the field's annotation.
-     * @throws FieldNullPointerException                             If the annotated field is not initialized while declaring it.
-     * @throws IncompleteMethodDeclarationException                  If the Method field is not configured with the taint flow information using the annotations.
-     * @throws FieldNotPublicException                               If the annotated field is not in public modifier.
-     * @throws NotAFluentTQLRelatedClassException                    If class is not annotated with one of the [FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation.
-     * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
-     * @throws NotFoundZeroArgumentConstructorException              Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
+     * @throws DoesNotImplementFluentTQLUserInterfaceException If class uses FluentTQLSpecificationClass annotation but does not implement FluentTQLUserInterface.
+     * @throws ImportAndProcessAnnotationException             If fails to import and process the field's annotation.
+     * @throws FieldNullPointerException                       If the annotated field is not initialized while declaring it.
+     * @throws IncompleteMethodDeclarationException            If the Method field is not configured with the taint flow information using the annotations.
+     * @throws FieldNotPublicException                         If the annotated field is not in public modifier.
+     * @throws NotAFluentTQLRelatedClassException              If class is not annotated with one of the [FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation.
+     * @throws NotFoundZeroArgumentConstructorException        Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
+     * @throws CyclicImportException                           If there is a cyclic import annotations
      */
-    private void processEachField(Object fluentTQLSpec, boolean isProcessOnlyStatic) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException {
+    private void processEachField(Object fluentTQLSpec, boolean isProcessOnlyStatic) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException, CyclicImportException {
         for (Field field : fluentTQLSpec.getClass().getDeclaredFields()) {
             if (isProcessOnlyStatic) {
                 if (Modifier.isStatic(field.getModifiers())) {
@@ -147,8 +183,9 @@ public class ProcessAnnotatedClass {
      * @throws FieldNullPointerException            If the annotated field is not initialized while declaring it.
      * @throws IncompleteMethodDeclarationException If the Method field is not configured with the taint flow information using the annotations.
      * @throws FieldNotPublicException              If the annotated field is not in public modifier.
+     * @throws CyclicImportException                If there is a cyclic import annotations
      */
-    private void processSingleField(Field field, Object fluentTQLSpec, boolean isStaticField) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException {
+    private void processSingleField(Field field, Object fluentTQLSpec, boolean isStaticField) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, CyclicImportException {
         try {
             if (!field.getType().equals(Method.class) && !field.getType().equals(MethodSet.class))
                 if (!field.isAnnotationPresent(ImportAndProcessAnnotation.class))
@@ -234,8 +271,9 @@ public class ProcessAnnotatedClass {
      * @param obj           Object
      * @param fluentTQLSpec Object that tries to import and process the above Object
      * @throws ImportAndProcessAnnotationException If fails to import and process the field's annotation. It wraps all the exception in this method and adds the reason in this exception
+     * @throws CyclicImportException               If there is a cyclic import annotations
      */
-    private void importAndProcess(Object obj, Object fluentTQLSpec) throws ImportAndProcessAnnotationException {
+    private void importAndProcess(Object obj, Object fluentTQLSpec) throws ImportAndProcessAnnotationException, CyclicImportException {
         if ((!obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) &&
                 (!obj.getClass().isAnnotationPresent(FluentTQLRepositoryClass.class))) {
             throw new ImportAndProcessAnnotationException(obj.getClass().getSimpleName(),
@@ -244,7 +282,7 @@ public class ProcessAnnotatedClass {
         }
 
         try {
-            processFluentTQLAnnotation(obj);
+            processFluentTQLAnnotation(obj, false);
         } catch (ImportAndProcessAnnotationException | FieldNullPointerException | IncompleteMethodDeclarationException | FieldNotPublicException | MissingFluentTQLSpecificationClassAnnotationException | NotAFluentTQLRelatedClassException | DoesNotImplementFluentTQLUserInterfaceException | NotFoundZeroArgumentConstructorException | InvalidFluentTQLSpecificationException e) {
             throw new ImportAndProcessAnnotationException(
                     obj.getClass().getSimpleName(),
@@ -260,8 +298,9 @@ public class ProcessAnnotatedClass {
      * @param fluentTQLRelatedClass Object with ImportAndProcessOnlyStaticFields annotation
      * @throws NotFoundZeroArgumentConstructorException Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
      * @throws ImportAndProcessAnnotationException      If fails to import and process the field's annotation. It wraps all the exception in this method and adds the reason in this exception
+     * @throws CyclicImportException                    If there is a cyclic import annotations
      */
-    private void importAndProcessStaticOnly(Object fluentTQLRelatedClass) throws NotFoundZeroArgumentConstructorException, ImportAndProcessAnnotationException {
+    private void importAndProcessStaticOnly(Object fluentTQLRelatedClass) throws NotFoundZeroArgumentConstructorException, ImportAndProcessAnnotationException, CyclicImportException {
         ImportAndProcessOnlyStaticFields importAndProcessOnlyStaticFields = fluentTQLRelatedClass.getClass().getAnnotation(ImportAndProcessOnlyStaticFields.class);
         for (Class<?> className : importAndProcessOnlyStaticFields.classList()) {
             Constructor<?> constructor = null;
@@ -293,8 +332,10 @@ public class ProcessAnnotatedClass {
             try {
                 isValidFluentTQLRelatedClass(ob);
 
-                processEachField(ob, true);
-            } catch (ImportAndProcessAnnotationException | NotAFluentTQLRelatedClassException | FieldNullPointerException | MissingFluentTQLSpecificationClassAnnotationException | DoesNotImplementFluentTQLUserInterfaceException | FieldNotPublicException | IncompleteMethodDeclarationException e) {
+                //processEachField(ob, true);
+
+                processFluentTQLAnnotation(ob, true);
+            } catch (ImportAndProcessAnnotationException | NotAFluentTQLRelatedClassException | FieldNullPointerException | MissingFluentTQLSpecificationClassAnnotationException | DoesNotImplementFluentTQLUserInterfaceException | FieldNotPublicException | IncompleteMethodDeclarationException | InvalidFluentTQLSpecificationException e) {
                 throw new ImportAndProcessAnnotationException(
                         className.getSimpleName(),
                         fluentTQLRelatedClass.getClass().getSimpleName(),
