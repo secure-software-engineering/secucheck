@@ -170,7 +170,8 @@ public class ProcessAnnotatedClass {
                     !field.isAnnotationPresent(InFlowThisObject.class) &&
                     !field.isAnnotationPresent(OutFlowParam.class) &&
                     !field.isAnnotationPresent(OutFlowReturnValue.class) &&
-                    !field.isAnnotationPresent(OutFlowThisObject.class))
+                    !field.isAnnotationPresent(OutFlowThisObject.class) &&
+                    !field.isAnnotationPresent(AnalysisEntryPoint.class))
                 throw new IncompleteMethodDeclarationException(field.getName(), fluentTQLSpec.getClass().getSimpleName());
 
             InputDeclarationImpl inputDeclaration = new InputDeclarationImpl();

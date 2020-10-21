@@ -2,6 +2,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.ValidCases.tests;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.ValidCases.specifications.EntryPointsCase;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnalysisEntryPointAnnotation;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FluentTQLException;
 import org.junit.Assert;
 import org.junit.Test;
