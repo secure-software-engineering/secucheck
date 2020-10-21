@@ -6,9 +6,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,17 +19,17 @@ public class ProcessAnalysisEntryPointAnnotation {
      * Process the given object and returns list of method signature that is annotated as AnalysisEntryPoint
      *
      * @param fluentTQLRelatedObject FluentTQL related class object
-     * @return List of method signature annotated as AnalysisEntryPoint
+     * @return Sets of method signature annotated as AnalysisEntryPoint
      * @throws MissingFluentTQLSpecificationClassAnnotationException If class implements FluentTQLUserInterface but does not have FluentTQLSpecificationClass annotation.
      * @throws DoesNotImplementFluentTQLUserInterfaceException       If class uses FluentTQLSpecificationClass annotation but does not implement FluentTQLUserInterface.
      * @throws NotAFluentTQLRelatedClassException                    If class is not annotated with one of the [FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation.
      * @throws FieldNotPublicException                               If the annotated field is not in public modifier.
      * @throws FieldNullPointerException                             If the annotated field is not initialized while declaring it.
      */
-    public List<String> getEntryPoints(Object fluentTQLRelatedObject) throws MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, FieldNotPublicException, FieldNullPointerException {
+    public HashSet<String> getEntryPoints(Object fluentTQLRelatedObject) throws MissingFluentTQLSpecificationClassAnnotationException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, FieldNotPublicException, FieldNullPointerException {
         new ProcessAnnotatedClass().isValidFluentTQLRelatedClass(fluentTQLRelatedObject);
 
-        ArrayList<String> entryPoints = new ArrayList<>();
+        HashSet<String> entryPoints = new HashSet<>();
 
         for (Field field : fluentTQLRelatedObject.getClass().getDeclaredFields()) {
             entryPoints.addAll(getMethodSignatureIfEntryPoint(field, fluentTQLRelatedObject));
@@ -50,17 +48,17 @@ public class ProcessAnalysisEntryPointAnnotation {
      *
      * @param field                  Field
      * @param fluentTQLRelatedObject FluentTQL related class object
-     * @return List of method signature
+     * @return Sets of method signature
      * @throws FieldNotPublicException   If the annotated field is not in public modifier.
      * @throws FieldNullPointerException If the annotated field is not initialized while declaring it.
      */
-    private List<String> getMethodSignatureIfEntryPoint(Field field, Object fluentTQLRelatedObject) throws FieldNullPointerException, FieldNotPublicException {
+    private HashSet<String> getMethodSignatureIfEntryPoint(Field field, Object fluentTQLRelatedObject) throws FieldNullPointerException, FieldNotPublicException {
         try {
             if (!field.isAnnotationPresent(AnalysisEntryPoint.class))
-                return new ArrayList<String>();
+                return new HashSet<String>();
 
             if (!field.getType().equals(Method.class) && !field.getType().equals(MethodSet.class))
-                return new ArrayList<String>();
+                return new HashSet<String>();
 
             Object obj;
 
@@ -76,7 +74,7 @@ public class ProcessAnalysisEntryPointAnnotation {
             if (field.getType().equals(Method.class)) {
                 Method methodObj = (Method) obj;
 
-                List<String> entryPoints = new ArrayList<>();
+                HashSet<String> entryPoints = new HashSet<>();
                 entryPoints.add(methodObj.getSignature());
 
                 return entryPoints;
@@ -84,7 +82,7 @@ public class ProcessAnalysisEntryPointAnnotation {
 
             MethodSet methodSet = (MethodSet) obj;
 
-            List<String> entryPoints = new ArrayList<>();
+            HashSet<String> entryPoints = new HashSet<>();
             for (Method method : methodSet.getMethods()) {
                 entryPoints.add(method.getSignature());
             }

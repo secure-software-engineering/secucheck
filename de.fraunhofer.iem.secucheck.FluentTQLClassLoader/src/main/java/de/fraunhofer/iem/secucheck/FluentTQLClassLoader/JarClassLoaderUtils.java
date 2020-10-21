@@ -21,19 +21,14 @@ public class JarClassLoaderUtils {
     private final Errors errors = new Errors();
     private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
     private final PrintUtils printUtils = new PrintUtils();
-    private final List<String> entryPoints = new ArrayList<>();
+    private final HashSet<String> entryPoints = new HashSet<>();
 
     /**
      * This method returns the list of method signature annotated as AnalysisEntryPoints that is process in the previous call of loadAppAndGetFluentTQLSpecification
      *
      * @return List of Method signature annotated as AnalysisEntryPoints
      */
-    public List<String> getEntryPoints() {
-        Set<String> uniqueMethodSignature = new HashSet<>(entryPoints);
-
-        entryPoints.clear();
-        entryPoints.addAll(uniqueMethodSignature);
-
+    public HashSet<String> getEntryPoints() {
         return entryPoints;
     }
 
