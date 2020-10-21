@@ -141,6 +141,10 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         // Perform validation synchronously and run analysis asynchronously.
         if (validateQueriesAndEntryPoints()) {
+            Set<String> uniqueClassNames = new HashSet<>(entryPoints);
+            entryPoints.clear();
+            entryPoints.addAll(uniqueClassNames);
+
             Runnable analysisTask = () -> {
                 try {
                     Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
