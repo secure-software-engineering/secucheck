@@ -25,6 +25,7 @@ import java.util.*;
  */
 public class ProcessAnnotatedClass {
     private final List<String> listOfImportClassChain = new ArrayList<>();
+    private final HashSet<Method> generalPropagators = new HashSet<>();
 
     /**
      * This checks whether the given Object is a valid FluentTQL related class.
@@ -152,16 +153,38 @@ public class ProcessAnnotatedClass {
      *
      * @param fluentTQLSpec       Object
      * @param isProcessOnlyStatic whether process only static field or all field
-     * @throws DoesNotImplementFluentTQLUserInterfaceException If class uses FluentTQLSpecificationClass annotation but does not implement FluentTQLUserInterface.
-     * @throws ImportAndProcessAnnotationException             If fails to import and process the field's annotation.
-     * @throws FieldNullPointerException                       If the annotated field is not initialized while declaring it.
-     * @throws IncompleteMethodDeclarationException            If the Method field is not configured with the taint flow information using the annotations.
-     * @throws FieldNotPublicException                         If the annotated field is not in public modifier.
-     * @throws NotAFluentTQLRelatedClassException              If class is not annotated with one of the [FluentTQLSpecificationClass, FluentTQLRepositoryClass] annotation.
-     * @throws NotFoundZeroArgumentConstructorException        Field annotated with ImportAndProcess related annotation, and that type does not contain a constructor with 0 arguments.
-     * @throws CyclicImportException                           If there is a cyclic import annotations
+     * @throws ImportAndProcessAnnotationException  If fails to import and process the field's annotation.
+     * @throws FieldNullPointerException            If the annotated field is not initialized while declaring it.
+     * @throws IncompleteMethodDeclarationException If the Method field is not configured with the taint flow information using the annotations.
+     * @throws FieldNotPublicException              If the annotated field is not in public modifier.
+     * @throws CyclicImportException                If there is a cyclic import annotations
      */
-    private void processEachField(Object fluentTQLSpec, boolean isProcessOnlyStatic) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, DoesNotImplementFluentTQLUserInterfaceException, NotAFluentTQLRelatedClassException, NotFoundZeroArgumentConstructorException, CyclicImportException {
+    private void processEachField(Object fluentTQLSpec, boolean isProcessOnlyStatic) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, CyclicImportException {
+        //First process all the ImportAndProcess Annotation annotated fields
+        for (Field field : fluentTQLSpec.getClass().getDeclaredFields()) {
+            if (!field.getType().equals(Method.class) && !field.getType().equals(MethodSet.class)) {
+                if (field.isAnnotationPresent(ImportAndProcessAnnotation.class)) {
+                    Object obj;
+
+                    try {
+                        if (Modifier.isStatic(field.getModifiers()))
+                            obj = field.get(fluentTQLSpec.getClass());
+                        else
+                            obj = field.get(fluentTQLSpec);
+                    } catch (IllegalAccessException e) {
+                        throw new FieldNotPublicException(field.getName(), fluentTQLSpec.getClass().getSimpleName());
+                    }
+
+
+                    if (obj == null) {
+                        throw new FieldNullPointerException(field.getName(), fluentTQLSpec.getClass().getSimpleName());
+                    }
+
+                    importAndProcess(obj, fluentTQLSpec);
+                }
+            }
+        }
+
         for (Field field : fluentTQLSpec.getClass().getDeclaredFields()) {
             if (isProcessOnlyStatic) {
                 if (Modifier.isStatic(field.getModifiers())) {
@@ -188,8 +211,7 @@ public class ProcessAnnotatedClass {
     private void processSingleField(Field field, Object fluentTQLSpec, boolean isStaticField) throws ImportAndProcessAnnotationException, FieldNullPointerException, IncompleteMethodDeclarationException, FieldNotPublicException, CyclicImportException {
         try {
             if (!field.getType().equals(Method.class) && !field.getType().equals(MethodSet.class))
-                if (!field.isAnnotationPresent(ImportAndProcessAnnotation.class))
-                    return;
+                return;
 
             Object obj;
 
@@ -200,13 +222,6 @@ public class ProcessAnnotatedClass {
 
             if (obj == null) {
                 throw new FieldNullPointerException(field.getName(), fluentTQLSpec.getClass().getSimpleName());
-            }
-
-            if (!field.getType().equals(Method.class) && !field.getType().equals(MethodSet.class)) {
-                if (field.isAnnotationPresent(ImportAndProcessAnnotation.class)) {
-                    importAndProcess(obj, fluentTQLSpec);
-                }
-                return;
             }
 
             if (field.getType().equals(Method.class) &&
@@ -260,9 +275,49 @@ public class ProcessAnnotatedClass {
                 ((MethodSelector) obj).getOutputDeclaration().getOutputs().addAll(outputDeclaration.getOutputs());
                 ((MethodSelector) obj).getInputDeclaration().getInputs().addAll(inputDeclaration.getInputs());
             }
+
+            processForGeneralPropagatorAnnotation(field, obj);
         } catch (IllegalAccessException e) {
             throw new FieldNotPublicException(field.getName(), fluentTQLSpec.getClass().getSimpleName());
         }
+    }
+
+    /**
+     * This method checks if a field has a GeneralPropagator annotation, if yes, then it adds that method to the generalPropagators list
+     *
+     * @param field Field
+     * @param obj   Field's object
+     */
+    private void processForGeneralPropagatorAnnotation(Field field, Object obj) {
+        if (!field.isAnnotationPresent(GeneralPropagator.class))
+            return;
+
+        if (field.getType().equals(Method.class)) {
+            Method method = (Method) obj;
+            generalPropagators.add(method);
+        } else if (field.getType().equals(MethodSet.class)) {
+            MethodSet methodSet = (MethodSet) obj;
+            generalPropagators.addAll(methodSet.getMethods());
+        }
+    }
+
+    /**
+     * This method returns the list of general propagators, that is stored in the last call of processFluentTQLAnnotation or
+     * processFluentTQLSpecificationClassAnnotation method call.
+     *
+     * @return Set of General propagators
+     */
+    public HashSet<Method> getGeneralPropagators() {
+        erroneousMethods.clear();
+        HashSet<Method> validGeneralPropagators = new HashSet<>();
+
+        for (Method method : generalPropagators) {
+            if (isValidMethod(method)) {
+                validGeneralPropagators.add(method);
+            }
+        }
+
+        return validGeneralPropagators;
     }
 
     /**
@@ -443,7 +498,7 @@ public class ProcessAnnotatedClass {
      *
      * @param method Method
      */
-    private void isValidMethod(Method method) {
+    private boolean isValidMethod(Method method) {
         //Todo: Also add to check for valid Signature.
 
         boolean emptyInputs = isEmptyInputs(method.getInputDeclaration().getInputs());
@@ -451,7 +506,10 @@ public class ProcessAnnotatedClass {
 
         if (emptyInputs && emptyOutputs) {
             erroneousMethods.add(method.getSignature());
+            return false;
         }
+
+        return true;
     }
 
     /**
