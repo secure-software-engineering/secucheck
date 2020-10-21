@@ -94,4 +94,20 @@ class OutputDeclarationImpl implements OutputDeclaration {
 
         return str;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+
+        if (!this.getClass().equals(obj.getClass()))
+            return false;
+
+        return toString().equals(obj.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(toString());
+    }
 }
