@@ -375,7 +375,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
                 fluentTQLSpecs.clear();
                 entryPointsAsMethod.clear();
-                
+
                 JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
 
                 //Todo:
