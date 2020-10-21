@@ -1,5 +1,6 @@
 package de.fraunhofer.iem.secucheck.FluentTQLClassLoader;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnalysisEntryPointAnnotation;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FluentTQLException;
@@ -9,7 +10,7 @@ import org.xeustechnologies.jcl.JclObjectFactory;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * This utility class provides the feature of loading the FluentTQL related class using the JarClassLoader.
@@ -20,6 +21,21 @@ public class JarClassLoaderUtils {
     private final Errors errors = new Errors();
     private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
     private final PrintUtils printUtils = new PrintUtils();
+    private final List<String> entryPoints = new ArrayList<>();
+
+    /**
+     * This method returns the list of method signature annotated as AnalysisEntryPoints that is process in the previous call of loadAppAndGetFluentTQLSpecification
+     *
+     * @return List of Method signature annotated as AnalysisEntryPoints
+     */
+    public List<String> getEntryPoints() {
+        Set<String> uniqueMethodSignature = new HashSet<>(entryPoints);
+
+        entryPoints.clear();
+        entryPoints.addAll(uniqueMethodSignature);
+
+        return entryPoints;
+    }
 
     /**
      * Returns the Errors that occurred in the previous run of loadAppAndGetFluentTQLSpecification
@@ -51,6 +67,7 @@ public class JarClassLoaderUtils {
     public HashMap<String, FluentTQLUserInterface> loadAppAndGetFluentTQLSpecification(String path, boolean isPrettyPrint) {
         errors.getErrors().clear();
         fluentTQLSpecs.clear();
+        entryPoints.clear();
 
         JarClassLoader jarClassLoader = new JarClassLoader();
         jarClassLoader.add(path);
@@ -132,6 +149,7 @@ public class JarClassLoaderUtils {
      */
     private void processFluentTQLAnnotation(Object obj, boolean isPrettyPrint) {
         ProcessAnnotatedClass processAnnotatedClass = new ProcessAnnotatedClass();
+        ProcessAnalysisEntryPointAnnotation processAnalysisEntryPointAnnotation = new ProcessAnalysisEntryPointAnnotation();
 
         try {
             if (obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) {
@@ -140,6 +158,8 @@ public class JarClassLoaderUtils {
             } else {
                 processAnnotatedClass.processFluentTQLAnnotation(obj);
             }
+
+            entryPoints.addAll(processAnalysisEntryPointAnnotation.getEntryPoints(obj));
 
             if (isPrettyPrint)
                 printUtils.printClassStatus(

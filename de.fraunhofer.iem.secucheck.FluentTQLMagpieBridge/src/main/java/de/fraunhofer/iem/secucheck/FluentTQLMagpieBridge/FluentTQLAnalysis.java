@@ -1,7 +1,6 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
 import com.ibm.wala.classLoader.Module;
-
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.ErrorModel;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.Errors;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils;
@@ -11,7 +10,6 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
-
 import magpiebridge.core.AnalysisConsumer;
 import magpiebridge.core.AnalysisResult;
 import magpiebridge.core.ServerAnalysis;
@@ -21,7 +19,6 @@ import magpiebridge.core.analysis.configuration.ConfigurationOption;
 import magpiebridge.core.analysis.configuration.OptionType;
 import magpiebridge.core.analysis.configuration.htmlElement.CheckBox;
 import magpiebridge.projectservice.java.JavaProjectService;
-
 import org.apache.commons.io.FileUtils;
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
@@ -53,11 +50,13 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     private static final String FLUENT_FILES_CONFIG_CONS = "FluentTQL Specification files:";
     private static final String ENTRY_POINTS_CONFIG_CONS = "Select java files for entry points:";
 
+    private static final List<String> entryPointsAsMethod = new ArrayList<>();
     private static final List<String> entryPoints = new ArrayList<>();
     private static final Set<Path> classPath = new HashSet<>();
     public static final Set<Path> sourcePath = new HashSet<>();
     private static final Set<Path> libraryPath = new HashSet<>();
     private static final List<TaintFlowQuery> taintFlowQueries = new ArrayList<>();
+
     private static final List<ConfigurationOption> currentConfiguration = new ArrayList<>();
     private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
     private static String fluentTQLSpecPath = "";
@@ -363,6 +362,8 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                 }
 
                 fluentTQLSpecs.clear();
+                entryPointsAsMethod.clear();
+                
                 JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
 
                 //Todo:
@@ -372,6 +373,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                 deleteDir(out);
 
                 createErrorText(jarClassLoaderUtils.getErrorModel());
+                entryPointsAsMethod.addAll(jarClassLoaderUtils.getEntryPoints());
 
                 if (fluentTQLSpecs.size() > 0) {
                     setConfig();
@@ -445,14 +447,6 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             } else {
                 return 150;
             }
-            /*
-            JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
-
-            //Todo:
-            fluentTQLSpecs.putAll(jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(fluentTQLSpecPath));
-            //fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(fluentTQLSpecPath));
-
-            //Todo: use this create a error file in source path.*/
         }
 
         goBackToPreviousPage = false;
