@@ -145,6 +145,14 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             entryPoints.clear();
             entryPoints.addAll(uniqueClassNames);
 
+            System.out.println("\n\n\nEntry points as class size = " + entryPoints.size());
+            System.out.println("Entry points as method size = " + entryPointsAsMethod.size());
+            System.out.println("TaintFlow queries size = " + taintFlowQueries.size());
+
+            for (String entryPoint : entryPointsAsMethod) {
+                System.out.println(entryPoint);
+            }
+
             Runnable analysisTask = () -> {
                 try {
                     Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
