@@ -6,6 +6,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FluentTQLExce
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntryPointCaseTest {
@@ -14,7 +15,7 @@ public class EntryPointCaseTest {
         EntryPointsCase entryPointsCase = new EntryPointsCase();
 
         ProcessAnalysisEntryPointAnnotation processAnalysisEntryPointAnnotation = new ProcessAnalysisEntryPointAnnotation();
-        List<String> entryPoints = processAnalysisEntryPointAnnotation.getEntryPoints(entryPointsCase);
+        List<String> entryPoints = new ArrayList<>(processAnalysisEntryPointAnnotation.getEntryPoints(entryPointsCase));
 
         Assert.assertEquals(8, entryPoints.size());
 
