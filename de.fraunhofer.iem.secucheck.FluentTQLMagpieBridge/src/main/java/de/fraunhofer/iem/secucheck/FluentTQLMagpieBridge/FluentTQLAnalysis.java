@@ -8,6 +8,7 @@ import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnaly
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecucheckMagpieBridgeAnalysis;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import magpiebridge.core.AnalysisConsumer;
@@ -50,8 +51,9 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     private static final String FLUENT_FILES_CONFIG_CONS = "FluentTQL Specification files:";
     private static final String ENTRY_POINTS_CONFIG_CONS = "Select java files for entry points:";
 
-    private static final List<String> entryPointsAsMethod = new ArrayList<>();
-    private static final List<String> entryPoints = new ArrayList<>();
+    private static final HashSet<String> entryPointsAsMethod = new HashSet<>();
+    private static final HashSet<String> entryPoints = new HashSet<>();
+    private static final HashSet<Method> generalPropagators = new HashSet<>();
     private static final Set<Path> classPath = new HashSet<>();
     public static final Set<Path> sourcePath = new HashSet<>();
     private static final Set<Path> libraryPath = new HashSet<>();
@@ -141,22 +143,26 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         // Perform validation synchronously and run analysis asynchronously.
         if (validateQueriesAndEntryPoints()) {
-            Set<String> uniqueClassNames = new HashSet<>(entryPoints);
-            entryPoints.clear();
-            entryPoints.addAll(uniqueClassNames);
-
-            System.out.println("\n\n\nEntry points as class size = " + entryPoints.size());
+            System.out.println("\n\n\n************************************************");
+            System.out.println("\nEntry points as class size = " + entryPoints.size());
             System.out.println("Entry points as method size = " + entryPointsAsMethod.size());
             System.out.println("TaintFlow queries size = " + taintFlowQueries.size());
+            System.out.println("General Propagator size = " + generalPropagators.size());
 
+            System.out.println("\n\nEntry Points as Method\n");
             for (String entryPoint : entryPointsAsMethod) {
                 System.out.println(entryPoint);
             }
 
+            System.out.println("\n\nGeneral Propagators\n");
+            for (Method generalPropagator : generalPropagators) {
+                System.out.println(generalPropagator.toString());
+            }
+            System.out.println("\n\n************************************************\n\n\n");
             Runnable analysisTask = () -> {
                 try {
                     Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
-                            entryPoints, classPath, libraryPath, projectRootPath.toAbsolutePath().toString());
+                            new ArrayList<>(entryPoints), classPath, libraryPath, projectRootPath.toAbsolutePath().toString());
 
                     server.consume(results, "secucheck-analysis");
                 } catch (Exception e) {
@@ -375,6 +381,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
                 fluentTQLSpecs.clear();
                 entryPointsAsMethod.clear();
+                generalPropagators.clear();
 
                 JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
 
@@ -386,6 +393,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
                 createErrorText(jarClassLoaderUtils.getErrorModel());
                 entryPointsAsMethod.addAll(jarClassLoaderUtils.getEntryPoints());
+                generalPropagators.addAll(jarClassLoaderUtils.getGeneralPropagators());
 
                 if (fluentTQLSpecs.size() > 0) {
                     setConfig();
