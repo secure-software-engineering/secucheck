@@ -4,6 +4,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnalysisEntryPoi
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FluentTQLException;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
@@ -22,14 +23,24 @@ public class JarClassLoaderUtils {
     private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
     private final PrintUtils printUtils = new PrintUtils();
     private final HashSet<String> entryPoints = new HashSet<>();
+    private final HashSet<Method> generalPropagators = new HashSet<>();
 
     /**
-     * This method returns the list of method signature annotated as AnalysisEntryPoints that is process in the previous call of loadAppAndGetFluentTQLSpecification
+     * This method returns the sets of method signature annotated as AnalysisEntryPoints that is process in the previous call of loadAppAndGetFluentTQLSpecification
      *
-     * @return List of Method signature annotated as AnalysisEntryPoints
+     * @return Sets of Method signature annotated as AnalysisEntryPoints
      */
     public HashSet<String> getEntryPoints() {
         return entryPoints;
+    }
+
+    /**
+     * This method returns the sets of method signature annotated as GeneralPropagators that is process in the previous call of loadAppAndGetFluentTQLSpecification
+     *
+     * @return Sets of Method signature annotated as GeneralPropagators
+     */
+    public HashSet<Method> getGeneralPropagators() {
+        return generalPropagators;
     }
 
     /**
@@ -63,6 +74,7 @@ public class JarClassLoaderUtils {
         errors.getErrors().clear();
         fluentTQLSpecs.clear();
         entryPoints.clear();
+        generalPropagators.clear();
 
         JarClassLoader jarClassLoader = new JarClassLoader();
         jarClassLoader.add(path);
@@ -155,6 +167,7 @@ public class JarClassLoaderUtils {
             }
 
             entryPoints.addAll(processAnalysisEntryPointAnnotation.getEntryPoints(obj));
+            generalPropagators.addAll(processAnnotatedClass.getGeneralPropagators());
 
             if (isPrettyPrint)
                 printUtils.printClassStatus(
