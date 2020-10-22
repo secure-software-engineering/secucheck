@@ -3,6 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.Flue
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.AnalysisEntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.InFlowParam;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.OutFlowReturnValue;
@@ -40,6 +41,11 @@ public class SimpleSQLInjectionSpec implements FluentTQLUserInterface {
      */
     @InFlowParam(parameterID = {0})
     public Method sink = new MethodSelector("java.sql.Statement: java.sql.ResultSet executeQuery(java.lang.String)");
+
+    @AnalysisEntryPoint
+    public Method entryPoint = new MethodSelector(
+            "de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SQLInjection.CWE89.SimpleSQLInjection: java.sql.ResultSet getEmployeeInformationWithoutSanitizer()"
+    );
 
     /**
      * Returns the Internal FluentTQL specification
