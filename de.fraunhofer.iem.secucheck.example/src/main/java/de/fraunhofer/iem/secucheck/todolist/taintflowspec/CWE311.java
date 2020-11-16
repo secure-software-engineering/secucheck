@@ -34,10 +34,10 @@ public class CWE311 implements FluentTQLUserInterface {
 			.out().returnValue().configure();
 
     /**
-     * Sink
+     * Sink  
      */
 	Method sinkMethod = new MethodConfigurator(
-				"de.fraunhofer.iem.secucheck.todolist.repository.TaskRepository: "+
+				"org.springframework.data.repository.CrudRepository: "+
 				"java.lang.Object save("+
 				"java.lang.Object)")
 			.in().param(0).configure();

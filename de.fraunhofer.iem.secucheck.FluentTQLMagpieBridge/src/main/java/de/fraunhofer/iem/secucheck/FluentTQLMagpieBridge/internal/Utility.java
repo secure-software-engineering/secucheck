@@ -340,23 +340,19 @@ public final class Utility {
 
     private static ReportPosition createReportPosition(LocationDetails locationInfo) {
         ReportPosition reportPosition = new ReportPosition();
-
-        System.out.println(locationInfo.getUsageLineNumber());
-        // Recheck and debug...
-        reportPosition.setFirstLine(locationInfo.getUsageLineNumber());
-        reportPosition.setLastLine(locationInfo.getUsageLineNumber());
+        
+        reportPosition.setFirstLine(locationInfo.getUsageStartLineNumber());
+        reportPosition.setLastLine(locationInfo.getUsageEndLineNumber());
         reportPosition.setFirstCol(1);
         reportPosition.setLastCol(1);
 
         for (Path sourcePath : FluentTQLAnalysis.sourcePath) {
             String fqn = sourcePath +
                     File.separator +
-                    locationInfo.getUsageClassName().replace(
-                            ".",
-                            File.separator
-                    ) +
+                    locationInfo.getUsageClassName().replace(".", 
+                    		File.separator) +
                     ".java";
-
+            
             File file = new File(fqn);
 
             if (file.exists()) {
@@ -367,14 +363,6 @@ public final class Utility {
                 }
             }
         }
-
-        // Some other source info already available for use
-        // sourceLocation.getClassName();
-        // sourceLocation.getMethodSignature();
-        // sourceLocation.getType();
-
-        // Poisition info still is missing about the source file name,
-        // maybe infer it from the class name...
 
         return reportPosition;
     }

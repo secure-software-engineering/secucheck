@@ -40,7 +40,8 @@ public class CWE78 implements FluentTQLUserInterface {
     Method sinkMethod = new MethodConfigurator(
     			"de.fraunhofer.iem.secucheck.todolist.service.DirectoryStorageService: "+
     			"int getFileSizeOnSystem("+
-    			"java.lang.String,java.lang.String)")
+    			"de.fraunhofer.iem.secucheck.todolist.model.Task,"+
+    			"java.lang.String)")
     		.in().param(0).configure();
 
     /**

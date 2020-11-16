@@ -22,6 +22,8 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import de.fraunhofer.iem.secucheck.todolist.model.Task;
+
 @Service
 public class FileSystemStorageService implements DirectoryStorageService {
 	
@@ -44,8 +46,9 @@ public class FileSystemStorageService implements DirectoryStorageService {
     }
 
     @Override
-    public String store(MultipartFile file, String fileName,
+    public String store(MultipartFile file, Task task,
     		String userDirectory) throws StorageException {
+    	String fileName = task.getFileName();
         try {
         	Path rootLocation = Paths.get(location + File.separator + userDirectory);
         	Files.createDirectories(rootLocation);
@@ -80,26 +83,28 @@ public class FileSystemStorageService implements DirectoryStorageService {
     }
 
     @Override
-    public Path load(String filename, String userDirectory) {
-        return Paths.get(location + File.separator + userDirectory).resolve(filename);
+    public Path load(Task task, String userDirectory) {
+    	String fileName = task.getFileName();
+        return Paths.get(location + File.separator + userDirectory).resolve(fileName);
     }
 
     @Override
-    public Resource loadAsResource(String filename, 
+    public Resource loadAsResource(Task task, 
     		String userDirectory) throws FileNotFoundException {
+    	String fileName = task.getFileName();
         try {
-            Path file = load(filename, userDirectory);
+            Path file = load(task, userDirectory);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             }
             else {
                 throw new FileNotFoundException(
-                        "Could not read file: " + filename);
+                        "Could not read file: " + fileName);
             }
         }
         catch (MalformedURLException e) {
-            throw new FileNotFoundException("Could not read file: " + filename, e);
+            throw new FileNotFoundException("Could not read file: " + fileName, e);
         }
     }
        
@@ -110,8 +115,8 @@ public class FileSystemStorageService implements DirectoryStorageService {
     }
 
 	@Override
-	public int getFileSizeOnSystem(String fileName, String directory) {
-		
+	public int getFileSizeOnSystem(Task task, String directory) {
+		String fileName = task.getFileName();
 		try {
 				
 			String command = "wc -c < " + System.getProperty("user.dir") 

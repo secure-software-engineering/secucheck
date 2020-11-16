@@ -27,10 +27,10 @@ public class CWE89 implements FluentTQLUserInterface {
      * Sink
      */
     Method sinkMethod = new MethodConfigurator(
-    			"org.springframework.jdbc.core.JdbcTemplate: "+
-    			"java.util.List query("+
+    			"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+    			"java.lang.String getSearchQuery("+
 				"java.lang.String,"+
-    			"org.springframework.jdbc.core.RowMapper)"
+    			"java.lang.String)"
 			).in().param(0).configure();
     
     /**

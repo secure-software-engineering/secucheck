@@ -26,10 +26,10 @@ public class CWE20 implements FluentTQLUserInterface {
 			.out().param(0).configure(); 
      
     /**
-     * Sink
+     * Sink 
      */	
 	Method sinkMethod = new MethodConfigurator(
-				"de.fraunhofer.iem.secucheck.todolist.repository.UserRepository: "+
+				"de.fraunhofer.iem.secucheck.todolist.service.UserService: "+
 				"void saveUserDefault("+
 				"de.fraunhofer.iem.secucheck.todolist.model.User)"
 			).in().param(0).configure();

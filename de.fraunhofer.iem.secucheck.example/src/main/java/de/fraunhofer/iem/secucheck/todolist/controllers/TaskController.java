@@ -165,12 +165,12 @@ public class TaskController {
             		newTask.setFileName(StringUtils.cleanPath(file.getOriginalFilename()));
             	}
             	
-            	storageService.store(file, newTask.getFileName(), 
+            	storageService.store(file, newTask, 
             			user.getId() + File.separator + newTask.getId());
             	
             	cleanupFile = true;
             	
-            	int bytes = storageService.getFileSizeOnSystem(newTask.getFileName(), 
+            	int bytes = storageService.getFileSizeOnSystem(newTask, 
             					user.getId() + File.separator + newTask.getId());
             	
             	newTask.setFileSizeOnSystem(bytes);
@@ -267,12 +267,11 @@ public class TaskController {
             		oldTask.setFileName(StringUtils.cleanPath(file.getOriginalFilename()));
             	}            	
             	
-            	storageService.store(file, correctFileName(oldTask.getFileName()), 
-            			user.getId() + File.separator + oldTask.getId());
+            	storageService.store(file, oldTask, user.getId() + File.separator + oldTask.getId());
             	
             	cleanupFile = true;
             	
-            	int bytes = storageService.getFileSizeOnSystem(oldTask.getFileName(), 
+            	int bytes = storageService.getFileSizeOnSystem(oldTask, 
             					user.getId() + File.separator + oldTask.getId());
             	
             	oldTask.setFileSizeOnSystem(bytes);
@@ -390,7 +389,7 @@ public class TaskController {
         
     		oldTask = getModifiedTask(requestItems);
     		
-            Resource file = storageService.loadAsResource(oldTask.getFileName(),
+            Resource file = storageService.loadAsResource(oldTask,
             		(user.getId()+ File.separator +oldTask.getId()));
 
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,

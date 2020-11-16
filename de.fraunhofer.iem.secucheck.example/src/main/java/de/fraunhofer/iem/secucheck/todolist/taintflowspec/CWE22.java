@@ -40,7 +40,8 @@ public class CWE22 implements FluentTQLUserInterface {
     Method sinkMethod = new MethodConfigurator("de.fraunhofer.iem.secucheck.todolist.service.DirectoryStorageService: "+
     				"java.lang.String store("+
     				"org.springframework.web.multipart.MultipartFile,"+
-    				"java.lang.String,java.lang.String)"
+    				"de.fraunhofer.iem.secucheck.todolist.model.Task,"+
+    				"java.lang.String)"
     			).in().param(1).configure();
     
     /**
