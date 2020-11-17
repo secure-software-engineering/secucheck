@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.todolist.taintflowspec;
+package de.fraunhofer.iem.secucheck.specifications;
 
 import java.util.ArrayList;
 import java.util.List;

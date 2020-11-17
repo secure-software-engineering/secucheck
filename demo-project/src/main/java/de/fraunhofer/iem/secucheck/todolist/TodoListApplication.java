@@ -8,10 +8,10 @@ import de.fraunhofer.iem.secucheck.todolist.service.StorageProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
-public class ExampleApplication {
+public class TodoListApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ExampleApplication.class, args);
+		SpringApplication.run(TodoListApplication.class, args);
 	}
 
 }

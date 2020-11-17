@@ -9,9 +9,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>de.fraunhofer.iem.secucheck</groupId>
-	<artifactId>example</artifactId>
+	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>example</name>
+	<name>demo-project</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

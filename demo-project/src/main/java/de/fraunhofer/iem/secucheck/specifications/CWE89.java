@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.todolist.taintflowspec;
+package de.fraunhofer.iem.secucheck.specifications;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,27 +11,27 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
-public class CWE601 implements FluentTQLUserInterface {
-
+public class CWE89 implements FluentTQLUserInterface {
+	
     /**
      * Source
-     */    
+     */
     Method sourceMethod = new MethodConfigurator(
     			"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
-				"void redirectToExternalUrl("+
-				"javax.servlet.http.HttpServletResponse,"+
-				"java.lang.String)")
-    		.out().param(1).configure();
-    		
-    
+    			"java.lang.String showTasks("+
+    			"org.springframework.ui.Model,"+
+				"java.lang.String)"
+			).out().param(1).configure();
+    		    
     /**
      * Sink
-     */    
+     */
     Method sinkMethod = new MethodConfigurator(
-				"javax.servlet.http.HttpServletResponse: "+
-				"void sendRedirect("+
-				"java.lang.String)")
-    		.in().param(0).configure();
+    			"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+    			"java.lang.String getSearchQuery("+
+				"java.lang.String,"+
+    			"java.lang.String)"
+			).in().param(0).configure();
     
     /**
      * Returns the Internal FluentTQL specification
@@ -42,7 +42,7 @@ public class CWE601 implements FluentTQLUserInterface {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(sourceMethod)
                 .to(sinkMethod)
-                .report("Invalid Information Flow. CWE-601: URL Redirection to Untrusted Site ('Open Redirect') detected.")
+                .report("Invalid Information Flow. CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection') detected.")
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 

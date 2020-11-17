@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.todolist.taintflowspec;
+package de.fraunhofer.iem.secucheck.specifications;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,28 +11,39 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
-public class CWE89 implements FluentTQLUserInterface {
-	
+public class CWE78 implements FluentTQLUserInterface {
+
     /**
      * Source
      */
     Method sourceMethod = new MethodConfigurator(
-    			"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
-    			"java.lang.String showTasks("+
-    			"org.springframework.ui.Model,"+
-				"java.lang.String)"
-			).out().param(1).configure();
-    		    
+				"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+				"java.lang.String saveTask("+
+				"de.fraunhofer.iem.secucheck.todolist.model.Task,"+
+				"org.springframework.web.multipart.MultipartFile,"+
+				"org.springframework.web.servlet.mvc.support.RedirectAttributes)")
+    		.out().param(0).configure();
+    		
+    /**
+     * Sanitizer
+     */
+    Method sanitizerMethod = new MethodConfigurator(
+	    		"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+	    		"java.lang.String correctFileName("+
+	    		"java.lang.String)")
+    		.in().param(0)
+			.out().returnValue().configure();
+    
     /**
      * Sink
-     */
+     */    
     Method sinkMethod = new MethodConfigurator(
-    			"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
-    			"java.lang.String getSearchQuery("+
-				"java.lang.String,"+
-    			"java.lang.String)"
-			).in().param(0).configure();
-    
+    			"de.fraunhofer.iem.secucheck.todolist.service.DirectoryStorageService: "+
+    			"int getFileSizeOnSystem("+
+    			"de.fraunhofer.iem.secucheck.todolist.model.Task,"+
+    			"java.lang.String)")
+    		.in().param(0).configure();
+
     /**
      * Returns the Internal FluentTQL specification
      *
@@ -41,8 +52,9 @@ public class CWE89 implements FluentTQLUserInterface {
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(sourceMethod)
+                .notThrough(sanitizerMethod)
                 .to(sinkMethod)
-                .report("Invalid Information Flow. CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection') detected.")
+                .report("Invalid Information Flow. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection') detected.")
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
