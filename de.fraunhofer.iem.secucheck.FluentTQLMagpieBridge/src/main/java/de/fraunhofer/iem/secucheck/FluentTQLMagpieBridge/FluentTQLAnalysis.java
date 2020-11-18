@@ -371,7 +371,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         }
 
         for (ConfigurationOption configOption : configuration) {
-            if ("FluentTQL Specification's path".equals(configOption.getName())) {
+            if ("FluentTQL Specification's path".equals(configOption.getName()) && !isFirstPageDone) {
                 boolean isSuccess = processFluentTQLSpecificationsPath(configOption);
 
                 if (!isSuccess) {
