@@ -20,7 +20,7 @@
         <dependency>
             <groupId>magpiebridge</groupId>
             <artifactId>magpiebridge</artifactId>
-            <version>0.0.8</version>
+            <version>0.0.9</version>
         </dependency>
         <dependency>
             <groupId>net.openhft</groupId>
@@ -33,21 +33,33 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-lang3</artifactId>
-		    <version>3.11</version>
-		</dependency>
-		<dependency>
-			<groupId>de.fraunhofer.iem.secucheck</groupId>
-			<version>0.0.1-SNAPSHOT</version>
-			<artifactId>de.fraunhofer.iem.secucheck.analysis</artifactId>
-		</dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
+        </dependency>
         <dependency>
-		    <groupId>de.fraunhofer.iem.secucheck</groupId>
-		    <artifactId>de.fraunhofer.iem.secucheck.analysis.process.client</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
-		</dependency>
+            <groupId>de.fraunhofer.iem.secucheck</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>de.fraunhofer.iem.secucheck.analysis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.fraunhofer.iem.secucheck</groupId>
+            <artifactId>de.fraunhofer.iem.secucheck.analysis.process.client</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub MagpieBridge Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/MagpieBridge/MagpieBridge</url>
+        </repository>
+        <repository>
+            <id>spds</id>
+            <url>https://maven.pkg.github.com/CodeShield-Security/SPDS/</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
