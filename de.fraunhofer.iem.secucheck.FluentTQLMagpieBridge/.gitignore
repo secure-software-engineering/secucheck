@@ -3,4 +3,4 @@ out/
 FluentTQLMagpieBridge.iml
 .*
 !/.gitignore
-
+*.iml
