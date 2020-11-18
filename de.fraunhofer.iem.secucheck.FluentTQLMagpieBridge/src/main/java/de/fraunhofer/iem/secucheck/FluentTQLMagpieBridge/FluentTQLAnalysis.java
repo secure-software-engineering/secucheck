@@ -127,12 +127,18 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             }
         }
 
+        Set<Path> modifiedClassPath = new HashSet<Path>();
+        for (Path classPath : classPath) {
+            if (!classPath.toAbsolutePath().toString().contains("bin")) {
+                modifiedClassPath.add(classPath);
+            }
+        }
         // Perform validation synchronously and run analysis asynchronously.
         if (validateQueriesAndEntryPoints()) {
             Runnable analysisTask = () -> {
                 try {
                     Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
-                            entryPoints, classPath, libraryPath, projectRootPath.toAbsolutePath().toString());
+                            entryPoints, modifiedClassPath, libraryPath, projectRootPath.toAbsolutePath().toString());
 
                     server.consume(results, "secucheck-analysis");
                 } catch (Exception e) {
@@ -224,8 +230,6 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
                 if (fluentTQLSpecs.size() > 0) {
                     setConfig();
-                    currentConfiguration.clear();
-                    currentConfiguration.addAll(options);
                 } else {
                     FluentTQLMagpieBridgeMainServer
                             .fluentTQLMagpieServer
@@ -264,6 +268,8 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         options.clear();
         options.addAll(tempOptions);
+        currentConfiguration.clear();
+        currentConfiguration.addAll(options);
         return true;
     }
 
@@ -365,7 +371,6 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         }
 
         for (ConfigurationOption configOption : configuration) {
-
             if ("FluentTQL Specification's path".equals(configOption.getName())) {
                 boolean isSuccess = processFluentTQLSpecificationsPath(configOption);
 
