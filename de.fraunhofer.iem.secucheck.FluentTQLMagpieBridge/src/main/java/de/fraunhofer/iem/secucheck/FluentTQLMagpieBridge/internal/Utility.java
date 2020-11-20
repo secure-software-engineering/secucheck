@@ -21,8 +21,13 @@ import magpiebridge.util.SourceCodeReader;
 import org.apache.commons.lang3.SystemUtils;
 import org.eclipse.lsp4j.DiagnosticSeverity;
 
+import com.ibm.wala.cast.tree.CAstSourcePositionMap.Position;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -288,17 +293,17 @@ public final class Utility {
                     break;
             }
         }
-    /*    List<Pair<Position, String>> relatedInfo = new ArrayList<Pair<Position, String>>();
-        magpieBridgeResults.forEach(y -> relatedInfo.add(Pair.make(y.position(),
-                query.getReportMessage())));
-        magpieBridgeResults.forEach(y -> y.setRelated(relatedInfo));*/
+        
         return new ArrayList<AnalysisResult>(magpieBridgeResults);
     }
 
-    private static SecuCheckMapieBridgeResult createMagpieBridgeResult(CompositeTaintFlowQueryImpl compositeQuery,
-                                                                       TaintFlowQueryImpl singleFlowQuery, TaintFlowQueryResult singleFlowQueryResult, ReportSite reportLocation)
+    private static SecuCheckMapieBridgeResult createMagpieBridgeResult(
+    		CompositeTaintFlowQueryImpl compositeQuery,
+    		TaintFlowQueryImpl singleFlowQuery, TaintFlowQueryResult singleFlowQueryResult,
+    		ReportSite reportLocation)
             throws Exception {
-        SecuCheckMapieBridgeResult analysisResult = new SecuCheckMapieBridgeResult();
+       
+    	SecuCheckMapieBridgeResult analysisResult = new SecuCheckMapieBridgeResult();
         if (singleFlowQueryResult.getQueryResultMap().size() == 0) {
             return analysisResult;
         }
@@ -328,37 +333,27 @@ public final class Utility {
                 break;
         }
 
-        // Verify if code is needed at all ?
-        String code = SourceCodeReader.getLinesInString(analysisResult.position());
+        String code = getLinesInString(analysisResult.position());
         analysisResult.setCode(code);
-
-        // Repair not needed ?
+        
         analysisResult.setRepair(null);
 
         return analysisResult;
     }
 
     private static ReportPosition createReportPosition(LocationDetails locationInfo) {
-        ReportPosition reportPosition = new ReportPosition();
-
-        System.out.println(locationInfo.getUsageStartLineNumber());
-        // Recheck and debug...
+        
+    	ReportPosition reportPosition = new ReportPosition();
         reportPosition.setFirstLine(locationInfo.getUsageStartLineNumber());
-        reportPosition.setLastLine(locationInfo.getUsageStartLineNumber());
-        reportPosition.setFirstCol(1);
-        reportPosition.setLastCol(1);
+        reportPosition.setLastLine(locationInfo.getUsageEndLineNumber() < 0 ?
+        		locationInfo.getUsageStartLineNumber() : locationInfo.getUsageEndLineNumber());
+        reportPosition.setFirstCol(0);
+        reportPosition.setLastCol(0);
 
         for (Path sourcePath : FluentTQLAnalysis.sourcePath) {
-            String fqn = sourcePath +
-                    File.separator +
-                    locationInfo.getUsageClassName().replace(
-                            ".",
-                            File.separator
-                    ) +
-                    ".java";
-
+            String fqn = sourcePath + File.separator + 
+            		locationInfo.getUsageClassName().replace(".", File.separator) + ".java";
             File file = new File(fqn);
-
             if (file.exists()) {
                 try {
                     reportPosition.setUrl(file.toURI().toURL());
@@ -368,14 +363,71 @@ public final class Utility {
             }
         }
 
-        // Some other source info already available for use
-        // sourceLocation.getClassName();
-        // sourceLocation.getMethodSignature();
-        // sourceLocation.getType();
-
-        // Poisition info still is missing about the source file name,
-        // maybe infer it from the class name...
-
         return reportPosition;
+    }
+    
+    public static String getLinesInString(Position p) throws Exception {
+        List<String> lines = getLines(p);
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < lines.size(); i++) {
+            if (i == lines.size() - 1) {
+            	result.append(lines.get(i));
+            } else {
+            	result.append(lines.get(i)).append('\n');
+        	}
+        }
+        return result.toString();
+    }
+    
+    public static List<String> getLines(Position p) {
+        List<String> lines = new ArrayList<>();
+
+        String url = p.getURL().toString();
+        if (operatingSystem == OS.Windows) {
+            // take care of url in windows
+            if (!url.startsWith("file:///")) {
+            	url = url.replace("file://", "file:///");
+            }
+        }
+        try {
+            
+        	File file = new File(new URL(url).getFile());
+    
+            if (file.exists() && file.isFile()) {        	
+	            try (FileReader freader = new FileReader(file);
+	                BufferedReader reader = new BufferedReader(freader)) {
+	                
+	            	String currentLine = null;
+	                
+	            	int line = 0;
+	                do {
+		                currentLine = reader.readLine();
+		                if (currentLine == null) {
+		                    return lines;
+		                }
+		            	line++;
+	                } while (p.getFirstLine() > line);
+		
+	                // first line
+	                lines.add(removeComment(currentLine));
+	
+	                while (p.getLastLine() < line) {
+		                currentLine = reader.readLine();
+		                lines.add(removeComment(currentLine));
+		                line++;
+	                }
+	            }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return lines;
+    }
+    
+    public static String removeComment(String line) {
+        if (line.contains("//")) {
+            line = line.split("(\\s)*//")[0];
+        }
+        return line;
     }
 }
