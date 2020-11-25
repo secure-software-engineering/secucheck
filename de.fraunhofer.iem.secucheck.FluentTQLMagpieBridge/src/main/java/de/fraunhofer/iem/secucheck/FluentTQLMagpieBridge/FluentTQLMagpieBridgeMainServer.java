@@ -2,6 +2,7 @@ package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
 import magpiebridge.core.*;
 import magpiebridge.projectservice.java.JavaProjectService;
+import magpiebridge.util.MessageLogger;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 
 /**
@@ -30,6 +31,9 @@ public class FluentTQLMagpieBridgeMainServer {
         ServerConfiguration defaultConfig = new ServerConfiguration();
         defaultConfig.setDoAnalysisByOpen(false);
         defaultConfig.setDoAnalysisBySave(false);
+        defaultConfig.setDoAnalysisByIdle(false, 1);
+
+        defaultConfig.setMagpieMessageLogger(new MessageLogger());
 
         defaultConfig.setShowConfigurationPage(true, true);
 
