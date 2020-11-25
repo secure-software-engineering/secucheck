@@ -8,7 +8,9 @@ import com.ibm.wala.util.collections.Pair;
 import magpiebridge.core.AnalysisResult;
 import magpiebridge.core.Kind;
 
-public class SecuCheckMapieBridgeResult implements AnalysisResult {
+import java.io.Serializable;
+
+public class SecuCheckMapieBridgeResult implements AnalysisResult, Serializable {
 
     private Kind kind;
     private Position position;

@@ -2,12 +2,13 @@ package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Serializable;
 import java.net.URL;
 
 import com.ibm.wala.cast.tree.CAstSourcePositionMap.Position;
 import com.ibm.wala.classLoader.IMethod.SourcePosition;
 
-public class ReportPosition implements Position {
+public class ReportPosition implements Position, Serializable {
 
 	private int firstLine,
 				lastLine,

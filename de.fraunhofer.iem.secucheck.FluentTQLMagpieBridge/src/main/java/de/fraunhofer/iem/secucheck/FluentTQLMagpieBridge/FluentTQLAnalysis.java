@@ -23,6 +23,7 @@ import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
 
 import java.io.File;
+import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -56,6 +57,8 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     private final List<ConfigurationOption> options = new ArrayList<>();
     private final HashMap<String, String> listOfJavaFiles = new HashMap<>();
     private final SecucheckMagpieBridgeAnalysis secucheckAnalysis = new SecuCheckAnalysisWrapper(true);
+
+    private final ArrayList<String> selectedSpecificationFiles = new ArrayList<>();
 
     private boolean isFirstPageDone = false;
     private String source = null;
@@ -152,11 +155,14 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
             if (validateQueriesAndEntryPoints()) {
                 Runnable analysisTask = () -> {
                     try {
-                        Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
-                                entryPoints, modifiedClassPath, libraryPath, projectRootPath.toAbsolutePath().toString());
+                        //Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
+                        //        entryPoints, modifiedClassPath, libraryPath, projectRootPath.toAbsolutePath().toString());
 
-//                        System.out.println("Result size = " + results.size());
-                        server.consume(results, "secucheck-analysis");
+                        SerializeResult serializedResult = new SerializeResult();
+                        serializedResult.deserializeResult();
+
+                        server.consume(serializedResult.getPartialResults(selectedSpecificationFiles, entryPoints), "secucheck-analysis");
+
                     } catch (Exception e) {
                         FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
                                 .forwardMessageToClient(new MessageParams(MessageType.Error,
@@ -298,6 +304,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      */
     private boolean processFluentTQLSpecificationFiles(ConfigurationOption configOption, boolean isRecompile) {
         taintFlowQueries.clear();
+        selectedSpecificationFiles.clear();
 
         if (isRecompile) {
             fluentTQLSpecs.clear();
@@ -309,6 +316,8 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         for (ConfigurationOption configurationOption : configOption.getChildren()) {
             if (configurationOption.getValueAsBoolean()) {
                 selectedCount += 1;
+
+                selectedSpecificationFiles.add(configurationOption.getName());
 
                 // Get the list of FluentTQLSpecification
                 List<FluentTQLSpecification> fluentTQLSpecificationList = fluentTQLSpecs.get(configurationOption.getName()).getFluentTQLSpecification();
