@@ -134,7 +134,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                     modifiedClassPath.add(classPath);
                 }
             }
-
+/*
             System.out.println("\n\n\nEntry Points = " + entryPoints);
             System.out.println("Taintflow queries size = " + taintFlowQueries.size() + "\n\n\n");
 
@@ -147,7 +147,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                     }
                 }
             }
-
+*/
             // Perform validation synchronously and run analysis asynchronously.
             if (validateQueriesAndEntryPoints()) {
                 Runnable analysisTask = () -> {
@@ -155,7 +155,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                         Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
                                 entryPoints, modifiedClassPath, libraryPath, projectRootPath.toAbsolutePath().toString());
 
-                        System.out.println("Result size = " + results.size());
+//                        System.out.println("Result size = " + results.size());
                         server.consume(results, "secucheck-analysis");
                     } catch (Exception e) {
                         FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
