@@ -120,36 +120,53 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param rerun  Is rerun
      */
     public void analyze(Collection<? extends Module> files, AnalysisConsumer server, boolean rerun) {
-        if (lastAnalysisTask != null && !lastAnalysisTask.isDone()) {
-            lastAnalysisTask.cancel(false);
-            if (lastAnalysisTask.isCancelled()) {
-                logger.log(Level.INFO, "Last running analysis has been cancelled.");
-            }
-        }
-
-        Set<Path> modifiedClassPath = new HashSet<Path>();
-        for (Path classPath : classPath) {
-            if (!classPath.toAbsolutePath().toString().contains("bin")) {
-                modifiedClassPath.add(classPath);
-            }
-        }
-        // Perform validation synchronously and run analysis asynchronously.
-        if (validateQueriesAndEntryPoints()) {
-            Runnable analysisTask = () -> {
-                try {
-                    Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
-                            entryPoints, modifiedClassPath, libraryPath, projectRootPath.toAbsolutePath().toString());
-
-                    server.consume(results, "secucheck-analysis");
-                } catch (Exception e) {
-                    FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
-                            .forwardMessageToClient(new MessageParams(MessageType.Error,
-                                    "Problem occured while running the analysis: " + e.getMessage()));
-                    logger.log(Level.SEVERE, "Problem occured while running the analysis: " + e.getMessage());
+        if (rerun) {
+            if (lastAnalysisTask != null && !lastAnalysisTask.isDone()) {
+                lastAnalysisTask.cancel(false);
+                if (lastAnalysisTask.isCancelled()) {
+                    logger.log(Level.INFO, "Last running analysis has been cancelled.");
                 }
-            };
+            }
 
-            lastAnalysisTask = execService.submit(analysisTask);
+            Set<Path> modifiedClassPath = new HashSet<Path>();
+            for (Path classPath : classPath) {
+                if (!classPath.toAbsolutePath().toString().contains("bin")) {
+                    modifiedClassPath.add(classPath);
+                }
+            }
+
+            System.out.println("\n\n\nEntry Points = " + entryPoints);
+            System.out.println("Taintflow queries size = " + taintFlowQueries.size() + "\n\n\n");
+
+            for (FluentTQLSpecification fluentTQLSpecification : taintFlowQueries) {
+                if (fluentTQLSpecification instanceof TaintFlowQuery) {
+                    new DisplayTaint().displayTaintFlowQuery((TaintFlowQuery) fluentTQLSpecification);
+                } else if (fluentTQLSpecification instanceof QueriesSet) {
+                    for (TaintFlowQuery taintFlowQuery : ((QueriesSet) fluentTQLSpecification).getTaintFlowQueries()) {
+                        new DisplayTaint().displayTaintFlowQuery(taintFlowQuery);
+                    }
+                }
+            }
+
+            // Perform validation synchronously and run analysis asynchronously.
+            if (validateQueriesAndEntryPoints()) {
+                Runnable analysisTask = () -> {
+                    try {
+                        Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
+                                entryPoints, modifiedClassPath, libraryPath, projectRootPath.toAbsolutePath().toString());
+
+                        System.out.println("Result size = " + results.size());
+                        server.consume(results, "secucheck-analysis");
+                    } catch (Exception e) {
+                        FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
+                                .forwardMessageToClient(new MessageParams(MessageType.Error,
+                                        "Problem occured while running the analysis: " + e.getMessage()));
+                        logger.log(Level.SEVERE, "Problem occured while running the analysis: " + e.getMessage());
+                    }
+                };
+
+                lastAnalysisTask = execService.submit(analysisTask);
+            }
         }
     }
 
@@ -474,9 +491,11 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         for (String javaFile : classNames) {
             String[] str = javaFile.split("\\.");
-            sortedClassNames.add(str[str.length - 1]);
 
-            listOfJavaFiles.put(str[str.length - 1], javaFile);
+            if (!fluentTQLSpecs.containsKey(str[str.length - 1] + ".java")) {
+                sortedClassNames.add(str[str.length - 1]);
+                listOfJavaFiles.put(str[str.length - 1], javaFile);
+            }
         }
 
         Collections.sort(sortedClassNames);
