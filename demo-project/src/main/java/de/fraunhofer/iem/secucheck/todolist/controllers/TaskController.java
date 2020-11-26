@@ -4,12 +4,7 @@ package de.fraunhofer.iem.secucheck.todolist.controllers;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -23,8 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -44,7 +37,7 @@ import de.fraunhofer.iem.secucheck.todolist.model.User;
 import de.fraunhofer.iem.secucheck.todolist.repository.TaskRepository;
 import de.fraunhofer.iem.secucheck.todolist.service.DirectoryStorageService;
 import de.fraunhofer.iem.secucheck.todolist.service.UserService;
-import de.fraunhofer.iem.secucheck.utils.SecurityUtils;
+import de.fraunhofer.iem.secucheck.todolist.utils.SecurityUtils;
 
 @Controller
 public class TaskController {

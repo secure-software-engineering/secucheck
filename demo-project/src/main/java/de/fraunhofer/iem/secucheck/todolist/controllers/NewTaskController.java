@@ -22,7 +22,7 @@ import de.fraunhofer.iem.secucheck.todolist.model.User;
 import de.fraunhofer.iem.secucheck.todolist.repository.TaskRepository;
 import de.fraunhofer.iem.secucheck.todolist.service.DirectoryStorageService;
 import de.fraunhofer.iem.secucheck.todolist.service.UserService;
-import de.fraunhofer.iem.secucheck.utils.SecurityUtils;
+import de.fraunhofer.iem.secucheck.todolist.utils.SecurityUtils;
 
 
 @Controller

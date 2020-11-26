@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.stream.Stream;
 
 import javax.crypto.Cipher;
@@ -33,7 +32,7 @@ import de.fraunhofer.iem.secucheck.todolist.model.User;
 import de.fraunhofer.iem.secucheck.todolist.repository.TaskRepository;
 import de.fraunhofer.iem.secucheck.todolist.service.DirectoryStorageService;
 import de.fraunhofer.iem.secucheck.todolist.service.UserService;
-import de.fraunhofer.iem.secucheck.utils.*;
+import de.fraunhofer.iem.secucheck.todolist.utils.*;
 
 /*
  * This controller executes operations with the database. 
