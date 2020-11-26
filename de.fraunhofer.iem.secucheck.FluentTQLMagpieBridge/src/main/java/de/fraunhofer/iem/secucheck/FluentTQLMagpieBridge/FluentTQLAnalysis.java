@@ -159,9 +159,13 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                         //        entryPoints, modifiedClassPath, libraryPath, projectRootPath.toAbsolutePath().toString());
 
                         SerializeResult serializedResult = new SerializeResult();
-                        serializedResult.deserializeResult();
+                        serializedResult.deserializeFromJson();
+                        //serializedResult.serializeToJson(results);
+                        //serializedResult.deserializeResult();
 
+                        //System.out.println("-----> Size = " + results.size());
                         server.consume(serializedResult.getPartialResults(selectedSpecificationFiles, entryPoints), "secucheck-analysis");
+                        //server.consume(results, "secucheck-analysis");
 
                     } catch (Exception e) {
                         FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer

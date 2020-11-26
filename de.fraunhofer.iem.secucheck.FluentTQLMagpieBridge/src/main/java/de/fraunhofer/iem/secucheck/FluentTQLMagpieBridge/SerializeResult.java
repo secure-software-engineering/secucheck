@@ -1,5 +1,10 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckMapieBridgeResult;
 import magpiebridge.core.AnalysisResult;
 
 import java.io.*;
@@ -7,22 +12,15 @@ import java.util.*;
 
 public class SerializeResult {
     private List<String> fileList = new ArrayList<String>(
-            Arrays.asList("CWE20_LoginController_Sink.ser",
-                    "CWE20_LoginController_Source.ser",
-                    "CWE22_TaskController_Sink.ser",
-                    "CWE22_TaskController_Source.ser",
-                    "CWE311_TaskController_Sink.ser",
-                    "CWE311_TaskController_Source.ser",
-                    "CWE601_TaskController_Sink.ser",
-                    "CWE601_TaskController_Source.ser",
-                    "CWE78_TaskController_Sink.ser",
-                    "CWE78_TaskController_Source.ser",
-                    "CWE79_LoginController_Sink.ser",
-                    "CWE79_LoginController_Source.ser",
-                    "CWE89_SimpleSQLInjection_Sink.ser",
-                    "CWE89_SimpleSQLInjection_Source.ser",
-                    "CWE89_TaskController_Sink.ser",
-                    "CWE89_TaskController_Source.ser")
+            Arrays.asList("CWE20_ImproperInputValidation",
+                    "CWE22_PathTraversal",
+                    "CWE311_MissingEncryption",
+                    "CWE601_OpenRedirect_TaskController1",
+                    "CWE78_OsCommandInjection_NewTaskController1",
+                    "CWE78_OsCommandInjection_NewTaskController2",
+                    "CWE79_CrossSiteScripting",
+                    "CWE89_SqlInjection_DatabaseController1",
+                    "CWE89_SqlInjection_DatabaseController2")
     );
 
     private final Collection<AnalysisResult> completeResults = new ArrayList<AnalysisResult>();
@@ -37,52 +35,50 @@ public class SerializeResult {
         partialResults.clear();
 
         for (String specFile : specificationFiles) {
-            if ("CWE22.java".equals(specFile)) {
-                if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.TaskController")) {
-                    partialResults.add(fileToResultMap.get("CWE22_TaskController_Sink.ser"));
-                    partialResults.add(fileToResultMap.get("CWE22_TaskController_Source.ser"));
-                }
-            }
-
-            if ("CWE20.java".equals(specFile)) {
+            System.out.println(specFile);
+            System.out.println(entryPoints);
+            System.out.println(fileToResultMap.keySet());
+            if ("CWE20_ImproperInputValidation.java".equals(specFile)) {
                 if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.LoginController")) {
-                    partialResults.add(fileToResultMap.get("CWE20_LoginController_Sink.ser"));
-                    partialResults.add(fileToResultMap.get("CWE20_LoginController_Source.ser"));
+                    partialResults.add(fileToResultMap.get("CWE20_ImproperInputValidation"));
                 }
             }
 
-            if ("CWE78.java".equals(specFile)) {
+            if ("CWE22_PathTraversal.java".equals(specFile)) {
+                if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.NewTaskController")) {
+                    partialResults.add(fileToResultMap.get("CWE22_PathTraversal"));
+                }
+            }
+
+            if ("CWE311_MissingEncryption.java".equals(specFile)) {
+                if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.NewTaskController")) {
+                    partialResults.add(fileToResultMap.get("CWE311_MissingEncryption"));
+                }
+            }
+
+            if ("CWE601_OpenRedirect.java".equals(specFile)) {
                 if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.TaskController")) {
-                    partialResults.add(fileToResultMap.get("CWE78_TaskController_Sink.ser"));
-                    partialResults.add(fileToResultMap.get("CWE78_TaskController_Source.ser"));
+                    partialResults.add(fileToResultMap.get("CWE601_OpenRedirect_TaskController1"));
                 }
             }
 
-            if ("CWE311.java".equals(specFile)) {
-                if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.TaskController")) {
-                    partialResults.add(fileToResultMap.get("CWE311_TaskController_Sink.ser"));
-                    partialResults.add(fileToResultMap.get("CWE311_TaskController_Source.ser"));
+            if ("CWE78_OsCommandInjection.java".equals(specFile)) {
+                if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.NewTaskController")) {
+                    partialResults.add(fileToResultMap.get("CWE78_OsCommandInjection_NewTaskController1"));
+                    partialResults.add(fileToResultMap.get("CWE78_OsCommandInjection_NewTaskController2"));
                 }
             }
 
-            if ("CWE89.java".equals(specFile)) {
-                if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.TaskController")) {
-                    partialResults.add(fileToResultMap.get("CWE89_TaskController_Sink.ser"));
-                    partialResults.add(fileToResultMap.get("CWE89_TaskController_Source.ser"));
-                }
-            }
-
-            if ("CWE79.java".equals(specFile)) {
+            if ("CWE79_CrossSiteScripting.java".equals(specFile)) {
                 if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.LoginController")) {
-                    partialResults.add(fileToResultMap.get("CWE79_LoginController_Sink.ser"));
-                    partialResults.add(fileToResultMap.get("CWE79_LoginController_Source.ser"));
+                    partialResults.add(fileToResultMap.get("CWE79_CrossSiteScripting"));
                 }
             }
 
-            if ("CWE601.java".equals(specFile)) {
-                if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.TaskController")) {
-                    partialResults.add(fileToResultMap.get("CWE601_TaskController_Sink.ser"));
-                    partialResults.add(fileToResultMap.get("CWE601_TaskController_Source.ser"));
+            if ("CWE89_SqlInjection.java".equals(specFile)) {
+                if (entryPoints.contains("de.fraunhofer.iem.secucheck.todolist.controllers.DatabaseController")) {
+                    partialResults.add(fileToResultMap.get("CWE89_SqlInjection_DatabaseController1"));
+                    partialResults.add(fileToResultMap.get("CWE89_SqlInjection_DatabaseController2"));
                 }
             }
         }
@@ -91,81 +87,48 @@ public class SerializeResult {
         return partialResults;
     }
 
-    public void serializeResult(Collection<AnalysisResult> results) {
+    public void serializeToJson(Collection<AnalysisResult> results) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        mapper.enableDefaultTyping(
+                ObjectMapper.DefaultTyping.OBJECT_AND_NON_CONCRETE);
+        mapper.enableDefaultTyping(
+                ObjectMapper.DefaultTyping.NON_CONCRETE_AND_ARRAYS);
+
         int count = 0;
-        for (AnalysisResult result : results) {
-            // Serialization
-            try {
-                System.out.println("Separator = " + System.getProperty("file.separator"));
-                System.out.println(result.position().getURL().toString());
-
-                String[] splitFileName = result.position().getURL().toString().split("/");
-                String message = result.toString()
-                        .replaceAll(" ", "_")
-                        .replaceAll(":", "")
-                        .replaceAll("-", "")
-                        .replaceAll("'", "")
-                        .replaceAll("\\(", "")
-                        .replaceAll("\\)", "")
-                        .replaceAll("\\.", "");
-                int line = result.position().getFirstLine();
-
-                //Saving of object in a file
-                System.out.println("Last element = " + splitFileName[splitFileName.length - 1]);
-                System.out.println("Replacement = " + splitFileName[splitFileName.length - 1].replaceAll(".java", ""));
-
-                System.out.println("----->>>>> C:\\Users\\Ranjith\\SecucheckResults\\"
-                        + splitFileName[splitFileName.length - 1].replaceAll(".java", "")
-                        + ".ser");
-                FileOutputStream file = new FileOutputStream(
-                        "C:\\Users\\Ranjith\\SecucheckResults\\"
-                                + splitFileName[splitFileName.length - 1].replaceAll(".java", "")
-                                + message
-                                + "_"
-                                + line
-                                + ".ser"
-                );
-
-                ObjectOutputStream out = new ObjectOutputStream(file);
-
-                // Method for serialization of object
-                out.writeObject(result);
-
-                out.close();
-                file.close();
-
-                System.out.println("Object has been serialized");
-
-            } catch (IOException ex) {
-                System.out.println("IOException is caught: " + ex.getMessage());
+        try {
+            // Serialize Java object info JSON file.
+            for (AnalysisResult result : results) {
+                File file = new File("C:\\Users\\Ranjith\\SecucheckResults\\result" + ++count + ".json");
+                SecuCheckMapieBridgeResult resultFinal = (SecuCheckMapieBridgeResult) result;
+                mapper.writeValue(file, resultFinal);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public void deserializeResult() {
-        int count = 0;
-        Collection<AnalysisResult> results = new ArrayList<AnalysisResult>();
+    public void deserializeFromJson() {
+        ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        mapper.enableDefaultTyping(
+                ObjectMapper.DefaultTyping.OBJECT_AND_NON_CONCRETE);
+        mapper.enableDefaultTyping(
+                ObjectMapper.DefaultTyping.NON_CONCRETE_AND_ARRAYS);
 
         completeResults.clear();
-        fileToResultMap.clear();
 
         for (String fileName : fileList) {
-            try {
-                // Reading the object from a file
-                FileInputStream file = new FileInputStream("C:\\Users\\Ranjith\\SecucheckResults\\" + fileName);
-                ObjectInputStream in = new ObjectInputStream(file);
+            File file = new File("C:\\Users\\Ranjith\\SecucheckResults\\" + fileName + ".json");
 
-                // Method for deserialization of object
-                AnalysisResult analysisResult = ((AnalysisResult) in.readObject());
+            try {
+                // Deserialize JSON file into Java object.
+                SecuCheckMapieBridgeResult analysisResult = mapper.readValue(file, SecuCheckMapieBridgeResult.class);
                 completeResults.add(analysisResult);
                 fileToResultMap.put(fileName, analysisResult);
 
-                in.close();
-                file.close();
-            } catch (IOException ex) {
-                System.out.println("IOException is caught");
-            } catch (ClassNotFoundException ex) {
-                System.out.println("ClassNotFoundException is caught");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
