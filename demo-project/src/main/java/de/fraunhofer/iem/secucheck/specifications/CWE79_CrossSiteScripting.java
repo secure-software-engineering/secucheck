@@ -11,7 +11,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
-public class CWE79 implements FluentTQLUserInterface {
+public class CWE79_CrossSiteScripting implements FluentTQLUserInterface {
 
     /**
      * Source
@@ -55,10 +55,9 @@ public class CWE79 implements FluentTQLUserInterface {
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(sourceMethod)
-                .notThrough(sanitizerMethod)
                 .to(sinkMethod)
-                .report("Invalid Information Flow. CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') detected.")
-                .at(LOCATION.SOURCEANDSINK)
+                .report("CWE-79 detected: Cross-site Scripting from untrusted value 'String pattern' (line 71).")
+                .at(LOCATION.SINK)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();

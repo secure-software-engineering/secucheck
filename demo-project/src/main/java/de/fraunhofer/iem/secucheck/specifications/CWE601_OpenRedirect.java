@@ -3,6 +3,8 @@ package de.fraunhofer.iem.secucheck.specifications;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
@@ -11,7 +13,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
-public class CWE601 implements FluentTQLUserInterface {
+
+public class CWE601_OpenRedirect implements FluentTQLUserInterface {
 
     /**
      * Source
@@ -23,6 +26,25 @@ public class CWE601 implements FluentTQLUserInterface {
 				"java.lang.String)")
     		.out().param(1).configure();
     		
+    
+    /**
+     * Source
+     */    
+    Method sourceMethod2 = new MethodConfigurator(
+    			"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+				"java.lang.String markDoneTask(de.fraunhofer.iem.secucheck.todolist.model.TaskList,"+
+				"javax.servlet.http.HttpServletResponse)")
+    		.out().param(0).configure();
+    	
+    /**
+     * Source
+     */    
+    Method sourceMethod3 = new MethodConfigurator(
+    			"de.fraunhofer.iem.secucheck.todolist.controllers.LoginController: "+
+				"org.springframework.web.servlet.ModelAndView registrationWithCode(javax.servlet.http.HttpServletRequest,"+
+				"javax.servlet.http.HttpServletResponse)")
+    		.out().param(0).configure();
+    	
     
     /**
      * Sink
@@ -42,12 +64,28 @@ public class CWE601 implements FluentTQLUserInterface {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(sourceMethod)
                 .to(sinkMethod)
-                .report("Invalid Information Flow. CWE-601: URL Redirection to Untrusted Site ('Open Redirect') detected.")
-                .at(LOCATION.SOURCEANDSINK)
+                .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'String page' (line 300).")
+                .at(LOCATION.SINK)
+                .build();
+        
+        TaintFlowQuery myTF2 = new TaintFlowQueryBuilder()
+                .from(sourceMethod2)
+                .to(sinkMethod)
+                .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'TaskList requestItems' (line 97).")
+                .at(LOCATION.SINK)
+                .build();
+        
+        TaintFlowQuery myTF3 = new TaintFlowQueryBuilder()
+                .from(sourceMethod3)
+                .to(sinkMethod)
+                .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'HttpServletRequest request' (line 69).")
+                .at(LOCATION.SINK)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();
         myFluentTQLSpecs.add(myTF);
+        myFluentTQLSpecs.add(myTF2);
+        myFluentTQLSpecs.add(myTF3);
 
         return myFluentTQLSpecs;
     }

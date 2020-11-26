@@ -44,25 +44,23 @@ import de.fraunhofer.iem.secucheck.todolist.model.User;
 import de.fraunhofer.iem.secucheck.todolist.repository.TaskRepository;
 import de.fraunhofer.iem.secucheck.todolist.service.DirectoryStorageService;
 import de.fraunhofer.iem.secucheck.todolist.service.UserService;
+import de.fraunhofer.iem.secucheck.utils.SecurityUtils;
 
 @Controller
 public class TaskController {
 
 	private final String EMPTY = "";
-	
+	private static SecurityUtils secUtils = new SecurityUtils();
 	private static Logger logger = LoggerFactory.getLogger(TaskController.class);
 	
 	private Cipher encryptCipher,
-				   decryptCipher;
+	   decryptCipher;
 	
 	@Autowired
     private TaskRepository taskRepository;
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
     
     @Autowired
     private DirectoryStorageService storageService;
@@ -72,146 +70,39 @@ public class TaskController {
         try { init();} catch (Exception e) {	}
     }
 
-    @RequestMapping(value= {"/tasks"}, method=RequestMethod.GET)
-    public String showTasks(Model model, 
-    		@RequestParam(value = "search", required = false) String pattern)
-    				throws Exception
-    {
-        try
-        {
-        	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            User user = userService.findUserByEmail(auth.getName());
-            Stream<Task> stream;
-            
-            if (pattern != null && !pattern.isEmpty()) {
-            	stream = jdbcTemplate.query(
-            			getSearchQuery(pattern, user.getEmail()), 
-            			getTaskRowMapper()).stream();
-            } else {
-            	stream = ((ArrayList<Task>) taskRepository.findAll())
-                		.stream().filter(y-> y != null 
-                			&& y.getUserId() != null 
-                			&& y.getUserId().equals(user.getEmail()));
-            }
-            
-            ArrayList<Task> taskList = new ArrayList<Task>();
-            stream.forEach(y-> {
-    			if (y != null) {
-    				try {
-						y.setName(decrypt(y.getName()));
-	    				y.setDescription(decrypt(y.getDescription()));
-					} catch (Exception ex) {
-						try { handleException(ex, EMPTY, true);}
-						catch (Exception e) { }
-					}
-    				taskList.add(y);
-    			}
-    		});;
-            
-            model.addAttribute("search", pattern);
-            model.addAttribute("username", user.getName());
-            model.addAttribute("item", new Task());
-            model.addAttribute("items", new TaskList(taskList));
-            
-            return "task/show_tasks";
-        }
-        catch (Exception ex)
-        {
-        	return handleException(ex, EMPTY, true);
-        }
-    }   
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addTask(Model model) throws Exception
+    private void init() throws Exception 
     {
-    	try
-    	{
-    		model.addAttribute("newtask", new Task());
-            return "task/add_task";
-    	}
-    	catch(Exception ex)
-    	{
-    		return handleException(ex, EMPTY, true);
-    	}
-    }
-    
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String saveTask(@ModelAttribute Task newTask, 
-    		@RequestParam(value="attachment") MultipartFile file,
-    		RedirectAttributes redirectAttributes) throws Exception 
-    {
-
-    	boolean cleanupFile = false,
-    			cleanupTask = false;
-    	
-    	User user = null;
-    	
         try 
-    	{
-        	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            user = userService.findUserByEmail(auth.getName());
-            newTask.setUserId(user.getEmail());
-            newTask.setComplete(false);
-            newTask.setName(encrypt(newTask.getName()));
-            newTask.setDescription(encrypt(newTask.getDescription()));
-            taskRepository.save(newTask);
-            
-            cleanupTask = true;
-            
-            if (!file.isEmpty())
-            {	
-            	if (newTask.getFileName() == null || newTask.getFileName().isEmpty())
-            	{
-            		newTask.setFileName(StringUtils.cleanPath(file.getOriginalFilename()));
-            	}
-            	
-            	storageService.store(file, newTask, 
-            			user.getId() + File.separator + newTask.getId());
-            	
-            	cleanupFile = true;
-            	
-            	int bytes = storageService.getFileSizeOnSystem(newTask, 
-            					user.getId() + File.separator + newTask.getId());
-            	
-            	newTask.setFileSizeOnSystem(bytes);
-            }
-            else if (newTask.getFileName() != null)
-            {
-            	newTask.setFileName(null);
-            }
+        {
+        	SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            DESKeySpec desKeySpec = new DESKeySpec("My Encryption Key98".getBytes());
+            SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
 
-            // Save once more with the update file info.
-            taskRepository.save(newTask);
-            
-            redirectAttributes.addFlashAttribute("message",
-    				"You successfully uploaded " + file.getOriginalFilename() + "!");           
-            
-            return "redirect:/tasks";
-    	}
-    	catch (Exception ex)
-    	{
-    		if (cleanupTask) { taskRepository.delete(newTask); }    		
-    		if (cleanupFile)
-    		{
-    			try { storageService.deleteAll(user.getId() + File.separator +
-    					newTask.getId() + File.separator + newTask.getFileName()); 
-    			} catch (Exception e) { }
-    		}
-    		
-    		return handleException(ex, user.toString() + ":" + newTask.toString(), true);
-    	}        
+            encryptCipher = Cipher.getInstance("DES");
+            encryptCipher.init(Cipher.ENCRYPT_MODE, secretKey);
+
+            decryptCipher = Cipher.getInstance("DES");
+            decryptCipher.init(Cipher.DECRYPT_MODE, secretKey);
+        }
+        catch (Exception ex) 
+        {
+        	handleException(ex, EMPTY, false);
+        }
     }
+
+   
     
     @RequestMapping(value = "/update", params = "done", method = RequestMethod.POST)
-    public String markDoneTask(@ModelAttribute TaskList requestItems) throws Exception 
+    public String markDoneTask(@ModelAttribute TaskList requestItems, HttpServletResponse response) throws Exception 
     {
     	try
     	{
     		Task newTask = getModifiedTask(requestItems);
     		newTask.setComplete(!newTask.isComplete());
-    		newTask.setName(encrypt(newTask.getName()));
-            newTask.setDescription(encrypt(newTask.getDescription()));
-            
+    		newTask.setName(secUtils.encrypt(newTask.getName(), this.encryptCipher));
+            newTask.setDescription(secUtils.encrypt(newTask.getDescription(), this.encryptCipher));
+            response.sendRedirect("https://shownumberofremaing.tasks?num="+requestItems.getTaskList().size());
     		taskRepository.save(newTask);
     		
     		return "redirect:/tasks";
@@ -421,63 +312,7 @@ public class TaskController {
         }
     }
 
-    private void init() throws Exception 
-    {
-        try 
-        {
-        	SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
-            DESKeySpec desKeySpec = new DESKeySpec("My Encryption Key98".getBytes());
-            SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
 
-            encryptCipher = Cipher.getInstance("DES");
-            encryptCipher.init(Cipher.ENCRYPT_MODE, secretKey);
-
-            decryptCipher = Cipher.getInstance("DES");
-            decryptCipher.init(Cipher.DECRYPT_MODE, secretKey);
-        }
-        catch (Exception ex) 
-        {
-        	handleException(ex, EMPTY, false);
-        }
-    }
-    
-    private String decrypt(String encrypted) throws Exception 
-    {
-    	if (!encrypted.isEmpty()) 
-    	{
-    		// Decode base64 to get bytes    
-            byte[] dec = Base64.getDecoder().decode(encrypted);
-            byte[] utf8 = decryptCipher.doFinal(dec);
-            encrypted = new String(utf8, "UTF8");
-    	}
-
-    	return encrypted;
-    }
-
-    private String encrypt(String string) throws Exception 
-    {
-        // Encode the string into bytes using utf-8
-        if (!string.isEmpty())
-        {
-            byte[] utf8 = string.getBytes("UTF8");
-            byte[] enc = encryptCipher.doFinal(utf8);
-            string = Base64.getEncoder().encodeToString(enc);   
-        }
-        
-        return string;
-    }
-    
-    private String correctFileName(String name)
-    {
-    	return name.replace("./", "");
-    }
-        
-    private String getSearchQuery(String searchPattern, String userId)
-    {
-    	return "SELECT * FROM todolist.task WHERE user_id = '" + userId 
-    			+ "' AND ( name LIKE '%" + searchPattern + "%' OR " +
-    			" description LIKE '%" + searchPattern + "%');";
-    }
     
     private Task getModifiedTask(TaskList taskList) throws Exception
     {
@@ -488,29 +323,13 @@ public class TaskController {
     	Optional<Task> orgTask = taskRepository.findById(postTask.getId());
 		if (!orgTask.isPresent()) throw new Exception();
 		Task task = orgTask.get();
-		task.setName(decrypt(task.getName()));
-		task.setDescription(decrypt(task.getDescription()));
+		task.setName(secUtils.decrypt(task.getName(), this.decryptCipher));
+		task.setDescription(secUtils.decrypt(task.getDescription(), this.decryptCipher));
 		return orgTask.get();
     }
     
-    private RowMapper<Task> getTaskRowMapper()
-    {
-    	return new RowMapper<Task>() {
-			@Override
-			public Task mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Task task = new Task();
-				task.setId(rs.getLong(1));
-				task.setComplete(rs.getBoolean(2));
-				task.setDeadline(rs.getDate(3));
-				task.setDescription(rs.getString(4));
-				task.setFileName(rs.getString(5));
-				task.setFileSizeOnSystem(rs.getInt(6));
-				task.setName(rs.getString(7));
-				task.setUserId(rs.getString(8));
-				return task;
-			}
-		};
-    }
+
+        
     
     private String getStacktrace(Exception ex)
     {

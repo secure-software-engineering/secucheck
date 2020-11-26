@@ -1,5 +1,8 @@
 package de.fraunhofer.iem.secucheck.todolist.controllers;
 
+import java.io.IOException;
+import java.net.http.HttpRequest;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import de.fraunhofer.iem.secucheck.todolist.model.User;
@@ -57,6 +62,22 @@ public class LoginController {
         }
         
         modelAndView.setViewName("authentication/signup");
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public ModelAndView registrationWithCode(HttpServletRequest request, HttpServletResponse response) 
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("authentication/signup");
+        String code = request.getParameter("code");
+        try {
+			response.sendRedirect(code);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         return modelAndView;
     }
     

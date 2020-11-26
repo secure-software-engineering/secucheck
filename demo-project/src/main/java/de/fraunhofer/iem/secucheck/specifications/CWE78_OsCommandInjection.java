@@ -11,13 +11,13 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
-public class CWE78 implements FluentTQLUserInterface {
+public class CWE78_OsCommandInjection implements FluentTQLUserInterface {
 
     /**
      * Source
      */
     Method sourceMethod = new MethodConfigurator(
-				"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+				"de.fraunhofer.iem.secucheck.todolist.controllers.NewTaskController: "+
 				"java.lang.String saveTask("+
 				"de.fraunhofer.iem.secucheck.todolist.model.Task,"+
 				"org.springframework.web.multipart.MultipartFile,"+
@@ -28,7 +28,7 @@ public class CWE78 implements FluentTQLUserInterface {
      * Sanitizer
      */
     Method sanitizerMethod = new MethodConfigurator(
-	    		"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+	    		"de.fraunhofer.iem.secucheck.todolist.controllers.NewTaskController: "+
 	    		"java.lang.String correctFileName("+
 	    		"java.lang.String)")
     		.in().param(0)
@@ -43,7 +43,17 @@ public class CWE78 implements FluentTQLUserInterface {
     			"de.fraunhofer.iem.secucheck.todolist.model.Task,"+
     			"java.lang.String)")
     		.in().param(0).configure();
-
+    
+    /**
+     * Sink
+     */    
+    Method sinkMethod2 = new MethodConfigurator(
+    			"de.fraunhofer.iem.secucheck.todolist.service.DirectoryStorageService: "+
+    			"int store(org.springframework.web.multipart.MultipartFile,"+
+    			"de.fraunhofer.iem.secucheck.todolist.model.Task,"+
+    			"java.lang.String)")
+    		.in().param(1).configure();
+    
     /**
      * Returns the Internal FluentTQL specification
      *
@@ -54,13 +64,22 @@ public class CWE78 implements FluentTQLUserInterface {
                 .from(sourceMethod)
                 .notThrough(sanitizerMethod)
                 .to(sinkMethod)
-                .report("Invalid Information Flow. CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection') detected.")
-                .at(LOCATION.SOURCEANDSINK)
+                .report("CWE-78 detected: 'OS Command Injection' from untrusted value 'Task newTask' (line 62).")
+                .at(LOCATION.SINK)
+                .build();
+        
+        TaintFlowQuery myTF2 = new TaintFlowQueryBuilder()
+                .from(sourceMethod)
+                .notThrough(sanitizerMethod)
+                .to(sinkMethod2)
+                .report("CWE-78 detected: 'OS Command Injection' from untrusted value 'Task newTask' (line 62).")
+                .at(LOCATION.SINK)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();
         myFluentTQLSpecs.add(myTF);
-
+        myFluentTQLSpecs.add(myTF2);
+        
         return myFluentTQLSpecs;
     }
 }

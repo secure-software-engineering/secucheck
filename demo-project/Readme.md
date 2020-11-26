@@ -48,23 +48,7 @@ spring.datasource.password = dbpassword
 
 * Open the link `localhost:8080/` in a browser, which will land you on the homepage of the application.
 
-## Vulnerabilities present in the Application:
 
-* **CWE-20**: Improper Input Validation; Implemented in `de.fraunhofer.iem.secucheck.todolist.controllers.TaskController.saveTask(...)` method. For details refer to `qwel/cwe20` folder in the source.
-
-* **CWE-22**: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal'); Implemented in `de.fraunhofer.iem.secucheck.todolist.controllers.TaskController.saveTask(...)` method. For details refer to `qwel/cwe22` folder in the source.
-
-* **CWE-78**: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection'); Implemented in `de.fraunhofer.iem.secucheck.todolist.controllers.TaskController.saveTask(...)` method. For details refer to `qwel/cwe78` folder in the source.
-
-* **CWE-79**: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting'); Implemented in `de.fraunhofer.iem.secucheck.todolist.controllers.LoginController.createNewUser(...)` method. For details refer to `qwel/cwe79` folder in the source.
-
-* **CWE-89**: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection'); Implemented in `de.fraunhofer.iem.secucheck.todolist.controllers.TaskController.showTasks(...)` method. For details refer to `qwel/cwe89` folder in the source.
-
-* **CWE-200**: Exposure of Sensitive Information to an Unauthorized Actor; Implemented in all binded methods of `de.fraunhofer.iem.secucheck.todolist.controllers.TaskController`. For details refer to `qwel/cwe200` folder in the source.
-
-* **CWE-311**: Missing Encryption of Sensitive Data; Implemented in `de.fraunhofer.iem.secucheck.todolist.controllers.TaskController.saveTask(...)` method. For details refer to `qwel/cwe311` folder in the source.
-
-* **CWE-601**: CWE-601: URL Redirection to Untrusted Site ('Open Redirect'); Implemented in `de.fraunhofer.iem.secucheck.todolist.controllers.TaskController.redirectToExternalUrl(...)` method. For details refer to `qwel/cwe601` folder in the source.
 
 ## Using the application: 
 

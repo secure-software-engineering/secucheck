@@ -11,7 +11,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
-public class CWE20 implements FluentTQLUserInterface {
+public class CWE20_ImproperInputValidation implements FluentTQLUserInterface {
 
     /**
      * Source
@@ -45,8 +45,8 @@ public class CWE20 implements FluentTQLUserInterface {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(sourceMethod)
                 .to(sinkMethod)
-                .report("Invalid Information Flow. CWE-20: Improper Input Validation detected!")
-                .at(LOCATION.SOURCEANDSINK)
+                .report("CWE-20 detected: Improper Input Validation from 'User user' (line 42)!")
+                .at(LOCATION.SINK)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();

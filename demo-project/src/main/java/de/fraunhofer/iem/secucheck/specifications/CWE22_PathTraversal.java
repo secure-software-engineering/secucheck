@@ -11,7 +11,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
-public class CWE22 implements FluentTQLUserInterface {
+public class CWE22_PathTraversal implements FluentTQLUserInterface {
 	
     /**
      * Source
@@ -54,8 +54,8 @@ public class CWE22 implements FluentTQLUserInterface {
                 .from(sourceMethod)
                 .notThrough(sanitizerMethod)
                 .to(sinkMethod)
-                .report("Invalid Information Flow. CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal') detected.")
-                .at(LOCATION.SOURCEANDSINK)
+                .report("CWE-22 detected: Path Traversal from untrusted value 'Task newTask' (line 62).")
+                .at(LOCATION.SINK)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();

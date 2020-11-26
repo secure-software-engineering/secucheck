@@ -11,13 +11,13 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
-public class CWE311 implements FluentTQLUserInterface {
+public class CWE311_MissingEncryption implements FluentTQLUserInterface {
 
     /**
      * Source
      */
 	Method sourceMethod = new MethodConfigurator(
-				"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+				"de.fraunhofer.iem.secucheck.todolist.controllers.NewTaskController: "+
 				"java.lang.String saveTask("+
 				"de.fraunhofer.iem.secucheck.todolist.model.Task,"+
 				"org.springframework.web.multipart.MultipartFile,"+
@@ -50,10 +50,9 @@ public class CWE311 implements FluentTQLUserInterface {
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(sourceMethod)
-                .notThrough(sanitizerMethod)
                 .to(sinkMethod)
-                .report("Invalid Information Flow. CWE-311: Missing Encryption of Sensitive Data detected.")
-                .at(LOCATION.SOURCEANDSINK)
+                .report("CWE-311 detected: Missing Encryption of Sensitive Data from 'Task newTask' (line 62) .")
+                .at(LOCATION.SINK)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();
