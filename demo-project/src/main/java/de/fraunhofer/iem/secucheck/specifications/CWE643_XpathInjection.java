@@ -3,8 +3,6 @@ package de.fraunhofer.iem.secucheck.specifications;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
@@ -48,14 +46,14 @@ public class CWE643_XpathInjection implements FluentTQLUserInterface{
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(source1)
                 .to(sink1)
-                .report("CWE-634 detected: XPath Injection from untrusted value 'getPartameter()' (line 34).")
+                .report("CWE-634 detected: XPath Injection from untrusted value 'getPartameter()'")
                 .at(LOCATION.SINK)
                 .build();
 
         TaintFlowQuery myTF2 = new TaintFlowQueryBuilder()
                 .from(source1)
                 .to(sink1)
-                .report("CWE-634 detected: XPath Injection from untrusted value 'getParameterValues()' (line 35).")
+                .report("CWE-634 detected: XPath Injection from untrusted value 'getParameterValues()'")
                 .at(LOCATION.SINK)
                 .build();
 

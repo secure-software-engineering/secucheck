@@ -52,7 +52,7 @@ public class CWE20_ImproperInputValidation implements FluentTQLUserInterface {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(sourceMethod)
                 .to(sinkMethod)
-                .report("CWE-20 detected: Improper Input Validation from 'User user' (line 42)!")
+                .report("CWE-20 detected: Improper Input Validation from 'User user'")
                 .at(LOCATION.SINK)
                 .build();
 

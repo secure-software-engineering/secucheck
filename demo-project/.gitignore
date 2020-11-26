@@ -34,3 +34,4 @@ upload/
 .attach_pid*
 .DS_Store
 
+bin

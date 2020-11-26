@@ -56,7 +56,7 @@ public class CWE311_MissingEncryption implements FluentTQLUserInterface {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(sourceMethod)
                 .to(sinkMethod)
-                .report("CWE-311 detected: Missing Encryption of Sensitive Data from 'Task newTask' (line 62) .")
+                .report("CWE-311 detected: Missing Encryption of Sensitive Data from 'Task newTask'")
                 .at(LOCATION.SINK)
                 .build();
 

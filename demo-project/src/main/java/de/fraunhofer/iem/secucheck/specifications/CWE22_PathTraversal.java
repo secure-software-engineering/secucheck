@@ -25,7 +25,7 @@ public class CWE22_PathTraversal implements FluentTQLUserInterface {
      * Source
      */
 	Method sourceMethod = new MethodConfigurator(
-				"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+				"de.fraunhofer.iem.secucheck.todolist.controllers.NewTaskController: "+
 				"java.lang.String saveTask("+
 				"de.fraunhofer.iem.secucheck.todolist.model.Task,"+
 				"org.springframework.web.multipart.MultipartFile,"+
@@ -36,7 +36,7 @@ public class CWE22_PathTraversal implements FluentTQLUserInterface {
      * Sanitizer
      */
 	Method sanitizerMethod = new MethodConfigurator(
-				"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+				"de.fraunhofer.iem.secucheck.todolist.controllers.NewTaskController: "+
 				"java.lang.String correctFileName("+
 				"java.lang.String)")
 			.in().param(0)
@@ -62,7 +62,7 @@ public class CWE22_PathTraversal implements FluentTQLUserInterface {
                 .from(sourceMethod)
                 .notThrough(sanitizerMethod)
                 .to(sinkMethod)
-                .report("CWE-22 detected: Path Traversal from untrusted value 'Task newTask' (line 62).")
+                .report("CWE-22 detected: Path Traversal from untrusted value 'Task newTask'")
                 .at(LOCATION.SINK)
                 .build();
 

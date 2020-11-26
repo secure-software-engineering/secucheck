@@ -57,7 +57,7 @@ public class CWE78_OsCommandInjection implements FluentTQLUserInterface {
      */    
     Method sinkMethod2 = new MethodConfigurator(
     			"de.fraunhofer.iem.secucheck.todolist.service.DirectoryStorageService: "+
-    			"int store(org.springframework.web.multipart.MultipartFile,"+
+    			"java.lang.String store(org.springframework.web.multipart.MultipartFile,"+
     			"de.fraunhofer.iem.secucheck.todolist.model.Task,"+
     			"java.lang.String)")
     		.in().param(1).configure();
@@ -72,7 +72,7 @@ public class CWE78_OsCommandInjection implements FluentTQLUserInterface {
                 .from(sourceMethod)
                 .notThrough(sanitizerMethod)
                 .to(sinkMethod)
-                .report("CWE-78 detected: 'OS Command Injection' from untrusted value 'Task newTask' (line 62).")
+                .report("CWE-78 detected: 'OS Command Injection' from untrusted value 'Task newTask'")
                 .at(LOCATION.SINK)
                 .build();
         
@@ -80,7 +80,7 @@ public class CWE78_OsCommandInjection implements FluentTQLUserInterface {
                 .from(sourceMethod)
                 .notThrough(sanitizerMethod)
                 .to(sinkMethod2)
-                .report("CWE-78 detected: 'OS Command Injection' from untrusted value 'Task newTask' (line 62).")
+                .report("CWE-78 detected: 'OS Command Injection' from untrusted value 'Task newTask'")
                 .at(LOCATION.SINK)
                 .build();
 

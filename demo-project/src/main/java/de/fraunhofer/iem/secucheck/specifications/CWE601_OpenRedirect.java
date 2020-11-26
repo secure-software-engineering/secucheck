@@ -3,8 +3,6 @@ package de.fraunhofer.iem.secucheck.specifications;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
@@ -44,10 +42,9 @@ public class CWE601_OpenRedirect implements FluentTQLUserInterface {
      * Source
      */    
     Method sourceMethod3 = new MethodConfigurator(
-    			"de.fraunhofer.iem.secucheck.todolist.controllers.LoginController: "+
-				"org.springframework.web.servlet.ModelAndView registrationWithCode(javax.servlet.http.HttpServletRequest,"+
-				"javax.servlet.http.HttpServletResponse)")
-    		.out().param(0).configure();
+			"javax.servlet.http.HttpServletRequest: "+
+			"java.lang.String getParameter(java.lang.String)")
+		.out().param(0).configure();
     
     /**
      * Sink
@@ -67,21 +64,21 @@ public class CWE601_OpenRedirect implements FluentTQLUserInterface {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(sourceMethod)
                 .to(sinkMethod)
-                .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'String page' (line 300).")
+                .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'String page'")
                 .at(LOCATION.SINK)
                 .build();
         
         TaintFlowQuery myTF2 = new TaintFlowQueryBuilder()
                 .from(sourceMethod2)
                 .to(sinkMethod)
-                .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'TaskList requestItems' (line 97).")
+                .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'TaskList requestItems'")
                 .at(LOCATION.SINK)
                 .build();
         
         TaintFlowQuery myTF3 = new TaintFlowQueryBuilder()
                 .from(sourceMethod3)
                 .to(sinkMethod)
-                .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'HttpServletRequest request' (line 69).")
+                .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'HttpServletRequest request'")
                 .at(LOCATION.SINK)
                 .build();
 

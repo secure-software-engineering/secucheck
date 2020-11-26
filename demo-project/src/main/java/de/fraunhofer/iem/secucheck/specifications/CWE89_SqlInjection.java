@@ -24,7 +24,7 @@ public class CWE89_SqlInjection implements FluentTQLUserInterface {
      * Source
      */
     Method sourceMethod = new MethodConfigurator(
-    			"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+    			"de.fraunhofer.iem.secucheck.todolist.controllers.DatabaseController: "+
     			"java.lang.String showTasks("+
     			"org.springframework.ui.Model,"+
 				"java.lang.String)"
@@ -34,7 +34,7 @@ public class CWE89_SqlInjection implements FluentTQLUserInterface {
      * Source
      */
     Method sourceMethod2 = new MethodConfigurator(
-    			"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+    			"de.fraunhofer.iem.secucheck.todolist.controllers.DatabaseController: "+
     			"java.lang.String showUrgentTasks("+
     			"org.springframework.ui.Model,"+
 				"java.lang.String)"
@@ -44,7 +44,7 @@ public class CWE89_SqlInjection implements FluentTQLUserInterface {
      * Sink
      */
     Method sinkMethod = new MethodConfigurator(
-    			"de.fraunhofer.iem.secucheck.todolist.controllers.TaskController: "+
+    			"de.fraunhofer.iem.secucheck.todolist.controllers.DatabaseController: "+
     			"java.lang.String getSearchQuery("+
 				"java.lang.String,"+
     			"java.lang.String)"
@@ -65,21 +65,21 @@ public class CWE89_SqlInjection implements FluentTQLUserInterface {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder()
                 .from(sourceMethod)
                 .to(sinkMethod)
-                .report("CWE-89 detected: 'SQL Injection' from untrusted value 'String pattern' (line 71).")
+                .report("CWE-89 detected: 'SQL Injection' from untrusted value 'String pattern'")
                 .at(LOCATION.SINK)
                 .build();
         
         TaintFlowQuery myTF2 = new TaintFlowQueryBuilder()
                 .from(sourceMethod2)
                 .to(sinkMethod)
-                .report("CWE-89 detected: 'SQL Injection' from untrusted value 'String shortname' (line 121).")
+                .report("CWE-89 detected: 'SQL Injection' from untrusted value 'String shortname'")
                 .at(LOCATION.SINK)
                 .build();
         
         TaintFlowQuery myTF3 = new TaintFlowQueryBuilder()
                 .from(sourceMethod2)
                 .to(sinkMethod2)
-                .report("CWE-89 detected: 'SQL Injection' from untrusted value 'String shortname' (line 121).")
+                .report("CWE-89 detected: 'SQL Injection' from untrusted value 'String shortname'")
                 .at(LOCATION.SINK)
                 .build();
 
