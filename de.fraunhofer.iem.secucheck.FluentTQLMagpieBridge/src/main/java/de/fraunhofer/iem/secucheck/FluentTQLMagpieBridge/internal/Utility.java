@@ -329,7 +329,7 @@ public final class Utility {
                         singleFlowQueryResult.getQueryResultMap().size() - 1);
                 locationPair = pair.getSecond();
                 analysisResult.setPosition(createReportPosition(locationPair.getSecond()));
-                analysisResult.setMessage("Sink: " + compositeQuery.getReportMessage());
+                analysisResult.setMessage(compositeQuery.getReportMessage() + " (Line " + locationPair.getFirst().getUsageStartLineNumber() + ").");
                 break;
         }
 
