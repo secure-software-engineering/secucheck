@@ -11,6 +11,13 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
+/**
+ * CWE-89: Improper Neutralization of Special Elements used in an SQL Command (SQL Injection)
+ *
+ * The software constructs all or part of an SQL command using externally-influenced input
+ * from an upstream component, but it does not neutralize or incorrectly neutralizes special
+ * elements that could modify the intended SQL command when it is sent to a downstream component.
+ */
 public class CWE89_SqlInjection implements FluentTQLUserInterface {
 	
     /**

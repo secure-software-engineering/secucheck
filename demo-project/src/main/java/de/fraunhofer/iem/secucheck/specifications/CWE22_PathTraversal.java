@@ -11,6 +11,14 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
+/**
+ * CWE-22: Improper Limitation of a Pathname to a Restricted Directory (Path Traversal)
+ *
+ * The software uses external input to construct a pathname that is intended to identify
+ * a file or directory that is located underneath a restricted parent directory,
+ * but the software does not properly neutralize special elements within the pathname
+ * that can cause the pathname to resolve to a location that is outside of the restricted directory.
+ */
 public class CWE22_PathTraversal implements FluentTQLUserInterface {
 	
     /**

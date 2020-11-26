@@ -11,6 +11,14 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
+/**
+ * CWE-78: Improper Neutralization of Special Elements used in an OS Command (OS Command Injection)
+ *
+ * The software constructs all or part of an OS command using externally-influenced
+ * input from an upstream component, but it does not neutralize or incorrectly
+ * neutralizes special elements that could modify the intended OS command
+ * when it is sent to a downstream component.
+ */
 public class CWE78_OsCommandInjection implements FluentTQLUserInterface {
 
     /**

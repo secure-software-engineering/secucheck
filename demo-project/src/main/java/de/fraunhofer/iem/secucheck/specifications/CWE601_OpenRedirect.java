@@ -13,7 +13,12 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
-
+/**
+ * CWE-601: URL Redirection to Untrusted Site (Open Redirect)
+ *
+ * A web application accepts a user-controlled input that specifies a link to
+ * an external site, and uses that link in a Redirect. This simplifies phishing attacks.
+ */
 public class CWE601_OpenRedirect implements FluentTQLUserInterface {
 
     /**
@@ -25,7 +30,6 @@ public class CWE601_OpenRedirect implements FluentTQLUserInterface {
 				"javax.servlet.http.HttpServletResponse,"+
 				"java.lang.String)")
     		.out().param(1).configure();
-    		
     
     /**
      * Source
@@ -44,7 +48,6 @@ public class CWE601_OpenRedirect implements FluentTQLUserInterface {
 				"org.springframework.web.servlet.ModelAndView registrationWithCode(javax.servlet.http.HttpServletRequest,"+
 				"javax.servlet.http.HttpServletResponse)")
     		.out().param(0).configure();
-    	
     
     /**
      * Sink

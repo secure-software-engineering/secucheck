@@ -11,6 +11,12 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
+/**
+ * CWE-79: Improper Neutralization of Input During Web Page Generation (Cross-site Scripting)
+ *
+ * The software does not neutralize or incorrectly neutralizes user-controllable input before
+ * it is placed in output that is used as a web page that is served to other users.
+ */
 public class CWE79_CrossSiteScripting implements FluentTQLUserInterface {
 
     /**

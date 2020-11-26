@@ -11,6 +11,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
+/**
+ * CWE-311: Missing Encryption of Sensitive Data
+ *
+ * The software does not encrypt sensitive or critical information before storage or transmission.
+ */
 public class CWE311_MissingEncryption implements FluentTQLUserInterface {
 
     /**
