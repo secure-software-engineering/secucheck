@@ -399,8 +399,6 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
                 if (fluentTQLSpecs.size() > 0) {
                     setConfig();
-                    currentConfiguration.clear();
-                    currentConfiguration.addAll(options);
                 } else {
                     FluentTQLMagpieBridgeMainServer
                             .fluentTQLMagpieServer
@@ -439,6 +437,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
         options.clear();
         options.addAll(tempOptions);
+        currentConfiguration.clear();
         currentConfiguration.addAll(options);
         return true;
     }
