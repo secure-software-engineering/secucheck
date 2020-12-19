@@ -134,46 +134,48 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @param rerun  Is rerun
      */
     public void analyze(Collection<? extends Module> files, AnalysisConsumer server, boolean rerun) {
-        if (lastAnalysisTask != null && !lastAnalysisTask.isDone()) {
-            lastAnalysisTask.cancel(false);
-            if (lastAnalysisTask.isCancelled()) {
-                logger.log(Level.INFO, "Last running analysis has been cancelled.");
-            }
-        }
-
-        // Perform validation synchronously and run analysis asynchronously.
-        if (validateQueriesAndEntryPoints()) {
-            System.out.println("\n\n\n************************************************");
-            System.out.println("\nEntry points as class size = " + entryPoints.size());
-            System.out.println("Entry points as method size = " + entryPointsAsMethod.size());
-            System.out.println("TaintFlow queries size = " + taintFlowQueries.size());
-            System.out.println("General Propagator size = " + generalPropagators.size());
-
-            System.out.println("\n\nEntry Points as Method\n");
-            for (String entryPoint : entryPointsAsMethod) {
-                System.out.println(entryPoint);
-            }
-
-            System.out.println("\n\nGeneral Propagators\n");
-            for (Method generalPropagator : generalPropagators) {
-                System.out.println(generalPropagator.toString());
-            }
-            System.out.println("\n\n************************************************\n\n\n");
-            Runnable analysisTask = () -> {
-                try {
-                    Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
-                            new ArrayList<>(entryPoints), classPath, libraryPath, projectRootPath.toAbsolutePath().toString());
-
-                    server.consume(results, "secucheck-analysis");
-                } catch (Exception e) {
-                    FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
-                            .forwardMessageToClient(new MessageParams(MessageType.Error,
-                                    "Problem occured while running the analysis: " + e.getMessage()));
-                    logger.log(Level.SEVERE, "Problem occured while running the analysis: " + e.getMessage());
+        if (rerun) {
+            if (lastAnalysisTask != null && !lastAnalysisTask.isDone()) {
+                lastAnalysisTask.cancel(false);
+                if (lastAnalysisTask.isCancelled()) {
+                    logger.log(Level.INFO, "Last running analysis has been cancelled.");
                 }
-            };
+            }
 
-            lastAnalysisTask = execService.submit(analysisTask);
+            // Perform validation synchronously and run analysis asynchronously.
+            if (validateQueriesAndEntryPoints()) {
+                System.out.println("\n\n\n************************************************");
+                System.out.println("\nEntry points as class size = " + entryPoints.size());
+                System.out.println("Entry points as method size = " + entryPointsAsMethod.size());
+                System.out.println("TaintFlow queries size = " + taintFlowQueries.size());
+                System.out.println("General Propagator size = " + generalPropagators.size());
+
+                System.out.println("\n\nEntry Points as Method\n");
+                for (String entryPoint : entryPointsAsMethod) {
+                    System.out.println(entryPoint);
+                }
+
+                System.out.println("\n\nGeneral Propagators\n");
+                for (Method generalPropagator : generalPropagators) {
+                    System.out.println(generalPropagator.toString());
+                }
+                System.out.println("\n\n************************************************\n\n\n");
+                Runnable analysisTask = () -> {
+                    try {
+                        Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
+                                new ArrayList<>(entryPoints), classPath, libraryPath, projectRootPath.toAbsolutePath().toString());
+
+                        server.consume(results, "secucheck-analysis");
+                    } catch (Exception e) {
+                        FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
+                                .forwardMessageToClient(new MessageParams(MessageType.Error,
+                                        "Problem occured while running the analysis: " + e.getMessage()));
+                        logger.log(Level.SEVERE, "Problem occured while running the analysis: " + e.getMessage());
+                    }
+                };
+
+                lastAnalysisTask = execService.submit(analysisTask);
+            }
         }
     }
 
