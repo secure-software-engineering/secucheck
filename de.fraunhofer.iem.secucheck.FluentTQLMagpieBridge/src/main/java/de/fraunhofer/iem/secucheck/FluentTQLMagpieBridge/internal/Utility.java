@@ -341,10 +341,10 @@ public final class Utility {
     private static ReportPosition createReportPosition(LocationDetails locationInfo) {
         ReportPosition reportPosition = new ReportPosition();
 
-        System.out.println(locationInfo.getUsageLineNumber());
+        System.out.println(locationInfo.getUsageStartLineNumber());
         // Recheck and debug...
-        reportPosition.setFirstLine(locationInfo.getUsageLineNumber());
-        reportPosition.setLastLine(locationInfo.getUsageLineNumber());
+        reportPosition.setFirstLine(locationInfo.getUsageStartLineNumber());
+        reportPosition.setLastLine(locationInfo.getUsageStartLineNumber());
         reportPosition.setFirstCol(1);
         reportPosition.setLastCol(1);
 
