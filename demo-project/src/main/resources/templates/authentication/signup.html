@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>User registration</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div th:replace="fragments/header :: header"/>	
+		<div class="container" style="margin-top: 60px;">		    
+            <form autocomplete="off" th:action="@{/signup}" th:object="${user}"
+				method="post" class="form-signup">
+                <h2>User registration form</h2> <br/>
+			    <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                		class="validation-message"></label> 
+                <input type="text" th:field="*{name}" placeholder="Name"
+                		class="form-control"/> <br/>
+                <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                		class="validation-message"></label>
+                <input type="text" th:field="*{lastName}"
+                		placeholder="Last Name" class="form-control"/> <br/>
+		        <input type="text" th:field="*{email}" placeholder="Email"
+                		class="form-control"/> <br/>
+				<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                		class="validation-message"></label>
+                <input type="password" th:field="*{password}" placeholder="Password"
+						class="form-control"/> <label
+                    th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                    class="validation-message"></label> <br/>
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
+				</br>
+				<div align="center">
+		            <a style="font-size: 30; text-decoration: underline;" href="#" th:href="@{/login}">Sign in</a>
+		        </div>
+				<div align="center" th:if="${successMessage} != null"> </br>
+		            <p style="font-size: 30; text-decoration: underline;">
+						<span class="text-success" th:utext="${successMessage}"></p>
+		        </div>     
+            </form>
+		</div>
+		<div th:replace="fragments/footer :: footer"/>
+	</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	  <title>Edit task</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	  <!-- Bootstrap -->
+	  <link href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div th:replace="fragments/header :: header"/>		
+		<div class="container">
+			<div class="content-wrap">
+				<h3>Edit task</h3>
+			    <hr/>
+			    <div class="addtask">
+			      <form class="form-horizontal" role="form" th:action="@{/edit}" th:object="${oldTask}" enctype="multipart/form-data" method="POST">
+					<div class="form-group">
+			          <label for="inputTaskName" class="col-sm-2">Name</label>
+			          <div class="col-sm-5">
+			            <input type="text" th:field="*{name}" class="form-control" id="inputTaskName" placeholder="Enter task name" />
+			          </div>
+			        </div>
+					<input type="hidden" th:field="*{id}"/>
+			        <div class="form-group">
+			          <label for="inputTaskDescription" class="col-sm-2">Description</label>
+			          <div class="col-sm-8">
+			            <input type="text" th:field="*{description}" class="form-control" id="inputTaskDescription"
+			              placeholder="Enter task description" />
+			          </div>
+			        </div>
+			
+			        <div class="form-group">
+			          <label for="inputItemUserName" class="col-sm-2">Deadline</label>
+			          <div class="col-sm-2">
+			            <input type="date" th:id="date" th:name="date" th:field="*{deadline}"
+			              id="inputTaskDeadline" placeholder="Deadline" class="form-control"/>
+			          </div>
+			        </div>
+
+					<div class="form-group">
+			          <label for="inputTaskAttachment" class="col-sm-2">Attachment name</label>
+			          <div class="col-sm-3">
+			            <input type="text" th:id="fileName" th:name="fileName" th:field="*{fileName}"
+			              id="inputTaskfileName" placeholder="Enter a new name for attachement"
+							class="form-control"/>
+			          </div>
+					  <label for="inputTaskAttachment" class="col-sm-2">KBytes on filesystem</label>
+					  <div class="col-sm-3">
+			            <input type="text" th:id="fileSizeOnSystem" th:name="fileSizeOnSystem" 
+							th:field="*{fileSizeOnSystem}" id="inputFileSizeOnSystem" 
+							class="form-control" readonly/>
+			          </div>
+			        </div>
+												
+					<div class="form-group">
+			          <label for="inputTaskAttachment" class="col-sm-2">Attachment</label>
+			          <div class="col-sm-3">
+			            <input type="file" th:id="attachment" th:name="attachment" th:value="${attachment}"
+			              id="inputTaskAttachment" placeholder="Attachment" class="form-control"/>
+			          </div>
+			        </div>
+
+					<div class="form-group">
+			          <div class="col-sm-10">
+			            <button type="submit" class="btn btn-primary">Update</button>
+			          </div>
+			        </div>
+			        </div>
+			        
+				  </form>
+			    </div>
+			</div>
+		</div>
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.1.min.js"></script>
+		<script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.2.0/bootstrap.min.js"></script>
+		<div th:replace="fragments/footer :: footer"/>			
+	</body>
+</html>
