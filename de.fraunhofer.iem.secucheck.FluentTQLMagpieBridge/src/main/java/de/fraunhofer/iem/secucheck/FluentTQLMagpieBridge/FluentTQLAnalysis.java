@@ -142,6 +142,14 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                 }
             }
 
+            //Todo: Verify whether is it required to remove the bin directories from the class path.
+            Set<Path> modifiedClassPath = new HashSet<Path>();
+            for (Path clsPath : classPath) {
+                if (!clsPath.toAbsolutePath().toString().contains("bin")) {
+                    modifiedClassPath.add(clsPath);
+                }
+            }
+
             // Perform validation synchronously and run analysis asynchronously.
             if (validateQueriesAndEntryPoints()) {
                 System.out.println("\n\n\n************************************************");
@@ -163,7 +171,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
                 Runnable analysisTask = () -> {
                     try {
                         Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
-                                new ArrayList<>(entryPoints), classPath, libraryPath, projectRootPath.toAbsolutePath().toString());
+                                new ArrayList<>(entryPoints), modifiedClassPath, libraryPath, projectRootPath.toAbsolutePath().toString());
 
                         server.consume(results, "secucheck-analysis");
                     } catch (Exception e) {
