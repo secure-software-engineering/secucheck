@@ -18,9 +18,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>magpiebridge</groupId>
+            <groupId>com.github.magpiebridge</groupId>
             <artifactId>magpiebridge</artifactId>
-            <version>0.0.8</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>net.openhft</groupId>
