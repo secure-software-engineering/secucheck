@@ -58,6 +58,23 @@
             <artifactId>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.rapidoid/rapidoid-rest -->
+        <dependency>
+            <groupId>org.rapidoid</groupId>
+            <artifactId>rapidoid-rest</artifactId>
+            <version>5.0.12</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.rapidoid/rapidoid-http-client -->
+        <dependency>
+            <groupId>org.rapidoid</groupId>
+            <artifactId>rapidoid-http-client</artifactId>
+            <version>5.5.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.29</version>
+        </dependency>
     </dependencies>
 
     <build>

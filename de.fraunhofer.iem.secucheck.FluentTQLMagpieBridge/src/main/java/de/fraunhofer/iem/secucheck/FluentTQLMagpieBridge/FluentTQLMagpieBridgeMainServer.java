@@ -1,5 +1,6 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.SecuHttpServer;
 import magpiebridge.core.*;
 import magpiebridge.projectservice.java.JavaProjectService;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
@@ -31,18 +32,21 @@ public class FluentTQLMagpieBridgeMainServer {
         defaultConfig.setDoAnalysisByOpen(false);
         defaultConfig.setDoAnalysisBySave(false);
 
-        defaultConfig.setShowConfigurationPage(true, true);
-
+        defaultConfig.setShowConfigurationPage(true, false);
+        defaultConfig.setUseMagpieHTTPServer(false);
         fluentTQLMagpieServer = new MagpieServer(defaultConfig);
 
         String language = "java";
         IProjectService javaProjectService = new JavaProjectService();
 
-        ServerAnalysis myAnalysis = new FluentTQLAnalysis();
+     //   ServerAnalysis myAnalysis = new FluentTQLAnalysis();
         fluentTQLMagpieServer.addProjectService(language, javaProjectService);
 
-        Either<ServerAnalysis, ToolAnalysis> analysis = Either.forLeft(myAnalysis);
-        fluentTQLMagpieServer.addAnalysis(analysis, language);
+       // Either<ServerAnalysis, ToolAnalysis> analysis = Either.forLeft(myAnalysis);
+        //fluentTQLMagpieServer.addAnalysis(analysis, language);
+
+        fluentTQLMagpieServer.addHttpServer(new SecuHttpServer().start());
+
         return fluentTQLMagpieServer;
     }
 }

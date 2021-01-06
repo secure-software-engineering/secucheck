@@ -1,0 +1,114 @@
+package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.handlers;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfigurator;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.InputStreamUtility;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
+import org.eclipse.lsp4j.MessageType;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class ConfigSubmissionHandler implements HttpHandler {
+/*    private static String getStringFromInputStream(java.io.InputStream inputStream) {
+
+        System.out.println("Entered -----> 1");
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder();
+        String line;
+        try {
+
+            System.out.println("Entered -----> 2");
+            br = new BufferedReader(new InputStreamReader(inputStream));
+            System.out.println("Entered -----> 3");
+            while ((line = br.readLine()) != null) {
+                System.out.println("Entered -----> inf");
+                sb.append(line);
+            }
+            System.out.println("Entered -----> 4");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("Entered -----> 5");
+        return sb.toString();
+    }*/
+
+    public void handle(HttpExchange t) throws IOException {
+        Map<String, String> settings = InputStreamUtility.getOptionsFromInputStream(t.getRequestBody());
+
+        Map<String, String> specSettings = settings.entrySet()
+                .stream()
+                .filter(map -> map.getKey().endsWith("-specs"))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        Map<String, String> entryPointSettings = settings.entrySet()
+                .stream()
+                .filter(map -> map.getKey().endsWith("-entryPoint"))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        boolean isSuccess1 = FluentTQLAnalysisConfigurator.processFluentTQLSpecificationFiles(specSettings.keySet());
+        boolean isSuccess2 = FluentTQLAnalysisConfigurator.processJavaFiles(entryPointSettings.keySet());
+        FluentTQLAnalysisConfigurator.printForNow();
+
+        if (isSuccess1 && isSuccess2) {
+            PrintUtility.printMessageInIDE(MessageType.Info,
+                    "Configuration Submitted Successfully!!!");
+        }
+        /*
+        System.out.println("Entered here!!!!");
+        if (CurrentProjectInformation.isNullJavaProjectService()) {
+            CurrentProjectInformation.setProjectInformation();
+        }
+
+        BufferedReader reader =
+                new BufferedReader(new InputStreamReader(t.getRequestBody()));
+        String body = "";
+        try {
+            String temp = "";
+            System.out.println("First read = " + reader.readLine());
+            while ((temp = reader.readLine()) != null) {
+                body += temp;
+            }
+         //   body = URLDecoder.decode(reader.lines().collect(Collectors.joining()), "UTF-8");
+            reader.close();
+
+            Map<String, String> requestOptions = new HashMap<>();
+            String[] options = body.split("&");
+            for (String option : options) {
+                String[] pairs = option.split("=");
+                if (pairs.length > 1) {
+                    String key = pairs[0];
+                    String value = pairs[1];
+                    requestOptions.put(key, value);
+                }
+            }
+
+            System.out.println("Second Check this = " + requestOptions);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(body);
+         */
+        OutputStream os = t.getResponseBody();
+        String response = "";
+
+        response = FluentTQLAnalysisConfigurator.getCurrentConfigHtmlPage();
+        t.sendResponseHeaders(200, response.getBytes().length);
+        os.write(response.getBytes());
+        os.close();
+    }
+}
