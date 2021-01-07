@@ -187,6 +187,7 @@ button:hover {
 	padding-left: 15px;
 	text-indent: -15px;
 	vertical-align: middle;
+	padding-bottom: 5px;
 }
 
 .checkboxes-input {

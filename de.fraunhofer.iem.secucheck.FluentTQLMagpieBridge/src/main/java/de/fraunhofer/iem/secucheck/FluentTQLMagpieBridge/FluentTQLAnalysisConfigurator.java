@@ -221,7 +221,7 @@ public class FluentTQLAnalysisConfigurator {
                     .withType("checkbox")
                     .withName(key + "-specs")
                     .withId(key + "-specs");
-            ContainerTag temp1 = label(join(temp, " " + key)).withClass("checkboxes-label");
+            ContainerTag temp1 = label(join(temp, i(" " + key))).withClass("checkboxes-label");
 
             tags[i++] = temp1;
 
@@ -242,36 +242,33 @@ public class FluentTQLAnalysisConfigurator {
      * first configuration page input.
      */
     public static String setConfigWithJavaFiles() {
-        List<String> sortedClassNames = new ArrayList<>();
-
+        List<String> sortedClassNames = new ArrayList<>(classNames);
+/*
         for (String javaFile : classNames) {
             String[] str = javaFile.split("\\.");
             sortedClassNames.add(str[str.length - 1]);
 
             listOfJavaFiles.put(str[str.length - 1], javaFile);
         }
-
+*/
         Collections.sort(sortedClassNames);
 
-        ContainerTag[] tags = new ContainerTag[sortedClassNames.size() * 2];
+        ContainerTag[] tags = new ContainerTag[sortedClassNames.size()];
 
         int i = 0;
         for (String javaFile : sortedClassNames) {
-            entryPoints.add(listOfJavaFiles.get(javaFile));
+            entryPoints.add(javaFile);
             //      javaFilesAsEntryPoints.add(javaFile);
-            String[] str = javaFile.split("\\.");
-            String key = str[str.length - 1];
-            CheckBox myOption = new CheckBox(
-                    key + ".java",
-                    "true"
-            );
+
+            //String[] str = javaFile.split("\\.");
+            //String key = str[str.length - 1];
 
             EmptyTag temp = input()
                     .withClass("checkboxes-input entryPointsClass")
                     .withType("checkbox")
-                    .withName(key + ".java" + "-entryPoint")
-                    .withId(key + ".java" + "-entryPoint");
-            ContainerTag temp1 = label(join(temp, " " + key)).withClass("checkboxes-label");
+                    .withName(javaFile + ".java" + "-entryPoint")
+                    .withId(javaFile + ".java" + "-entryPoint");
+            ContainerTag temp1 = label(join(temp, i(" " + javaFile))).withClass("checkboxes-label");
 
             tags[i++] = temp1;
         }
@@ -394,7 +391,7 @@ public class FluentTQLAnalysisConfigurator {
         }
 
         for (String entryPoint : entryPointList) {
-            entryPoints.add(listOfJavaFiles.get(entryPoint.split("-")[0].replace(".java", "")));
+            entryPoints.add(entryPoint.split("-")[0].replace(".java", ""));
         }
 
         return true;

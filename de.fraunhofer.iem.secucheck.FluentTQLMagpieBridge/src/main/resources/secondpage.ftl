@@ -10,10 +10,6 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
       <script type="text/javascript">
-         window.onbeforeunload = function(){
-            return 'Are you sure you want to leave?';
-         };
-
          function switchTabs(switchToID) {
             var el = document.getElementsByClassName("checkboxes");
 
@@ -76,7 +72,7 @@
                </i>
                ${projectName}<br>
                <button class="btn btn--pill btn--green" form="secondForm" type="submit">Submit Configuration</button>
-               <button class="btn btn--pill btn--green" form="secondForm" type="reset">Run Analysis</button>
+               <button class="btn btn--pill btn--green" form="secondForm">Run Analysis</button>
                <button class="btn btn--pill btn--green" type="button" onclick="selectAllCheckBoxes()">Select All</button>
                <button class="btn btn--pill btn--green" type="button" onclick="unSelectAllCheckBoxes()">De-Select All</button>
             </h1>
@@ -94,7 +90,12 @@
          <div class="menu-empty-space menu-empty-space-row2">
          </div>
          <div class="page-content-without-grid">
-            <form id="secondForm" method="POST" action="/configSubmit" style="margin-top: 2%; margin-left: 2%;">
+            <style>
+               .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px; }
+            </style>
+
+            <iframe name="hiddenFrame" class="hide"></iframe>
+            <form id="secondForm" method="POST" action="/configSubmit" style="margin-top: 2%; margin-left: 2%;" target="hiddenFrame">
                <!-- This is the FluentTQL specification tab -->
 
                ${specDiv}

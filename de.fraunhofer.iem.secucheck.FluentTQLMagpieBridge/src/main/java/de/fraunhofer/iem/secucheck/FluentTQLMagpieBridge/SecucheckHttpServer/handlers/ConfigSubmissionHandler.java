@@ -103,12 +103,12 @@ public class ConfigSubmissionHandler implements HttpHandler {
 
         System.out.println(body);
          */
-        OutputStream os = t.getResponseBody();
+   /*     OutputStream os = t.getResponseBody();
         String response = "";
 
         response = FluentTQLAnalysisConfigurator.getCurrentConfigHtmlPage();
         t.sendResponseHeaders(200, response.getBytes().length);
         os.write(response.getBytes());
-        os.close();
+        os.close();*/
     }
 }
