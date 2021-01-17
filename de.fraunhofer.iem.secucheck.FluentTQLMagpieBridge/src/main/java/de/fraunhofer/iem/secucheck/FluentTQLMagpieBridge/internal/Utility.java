@@ -1,6 +1,6 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
 
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysis;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.*;
@@ -348,7 +348,7 @@ public final class Utility {
         reportPosition.setFirstCol(1);
         reportPosition.setLastCol(1);
 
-        for (Path sourcePath : FluentTQLAnalysis.sourcePath) {
+        for (Path sourcePath : FluentTQLAnalysisConfigurator.getSourcePath()) {
             String fqn = sourcePath +
                     File.separator +
                     locationInfo.getUsageClassName().replace(

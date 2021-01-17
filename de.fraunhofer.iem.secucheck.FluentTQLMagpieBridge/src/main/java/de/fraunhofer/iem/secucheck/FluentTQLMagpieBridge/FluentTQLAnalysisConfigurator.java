@@ -108,6 +108,10 @@ public class FluentTQLAnalysisConfigurator {
         FluentTQLAnalysisConfigurator.currentConfigHtmlPage = currentConfigHtmlPage;
     }
 
+    public static Set<Path> getSourcePath() {
+        return sourcePath;
+    }
+
     /**
      * This method processes the FluentTQL Specification path configuration option from the first Configuration page.
      *

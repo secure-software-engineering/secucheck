@@ -60,7 +60,6 @@
          }
 
          function sendRunAnalysisRequest(path) {
-            alert("Sending to " + path)
             var xhr = new XMLHttpRequest();
 
             xhr.onreadystatechange = function () {

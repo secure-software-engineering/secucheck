@@ -2,6 +2,7 @@ package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysis;
+import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysisConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckTaintAnalysis;
 import de.fraunhofer.iem.secucheck.analysis.client.SecuCheckTaintAnalysisOutOfProcess;
 import de.fraunhofer.iem.secucheck.analysis.query.CompositeTaintFlowQueryImpl;
@@ -21,8 +22,9 @@ public final class SecuCheckAnalysisWrapper implements SecucheckMagpieBridgeAnal
     private boolean isCancelled;
     private SecucheckAnalysis analysis;
 
-    public SecuCheckAnalysisWrapper(boolean inProc) {
+    public SecuCheckAnalysisWrapper(boolean inProc, SecucheckAnalysisConfiguration configuration) {
         analysis = inProc ? new SecucheckTaintAnalysis() : new SecuCheckTaintAnalysisOutOfProcess();
+        analysis.setConfiguration(configuration);
     }
 
     public void isCancelled(boolean value) {

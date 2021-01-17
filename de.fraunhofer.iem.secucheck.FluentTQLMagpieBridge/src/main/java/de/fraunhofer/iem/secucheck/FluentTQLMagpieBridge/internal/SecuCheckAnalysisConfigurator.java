@@ -37,7 +37,7 @@ public class SecuCheckAnalysisConfigurator {
 
     public static void cancel() {
         if (lastAnalysisTask != null && !lastAnalysisTask.isDone()) {
-            lastAnalysisTask.cancel(false);
+            lastAnalysisTask.cancel(true);
             if (lastAnalysisTask.isCancelled()) {
                 logger.log(Level.INFO, "Last running analysis has been cancelled.");
             }
@@ -52,14 +52,24 @@ public class SecuCheckAnalysisConfigurator {
             Runnable analysisTask = () -> {
                 try {
                     try {
-                        SecucheckTaintAnalysis secucheckAnalysis = new SecucheckTaintAnalysis();
                         SecucheckAnalysisConfiguration configuration = getAnalysisConfiguration(Solver.BOOMERANG3, OS.WINDOWS);
-                        secucheckAnalysis.setConfiguration(configuration);
-                        List<CompositeTaintFlowQueryImpl> compositeQueries = FluentTQLUtility.getCompositeTaintFlowQueries(taintFlowQueries);
-                        SecucheckTaintAnalysisResult result = secucheckAnalysis.run(compositeQueries);
-                        System.out.println("Critical Result = " + result.size());
+                        SecuCheckAnalysisWrapper secucheckAnalysis = new SecuCheckAnalysisWrapper(true, configuration);
 
-                        //server.consume(results, "secucheck-analysis");
+                        //List<CompositeTaintFlowQueryImpl> compositeQueries = FluentTQLUtility.getCompositeTaintFlowQueries(taintFlowQueries);
+                        Collection<AnalysisResult> result = secucheckAnalysis.run(taintFlowQueries, null, null
+                        ,null, null);
+                        System.out.println("\n\n\nCheck critical results = " + result.size() + "\n\n\n");
+
+                        //Collection<AnalysisResult> results = Utility.getMagpieBridgeResult(result);
+
+                        //System.out.println("\n\n\nSecondCheck critical results = " + results.size() + "\n\n\n");
+
+                        if (!Thread.currentThread().isInterrupted()) {
+                            System.out.println("\n\n\nCritical Result = " + result.size());
+                            FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer.consume(result, "secucheck-analysis");
+                        } else {
+                            System.out.println("\n\n\nInterrupted = " + result.size() + "\n\n\n");
+                        }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

@@ -66,7 +66,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
 
     private final List<ConfigurationOption> options = new ArrayList<>();
     private final HashMap<String, String> listOfJavaFiles = new HashMap<>();
-    private final SecucheckMagpieBridgeAnalysis secucheckAnalysis = new SecuCheckAnalysisWrapper(true);
+    private final SecucheckMagpieBridgeAnalysis secucheckAnalysis = new SecuCheckAnalysisWrapper(true, null);
 
     private boolean isFirstPageDone = false;
     private Future<?> lastAnalysisTask;
