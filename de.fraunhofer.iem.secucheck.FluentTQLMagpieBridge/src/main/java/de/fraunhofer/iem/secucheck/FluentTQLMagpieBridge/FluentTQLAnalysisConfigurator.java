@@ -5,6 +5,7 @@ import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.Errors;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.JarUtility;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
@@ -14,6 +15,7 @@ import j2html.tags.ContainerTag;
 import j2html.tags.EmptyTag;
 import magpiebridge.core.analysis.configuration.htmlElement.CheckBox;
 import magpiebridge.projectservice.java.JavaProjectService;
+import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
 
 import java.io.BufferedWriter;
@@ -221,6 +223,7 @@ public class FluentTQLAnalysisConfigurator {
                     .withType("checkbox")
                     .withName(key + "-specs")
                     .withId(key + "-specs");
+            temp.attr("checked");
             ContainerTag temp1 = label(join(temp, i(" " + key))).withClass("checkboxes-label");
 
             tags[i++] = temp1;
@@ -268,6 +271,7 @@ public class FluentTQLAnalysisConfigurator {
                     .withType("checkbox")
                     .withName(javaFile + ".java" + "-entryPoint")
                     .withId(javaFile + ".java" + "-entryPoint");
+            temp.attr("checked");
             ContainerTag temp1 = label(join(temp, i(" " + javaFile))).withClass("checkboxes-label");
 
             tags[i++] = temp1;
@@ -397,6 +401,29 @@ public class FluentTQLAnalysisConfigurator {
         return true;
     }
 
+    public static boolean validateQueriesAndEntryPoints() {
+        if ((taintFlowQueries.size() == 0) || (entryPoints.size() == 0)) {
+
+            String message;
+            if ((taintFlowQueries.size() == 0) && (entryPoints.size() == 0))
+                message = "Please select both FluentTQL specification files and Java files for entry points.";
+            else if (taintFlowQueries.size() == 0)
+                message = "Please select FluentTQL specification files.";
+            else
+                message = "Please select Java files for entry points.";
+
+            FluentTQLMagpieBridgeMainServer
+                    .fluentTQLMagpieServer
+                    .forwardMessageToClient(
+                            new MessageParams(MessageType.Warning,
+                                    message)
+                    );
+
+            return false;
+        }
+        return true;
+    }
+
     public static void printForNow() {
         System.out.println("***************************************************\n\n");
         System.out.println("TaintFlowQueries = " + taintFlowQueries);
@@ -405,5 +432,24 @@ public class FluentTQLAnalysisConfigurator {
         System.out.println("Library Path = " + libraryPath);
         System.out.println("Project Root path = " + projectRootPath.toAbsolutePath().toString());
         System.out.println("\n\n***************************************************");
+    }
+
+    public static void runAnalysis() {
+        SecuCheckAnalysisConfigurator.run(taintFlowQueries);
+    }
+    public static String getClassPathAsString() {
+        String classPathAsString = "";
+
+        for (Path path : classPath) {
+            if (!path.toString().contains("bin") && path.toFile().exists())
+                classPathAsString += path.toString() + File.pathSeparator;
+        }
+
+        System.out.println("Critical = " + classPathAsString);
+        return classPathAsString;
+    }
+
+    public static HashSet<String> getEntryPoints() {
+        return entryPoints;
     }
 }

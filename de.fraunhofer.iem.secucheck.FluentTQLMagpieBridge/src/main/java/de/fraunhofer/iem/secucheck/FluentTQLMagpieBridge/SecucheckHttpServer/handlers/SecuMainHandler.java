@@ -9,6 +9,8 @@ import com.sun.net.httpserver.HttpHandler;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfigurator;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.FreeMarkerUtility;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.ResourceUtility;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisConfigurator;
+import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysisConfiguration;
 
 @SuppressWarnings("restriction")
 public class SecuMainHandler implements HttpHandler {
@@ -48,6 +50,21 @@ public class SecuMainHandler implements HttpHandler {
                 File imageFile = ResourceUtility.getResourceAsFile("img/secu.png");
                 t.sendResponseHeaders(HTTP_OK_STATUS, imageFile.length());
                 Files.copy(imageFile.toPath(), os);
+                os.close();
+                break;
+
+            case "/runAnalysis":
+                FluentTQLAnalysisConfigurator.runAnalysis();
+                t.sendResponseHeaders(HTTP_OK_STATUS, 0);
+                os.close();
+                break;
+
+            case "/cancelAnalysis":
+                System.out.println("Came´here");
+                SecuCheckAnalysisConfigurator.cancel();
+                System.out.println("cancelled");
+                t.sendResponseHeaders(HTTP_OK_STATUS, 0);
+                os.close();
                 break;
         }
     }

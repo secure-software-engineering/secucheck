@@ -31,9 +31,9 @@ import java.util.Set;
 
 public final class Utility {
 
-    private final static OS operatingSystem;
+    private final static OS operatingSystem = null;
     private final static String pathSeparator;
-
+/*
     static {
         if (SystemUtils.IS_OS_WINDOWS) {
             operatingSystem = OS.Windows;
@@ -45,7 +45,7 @@ public final class Utility {
             operatingSystem = OS.Other;
         }
     }
-
+*/
     static {
         if (SystemUtils.IS_OS_WINDOWS) {
             pathSeparator = ";";

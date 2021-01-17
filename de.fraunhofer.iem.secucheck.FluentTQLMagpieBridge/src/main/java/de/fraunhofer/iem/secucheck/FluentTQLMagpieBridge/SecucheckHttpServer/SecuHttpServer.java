@@ -22,6 +22,8 @@ public class SecuHttpServer {
             httpServer.createContext("/img/secu.png", new SecuMainHandler());
             httpServer.createContext("/specPathResponse", new SpecPathResponseHandler());
             httpServer.createContext("/configSubmit", new ConfigSubmissionHandler());
+            httpServer.createContext("/runAnalysis", new SecuMainHandler());
+            httpServer.createContext("/cancelAnalysis", new SecuMainHandler());
             httpServer.setExecutor(null);
         } catch (IOException e) {
             e.printStackTrace();

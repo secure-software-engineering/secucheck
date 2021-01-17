@@ -32,12 +32,12 @@ public final class SecuCheckAnalysisWrapper implements SecucheckMagpieBridgeAnal
     public Collection<AnalysisResult> run(List<TaintFlowQuery> configTaintFlows,
                                           List<String> analysisFiles, Set<Path> userClassPaths, Set<Path> refferedClassPaths,
                                           String projectPath) throws Exception {
-        analysis.setOs(Utility.getOperatingSystem());
+    /*    analysis.setOs(Utility.getOperatingSystem());
         analysis.setAnalysisEntryPoints(Utility.getAllMethodsEntryPoints(analysisFiles));
         analysis.setApplicationClassPath(Utility.getAppendedUserClassPath(userClassPaths, refferedClassPaths));
         analysis.setSootClassPathJars(Utility.getSootClassPath());
         analysis.setListener(getResultListener());
-
+*/
         List<CompositeTaintFlowQueryImpl> queries = Utility.getCompositeTaintFlowQueries(configTaintFlows);
         SecucheckTaintAnalysisResult result = analysis.run(queries);
 

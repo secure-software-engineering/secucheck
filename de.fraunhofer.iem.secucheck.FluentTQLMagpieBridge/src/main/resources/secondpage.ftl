@@ -58,6 +58,21 @@
                }
             }
          }
+
+         function sendRunAnalysisRequest(path) {
+            alert("Sending to " + path)
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+               if (xhr.readyState === 4) {
+                  //alert(xhr.response);
+               }
+            }
+
+            xhr.open('get', 'http://localhost:' + window.location.port + path, true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            xhr.send();
+         }
       </script>
    </head>
    <body data-new-gr-c-s-check-loaded="14.990.0" data-gr-ext-installed="">
@@ -72,7 +87,8 @@
                </i>
                ${projectName}<br>
                <button class="btn btn--pill btn--green" form="secondForm" type="submit">Submit Configuration</button>
-               <button class="btn btn--pill btn--green" form="secondForm">Run Analysis</button>
+               <button class="btn btn--pill btn--green" id="analysisBtn" onclick="sendRunAnalysisRequest('/runAnalysis')">Run Analysis</button>
+               <button class="btn btn--pill btn--green" id="analysisBtn" onclick="sendRunAnalysisRequest('/cancelAnalysis')">Cancel Analysis</button>
                <button class="btn btn--pill btn--green" type="button" onclick="selectAllCheckBoxes()">Select All</button>
                <button class="btn btn--pill btn--green" type="button" onclick="unSelectAllCheckBoxes()">De-Select All</button>
             </h1>
