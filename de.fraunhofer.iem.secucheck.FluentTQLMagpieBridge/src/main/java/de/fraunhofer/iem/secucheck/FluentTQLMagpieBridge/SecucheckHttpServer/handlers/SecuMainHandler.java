@@ -28,9 +28,15 @@ public class SecuMainHandler implements HttpHandler {
         String path = uri.getPath();
 
         OutputStream os = t.getResponseBody();
+        t.getResponseHeaders().add("Cache-Control", "no-cache, no-store, must-revalidate");
+        t.getResponseHeaders().add("Pragma", "no-cache");
+        t.getResponseHeaders().add("Expires", "0");
 
         switch (path) {
             case "/specPathRequest":
+                //Todo: verify do we need to cancel the previous analyis run
+                SecuCheckAnalysisConfigurator.cancel();
+
                 response = FreeMarkerUtility.setFirstPageFile(
                         FluentTQLAnalysisConfigurator.getSource());
                 t.sendResponseHeaders(HTTP_OK_STATUS, response.getBytes().length);
@@ -60,9 +66,7 @@ public class SecuMainHandler implements HttpHandler {
                 break;
 
             case "/cancelAnalysis":
-                System.out.println("Came´here");
                 SecuCheckAnalysisConfigurator.cancel();
-                System.out.println("cancelled");
                 t.sendResponseHeaders(HTTP_OK_STATUS, 0);
                 os.close();
                 break;

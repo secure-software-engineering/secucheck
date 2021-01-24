@@ -31,6 +31,9 @@ public class SpecPathResponseHandler implements HttpHandler {
             response = FluentTQLAnalysisConfigurator.getCurrentConfigHtmlPage();
         }
 
+        t.getResponseHeaders().add("Cache-Control", "no-cache, no-store, must-revalidate");
+        t.getResponseHeaders().add("Pragma", "no-cache");
+        t.getResponseHeaders().add("Expires", "0");
         t.sendResponseHeaders(200, response.getBytes().length);
         os.write(response.getBytes());
         os.close();
