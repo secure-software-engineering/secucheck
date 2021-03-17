@@ -186,7 +186,6 @@ public class FluentTQLAnalysisConfigurator {
     }
 
     public static boolean isNullJavaProjectService() {
-        System.out.println("Critical = " + (javaProjectService == null));
         return javaProjectService == null;
     }
 
@@ -449,7 +448,6 @@ public class FluentTQLAnalysisConfigurator {
                 classPathAsString += path.toString() + File.pathSeparator;
         }
 
-        System.out.println("Critical = " + classPathAsString);
         return classPathAsString;
     }
 

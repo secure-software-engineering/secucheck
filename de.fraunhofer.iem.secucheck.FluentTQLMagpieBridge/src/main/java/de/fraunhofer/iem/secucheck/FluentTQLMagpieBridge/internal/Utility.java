@@ -341,7 +341,6 @@ public final class Utility {
     private static ReportPosition createReportPosition(LocationDetails locationInfo) {
         ReportPosition reportPosition = new ReportPosition();
 
-        System.out.println(locationInfo.getUsageStartLineNumber());
         // Recheck and debug...
         reportPosition.setFirstLine(locationInfo.getUsageStartLineNumber());
         reportPosition.setLastLine(locationInfo.getUsageStartLineNumber());
