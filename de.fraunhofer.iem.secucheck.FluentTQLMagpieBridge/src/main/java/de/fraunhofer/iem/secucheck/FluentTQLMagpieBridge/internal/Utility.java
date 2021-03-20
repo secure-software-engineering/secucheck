@@ -328,9 +328,13 @@ public final class Utility {
                 break;
         }
 
-        // Verify if code is needed at all ?
-        String code = SourceCodeReader.getLinesInString(analysisResult.position());
-        analysisResult.setCode(code);
+        //Todo: Verify if code is needed at all ?
+        if (analysisResult.position().getFirstCol() < 0 || analysisResult.position().getFirstLine() <= 0) {
+            analysisResult.setCode("");
+        } else {
+            String code = SourceCodeReader.getLinesInString(analysisResult.position());
+            analysisResult.setCode(code);
+        }
 
         // Repair not needed ?
         analysisResult.setRepair(null);
