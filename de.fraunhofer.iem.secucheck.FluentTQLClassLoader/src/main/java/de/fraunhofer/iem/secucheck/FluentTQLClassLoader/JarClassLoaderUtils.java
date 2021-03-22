@@ -1,9 +1,5 @@
 package de.fraunhofer.iem.secucheck.FluentTQLClassLoader;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnalysisEntryPointAnnotation;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FluentTQLException;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import org.xeustechnologies.jcl.JarClassLoader;
@@ -11,7 +7,8 @@ import org.xeustechnologies.jcl.JclObjectFactory;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * This utility class provides the feature of loading the FluentTQL related class using the JarClassLoader.
@@ -130,7 +127,13 @@ public class JarClassLoaderUtils {
                         jarClassLoader, loadedClassesKey.toString().replaceAll("/", "\\.").replace(".class", "")
                 );
 
-                processFluentTQLAnnotation(obj, isPrettyPrint);
+                if (!processFluentTQLAnnotation(obj, isPrettyPrint)) {
+                    if (isPrettyPrint)
+                        printUtils.printClassStatus(
+                                obj.getClass().getSimpleName(),
+                                "There is no FluentTQL Specification available in the given Jar.",
+                                false);
+                }
             } catch (Exception | Error ex) {
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);
@@ -154,37 +157,24 @@ public class JarClassLoaderUtils {
      *
      * @param obj FluentTQL related Object
      */
-    private void processFluentTQLAnnotation(Object obj, boolean isPrettyPrint) {
-        ProcessAnnotatedClass processAnnotatedClass = new ProcessAnnotatedClass();
-        ProcessAnalysisEntryPointAnnotation processAnalysisEntryPointAnnotation = new ProcessAnalysisEntryPointAnnotation();
-
-        try {
-            if (obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) {
-                FluentTQLUserInterface fluentTQLUserInterface = processAnnotatedClass.processFluentTQLSpecificationClassAnnotation(obj);
-                fluentTQLSpecs.put(obj.getClass().getSimpleName(), fluentTQLUserInterface);
-            } else {
-                processAnnotatedClass.processFluentTQLAnnotation(obj);
-            }
-
-            entryPoints.addAll(processAnalysisEntryPointAnnotation.getEntryPoints(obj));
-            generalPropagators.addAll(processAnnotatedClass.getGeneralPropagators());
+    private boolean processFluentTQLAnnotation(Object obj, boolean isPrettyPrint) {
+        if (obj instanceof FluentTQLUserInterface) {
+            FluentTQLUserInterface fluentTQLUserInterface = (FluentTQLUserInterface) obj;
+            fluentTQLSpecs.put(obj.getClass().getSimpleName(), fluentTQLUserInterface);
 
             if (isPrettyPrint)
                 printUtils.printClassStatus(
                         obj.getClass().getSimpleName(),
                         "Verified",
                         false);
-
-        } catch (FluentTQLException ex) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            ex.printStackTrace(pw);
-            errors.addError(
-                    new ErrorModel(errors.getErrors().size() + 1, obj.getClass().getName(), ex.getMessage(), sw.toString())
-            );
-
+        } else {
             if (isPrettyPrint)
-                printUtils.printClassStatus(obj.getClass().getSimpleName(), "Failed", true);
+                printUtils.printClassStatus(
+                        obj.getClass().getSimpleName(),
+                        "Not a FluentTQL Specification",
+                        false);
         }
+
+        return fluentTQLSpecs.size() > 0;
     }
 }
