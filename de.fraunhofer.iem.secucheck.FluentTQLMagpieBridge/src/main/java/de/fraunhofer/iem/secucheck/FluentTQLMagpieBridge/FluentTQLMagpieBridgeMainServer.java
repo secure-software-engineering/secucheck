@@ -42,6 +42,12 @@ public class FluentTQLMagpieBridgeMainServer {
      //   ServerAnalysis myAnalysis = new FluentTQLAnalysis();
         fluentTQLMagpieServer.addProjectService(language, javaProjectService);
 
+        //Todo: If necessary (Very Important)
+        // Currently, Analysis settings and calling analysis is done through the HttpHandlers in the package SecucheckHttpServer/handler
+        // This reduces some of the extra computation compare to using the below commented code.
+        // This avoids creating MagpieBridge Configuration options objects, calling MagpieBridge APIs to call and set Analysis.
+        // If in case in future need the below feature and creation of MagpieBridge configuration options objects, Please uncomment the below
+        // and set the FluentTQLAnalysis accordingly comparing the FluentTQLAnalysisConfigurator
        // Either<ServerAnalysis, ToolAnalysis> analysis = Either.forLeft(myAnalysis);
         //fluentTQLMagpieServer.addAnalysis(analysis, language);
 
