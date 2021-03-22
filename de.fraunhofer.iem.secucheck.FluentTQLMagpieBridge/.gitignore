@@ -1,6 +1,6 @@
 target/
 out/
-FluentTQLMagpieBridge.iml
+*.iml
 .*
 !/.gitignore
 
