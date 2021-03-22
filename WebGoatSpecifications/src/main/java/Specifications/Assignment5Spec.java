@@ -1,12 +1,8 @@
 package Specifications;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.InFlowParam;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.InFlowThisObject;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.OutFlowReturnValue;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -15,22 +11,24 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 import java.util.ArrayList;
 import java.util.List;
 
-@FluentTQLSpecificationClass
 public class Assignment5Spec implements FluentTQLUserInterface {
-    @InFlowParam(parameterID = {1})
-    public Method source = new MethodSelector(
+    Method source = new MethodConfigurator(
             "org.owasp.webgoat.challenges.challenge5.Assignment5: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
-                    "login(java.lang.String, java.lang.String)");
+                    "login(java.lang.String, java.lang.String)")
+            .in().param(1)
+            .configure();
 
-    @InFlowParam(parameterID = {0})
-    @OutFlowReturnValue
-    public Method propagator = new MethodSelector(
-            "java.sql.Connection: java.sql.PreparedStatement prepareStatement(java.lang.String)");
+    Method propagator = new MethodConfigurator(
+            "java.sql.Connection: java.sql.PreparedStatement prepareStatement(java.lang.String)")
+            .in().param(0)
+            .out().returnValue()
+            .configure();
 
-    @InFlowThisObject
-    public Method sink = new MethodSelector(
-            "java.sql.PreparedStatement: java.sql.ResultSet executeQuery()");
+    Method sink = new MethodConfigurator(
+            "java.sql.PreparedStatement: java.sql.ResultSet executeQuery()")
+            .in().thisObject()
+            .configure();
 
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
         TaintFlowQuery taintFlow = new TaintFlowQueryBuilder()

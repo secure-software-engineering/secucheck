@@ -1,0 +1,661 @@
+FluentTQL:     2021-03-22 23:25:36
+
+
+1. Specifications.SqlInjectionLesson4Spec
+**********************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.SqlInjectionLesson4Spec.<init>(SqlInjectionLesson4Spec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+2. Specifications.SqlInjectionLesson6aSpec
+***********************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.SqlInjectionLesson6aSpec.<init>(SqlInjectionLesson6aSpec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+3. Specifications.SqlInjectionLesson5aSpec
+***********************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.SqlInjectionLesson5aSpec.<init>(SqlInjectionLesson5aSpec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+4. Specifications.SqlInjectionLesson10Spec
+***********************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.SqlInjectionLesson10Spec.<init>(SqlInjectionLesson10Spec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+5. Specifications.ServersSpec
+**********************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.ServersSpec.<init>(ServersSpec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+6. Specifications.Assignment5Spec
+**************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.Assignment5Spec.<init>(Assignment5Spec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+7. Specifications.SqlInjectionLesson5bSpec
+***********************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.SqlInjectionLesson5bSpec.<init>(SqlInjectionLesson5bSpec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+8. Specifications.SqlInjectionLesson2Spec
+**********************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.SqlInjectionLesson2Spec.<init>(SqlInjectionLesson2Spec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+9. Specifications.SqlInjectionChallengeSpec
+************************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.SqlInjectionChallengeSpec.<init>(SqlInjectionChallengeSpec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+10. Specifications.SqlInjectionLesson3Spec
+**********************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.SqlInjectionLesson3Spec.<init>(SqlInjectionLesson3Spec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+11. Specifications.SqlInjectionLesson9Spec
+**********************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.SqlInjectionLesson9Spec.<init>(SqlInjectionLesson9Spec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+
+
+
+12. Specifications.SqlInjectionLesson8Spec
+**********************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:129)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:87)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: de/fraunhofer/iem/secucheck/InternalFluentTQL/dsl/MethodConfigurator
+	at Specifications.SqlInjectionLesson8Spec.<init>(SqlInjectionLesson8Spec.java:15)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+Caused by: java.lang.ClassNotFoundException: de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:131)
+	at org.xeustechnologies.jcl.AbstractClassLoader.loadClass(AbstractClassLoader.java:96)
+	... 32 more
+
+

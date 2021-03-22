@@ -1,10 +1,8 @@
 package Specifications;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.InFlowParam;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -13,23 +11,25 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 import java.util.ArrayList;
 import java.util.List;
 
-@FluentTQLSpecificationClass
 public class SqlInjectionLesson9Spec implements FluentTQLUserInterface {
-    @InFlowParam(parameterID = {0})
-    public Method source1 = new MethodSelector(
+    Method source1 = new MethodConfigurator(
             "org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson9: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
-                    "completed(java.lang.String, java.lang.String)");
+                    "completed(java.lang.String, java.lang.String)")
+            .in().param(0)
+            .configure();
 
-    @InFlowParam(parameterID = {1})
-    public Method source2 = new MethodSelector(
+    Method source2 = new MethodConfigurator(
             "org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson9: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
-                    "completed(java.lang.String, java.lang.String)");
+                    "completed(java.lang.String, java.lang.String)")
+            .in().param(1)
+            .configure();
 
-    @InFlowParam(parameterID = {0})
-    public Method sink = new MethodSelector(
-            "java.sql.Statement: java.sql.ResultSet executeQuery(java.lang.String)");
+    Method sink = new MethodConfigurator(
+            "java.sql.Statement: java.sql.ResultSet executeQuery(java.lang.String)")
+            .in().param(0)
+            .configure();
 
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
         TaintFlowQuery taintFlow1 = new TaintFlowQueryBuilder()
