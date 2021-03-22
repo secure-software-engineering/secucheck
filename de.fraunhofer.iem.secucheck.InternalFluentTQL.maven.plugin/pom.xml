@@ -5,7 +5,7 @@
     <groupId>de.fraunhofer.iem.secucheck</groupId>
     <artifactId>fluenttql-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-INIT</version>
 
     <name>fluenttql-maven-plugin Maven Mojo</name>
     <url>http://maven.apache.org</url>
@@ -41,7 +41,7 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1-INIT</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
