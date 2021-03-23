@@ -15,12 +15,12 @@ public class SqlInjectionLesson5bSpec implements FluentTQLUserInterface {
     Method source = new MethodConfigurator(
             "org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5b: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
-                    "completed(java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)")
+                    "completed(java.lang.String,java.lang.String,javax.servlet.http.HttpServletRequest)")
             .in().param(0)
             .configure();
 
     Method propagator = new MethodConfigurator(
-            "java.sql.Connection: java.sql.PreparedStatement prepareStatement(java.lang.String, int, int)")
+            "java.sql.Connection: java.sql.PreparedStatement prepareStatement(java.lang.String,int,int)")
             .in().param(0)
             .out().returnValue()
             .configure();
