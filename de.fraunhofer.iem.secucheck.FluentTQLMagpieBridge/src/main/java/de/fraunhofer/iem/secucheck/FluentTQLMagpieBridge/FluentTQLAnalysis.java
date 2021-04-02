@@ -1,15 +1,8 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
 import com.ibm.wala.classLoader.Module;
-import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.ErrorModel;
-import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.Errors;
-import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.JarUtility;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisWrapper;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecucheckMagpieBridgeAnalysis;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
@@ -19,18 +12,10 @@ import magpiebridge.core.ServerAnalysis;
 import magpiebridge.core.ToolAnalysis;
 import magpiebridge.core.analysis.configuration.ConfigurationAction;
 import magpiebridge.core.analysis.configuration.ConfigurationOption;
-import magpiebridge.core.analysis.configuration.OptionType;
-import magpiebridge.core.analysis.configuration.htmlElement.CheckBox;
-import magpiebridge.projectservice.java.JavaProjectService;
-import org.apache.commons.io.FileUtils;
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
 
-import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -210,9 +195,6 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
         currentConfiguration.clear();
         currentConfiguration.addAll(configuration);
     }
-
-
-
 
 
     public String[] getCommand() {

@@ -1,9 +1,10 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.SecuHttpServer;
-import magpiebridge.core.*;
+import magpiebridge.core.IProjectService;
+import magpiebridge.core.MagpieServer;
+import magpiebridge.core.ServerConfiguration;
 import magpiebridge.projectservice.java.JavaProjectService;
-import org.eclipse.lsp4j.jsonrpc.messages.Either;
 
 /**
  * This is the main class of the Magpie bridge server for FluentTQL
@@ -13,6 +14,7 @@ import org.eclipse.lsp4j.jsonrpc.messages.Either;
 public class FluentTQLMagpieBridgeMainServer {
 
     public static MagpieServer fluentTQLMagpieServer;
+
     /**
      * Main method of the FluentTQL Magpie bridge server.
      *
@@ -39,7 +41,7 @@ public class FluentTQLMagpieBridgeMainServer {
         String language = "java";
         IProjectService javaProjectService = new JavaProjectService();
 
-     //   ServerAnalysis myAnalysis = new FluentTQLAnalysis();
+        //   ServerAnalysis myAnalysis = new FluentTQLAnalysis();
         fluentTQLMagpieServer.addProjectService(language, javaProjectService);
 
         //Todo: If necessary (Very Important)
@@ -48,7 +50,7 @@ public class FluentTQLMagpieBridgeMainServer {
         // This avoids creating MagpieBridge Configuration options objects, calling MagpieBridge APIs to call and set Analysis.
         // If in case in future need the below feature and creation of MagpieBridge configuration options objects, Please uncomment the below
         // and set the FluentTQLAnalysis accordingly comparing the FluentTQLAnalysisConfigurator
-       // Either<ServerAnalysis, ToolAnalysis> analysis = Either.forLeft(myAnalysis);
+        // Either<ServerAnalysis, ToolAnalysis> analysis = Either.forLeft(myAnalysis);
         //fluentTQLMagpieServer.addAnalysis(analysis, language);
 
         fluentTQLMagpieServer.addHttpServer(new SecuHttpServer().start());

@@ -97,7 +97,8 @@ public class InternalFluentTQLIntegration {
      */
     private static boolean compileAndGetTaintFlowQueryObject(String className, String javaCode, String fileName) {
         try {
-            ClassLoader classLoader = new ClassLoader() { };
+            ClassLoader classLoader = new ClassLoader() {
+            };
             // Loads the Java code.
             Class<?> specClass = CompilerUtils.CACHED_COMPILER.loadFromJava(classLoader, className, javaCode);
 

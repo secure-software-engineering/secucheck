@@ -13,7 +13,6 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import j2html.tags.ContainerTag;
 import j2html.tags.EmptyTag;
-import magpiebridge.core.analysis.configuration.htmlElement.CheckBox;
 import magpiebridge.projectservice.java.JavaProjectService;
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
@@ -440,6 +439,7 @@ public class FluentTQLAnalysisConfigurator {
     public static void runAnalysis() {
         SecuCheckAnalysisConfigurator.run(taintFlowQueries);
     }
+
     public static String getClassPathAsString() {
         String classPathAsString = "";
 

@@ -1,29 +1,25 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
 
-import com.ibm.wala.classLoader.Module;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfigurator;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLMagpieBridgeMainServer;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysisConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysisDefaultConfiguration;
-import de.fraunhofer.iem.secucheck.analysis.SecucheckTaintAnalysis;
-import de.fraunhofer.iem.secucheck.analysis.query.CompositeTaintFlowQueryImpl;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.AnalysisResultListener;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.CompositeTaintFlowQueryResult;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.SecucheckTaintAnalysisResult;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.TaintFlowQueryResult;
 import de.fraunhofer.iem.secucheck.analysis.query.EntryPoint;
 import de.fraunhofer.iem.secucheck.analysis.query.OS;
 import de.fraunhofer.iem.secucheck.analysis.query.Solver;
-import de.fraunhofer.iem.secucheck.analysis.result.AnalysisResultListener;
-import de.fraunhofer.iem.secucheck.analysis.result.CompositeTaintFlowQueryResult;
-import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
-import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowQueryResult;
-import magpiebridge.core.AnalysisConsumer;
 import magpiebridge.core.AnalysisResult;
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;

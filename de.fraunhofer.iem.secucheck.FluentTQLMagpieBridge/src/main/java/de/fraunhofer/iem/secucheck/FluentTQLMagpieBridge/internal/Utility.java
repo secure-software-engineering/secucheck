@@ -8,13 +8,13 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.CompositeTaintFlowQueryResult;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.LocationDetails;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.SecucheckTaintAnalysisResult;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.TaintFlowQueryResult;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.SameTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.query.*;
-import de.fraunhofer.iem.secucheck.analysis.result.CompositeTaintFlowQueryResult;
-import de.fraunhofer.iem.secucheck.analysis.result.LocationDetails;
-import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
-import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowQueryResult;
 import magpiebridge.core.AnalysisResult;
 import magpiebridge.core.Kind;
 import magpiebridge.util.SourceCodeReader;
@@ -33,19 +33,20 @@ public final class Utility {
 
     private final static OS operatingSystem = null;
     private final static String pathSeparator;
-/*
-    static {
-        if (SystemUtils.IS_OS_WINDOWS) {
-            operatingSystem = OS.Windows;
-        } else if (SystemUtils.IS_OS_LINUX) {
-            operatingSystem = OS.Linux;
-        } else if (SystemUtils.IS_OS_MAC) {
-            operatingSystem = OS.MacOS;
-        } else {
-            operatingSystem = OS.Other;
+
+    /*
+        static {
+            if (SystemUtils.IS_OS_WINDOWS) {
+                operatingSystem = OS.Windows;
+            } else if (SystemUtils.IS_OS_LINUX) {
+                operatingSystem = OS.Linux;
+            } else if (SystemUtils.IS_OS_MAC) {
+                operatingSystem = OS.MacOS;
+            } else {
+                operatingSystem = OS.Other;
+            }
         }
-    }
-*/
+    */
     static {
         if (SystemUtils.IS_OS_WINDOWS) {
             pathSeparator = ";";
@@ -257,6 +258,7 @@ public final class Utility {
     public static Collection<AnalysisResult> getMagpieBridgeResult(SecucheckTaintAnalysisResult result)
             throws Exception {
         List<AnalysisResult> results = new ArrayList<AnalysisResult>();
+
         for (DifferentTypedPair<CompositeTaintFlowQueryImpl,
                 CompositeTaintFlowQueryResult> pair : result.getResults()) {
             List<AnalysisResult> magpieBridgeResults = getCompositeResults(pair.getFirst(), pair.getSecond());
@@ -273,17 +275,17 @@ public final class Utility {
 
             switch (query.getReportLocation()) {
                 case Source:
-                    magpieBridgeResults.add(createMagpieBridgeResult(query, pair.getFirst(),
+                    magpieBridgeResults.addAll(createMagpieBridgeResult(query, pair.getFirst(),
                             pair.getSecond(), ReportSite.Source));
                     break;
                 case Sink:
-                    magpieBridgeResults.add(createMagpieBridgeResult(query, pair.getFirst(),
+                    magpieBridgeResults.addAll(createMagpieBridgeResult(query, pair.getFirst(),
                             pair.getSecond(), ReportSite.Sink));
                     break;
                 case SourceAndSink:
-                    magpieBridgeResults.add(createMagpieBridgeResult(query, pair.getFirst(),
+                    magpieBridgeResults.addAll(createMagpieBridgeResult(query, pair.getFirst(),
                             pair.getSecond(), ReportSite.Source));
-                    magpieBridgeResults.add(createMagpieBridgeResult(query, pair.getFirst(),
+                    magpieBridgeResults.addAll(createMagpieBridgeResult(query, pair.getFirst(),
                             pair.getSecond(), ReportSite.Sink));
                     break;
             }
@@ -295,51 +297,58 @@ public final class Utility {
         return new ArrayList<AnalysisResult>(magpieBridgeResults);
     }
 
-    private static SecuCheckMapieBridgeResult createMagpieBridgeResult(CompositeTaintFlowQueryImpl compositeQuery,
-                                                                       TaintFlowQueryImpl singleFlowQuery, TaintFlowQueryResult singleFlowQueryResult, ReportSite reportLocation)
+    private static List<SecuCheckMapieBridgeResult> createMagpieBridgeResult(CompositeTaintFlowQueryImpl compositeQuery,
+                                                                             TaintFlowQueryImpl singleFlowQuery, TaintFlowQueryResult singleFlowQueryResult, ReportSite reportLocation)
             throws Exception {
-        SecuCheckMapieBridgeResult analysisResult = new SecuCheckMapieBridgeResult();
+        List<SecuCheckMapieBridgeResult> analysisResults = new ArrayList<>();
+
+
         if (singleFlowQueryResult.getQueryResultMap().size() == 0) {
-            return analysisResult;
+            return analysisResults;
         }
 
-        // Start: Hard-coded.
-        analysisResult.setKind(Kind.Diagnostic);
-        analysisResult.setSeverity(DiagnosticSeverity.Error);
-        // End: Hard-coded.
+        for (DifferentTypedPair<TaintFlowQueryImpl, SameTypedPair<LocationDetails>> pair : singleFlowQueryResult.getQueryResultMap()) {
+            SecuCheckMapieBridgeResult analysisResult = new SecuCheckMapieBridgeResult();
+            // Start: Hard-coded.
+            analysisResult.setKind(Kind.Diagnostic);
+            analysisResult.setSeverity(DiagnosticSeverity.Error);
+            // End: Hard-coded.
 
-        DifferentTypedPair<TaintFlowQueryImpl, SameTypedPair<LocationDetails>> pair;
-        SameTypedPair<LocationDetails> locationPair;
+            SameTypedPair<LocationDetails> locationPair;
 
-        switch (reportLocation) {
-            default:
-            case Source: // First result will have source in all the cases ...
-                pair = singleFlowQueryResult.getQueryResultMap().get(0);
-                locationPair = pair.getSecond();
-                analysisResult.setPosition(createReportPosition(locationPair.getFirst()));
-                analysisResult.setMessage("Source: " + compositeQuery.getReportMessage());
-                break;
-            case Sink: // Last result will have sink in all the cases ...
-                pair = singleFlowQueryResult.getQueryResultMap().get(
-                        singleFlowQueryResult.getQueryResultMap().size() - 1);
-                locationPair = pair.getSecond();
-                analysisResult.setPosition(createReportPosition(locationPair.getSecond()));
-                analysisResult.setMessage("Sink: " + compositeQuery.getReportMessage());
-                break;
+            switch (reportLocation) {
+                default:
+                case Source: // First result will have source in all the cases ...
+//                    pair = singleFlowQueryResult.getQueryResultMap().get(i);
+                    locationPair = pair.getSecond();
+                    analysisResult.setPosition(createReportPosition(locationPair.getFirst()));
+                    analysisResult.setMessage("Source: " + compositeQuery.getReportMessage());
+                    break;
+                case Sink: // Last result will have sink in all the cases ...
+                    //           pair = singleFlowQueryResult.getQueryResultMap().get(
+                    //                 singleFlowQueryResult.getQueryResultMap().size() - 1);
+                    locationPair = pair.getSecond();
+                    analysisResult.setPosition(createReportPosition(locationPair.getSecond()));
+                    analysisResult.setMessage("Sink: " + compositeQuery.getReportMessage());
+                    break;
+            }
+
+            //Todo: Verify if code is needed at all ?
+            if (analysisResult.position().getFirstCol() < 0 || analysisResult.position().getFirstLine() <= 0) {
+                analysisResult.setCode("");
+            } else {
+                String code = SourceCodeReader.getLinesInString(analysisResult.position());
+                analysisResult.setCode(code);
+            }
+
+            // Repair not needed ?
+            analysisResult.setRepair(null);
+
+            analysisResults.add(analysisResult);
         }
 
-        //Todo: Verify if code is needed at all ?
-        if (analysisResult.position().getFirstCol() < 0 || analysisResult.position().getFirstLine() <= 0) {
-            analysisResult.setCode("");
-        } else {
-            String code = SourceCodeReader.getLinesInString(analysisResult.position());
-            analysisResult.setCode(code);
-        }
 
-        // Repair not needed ?
-        analysisResult.setRepair(null);
-
-        return analysisResult;
+        return analysisResults;
     }
 
     private static ReportPosition createReportPosition(LocationDetails locationInfo) {

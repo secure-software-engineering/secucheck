@@ -11,7 +11,7 @@ import magpiebridge.core.AnalysisResult;
 
 public interface SecucheckMagpieBridgeAnalysis {
 
-	Collection<AnalysisResult> run(List<TaintFlowQuery> configTaintFlows, 
-			List<String> analysisFiles, Set<Path> userClassPaths, Set<Path> refferedClassPaths, 
-			String projectPath) throws Exception;
+    Collection<AnalysisResult> run(List<TaintFlowQuery> configTaintFlows,
+                                   List<String> analysisFiles, Set<Path> userClassPaths, Set<Path> refferedClassPaths,
+                                   String projectPath) throws Exception;
 }

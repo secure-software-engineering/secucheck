@@ -4,12 +4,12 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysis;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysisConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckTaintAnalysis;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.AnalysisResultListener;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.CompositeTaintFlowQueryResult;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.SecucheckTaintAnalysisResult;
+import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.TaintFlowQueryResult;
 import de.fraunhofer.iem.secucheck.analysis.client.SecuCheckTaintAnalysisOutOfProcess;
 import de.fraunhofer.iem.secucheck.analysis.query.CompositeTaintFlowQueryImpl;
-import de.fraunhofer.iem.secucheck.analysis.result.AnalysisResultListener;
-import de.fraunhofer.iem.secucheck.analysis.result.CompositeTaintFlowQueryResult;
-import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
-import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowQueryResult;
 import magpiebridge.core.AnalysisResult;
 
 import java.nio.file.Path;
