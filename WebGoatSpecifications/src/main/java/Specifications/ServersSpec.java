@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ServersSpec implements FluentTQLUserInterface {
     Method source = new MethodConfigurator(
-            "org.owasp.webgoat.sql_injection.mitigation.Server: " +
+            "org.owasp.webgoat.sql_injection.mitigation.Servers: " +
                     "java.util.List " +
                     "sort(java.lang.String)")
             .in().param(0)

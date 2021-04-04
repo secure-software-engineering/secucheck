@@ -62,6 +62,7 @@ public class SecuCheckAnalysisConfigurator {
 
                         if (!Thread.currentThread().isInterrupted()) {
                             System.out.println("\n\n\nCritical Result = " + result.size());
+                            FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer.cleanUp();
                             FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer.consume(result, "secucheck-analysis");
                         } else {
                             System.out.println("\n\n\nInterrupted = " + result.size() + "\n\n\n");
