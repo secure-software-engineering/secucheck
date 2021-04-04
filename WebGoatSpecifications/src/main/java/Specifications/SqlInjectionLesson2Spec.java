@@ -19,6 +19,14 @@ public class SqlInjectionLesson2Spec implements FluentTQLUserInterface {
             .in().param(0)
             .configure();
 
+    Method sanitizer = new MethodConfigurator(
+            "org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson2: " +
+                    "java.lang.String " +
+                    "sanitize(java.lang.String)")
+            .in().param(0)
+            .out().returnValue()
+            .configure();
+
     Method sink = new MethodConfigurator(
             "java.sql.Statement: java.sql.ResultSet executeQuery(java.lang.String)"
     )
@@ -28,6 +36,7 @@ public class SqlInjectionLesson2Spec implements FluentTQLUserInterface {
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
         TaintFlowQuery taintFlow = new TaintFlowQueryBuilder()
                 .from(source)
+                .notThrough(sanitizer)
                 .to(sink)
                 .report("Webgoat application: Introduction -> SqlInjectionLesson2")
                 .at(LOCATION.SOURCEANDSINK)
