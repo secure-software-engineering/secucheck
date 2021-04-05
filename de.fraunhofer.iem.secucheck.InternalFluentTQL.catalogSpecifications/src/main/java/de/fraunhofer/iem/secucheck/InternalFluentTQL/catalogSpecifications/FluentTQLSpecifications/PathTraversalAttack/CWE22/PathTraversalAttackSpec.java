@@ -22,7 +22,7 @@ public class PathTraversalAttackSpec implements FluentTQLUserInterface {
     /**
      * This is a user defined sanitizer for avoiding path traversal attack. This is not recommended to use this method. This is for example.
      */
-    public Method sanitizer = new MethodConfigurator("catalog.PathTraversalAttack.PathTraversal: java.lang.String sanitizeForPATH(java.lang.String)")
+    public Method sanitizer = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.PathTraversalAttack.CWE22.PathTraversal: java.lang.String sanitizeForPATH(java.lang.String)")
             .in().param(0)
             .out().returnValue()
             .configure();

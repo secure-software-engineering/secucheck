@@ -28,7 +28,7 @@ public class OpenRedirectAttackSpec implements FluentTQLUserInterface {
     /**
      * redirectTable is a simple redirection table that performs the whitelist input validation.
      */
-    public Method sanitizer = new MethodConfigurator("catalog.OpenRedirect.CWE601: java.lang.String redirectTable(java.lang.String)")
+    public Method sanitizer = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.OpenRedirect.CWE601.OpenRedirectAttack: java.lang.String redirectTable(java.lang.String)")
             .in().param(0)
             .out().returnValue()
             .configure();
@@ -58,7 +58,7 @@ public class OpenRedirectAttackSpec implements FluentTQLUserInterface {
                 .notThrough(sanitizer)
                 .to(sink1)
                 .report("Open-Redirect - CWE601!")
-                .at(LOCATION.SOURCE)
+                .at(LOCATION.SOURCEANDSINK)
                 .build();
 
         TaintFlowQuery tf2 = new TaintFlowQueryBuilder()
