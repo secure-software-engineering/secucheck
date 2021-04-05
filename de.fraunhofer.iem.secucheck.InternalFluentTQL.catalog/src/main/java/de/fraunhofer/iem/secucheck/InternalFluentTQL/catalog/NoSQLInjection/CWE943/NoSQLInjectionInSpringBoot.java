@@ -53,7 +53,7 @@ public class NoSQLInjectionInSpringBoot {
         //returns the information as response entity with the status OK.
         return new ResponseEntity<String>(result, HttpStatus.OK);
     }
-
+    
     /**
      * Returns the information of the employee id requested by the user with safe, this method avoids No-SQL-Injection vulnerability.
      *

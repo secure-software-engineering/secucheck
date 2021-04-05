@@ -21,15 +21,15 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
     /**
      * Source 1
      */
-    public Method source1 = new MethodConfigurator("catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String getMyInformation(java.lang.String)")
-            .out().param(0)
+    public Method source1 = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: org.springframework.http.ResponseEntity getMyInformation(java.lang.String)")
+            .in().param(0)
             .configure();
 
     /**
      * Source 2
      */
-    public Method source2 = new MethodConfigurator("catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String getMyInformationSafely(java.lang.String)")
-            .out().param(0)
+    public Method source2 = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: org.springframework.http.ResponseEntity getMyInformationSafely(java.lang.String)")
+            .in().param(0)
             .configure();
 
     /**
@@ -42,7 +42,7 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
     /**
      * sanitizeForMongoDB is user defined simple sanitizer for mongodb.
      */
-    public Method sanitizer = new MethodConfigurator("catalog.CWE943.NoSQLInjection.NoSQLInjectionInSpringBoot: java.lang.String sanitizeForMongoDB(java.lang.String)")
+    public Method sanitizer = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String sanitizeForMongoDB(java.lang.String)")
             .in().param(0)
             .out().returnValue()
             .configure();
@@ -50,7 +50,7 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
     /**
      * put is a method that the data flow has to go through after sanitizer. If the data flow goes through this method before sanitizer then there will be a security vulnerability.
      */
-    public Method requiredPropogator = new MethodConfigurator("com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String,java.lang.String)")
+    public Method requiredPropogator = new MethodConfigurator("com.mongodb.BasicDBObject: java.lang.Object put(java.lang.Object,java.lang.Object)")
             .in().param(1)
             .out().thisObject()
             .configure();
@@ -58,7 +58,7 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
     /**
      * find is a sink that retrieves sensitive information from mongodb.
      */
-    public Method sink = new MethodConfigurator("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable find(com.mongodb.BasicDBObject)")
+    public Method sink = new MethodConfigurator("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable find(org.bson.conversions.Bson)")
             .in().param(0)
             .configure();
 
@@ -74,7 +74,7 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
                 .through(requiredPropogator)            //requires propagator
                 .to(sink)                                //sink methods
                 .report("No-SQL-Injection - CWE943!")        //report message
-                .at(LOCATION.SOURCE)
+                .at(LOCATION.SOURCEANDSINK)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();
