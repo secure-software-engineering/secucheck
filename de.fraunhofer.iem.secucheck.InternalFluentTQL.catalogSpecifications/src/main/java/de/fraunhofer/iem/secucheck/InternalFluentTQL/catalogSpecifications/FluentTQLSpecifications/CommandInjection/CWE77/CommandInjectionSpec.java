@@ -32,7 +32,7 @@ public class CommandInjectionSpec implements FluentTQLUserInterface {
      * ProcessBuilder constructor should be called to run the command, but first arguments should be sanitized to
      * avoid the security vulnerability.
      */
-    public Method requiredPropagator = new MethodConfigurator("java.lang.ProcessBuilder: java.lang.ProcessBuilder ProcessBuilder(java.lang.String[])")
+    public Method requiredPropagator = new MethodConfigurator("java.lang.ProcessBuilder: void <init>(java.lang.String[])")
             .in().param(0)
             .out().thisObject()
             .configure();
