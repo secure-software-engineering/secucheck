@@ -209,7 +209,7 @@ public final class Utility {
         return methodImpls;
     }
 
-    private static MethodImpl getMethodImpl(Method method) {
+    protected static MethodImpl getMethodImpl(Method method) {
         MethodImpl methodImpl = new MethodImpl();
         methodImpl.setName(method.getSignature());
         methodImpl.setSignature(method.getSignature());

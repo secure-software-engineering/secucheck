@@ -115,6 +115,7 @@ public class SecuCheckAnalysisConfigurator {
         configuration.setApplicationClassPath(FluentTQLAnalysisConfigurator.getClassPathAsString());
         configuration.setSootClassPathJars(getSootClassPath());
         configuration.setListener(resultListener);
+        configuration.setAnalysisGeneralPropagators(GeneralPropagators.getGP());
         return configuration;
     }
 
