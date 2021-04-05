@@ -16,7 +16,7 @@ public class SqlInjectionChallengeSpec implements FluentTQLUserInterface {
             "org.owasp.webgoat.sql_injection.advanced.SqlInjectionChallenge: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
                     "registerNewUser(java.lang.String,java.lang.String,java.lang.String)")
-            .in().param(0)
+            .out().param(0)
             .configure();
 
     Method sink = new MethodConfigurator(

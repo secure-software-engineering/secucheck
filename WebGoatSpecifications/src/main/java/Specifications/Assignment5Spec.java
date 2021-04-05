@@ -16,7 +16,7 @@ public class Assignment5Spec implements FluentTQLUserInterface {
             "org.owasp.webgoat.challenges.challenge5.Assignment5: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
                     "login(java.lang.String,java.lang.String)")
-            .in().param(1)
+            .out().param(1)
             .configure();
 
     Method propagator = new MethodConfigurator(

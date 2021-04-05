@@ -22,14 +22,14 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
      * Source 1
      */
     public Method source1 = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: org.springframework.http.ResponseEntity getMyInformation(java.lang.String)")
-            .in().param(0)
+            .out().param(0)
             .configure();
 
     /**
      * Source 2
      */
     public Method source2 = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: org.springframework.http.ResponseEntity getMyInformationSafely(java.lang.String)")
-            .in().param(0)
+            .out().param(0)
             .configure();
 
     /**

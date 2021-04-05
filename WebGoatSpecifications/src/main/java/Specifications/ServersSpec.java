@@ -16,7 +16,7 @@ public class ServersSpec implements FluentTQLUserInterface {
             "org.owasp.webgoat.sql_injection.mitigation.Servers: " +
                     "java.util.List " +
                     "sort(java.lang.String)")
-            .in().param(0)
+            .out().param(0)
             .configure();
 
     Method propagator = new MethodConfigurator(

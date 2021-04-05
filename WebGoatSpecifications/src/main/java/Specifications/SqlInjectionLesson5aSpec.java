@@ -16,21 +16,21 @@ public class SqlInjectionLesson5aSpec implements FluentTQLUserInterface {
             "org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5a: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
                     "completed(java.lang.String,java.lang.String,java.lang.String)")
-            .in().param(0)
+            .out().param(0)
             .configure();
 
     Method source2 = new MethodConfigurator(
             "org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5a: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
                     "completed(java.lang.String,java.lang.String,java.lang.String)")
-            .in().param(1)
+            .out().param(1)
             .configure();
 
     Method source3 = new MethodConfigurator(
             "org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5a: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
                     "completed(java.lang.String,java.lang.String,java.lang.String)")
-            .in().param(2)
+            .out().param(2)
             .configure();
 
     Method sink = new MethodConfigurator(

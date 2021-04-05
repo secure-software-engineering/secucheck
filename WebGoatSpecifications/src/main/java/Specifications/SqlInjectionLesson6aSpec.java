@@ -16,7 +16,7 @@ public class SqlInjectionLesson6aSpec implements FluentTQLUserInterface {
             "org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
                     "completed(java.lang.String)")
-            .in().param(0)
+            .out().param(0)
             .configure();
 
     Method sink = new MethodConfigurator(
