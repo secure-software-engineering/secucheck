@@ -44,6 +44,10 @@ public class LdapSinks {
             .in().param(2)
             .configure();
 
+    public static final Method sink9 = new MethodConfigurator("com.unboundid.ldap.sdk.LDAPInterface: com.unboundid.ldap.sdk.SearchResult search(java.lang.String,com.unboundid.ldap.sdk.SearchScope,java.lang.String,java.lang.String[])")
+            .in().param(2)
+            .configure();
+
 
     /**
      * This MethodSet contains some of the sink methods for LDAP injection.
@@ -56,5 +60,6 @@ public class LdapSinks {
             .addMethod(sink5)
             .addMethod(sink6)
             .addMethod(sink7)
-            .addMethod(sink8);
+            .addMethod(sink8)
+            .addMethod(sink9);
 }
