@@ -1,11 +1,10 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.OpenRedirectAttack.CWE601;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.Sources.ServletSources;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -19,32 +18,34 @@ import java.util.List;
  *
  * @author Ranjith Krishnamurthy
  */
-@FluentTQLSpecificationClass
-@ImportAndProcessOnlyStaticFields(classList = {ServletSources.class})
 public class OpenRedirectAttackSpec implements FluentTQLUserInterface {
     /**
      * Source 4
      */
-    @OutFlowReturnValue
-    public Method source4 = new MethodSelector("javax.servlet.http.HttpServletRequest: javax.servlet.RequestDispatcher getRequestDispatcher(java.lang.String)");
+    public Method source4 = new MethodConfigurator("javax.servlet.http.HttpServletRequest: javax.servlet.RequestDispatcher getRequestDispatcher(java.lang.String)")
+            .out().returnValue()
+            .configure();
     /**
      * redirectTable is a simple redirection table that performs the whitelist input validation.
      */
-    @InFlowParam(parameterID = {0})
-    @OutFlowReturnValue
-    public Method sanitizer = new MethodSelector("catalog.OpenRedirect.CWE601: java.lang.String redirectTable(java.lang.String)");
+    public Method sanitizer = new MethodConfigurator("catalog.OpenRedirect.CWE601: java.lang.String redirectTable(java.lang.String)")
+            .in().param(0)
+            .out().returnValue()
+            .configure();
 
     /**
      * Sink 1
      */
-    @InFlowParam(parameterID = {0})
-    public Method sink1 = new MethodSelector("javax.servlet.http.HttpServletResponse: void sendRedirect(java.lang.String)");
+    public Method sink1 = new MethodConfigurator("javax.servlet.http.HttpServletResponse: void sendRedirect(java.lang.String)")
+            .in().param(0)
+            .configure();
 
     /**
      * Sink 2
      */
-    @InFlowThisObject
-    public Method sink2 = new MethodSelector("javax.servlet.RequestDispatcher: void forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse)");
+    public Method sink2 = new MethodConfigurator("javax.servlet.RequestDispatcher: void forward(javax.servlet.ServletRequest,javax.servlet.ServletResponse)")
+            .in().thisObject()
+            .configure();
 
     /**
      * Returns the Internal FluentTQL specification
