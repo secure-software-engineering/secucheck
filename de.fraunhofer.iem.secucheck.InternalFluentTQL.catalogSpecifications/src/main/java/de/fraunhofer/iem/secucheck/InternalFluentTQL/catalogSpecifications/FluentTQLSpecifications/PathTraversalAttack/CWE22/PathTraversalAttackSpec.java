@@ -30,7 +30,7 @@ public class PathTraversalAttackSpec implements FluentTQLUserInterface {
     /**
      * This is a required propagator that is used in the second taint flow to achieve path traversal attack.
      */
-    public Method requiredPropagator = new MethodConfigurator("java.io.File: java.io.File File(java.lang.String)")
+    public Method requiredPropagator = new MethodConfigurator("java.io.File: void <init>(java.lang.String)")
             .in().param(0)
             .out().thisObject()
             .configure();
@@ -38,14 +38,14 @@ public class PathTraversalAttackSpec implements FluentTQLUserInterface {
     /**
      * This is the sink in first taint flow where File constructor is not used.
      */
-    public Method sink1 = new MethodConfigurator("java.io.FileInputStream: java.io.FileInputStream FileInputStream(java.lang.String)")
+    public Method sink1 = new MethodConfigurator("java.io.FileInputStream: void <init>(java.lang.String)")
             .in().param(0)
             .configure();
 
     /**
      * This is the sink for second taint flow where File constructor is used as a required propagator.
      */
-    public Method sink2 = new MethodConfigurator("java.io.FileInputStream: java.io.FileInputStream FileInputStream(java.io.File)")
+    public Method sink2 = new MethodConfigurator("java.io.FileInputStream: void <init>(java.io.File)")
             .in().param(0)
             .configure();
 

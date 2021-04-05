@@ -30,8 +30,7 @@ public class PathTraversal extends HttpServlet {
 
         ClassLoader classLoader = PathTraversal.class.getClassLoader();
 
-        File file = new File(classLoader.getResource("user1/" + fileName)
-                .getFile());
+        File file = new File(fileName);
 
         FileInputStream myFIS = new FileInputStream(file);
 
