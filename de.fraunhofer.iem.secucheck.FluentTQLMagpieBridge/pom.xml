@@ -42,11 +42,31 @@
             <version>0.0.1-SNAPSHOT</version>
             <artifactId>de.fraunhofer.iem.secucheck.analysis</artifactId>
         </dependency>
+
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.analysis.process.client</artifactId>
+            <artifactId>de.fraunhofer.iem.secucheck.analysis.configuration</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>de.fraunhofer.iem.secucheck</groupId>
+            <artifactId>de.fraunhofer.iem.secucheck.analysis.result</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.fraunhofer.iem.secucheck</groupId>
+            <artifactId>de.fraunhofer.iem.secucheck.analysis.query</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.fraunhofer.iem.secucheck</groupId>
+            <artifactId>de.fraunhofer.iem.secucheck.analysis.datastructures</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/de.scrum-master/jar-class-loader -->
         <dependency>
             <groupId>org.xeustechnologies</groupId>

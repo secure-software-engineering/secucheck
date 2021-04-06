@@ -8,13 +8,13 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
-import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.CompositeTaintFlowQueryResult;
-import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.LocationDetails;
-import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.SecucheckTaintAnalysisResult;
-import de.fraunhofer.iem.secucheck.analysis.TaintAnalysis.result.TaintFlowQueryResult;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.SameTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.query.*;
+import de.fraunhofer.iem.secucheck.analysis.result.CompositeTaintFlowQueryResult;
+import de.fraunhofer.iem.secucheck.analysis.result.LocationDetails;
+import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
+import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowQueryResult;
 import magpiebridge.core.AnalysisResult;
 import magpiebridge.core.Kind;
 import magpiebridge.util.SourceCodeReader;
@@ -260,7 +260,7 @@ public final class Utility {
         List<AnalysisResult> results = new ArrayList<AnalysisResult>();
 
         for (DifferentTypedPair<CompositeTaintFlowQueryImpl,
-                CompositeTaintFlowQueryResult> pair : result.getResults()) {
+                        CompositeTaintFlowQueryResult> pair : result.getResults()) {
             List<AnalysisResult> magpieBridgeResults = getCompositeResults(pair.getFirst(), pair.getSecond());
             results.addAll(magpieBridgeResults);
         }

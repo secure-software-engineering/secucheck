@@ -10,7 +10,6 @@ import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfig
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.FreeMarkerUtility;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.ResourceUtility;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisConfigurator;
-import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysisConfiguration;
 
 @SuppressWarnings("restriction")
 public class SecuMainHandler implements HttpHandler {
