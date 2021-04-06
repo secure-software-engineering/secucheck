@@ -26,7 +26,7 @@ public class StoredXSSSpec implements FluentTQLUserInterface {
     /**
      * getLastComment is a source that returns the sensitive data from the database.
      */
-    public Method source = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.XSS.CWE79.StoredXSS: java.lang.String getLastComment()")
+    public Method source = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.XSS.CWE79.DatabaseForStoredXSS: java.lang.String getLastComment()")
             .out().returnValue()
             .configure();
 

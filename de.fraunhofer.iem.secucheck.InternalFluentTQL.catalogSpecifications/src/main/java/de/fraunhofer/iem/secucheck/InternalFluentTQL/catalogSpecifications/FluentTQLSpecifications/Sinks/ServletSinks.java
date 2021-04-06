@@ -16,11 +16,15 @@ public class ServletSinks {
             .in().param(0)
             .configure();
 
-    public static final Method sink2 = new MethodConfigurator("java.io.PrintWriter: void print(java.lang.String)")
+    public static final Method sink2 = new MethodConfigurator("java.io.PrintWriter: java.io.PrintWriter append(java.lang.CharSequence)")
             .in().param(0)
             .configure();
 
-    public static final Method sink3 = new MethodConfigurator("java.io.PrintWriter: void println(java.lang.String)")
+    public static final Method sink3 = new MethodConfigurator("java.io.PrintWriter: void print(java.lang.String)")
+            .in().param(0)
+            .configure();
+
+    public static final Method sink4 = new MethodConfigurator("java.io.PrintWriter: void println(java.lang.String)")
             .in().param(0)
             .configure();
 
@@ -30,5 +34,6 @@ public class ServletSinks {
     public static MethodSet servletSinks = new MethodSet("servletSinks")
             .addMethod(sink1)
             .addMethod(sink2)
-            .addMethod(sink3);
+            .addMethod(sink3)
+            .addMethod(sink4);
 }
