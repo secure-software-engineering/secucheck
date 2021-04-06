@@ -39,6 +39,16 @@ public class GeneralPropagators {
             .out().returnValue()
             .configure();
 
+    public static Method stringReader = new MethodConfigurator("java.io.StringReader: void <init>(java.lang.String)")
+            .in().param(0)
+            .out().thisObject()
+            .configure();
+
+    public static Method inputSource = new MethodConfigurator("org.xml.sax.InputSource: void <init>(java.io.Reader)")
+            .in().param(0)
+            .out().thisObject()
+            .configure();
+
     public static List<MethodImpl> getGP() {
         List<MethodImpl> gp = new ArrayList<>();
 
@@ -48,6 +58,8 @@ public class GeneralPropagators {
         gp.add(Utility.getMethodImpl(SB_INIT));
         gp.add(Utility.getMethodImpl(classLoaderResource));
         gp.add(Utility.getMethodImpl(getFile));
+        gp.add(Utility.getMethodImpl(stringReader));
+        gp.add(Utility.getMethodImpl(inputSource));
 
         return gp;
     }
