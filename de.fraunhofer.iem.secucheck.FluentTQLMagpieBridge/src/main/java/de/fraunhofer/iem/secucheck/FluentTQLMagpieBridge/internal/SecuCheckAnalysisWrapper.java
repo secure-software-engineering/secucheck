@@ -4,11 +4,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysis;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckTaintAnalysis;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisConfiguration;
-import de.fraunhofer.iem.secucheck.analysis.query.CompositeTaintFlowQueryImpl;
+import de.fraunhofer.iem.secucheck.analysis.query.SecucheckTaintFlowQueryImpl;
 import de.fraunhofer.iem.secucheck.analysis.result.AnalysisResultListener;
-import de.fraunhofer.iem.secucheck.analysis.result.CompositeTaintFlowQueryResult;
 import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
-import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowQueryResult;
+import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintFlowQueryResult;
+import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowResult;
 import magpiebridge.core.AnalysisResult;
 
 import java.nio.file.Path;
@@ -40,7 +40,7 @@ public final class SecuCheckAnalysisWrapper implements SecucheckMagpieBridgeAnal
         analysis.setSootClassPathJars(Utility.getSootClassPath());
         analysis.setListener(getResultListener());
 */
-        List<CompositeTaintFlowQueryImpl> queries = Utility.getCompositeTaintFlowQueries(configTaintFlows);
+        List<SecucheckTaintFlowQueryImpl> queries = Utility.getCompositeTaintFlowQueries(configTaintFlows);
         SecucheckTaintAnalysisResult result = analysis.run(queries);
 
         return Utility.getMagpieBridgeResult(result);
@@ -48,13 +48,17 @@ public final class SecuCheckAnalysisWrapper implements SecucheckMagpieBridgeAnal
 
     private AnalysisResultListener getResultListener() {
         return new AnalysisResultListener() {
-            public void reportFlowResult(TaintFlowQueryResult arg0) {
-            }
-
-            public void reportCompositeFlowResult(CompositeTaintFlowQueryResult arg0) {
-            }
-
             public void reportCompleteResult(SecucheckTaintAnalysisResult arg0) {
+            }
+
+            @Override
+            public void reportSecucheckTaintFlowQueryResult(SecucheckTaintFlowQueryResult secucheckTaintFlowQueryResult) {
+
+            }
+
+            @Override
+            public void reportTaintFlowResult(TaintFlowResult taintFlowResult) {
+
             }
 
             public boolean isCancelled() {

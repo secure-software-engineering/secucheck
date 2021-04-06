@@ -9,9 +9,9 @@ import de.fraunhofer.iem.secucheck.analysis.query.EntryPoint;
 import de.fraunhofer.iem.secucheck.analysis.query.OS;
 import de.fraunhofer.iem.secucheck.analysis.query.Solver;
 import de.fraunhofer.iem.secucheck.analysis.result.AnalysisResultListener;
-import de.fraunhofer.iem.secucheck.analysis.result.CompositeTaintFlowQueryResult;
 import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
-import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowQueryResult;
+import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintFlowQueryResult;
+import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowResult;
 import magpiebridge.core.AnalysisResult;
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
@@ -53,7 +53,7 @@ public class SecuCheckAnalysisConfigurator {
 
                         //List<CompositeTaintFlowQueryImpl> compositeQueries = FluentTQLUtility.getCompositeTaintFlowQueries(taintFlowQueries);
                         Collection<AnalysisResult> result = secucheckAnalysis.run(taintFlowQueries, null, null
-                        ,null, null);
+                                , null, null);
                         System.out.println("\n\n\nCheck critical results = " + result.size() + "\n\n\n");
 
                         //Collection<AnalysisResult> results = Utility.getMagpieBridgeResult(result);
@@ -80,7 +80,6 @@ public class SecuCheckAnalysisConfigurator {
 
             lastAnalysisTask = execService.submit(analysisTask);
         }
-
 
 
     }
@@ -127,17 +126,15 @@ public class SecuCheckAnalysisConfigurator {
             }
 
             @Override
-            public void reportFlowResult(TaintFlowQueryResult result) {
-            }
-
-            @Override
-            public void reportCompositeFlowResult(CompositeTaintFlowQueryResult result) {
-            }
-
-            @Override
             public void reportCompleteResult(SecucheckTaintAnalysisResult result) {
-                System.out.println();
-                System.out.println("Recieved complete result, size:" + result.size());
+            }
+
+            @Override
+            public void reportSecucheckTaintFlowQueryResult(SecucheckTaintFlowQueryResult secucheckTaintFlowQueryResult) {
+            }
+
+            @Override
+            public void reportTaintFlowResult(TaintFlowResult taintFlowResult) {
             }
         };
     }
