@@ -1,15 +1,15 @@
-package de.fraunhofer.iem.secucheck.fluentTQL2Eng
+package de.fraunhofer.iem.secucheck.fluentTQL2English
 
 import java.util.List
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION
+import de.fraunhofer.iem.secucheck.analysis.query.TaintFlow
+import de.fraunhofer.iem.secucheck.analysis.query.MethodImpl
+import de.fraunhofer.iem.secucheck.analysis.query.Method
+import de.fraunhofer.iem.secucheck.analysis.query.SecucheckTaintFlowQuery
+import de.fraunhofer.iem.secucheck.analysis.query.TaintFlowImpl
+import de.fraunhofer.iem.secucheck.analysis.query.ReportSite
 
 class BriefFluentTQL2Eng {
-	def String multipleTaintFlows(List<TaintFlow> taintFlow) {
+	def String multipleTaintFlows(List<TaintFlowImpl> taintFlow) {
 		var String multipleTaintFlowInfo = ""
 		
 		multipleTaintFlowInfo = "Below " + taintFlow.size() + 
@@ -24,10 +24,10 @@ class BriefFluentTQL2Eng {
 	}
 	
 	def String singleTaintFlows(TaintFlow taintFlow) {
-		var FlowParticipant source = taintFlow.getFrom()
-		var FlowParticipant sink = taintFlow.getTo()
-		var List<FlowParticipant> through = taintFlow.getThrough()
-		var List<FlowParticipant> notThrough = taintFlow.getNotThrough()
+		var List<MethodImpl> source = taintFlow.getFrom()
+		var List<MethodImpl> sink = taintFlow.getTo()
+		var List<MethodImpl> through = taintFlow.getThrough()
+		var List<MethodImpl> notThrough = taintFlow.getNotThrough()
 		
 		var String taintFlowInEnglish = "A Data flow: "
 		
@@ -52,14 +52,12 @@ class BriefFluentTQL2Eng {
 		
 		if(sink instanceof Method)
 			taintFlowInEnglish += " and finally reaches the sink Method: " + (sink as Method).getSignature()
-		else 
-			taintFlowInEnglish += " and finally reaches one of sinks in the MethodSet: " + (sink as MethodSet).getName()
 
 		return taintFlowInEnglish
 	}
 	
-	def String translate(TaintFlowQuery taintFlowQuery) {
-		val List<TaintFlow> taintFlows = taintFlowQuery.getTaintFlows();
+	def String translate(SecucheckTaintFlowQuery taintFlowQuery) {
+		val List<TaintFlowImpl> taintFlows = taintFlowQuery.getTaintFlows();
 		var String fluentTQL2E = ""
 		
 		if(taintFlows.size() == 1) {
@@ -78,13 +76,13 @@ class BriefFluentTQL2Eng {
 		
 		
 		
-		var LOCATION reportLocation = taintFlowQuery.getReportLocation()
+		var ReportSite reportLocation = taintFlowQuery.getReportLocation()
 		
-		if(reportLocation == LOCATION.SOURCE)
+		if(reportLocation == ReportSite.Source)
 			fluentTQL2E += "the source location in the IDE."
-		else if(reportLocation == LOCATION.SINK)
+		else if(reportLocation == ReportSite.Sink)
 			fluentTQL2E += "the sink location in the IDE."
-		else if(reportLocation == LOCATION.SOURCEANDSINK)
+		else if(reportLocation == ReportSite.SourceAndSink)
 			fluentTQL2E += "both the source and the sink location in the IDE.\n\n\t\t"
 		
 		return fluentTQL2E

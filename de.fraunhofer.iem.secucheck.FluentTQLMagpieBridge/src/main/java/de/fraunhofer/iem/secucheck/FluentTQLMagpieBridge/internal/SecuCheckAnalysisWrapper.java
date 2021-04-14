@@ -4,6 +4,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysis;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckTaintAnalysis;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisConfiguration;
+import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.query.SecucheckTaintFlowQueryImpl;
 import de.fraunhofer.iem.secucheck.analysis.result.AnalysisResultListener;
 import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
@@ -13,6 +14,7 @@ import magpiebridge.core.AnalysisResult;
 
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -40,10 +42,10 @@ public final class SecuCheckAnalysisWrapper implements SecucheckMagpieBridgeAnal
         analysis.setSootClassPathJars(Utility.getSootClassPath());
         analysis.setListener(getResultListener());
 */
-        List<SecucheckTaintFlowQueryImpl> queries = Utility.getCompositeTaintFlowQueries(configTaintFlows);
-        SecucheckTaintAnalysisResult result = analysis.run(queries);
+        DifferentTypedPair<HashMap<Integer, TaintFlowQuery>, List<SecucheckTaintFlowQueryImpl>> queriesWithID = Utility.getCompositeTaintFlowQueries(configTaintFlows);
+        SecucheckTaintAnalysisResult result = analysis.run(queriesWithID.getSecond());
 
-        return Utility.getMagpieBridgeResult(result);
+        return Utility.getMagpieBridgeResult(result, queriesWithID.getFirst());
     }
 
     private AnalysisResultListener getResultListener() {

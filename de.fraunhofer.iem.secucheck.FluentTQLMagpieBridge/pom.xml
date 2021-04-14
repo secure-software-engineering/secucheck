@@ -80,7 +80,7 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</artifactId>
-            <version>${FluentTQLClassLoader.version}</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.rapidoid/rapidoid-rest -->
         <dependency>
@@ -98,6 +98,12 @@
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>2.3.29</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.fraunhofer.iem.secucheck</groupId>
+            <artifactId>de.fraunhofer.iem.secucheck.fluentTQL2English</artifactId>
+            <version>${fluentTQL2English.version}</version>
         </dependency>
     </dependencies>
 

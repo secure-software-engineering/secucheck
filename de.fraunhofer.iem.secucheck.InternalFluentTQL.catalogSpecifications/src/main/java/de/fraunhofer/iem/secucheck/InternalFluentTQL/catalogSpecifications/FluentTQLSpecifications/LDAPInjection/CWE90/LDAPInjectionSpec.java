@@ -36,9 +36,6 @@ public class LDAPInjectionSpec implements FluentTQLUserInterface {
         TaintFlowQuery ldapInjectionSpecification = new TaintFlowQueryBuilder()
                 .from(ServletSources.servletSources).notThrough(sanitizer)
                 .to(LdapSinks.sinksLdapinjection)
-                .and()
-                .from(ServletSources.servletSources).notThrough(sanitizer)
-                .to(LdapSinks.sinksLdapinjection)
                 .report("LDAP-Injection CWE-90!")
                 .at(LOCATION.SOURCEANDSINK)
                 .build();

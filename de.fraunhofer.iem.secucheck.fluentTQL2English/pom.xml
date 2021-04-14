@@ -11,48 +11,67 @@
 
     <artifactId>de.fraunhofer.iem.secucheck.fluentTQL2English</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.xtend</groupId>
-            <artifactId>org.eclipse.xtend.lib</artifactId>
-            <version>2.25.0</version>
-        </dependency>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.core</groupId>
-            <artifactId>runtime</artifactId>
-            <version>3.10.0-v20140318-2214</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.emf</groupId>
-            <artifactId>org.eclipse.emf.ecore</artifactId>
-            <version>2.18.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.emf</groupId>
-            <artifactId>org.eclipse.emf.ecore.xmi</artifactId>
-            <version>2.16.0</version>
-        </dependency>
+    <dependencies>
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.InternalFluentTQL</artifactId>
             <version>${InternalFluentTQL.version}</version>
         </dependency>
         <dependency>
+            <groupId>de.fraunhofer.iem.secucheck</groupId>
+            <artifactId>de.fraunhofer.iem.secucheck.analysis.query</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.xtend</groupId>
             <artifactId>org.eclipse.xtend.lib</artifactId>
-            <version>2.13.0</version>
+            <version>2.25.0</version>
         </dependency>
     </dependencies>
 
     <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>xtend-gen</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.6.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>xtend-gen</directory>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.eclipse.xtend</groupId>
                 <artifactId>xtend-maven-plugin</artifactId>
@@ -64,20 +83,10 @@
                             <goal>testCompile</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/xtend-gen/main</outputDirectory>
-                            <testOutputDirectory>${project.build.directory}/xtend-gen/test</testOutputDirectory>
+                            <outputDirectory>xtend-gen</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

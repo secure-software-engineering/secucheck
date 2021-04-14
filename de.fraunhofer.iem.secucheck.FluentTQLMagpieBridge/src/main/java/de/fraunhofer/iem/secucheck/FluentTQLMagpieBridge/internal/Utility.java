@@ -9,12 +9,15 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
+import de.fraunhofer.iem.secucheck.analysis.datastructures.Pair;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.SameTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.query.*;
 import de.fraunhofer.iem.secucheck.analysis.result.LocationDetails;
 import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
 import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintFlowQueryResult;
 import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowResult;
+import de.fraunhofer.iem.secucheck.fluentTQL2English.BriefFluentTQL2Eng;
+import de.fraunhofer.iem.secucheck.fluentTQL2English.FluentTQL2English;
 import magpiebridge.core.AnalysisResult;
 import magpiebridge.core.Kind;
 import magpiebridge.util.SourceCodeReader;
@@ -24,10 +27,7 @@ import org.eclipse.lsp4j.DiagnosticSeverity;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public final class Utility {
 
@@ -114,19 +114,25 @@ public final class Utility {
 		 * */
     }
 
-    public static List<SecucheckTaintFlowQueryImpl> getCompositeTaintFlowQueries(List<TaintFlowQuery> taintFlowQueries) {
+    public static DifferentTypedPair<HashMap<Integer, TaintFlowQuery>, List<SecucheckTaintFlowQueryImpl>> getCompositeTaintFlowQueries(List<TaintFlowQuery> taintFlowQueries) {
         List<SecucheckTaintFlowQueryImpl> compositeQueries = new ArrayList<SecucheckTaintFlowQueryImpl>();
 
+        HashMap<Integer, TaintFlowQuery> taintFLowQueriesWithID = new HashMap<>();
+        int id = 0;
+
         for (TaintFlowQuery flowQuery : taintFlowQueries) {
-            SecucheckTaintFlowQueryImpl compositeQuery = getCompositeTaintFlowQuery(flowQuery);
+            id++;
+            taintFLowQueriesWithID.put(id, flowQuery);
+
+            SecucheckTaintFlowQueryImpl compositeQuery = getCompositeTaintFlowQuery(flowQuery, id);
             compositeQueries.add(compositeQuery);
         }
 
-        return compositeQueries;
+        return new DifferentTypedPair<>(taintFLowQueriesWithID, compositeQueries);
     }
 
-    public static SecucheckTaintFlowQueryImpl getCompositeTaintFlowQuery(TaintFlowQuery taintFlowQuery) {
-        SecucheckTaintFlowQueryImpl compositeQuery = new SecucheckTaintFlowQueryImpl();
+    public static SecucheckTaintFlowQueryImpl getCompositeTaintFlowQuery(TaintFlowQuery taintFlowQuery, int id) {
+        SecucheckTaintFlowQueryImpl compositeQuery = new SecucheckTaintFlowQueryImpl(id);
         compositeQuery.setReportMessage(taintFlowQuery.getReportMessage());
         compositeQuery.setReportLocation(getReportLocation(taintFlowQuery.getReportLocation()));
 
@@ -255,20 +261,21 @@ public final class Utility {
         return methodImpl;
     }
 
-    public static Collection<AnalysisResult> getMagpieBridgeResult(SecucheckTaintAnalysisResult result)
+    public static Collection<AnalysisResult> getMagpieBridgeResult(SecucheckTaintAnalysisResult result, HashMap<Integer, TaintFlowQuery> taintFlowQueryWithID)
             throws Exception {
         List<AnalysisResult> results = new ArrayList<AnalysisResult>();
 
         for (DifferentTypedPair<SecucheckTaintFlowQueryImpl,
                 SecucheckTaintFlowQueryResult> pair : result.getResults()) {
-            List<AnalysisResult> magpieBridgeResults = getCompositeResults(pair.getFirst(), pair.getSecond());
+            List<AnalysisResult> magpieBridgeResults = getCompositeResults(pair.getFirst(), pair.getSecond(), taintFlowQueryWithID);
             results.addAll(magpieBridgeResults);
         }
         return results;
     }
 
     private static List<AnalysisResult> getCompositeResults(SecucheckTaintFlowQueryImpl query,
-                                                            SecucheckTaintFlowQueryResult result) throws Exception {
+                                                            SecucheckTaintFlowQueryResult result,
+                                                            HashMap<Integer, TaintFlowQuery> taintFlowQueryWithID) throws Exception {
         List<SecuCheckMapieBridgeResult> magpieBridgeResults = new ArrayList<SecuCheckMapieBridgeResult>();
 
         for (DifferentTypedPair<TaintFlowImpl, TaintFlowResult> pair : result.getResults()) {
@@ -276,17 +283,17 @@ public final class Utility {
             switch (query.getReportLocation()) {
                 case Source:
                     magpieBridgeResults.addAll(createMagpieBridgeResult(query, pair.getFirst(),
-                            pair.getSecond(), ReportSite.Source));
+                            pair.getSecond(), ReportSite.Source, taintFlowQueryWithID));
                     break;
                 case Sink:
                     magpieBridgeResults.addAll(createMagpieBridgeResult(query, pair.getFirst(),
-                            pair.getSecond(), ReportSite.Sink));
+                            pair.getSecond(), ReportSite.Sink, taintFlowQueryWithID));
                     break;
                 case SourceAndSink:
                     magpieBridgeResults.addAll(createMagpieBridgeResult(query, pair.getFirst(),
-                            pair.getSecond(), ReportSite.Source));
+                            pair.getSecond(), ReportSite.Source, taintFlowQueryWithID));
                     magpieBridgeResults.addAll(createMagpieBridgeResult(query, pair.getFirst(),
-                            pair.getSecond(), ReportSite.Sink));
+                            pair.getSecond(), ReportSite.Sink, taintFlowQueryWithID));
                     break;
             }
         }
@@ -298,7 +305,10 @@ public final class Utility {
     }
 
     private static List<SecuCheckMapieBridgeResult> createMagpieBridgeResult(SecucheckTaintFlowQueryImpl compositeQuery,
-                                                                             TaintFlowImpl singleFlowQuery, TaintFlowResult singleFlowQueryResult, ReportSite reportLocation)
+                                                                             TaintFlowImpl singleFlowQuery,
+                                                                             TaintFlowResult singleFlowQueryResult,
+                                                                             ReportSite reportLocation,
+                                                                             HashMap<Integer, TaintFlowQuery> taintFlowQueryWithID)
             throws Exception {
         List<SecuCheckMapieBridgeResult> analysisResults = new ArrayList<>();
 
@@ -316,22 +326,27 @@ public final class Utility {
 
             SameTypedPair<LocationDetails> locationPair;
 
+            String reportMessage = "";
+
             switch (reportLocation) {
                 default:
                 case Source: // First result will have source in all the cases ...
 //                    pair = singleFlowQueryResult.getQueryResultMap().get(i);
                     locationPair = pair.getSecond();
                     analysisResult.setPosition(createReportPosition(locationPair.getFirst()));
-                    analysisResult.setMessage("Source: " + compositeQuery.getReportMessage());
+                    reportMessage += "Source: " + compositeQuery.getReportMessage();
                     break;
                 case Sink: // Last result will have sink in all the cases ...
                     //           pair = singleFlowQueryResult.getQueryResultMap().get(
                     //                 singleFlowQueryResult.getQueryResultMap().size() - 1);
                     locationPair = pair.getSecond();
                     analysisResult.setPosition(createReportPosition(locationPair.getSecond()));
-                    analysisResult.setMessage("Sink: " + compositeQuery.getReportMessage());
+                    reportMessage += "Sink: " + compositeQuery.getReportMessage();
                     break;
             }
+
+            reportMessage += "\n\n\n" + new FluentTQL2English().translate(taintFlowQueryWithID.get(compositeQuery.getId()));
+            analysisResult.setMessage(reportMessage);
 
             //Todo: Verify if code is needed at all ?
             if (analysisResult.position().getFirstCol() < 0 || analysisResult.position().getFirstLine() <= 0) {

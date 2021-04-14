@@ -1,12 +1,12 @@
 package de.fraunhofer.iem.secucheck.fluentTQL2English
 
 import java.util.List
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery
 
 class FluentTQL2English {
 	def String printSingleMethod(Method method) {
@@ -88,7 +88,7 @@ class FluentTQL2English {
 			tempResult = ""
 		}
 
-		return sanitizerInfo
+		return sanitizerInfo + "\n"
 	}
 
 	def String deSanitizerInfo(TaintFlow taintFlow) {
