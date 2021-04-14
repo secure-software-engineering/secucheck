@@ -34,7 +34,7 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.InternalFluentTQL</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${InternalFluentTQL.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${FluentTQLClassLoader.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.rapidoid/rapidoid-rest -->
         <dependency>

@@ -21,7 +21,7 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.InternalFluentTQL</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${InternalFluentTQL.version}</version>
         </dependency>
     </dependencies>
 
@@ -30,7 +30,7 @@
             <plugin>
                 <groupId>de.fraunhofer.iem.secucheck</groupId>
                 <artifactId>fluenttql-maven-plugin</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${fluentTQl.maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
