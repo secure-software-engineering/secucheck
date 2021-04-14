@@ -1,6 +1,9 @@
 .classpath
 .project
-de.fraunhofer.iem.secucheck.InternalFluentTQL.iml
 target/
 .idea/
 .settings/
+out/
+*.iml
+.*
+!/.gitignore

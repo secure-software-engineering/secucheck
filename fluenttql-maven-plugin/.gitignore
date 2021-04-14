@@ -1,11 +1,11 @@
-*.iml
-.idea
 target
+*.iml
 .classpath
 .project
 target/
 .idea/
 .settings/
+.idea
 .settings
 out/
 .*

@@ -3,4 +3,7 @@ out/
 *.iml
 .*
 !/.gitignore
-
+.classpath
+.project
+.idea/
+.settings/

@@ -4,3 +4,9 @@
 target/
 .idea/
 .settings/
+.idea
+target
+.settings
+out/
+.*
+!/.gitignore
