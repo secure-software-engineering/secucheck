@@ -127,7 +127,7 @@ public class JarClassLoaderUtils {
                         jarClassLoader, loadedClassesKey.toString().replaceAll("/", "\\.").replace(".class", "")
                 );
 
-                if (!processFluentTQLAnnotation(obj, isPrettyPrint)) {
+                if (!processFluentTQLObject(obj, isPrettyPrint)) {
                     if (isPrettyPrint)
                         printUtils.printClassStatus(
                                 obj.getClass().getSimpleName(),
@@ -157,7 +157,7 @@ public class JarClassLoaderUtils {
      *
      * @param obj FluentTQL related Object
      */
-    private boolean processFluentTQLAnnotation(Object obj, boolean isPrettyPrint) {
+    private boolean processFluentTQLObject(Object obj, boolean isPrettyPrint) {
         if (obj instanceof FluentTQLUserInterface) {
             FluentTQLUserInterface fluentTQLUserInterface = (FluentTQLUserInterface) obj;
             fluentTQLSpecs.put(obj.getClass().getSimpleName(), fluentTQLUserInterface);

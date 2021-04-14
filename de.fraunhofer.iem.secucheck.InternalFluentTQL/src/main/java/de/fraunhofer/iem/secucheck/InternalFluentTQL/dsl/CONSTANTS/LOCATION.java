@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS;
 
 /**
- * ENUM contains the all possibility location that the error messages can be displayed.
+ * Constant: Location on the IDE for displaying purpose
  *
  * @author Ranjith Krishnamurthy
  */

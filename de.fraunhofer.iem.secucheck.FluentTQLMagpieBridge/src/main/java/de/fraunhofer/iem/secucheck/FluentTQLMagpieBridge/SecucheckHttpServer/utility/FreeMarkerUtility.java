@@ -11,7 +11,6 @@ import java.util.Map;
  * This class is the utils for Freemarker java template engine to create an actual file from the template.
  *
  * @author Ranjith Krishnamurthy
- * @author Rahul sethi
  */
 public class FreeMarkerUtility {
     public static String setFirstPageFile(String projectName) {

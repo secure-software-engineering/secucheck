@@ -1,7 +1,0 @@
-.classpath
-.project
-de.fraunhofer.iem.secucheck.fluentTQL2Eng.iml
-target/
-.idea/
-.settings/
-*.iml

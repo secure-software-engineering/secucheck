@@ -11,10 +11,5 @@ import java.util.List;
  * @author Ranjith Krishnamurthy
  */
 public interface FluentTQLUserInterface {
-    /**
-     * This returns the FluentTQL specification specified in that class.
-     *
-     * @return FluentTQL specification
-     */
     public List<FluentTQLSpecification> getFluentTQLSpecification();
 }

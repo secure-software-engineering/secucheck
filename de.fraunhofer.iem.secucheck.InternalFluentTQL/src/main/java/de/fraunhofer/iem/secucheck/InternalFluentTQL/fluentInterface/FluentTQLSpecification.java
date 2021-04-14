@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface;
 
 /**
- * This is the interface for FluentTQL specification.
+ * This is the interface for the TaintFlowQuery and QueriesSet
  *
  * @author Ranjith Krishnamurthy
  */

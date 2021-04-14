@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementation of TaintFlowQuery.
+ * Implementation of TaintFlowQuery
  *
  * @author Ranjith Krishnamurthy
  */

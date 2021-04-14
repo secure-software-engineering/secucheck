@@ -2,19 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>secucheck-magpiebridge</artifactId>
+        <groupId>de.fraunhofer.iem.secucheck</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.fraunhofer.iem.secucheck</groupId>
     <artifactId>de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <name>de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge</name>
+    <url>http://maven.apache.org</url>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <name>de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge</name>
-    <url>http://maven.apache.org</url>
 
     <dependencies>
         <dependency>
@@ -30,7 +34,7 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.InternalFluentTQL</artifactId>
-            <version>0.0.1-INIT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -76,7 +80,7 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</artifactId>
-            <version>0.0.1-INIT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.rapidoid/rapidoid-rest -->
         <dependency>

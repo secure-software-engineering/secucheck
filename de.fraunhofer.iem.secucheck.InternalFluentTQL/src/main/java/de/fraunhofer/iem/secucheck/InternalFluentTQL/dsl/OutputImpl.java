@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Output;
 
 /**
- * Implementation of the Output.
+ * Implemenation of Output
  *
  * @author Ranjith Krishnamurthy
  */

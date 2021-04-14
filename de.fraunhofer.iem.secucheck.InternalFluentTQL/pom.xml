@@ -1,10 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>secucheck-magpiebridge</artifactId>
+        <groupId>de.fraunhofer.iem.secucheck</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.fraunhofer.iem.secucheck</groupId>
     <artifactId>de.fraunhofer.iem.secucheck.InternalFluentTQL</artifactId>
-    <version>EXPERIMENT-ANNOTATION</version>
     <packaging>jar</packaging>
 
     <name>de.fraunhofer.iem.secucheck.InternalFluentTQL</name>

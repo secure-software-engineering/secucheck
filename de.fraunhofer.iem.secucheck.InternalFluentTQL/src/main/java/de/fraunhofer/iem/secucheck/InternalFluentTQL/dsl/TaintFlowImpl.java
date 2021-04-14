@@ -6,10 +6,9 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
- * Implementation of the TaintFlow
+ * Implementation of TaintFlow
  *
  * @author Ranjith Krishnamurthy
  */
@@ -33,8 +32,6 @@ class TaintFlowImpl implements TaintFlow {
     }
 
     public void setFrom(FlowParticipant from) {
-        Objects.requireNonNull(from, "setFrom() method's argument is null.");
-
         this.from = from;
     }
 
@@ -43,8 +40,6 @@ class TaintFlowImpl implements TaintFlow {
     }
 
     public void addNotThrough(FlowParticipant notThrough) {
-        Objects.requireNonNull(notThrough, "addNotThrough() method's argument is null.");
-
         this.notThrough.add(notThrough);
     }
 
@@ -53,8 +48,6 @@ class TaintFlowImpl implements TaintFlow {
     }
 
     public void addThrough(FlowParticipant through) {
-        Objects.requireNonNull(through, "addThrough() method's argument is null.");
-
         this.through.add(through);
     }
 

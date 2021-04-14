@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.fraunhofer.iem.secucheck</groupId>
+    <artifactId>secucheck-magpiebridge</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>SecuCheck Magpie Bridge</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <modules>
+        <module>de.fraunhofer.iem.secucheck.InternalFluentTQL</module>
+        <module>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</module>
+        <module>fluenttql-maven-plugin</module>
+        <module>de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog</module>
+        <module>de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications</module>
+        <module>WebGoatSpecifications</module>
+        <module>de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge</module>
+        <module>de.fraunhofer.iem.secucheck.fluentTQL2English</module>
+    </modules>
+
+
+</project>
