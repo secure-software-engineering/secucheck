@@ -1,27 +1,16 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 
 import com.ibm.wala.classLoader.Module;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisWrapper;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecucheckMagpieBridgeAnalysis;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import magpiebridge.core.AnalysisConsumer;
 import magpiebridge.core.AnalysisResult;
 import magpiebridge.core.ServerAnalysis;
 import magpiebridge.core.ToolAnalysis;
 import magpiebridge.core.analysis.configuration.ConfigurationAction;
 import magpiebridge.core.analysis.configuration.ConfigurationOption;
-import org.eclipse.lsp4j.MessageParams;
-import org.eclipse.lsp4j.MessageType;
 
-import java.nio.file.Path;
-import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class is the FluentTQL Taint analysis. This implements the configuration options for configuration pages.
@@ -30,49 +19,13 @@ import java.util.logging.Logger;
  * @author Ranjith Krishnamurthy
  */
 public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
-
-    private static final Logger logger = Logger.getLogger("main");
-
-    private static final String RECOMPILE_CONFIG_CONS = "Re-Compile fluentTQL specifications";
-    private static final String ENTRY_POINTS_CONFIG_CONS = "Select java files for entry points:";
-
-    private static final HashSet<String> entryPointsAsMethod = new HashSet<>();
-    private static final HashSet<String> entryPoints = new HashSet<>();
-    private static final HashSet<Method> generalPropagators = new HashSet<>();
-    private static final Set<Path> classPath = new HashSet<>();
-    public static final Set<Path> sourcePath = new HashSet<>();
-    private static final Set<Path> libraryPath = new HashSet<>();
-    private static final List<TaintFlowQuery> taintFlowQueries = new ArrayList<>();
-
-    private static final List<ConfigurationOption> currentConfiguration = new ArrayList<>();
-    private static final HashMap<String, FluentTQLUserInterface> fluentTQLSpecs = new HashMap<>();
-
-    private static final Path projectRootPath = null;
-
-    private final List<ConfigurationOption> options = new ArrayList<>();
-    private final HashMap<String, String> listOfJavaFiles = new HashMap<>();
-    private final SecucheckMagpieBridgeAnalysis secucheckAnalysis = new SecuCheckAnalysisWrapper(true, null);
-
-    private boolean isFirstPageDone = false;
-    private Future<?> lastAnalysisTask;
-    private final ExecutorService execService;
-
-    /**
-     * Constructor sets the initial configuration option for the configuration page.
-     */
-    public FluentTQLAnalysis() {
-        currentConfiguration.addAll(options);
-        execService = Executors.newSingleThreadExecutor();
-    }
-
     /**
      * Returns the source name for the Magpie bridge required for configuration page.
      *
      * @return Source name
      */
     public String source() {
-
-        return "";
+        return FluentTQLAnalysisConfigurator.getSource();
     }
 
     /**
@@ -84,86 +37,8 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      */
     public void analyze(Collection<? extends Module> files, AnalysisConsumer server, boolean rerun) {
         if (rerun) {
-            if (lastAnalysisTask != null && !lastAnalysisTask.isDone()) {
-                lastAnalysisTask.cancel(false);
-                if (lastAnalysisTask.isCancelled()) {
-                    logger.log(Level.INFO, "Last running analysis has been cancelled.");
-                }
-            }
-
-            //Todo: Verify whether is it required to remove the bin directories from the class path.
-            Set<Path> modifiedClassPath = new HashSet<Path>();
-            for (Path clsPath : classPath) {
-                if (!clsPath.toAbsolutePath().toString().contains("bin")) {
-                    modifiedClassPath.add(clsPath);
-                }
-            }
-
-            // Perform validation synchronously and run analysis asynchronously.
-            if (validateQueriesAndEntryPoints()) {
-                System.out.println("\n\n\n************************************************");
-                System.out.println("\nEntry points as class size = " + entryPoints.size());
-                System.out.println("Entry points as method size = " + entryPointsAsMethod.size());
-                System.out.println("TaintFlow queries size = " + taintFlowQueries.size());
-                System.out.println("General Propagator size = " + generalPropagators.size());
-
-                System.out.println("\n\nEntry Points as Method\n");
-                for (String entryPoint : entryPointsAsMethod) {
-                    System.out.println(entryPoint);
-                }
-
-                System.out.println("\n\nGeneral Propagators\n");
-                for (Method generalPropagator : generalPropagators) {
-                    System.out.println(generalPropagator.toString());
-                }
-                System.out.println("\n\n************************************************\n\n\n");
-                Runnable analysisTask = () -> {
-                    try {
-                        Collection<AnalysisResult> results = secucheckAnalysis.run(taintFlowQueries,
-                                new ArrayList<>(entryPoints), modifiedClassPath, libraryPath, projectRootPath.toAbsolutePath().toString());
-
-                        server.consume(results, "secucheck-analysis");
-                    } catch (Exception e) {
-                        FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
-                                .forwardMessageToClient(new MessageParams(MessageType.Error,
-                                        "Problem occured while running the analysis: " + e.getMessage()));
-                        logger.log(Level.SEVERE, "Problem occured while running the analysis: " + e.getMessage());
-                    }
-                };
-
-                lastAnalysisTask = execService.submit(analysisTask);
-            }
+            FluentTQLAnalysisConfigurator.runAnalysis();
         }
-    }
-
-    private boolean validateQueriesAndEntryPoints() {
-        if ((taintFlowQueries.size() == 0) || (entryPoints.size() == 0)) {
-            if (isFirstPageDone) {
-                String message;
-                if ((taintFlowQueries.size() == 0) && (entryPoints.size() == 0))
-                    message = "Please select both FluentTQL specification files and Java files for entry points.";
-                else if (taintFlowQueries.size() == 0)
-                    message = "Please select FluentTQL specification files.";
-                else
-                    message = "Please select Java files for entry points.";
-
-                FluentTQLMagpieBridgeMainServer
-                        .fluentTQLMagpieServer
-                        .forwardMessageToClient(
-                                new MessageParams(MessageType.Warning,
-                                        message)
-                        );
-            } else {
-                FluentTQLMagpieBridgeMainServer
-                        .fluentTQLMagpieServer
-                        .forwardMessageToClient(
-                                new MessageParams(MessageType.Warning,
-                                        "Please give the path of the fluentTQL specifications.")
-                        );
-            }
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -172,7 +47,7 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
      * @return List of configuration options
      */
     public List<ConfigurationOption> getConfigurationOptions() {
-        return options;
+        return Collections.emptyList();
     }
 
     /**
@@ -183,19 +58,6 @@ public class FluentTQLAnalysis implements ToolAnalysis, ServerAnalysis {
     public List<ConfigurationAction> getConfiguredActions() {
         return Collections.emptyList();
     }
-
-
-    /**
-     * This method configures the analysis or configuration page based on the user input given in the previous
-     * configuration page.
-     *
-     * @param configuration List of configuration options from the Magpie bridge
-     */
-    public void configure(List<ConfigurationOption> configuration) {
-        currentConfiguration.clear();
-        currentConfiguration.addAll(configuration);
-    }
-
 
     public String[] getCommand() {
         return new String[0];
