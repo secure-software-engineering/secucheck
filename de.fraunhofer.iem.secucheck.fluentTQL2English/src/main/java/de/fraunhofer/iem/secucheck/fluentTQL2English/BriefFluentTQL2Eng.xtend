@@ -1,15 +1,15 @@
 package de.fraunhofer.iem.secucheck.fluentTQL2English
 
 import java.util.List
-import de.fraunhofer.iem.secucheck.analysis.query.TaintFlow
-import de.fraunhofer.iem.secucheck.analysis.query.MethodImpl
-import de.fraunhofer.iem.secucheck.analysis.query.Method
-import de.fraunhofer.iem.secucheck.analysis.query.SecucheckTaintFlowQuery
-import de.fraunhofer.iem.secucheck.analysis.query.TaintFlowImpl
-import de.fraunhofer.iem.secucheck.analysis.query.ReportSite
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION
 
 class BriefFluentTQL2Eng {
-	def String multipleTaintFlows(List<TaintFlowImpl> taintFlow) {
+	def String multipleTaintFlows(List<TaintFlow> taintFlow) {
 		var String multipleTaintFlowInfo = ""
 		
 		multipleTaintFlowInfo = "Below " + taintFlow.size() + 
@@ -24,40 +24,42 @@ class BriefFluentTQL2Eng {
 	}
 	
 	def String singleTaintFlows(TaintFlow taintFlow) {
-		var List<MethodImpl> source = taintFlow.getFrom()
-		var List<MethodImpl> sink = taintFlow.getTo()
-		var List<MethodImpl> through = taintFlow.getThrough()
-		var List<MethodImpl> notThrough = taintFlow.getNotThrough()
+		var FlowParticipant source = taintFlow.getFrom()
+		var FlowParticipant sink = taintFlow.getTo()
+		var List<FlowParticipant> through = taintFlow.getThrough()
+		var List<FlowParticipant> notThrough = taintFlow.getNotThrough()
 		
 		var String taintFlowInEnglish = "A Data flow: "
 		
 		if(source instanceof Method)
 			taintFlowInEnglish += "from the source Method: " + (source as Method).getSignature()
 		else 
-			taintFlowInEnglish += "one of the source in the MethodSet"
+			taintFlowInEnglish += "one of the source in the MethodSet: " + (source as MethodSet).getName()
 			
 		if(through.size > 0) {
 			if(through.get(0) instanceof Method)
 			taintFlowInEnglish += " and does not go through the sanitizer Method: " + (through.get(0) as Method).getSignature()
 		else
-			taintFlowInEnglish += " and does not go through one of the sanitizers in the MethodSet: "
+			taintFlowInEnglish += " and does not go through one of the sanitizers in the MethodSet: " + (through.get(0) as MethodSet).getName()
 		}
 			
 		for (i : 0 ..< notThrough.size()) {
 			if(notThrough.get(i) instanceof Method)
 				taintFlowInEnglish += " and goes through the required propogator Method: " + (notThrough.get(0) as Method).getSignature()
 			else
-				taintFlowInEnglish += " and goes through one of the required propogator in the MethodSet: "
+				taintFlowInEnglish += " and goes through one of the required propogator in the MethodSet: " + (notThrough.get(0) as MethodSet).getName()
 		}
 		
 		if(sink instanceof Method)
 			taintFlowInEnglish += " and finally reaches the sink Method: " + (sink as Method).getSignature()
+		else 
+			taintFlowInEnglish += " and finally reaches one of sinks in the MethodSet: " + (sink as MethodSet).getName()
 
 		return taintFlowInEnglish
 	}
 	
-	def String translate(SecucheckTaintFlowQuery taintFlowQuery) {
-		val List<TaintFlowImpl> taintFlows = taintFlowQuery.getTaintFlows();
+	def String translate(TaintFlowQuery taintFlowQuery) {
+		val List<TaintFlow> taintFlows = taintFlowQuery.getTaintFlows();
 		var String fluentTQL2E = ""
 		
 		if(taintFlows.size() == 1) {
@@ -76,13 +78,13 @@ class BriefFluentTQL2Eng {
 		
 		
 		
-		var ReportSite reportLocation = taintFlowQuery.getReportLocation()
+		var LOCATION reportLocation = taintFlowQuery.getReportLocation()
 		
-		if(reportLocation == ReportSite.Source)
+		if(reportLocation == LOCATION.SOURCE)
 			fluentTQL2E += "the source location in the IDE."
-		else if(reportLocation == ReportSite.Sink)
+		else if(reportLocation == LOCATION.SINK)
 			fluentTQL2E += "the sink location in the IDE."
-		else if(reportLocation == ReportSite.SourceAndSink)
+		else if(reportLocation == LOCATION.SOURCEANDSINK)
 			fluentTQL2E += "both the source and the sink location in the IDE.\n\n\t\t"
 		
 		return fluentTQL2E
