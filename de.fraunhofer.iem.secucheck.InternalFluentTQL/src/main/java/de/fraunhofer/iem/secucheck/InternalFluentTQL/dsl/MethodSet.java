@@ -43,7 +43,7 @@ public class MethodSet implements FlowParticipant {
         final int prime = 31;
         int result = 1;
 
-        result = prime * result + new HashSet<>(methods).hashCode();
+        result = prime * result + methods.hashCode();
 
         // result = prime * result + ((methodSetName == null) ? 0 : methodSetName.hashCode());
         return result;

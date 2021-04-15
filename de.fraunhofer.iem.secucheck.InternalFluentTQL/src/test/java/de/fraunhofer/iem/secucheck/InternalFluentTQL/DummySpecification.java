@@ -1,7 +1,14 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DummySpecification {
     static Method method1 = new MethodConfigurator("Test: java.lang.String getSecret()")
@@ -74,4 +81,46 @@ public class DummySpecification {
             .in().thisObject().param(5).param(2)
             .out().thisObject().returnValue().param(0).param(5).param(2).param(8)
             .configure();
+
+    public static List<FluentTQLSpecification> getSpecForTaintFlowTest1() {
+        TaintFlowQuery taintFlowQuery1 = new TaintFlowQueryBuilder()
+                .from(method1)
+                .through(method2)
+                .through(method3)
+                .notThrough(method4)
+                .notThrough(method5)
+                .to(method6)
+                .report("Dummy")
+                .at(LOCATION.SOURCEANDSINK)
+                .build();
+
+        TaintFlowQuery taintFlowQuery2 = new TaintFlowQueryBuilder()
+                .from(method1)
+                .notThrough(method4)
+                .notThrough(method5)
+                .through(method2)
+                .through(method3)
+                .to(method6)
+                .report("Dummy")
+                .at(LOCATION.SOURCEANDSINK)
+                .build();
+
+        TaintFlowQuery taintFlowQuery3 = new TaintFlowQueryBuilder()
+                .from(method5)
+                .through(method4)
+                .through(method3)
+                .notThrough(method1)
+                .notThrough(method3)
+                .to(method6)
+                .report("Dummy")
+                .at(LOCATION.SOURCEANDSINK)
+                .build();
+
+        List<FluentTQLSpecification> specs = new ArrayList<>();
+        specs.add(taintFlowQuery1);
+        specs.add(taintFlowQuery2);
+        specs.add(taintFlowQuery3);
+
+        return specs;
+    }
 }
