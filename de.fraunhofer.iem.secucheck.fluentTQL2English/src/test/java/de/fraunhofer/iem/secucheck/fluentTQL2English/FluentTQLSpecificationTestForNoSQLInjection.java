@@ -48,7 +48,7 @@ public class  FluentTQLSpecificationTestForNoSQLInjection implements FluentTQLUs
                 .in().param(0).param(1).configure();
 
         TaintFlowQuery noSQLInjection = new TaintFlowQueryBuilder()
-                .from(source1).notThrough(sanitizer).through(requiredPropagator1).to(sink)
+                .from(source1).notThrough(sanitizer).notThrough(requiredPropagator1).through(requiredPropagator1).to(sink)
                 .and()
                 .from(source2).notThrough(sanitizer).through(requiredPropagator1).to(sink)
                 .and()

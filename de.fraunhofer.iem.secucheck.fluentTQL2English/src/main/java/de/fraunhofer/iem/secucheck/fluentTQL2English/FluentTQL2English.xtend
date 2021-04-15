@@ -88,7 +88,7 @@ class FluentTQL2English {
 			tempResult = ""
 		}
 
-		return sanitizerInfo + "\n"
+		return sanitizerInfo
 	}
 
 	def String deSanitizerInfo(TaintFlow taintFlow) {
@@ -135,7 +135,7 @@ class FluentTQL2English {
 
 		for (i : 0 ..< taintFlow.size()) {
 
-			multipleTaintFlowInfo += (i + 1) + ". TaintFlow:\n" + singleTaintFlows(taintFlow.get(i)) + "\n\n"
+			multipleTaintFlowInfo += (i + 1) + ". " + singleTaintFlows(taintFlow.get(i)) + "\n\n"
 		}
 
 		return multipleTaintFlowInfo
@@ -147,7 +147,7 @@ class FluentTQL2English {
 		var List<FlowParticipant> through = taintFlow.getThrough()
 		var List<FlowParticipant> notThrough = taintFlow.getNotThrough()
 
-		var String taintFlowInEnglish = "A Data flow: " + sourceInfo(source)
+		var String taintFlowInEnglish = "A Taintflow: " + sourceInfo(source)
 
 
 		if(notThrough.size() > 0) {
