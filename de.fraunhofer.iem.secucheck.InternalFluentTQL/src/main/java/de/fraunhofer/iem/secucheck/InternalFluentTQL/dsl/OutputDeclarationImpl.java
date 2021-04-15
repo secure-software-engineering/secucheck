@@ -1,5 +1,6 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Input;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Output;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.ThisObject;
@@ -37,5 +38,38 @@ class OutputDeclarationImpl implements OutputDeclaration {
         } else {
             outputs.add(output);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + "out".hashCode();
+        result = prime * result + outputs.hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+
+        OutputDeclarationImpl other = (OutputDeclarationImpl) obj;
+        if (outputs.size() != other.getOutputs().size()) return false;
+
+        if (!outputs.containsAll(other.getOutputs())) return false;
+        return other.getOutputs().containsAll(outputs);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder("out()");
+
+        for (Output output : outputs) {
+            str.append(".").append(output.toString());
+        }
+
+        return str.toString();
     }
 }

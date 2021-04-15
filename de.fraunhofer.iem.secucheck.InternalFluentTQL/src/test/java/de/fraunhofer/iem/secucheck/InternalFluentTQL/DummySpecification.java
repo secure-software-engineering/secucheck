@@ -31,4 +31,32 @@ public class DummySpecification {
     static Method method7 = new MethodConfigurator("Test: java.lang.String getSecret()")
             .out().returnValue()
             .configure();
+
+    static Method inputDeclarationTest1 = new MethodConfigurator("Test1: java.lang.String test1()")
+            .in().thisObject().param(0).param(5).param(3).param(9)
+            .configure();
+
+    static Method inputDeclarationTest2 = new MethodConfigurator("Test2: java.lang.String test2()")
+            .in().thisObject().param(0).param(5).param(3).param(9)
+            .configure();
+
+    static Method inputDeclarationTest3 = new MethodConfigurator("Test3: java.lang.String test3()")
+            .in().thisObject().param(3).param(9)
+            .configure();
+
+    static Method outputDeclarationTest4 = new MethodConfigurator("Test1: java.lang.String test1()")
+            .out().thisObject().param(0).param(5).param(3).param(9)
+            .configure();
+
+    static Method outputDeclarationTest1 = new MethodConfigurator("Test1: java.lang.String test1()")
+            .out().thisObject().param(0).param(5).param(3).param(9).returnValue()
+            .configure();
+
+    static Method outputDeclarationTest2 = new MethodConfigurator("Test2: java.lang.String test2()")
+            .out().thisObject().param(0).param(5).param(3).param(9).returnValue()
+            .configure();
+
+    static Method outputDeclarationTest3 = new MethodConfigurator("Test3: java.lang.String test3()")
+            .out().thisObject().returnValue()
+            .configure();
 }
