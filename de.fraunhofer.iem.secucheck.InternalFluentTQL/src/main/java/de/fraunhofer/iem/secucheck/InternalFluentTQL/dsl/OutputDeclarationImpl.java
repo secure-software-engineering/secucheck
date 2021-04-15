@@ -1,12 +1,13 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Input;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Output;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.ThisObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation of OutputDeclaration
@@ -14,10 +15,14 @@ import java.util.List;
  * @author Ranjith Krishnamurthy
  */
 class OutputDeclarationImpl implements OutputDeclaration {
-    private final List<Output> outputs = new ArrayList<>();
+    private final Set<Output> outputs = new HashSet<>();
+
+    private final List<Output> outputsAsList = new ArrayList<>();
 
     public List<Output> getOutputs() {
-        return outputs;
+        outputsAsList.clear();
+        outputsAsList.addAll(outputs);
+        return outputsAsList;
     }
 
     public void addOutput(Output output) {

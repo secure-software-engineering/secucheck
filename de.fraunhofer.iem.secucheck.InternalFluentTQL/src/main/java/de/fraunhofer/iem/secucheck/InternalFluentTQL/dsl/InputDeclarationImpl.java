@@ -5,7 +5,9 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.ThisObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation of InputDeclaration
@@ -13,10 +15,14 @@ import java.util.List;
  * @author Ranjith Krishnamurthy
  */
 class InputDeclarationImpl implements InputDeclaration {
-    private final List<Input> inputs = new ArrayList<>();
+    private final Set<Input> inputs = new HashSet<>();
+
+    private final List<Input> inputsAsList = new ArrayList<>();
 
     public List<Input> getInputs() {
-        return inputs;
+        inputsAsList.clear();
+        inputsAsList.addAll(inputs);
+        return inputsAsList;
     }
 
     public void addInput(Input input) {

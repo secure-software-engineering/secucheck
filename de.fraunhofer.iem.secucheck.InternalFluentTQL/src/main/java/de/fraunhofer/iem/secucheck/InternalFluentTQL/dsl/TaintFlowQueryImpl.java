@@ -5,7 +5,9 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation of TaintFlowQuery
@@ -13,17 +15,21 @@ import java.util.List;
  * @author Ranjith Krishnamurthy
  */
 class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlowQuery {
-    private final List<TaintFlow> taintFlows = new ArrayList<TaintFlow>();
+    private final Set<TaintFlow> taintFlows = new HashSet<>();
     private String reportMessage = "";
     private LOCATION reportLocation = LOCATION.SOURCEANDSINK;
     private QueriesSet queriesSet;
+
+    private final List<TaintFlow> taintFlowsAsList = new ArrayList<>();
 
     public void addTaintFlow(TaintFlow taintFlow) {
         taintFlows.add(taintFlow);
     }
 
     public List<TaintFlow> getTaintFlows() {
-        return taintFlows;
+        taintFlowsAsList.clear();
+        taintFlowsAsList.addAll(taintFlows);
+        return taintFlowsAsList;
     }
 
     public String getReportMessage() {

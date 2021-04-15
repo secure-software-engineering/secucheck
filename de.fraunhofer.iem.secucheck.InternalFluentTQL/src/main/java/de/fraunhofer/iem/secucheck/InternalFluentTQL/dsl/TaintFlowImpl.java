@@ -5,7 +5,9 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation of TaintFlow
@@ -14,10 +16,13 @@ import java.util.List;
  */
 class TaintFlowImpl implements TaintFlow {
     private FlowParticipant from;
-    private final List<FlowParticipant> notThrough = new ArrayList<FlowParticipant>();
-    private final List<FlowParticipant> through = new ArrayList<FlowParticipant>();
+    private final Set<FlowParticipant> notThrough = new HashSet<>();
+    private final Set<FlowParticipant> through = new HashSet<FlowParticipant>();
     private FlowParticipant to;
     private TaintFlowQuery taintFlowQuery;
+
+    private final List<FlowParticipant> notThroughAsList = new ArrayList<>();
+    private final List<FlowParticipant> throughAsList = new ArrayList<>();
 
     public TaintFlowQuery getTaintFlowQuery() {
         return taintFlowQuery;
@@ -36,7 +41,9 @@ class TaintFlowImpl implements TaintFlow {
     }
 
     public List<FlowParticipant> getNotThrough() {
-        return notThrough;
+        notThroughAsList.clear();
+        notThroughAsList.addAll(notThrough);
+        return notThroughAsList;
     }
 
     public void addNotThrough(FlowParticipant notThrough) {
@@ -44,7 +51,9 @@ class TaintFlowImpl implements TaintFlow {
     }
 
     public List<FlowParticipant> getThrough() {
-        return through;
+        throughAsList.clear();
+        throughAsList.addAll(through);
+        return throughAsList;
     }
 
     public void addThrough(FlowParticipant through) {
