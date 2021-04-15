@@ -15,6 +15,7 @@ import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowResult;
 import magpiebridge.core.AnalysisResult;
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
+import com.sun.jna.Platform;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,7 +49,19 @@ public class SecuCheckAnalysisConfigurator {
             Runnable analysisTask = () -> {
                 try {
                     try {
-                        SecucheckAnalysisConfiguration configuration = getAnalysisConfiguration(Solver.BOOMERANG3, OS.WINDOWS);
+                        OS operatingSystem;
+
+                        if (Platform.isWindows())
+                            operatingSystem = OS.WINDOWS;
+                        else if (Platform.isLinux())
+                            operatingSystem = OS.LINUX;
+                        else if (Platform.isMac())
+                            operatingSystem = OS.MACOS;
+                        else
+                            operatingSystem = OS.OTHER;
+
+                        System.out.println("----> " + operatingSystem);
+                        SecucheckAnalysisConfiguration configuration = getAnalysisConfiguration(Solver.BOOMERANG3, operatingSystem);
                         SecuCheckAnalysisWrapper secucheckAnalysis = new SecuCheckAnalysisWrapper(true, configuration);
 
                         //List<CompositeTaintFlowQueryImpl> compositeQueries = FluentTQLUtility.getCompositeTaintFlowQueries(taintFlowQueries);
