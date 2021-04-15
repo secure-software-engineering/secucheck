@@ -13,11 +13,11 @@ class BriefFluentTQL2Eng {
 		var String multipleTaintFlowInfo = ""
 		
 		multipleTaintFlowInfo = "Below " + taintFlow.size() + 
-			" TaintFlow should be present in the program to successfully report the error message.\n"
+			" TaintFlows should be present in the program to successfully report the error message.\n"
 			
 		for (i : 0 ..< taintFlow.size()) {
 			
-			multipleTaintFlowInfo += (i + 1) + ". TaintFlow:\n" + singleTaintFlows(taintFlow.get(i)) + "\n"
+			multipleTaintFlowInfo += "\n" + (i + 1) + ". " + singleTaintFlows(taintFlow.get(i)) + "\n"
 		}
 		
 		return multipleTaintFlowInfo
@@ -29,31 +29,31 @@ class BriefFluentTQL2Eng {
 		var List<FlowParticipant> through = taintFlow.getThrough()
 		var List<FlowParticipant> notThrough = taintFlow.getNotThrough()
 		
-		var String taintFlowInEnglish = "A Data flow: "
+		var String taintFlowInEnglish = "A Taintflow: \n\t"
 		
 		if(source instanceof Method)
-			taintFlowInEnglish += "from the source Method: " + (source as Method).getSignature()
+			taintFlowInEnglish += "from the source Method: " + (source as Method).getSignature() + "\n\t"
 		else 
-			taintFlowInEnglish += "one of the source in the MethodSet: " + (source as MethodSet).getName()
+			taintFlowInEnglish += "one of the source in the MethodSet: " + (source as MethodSet).getName() + "\n\t"
 			
-		if(through.size > 0) {
-			if(through.get(0) instanceof Method)
-			taintFlowInEnglish += " and does not go through the sanitizer Method: " + (through.get(0) as Method).getSignature()
+		if(notThrough.size > 0) {
+			if(notThrough.get(0) instanceof Method)
+			taintFlowInEnglish += "and does not go through the sanitizer Method: " + (notThrough.get(0) as Method).getSignature() + "\n\t"
 		else
-			taintFlowInEnglish += " and does not go through one of the sanitizers in the MethodSet: " + (through.get(0) as MethodSet).getName()
+			taintFlowInEnglish += "and does not go through one of the sanitizers in the MethodSet: " + (notThrough.get(0) as MethodSet).getName() + "\n\t"
 		}
 			
-		for (i : 0 ..< notThrough.size()) {
-			if(notThrough.get(i) instanceof Method)
-				taintFlowInEnglish += " and goes through the required propogator Method: " + (notThrough.get(0) as Method).getSignature()
+		for (i : 0 ..< through.size()) {
+			if(through.get(i) instanceof Method)
+				taintFlowInEnglish += "and goes through the required propogator Method: " + (through.get(0) as Method).getSignature() + "\n\t"
 			else
-				taintFlowInEnglish += " and goes through one of the required propogator in the MethodSet: " + (notThrough.get(0) as MethodSet).getName()
+				taintFlowInEnglish += "and goes through one of the required propogator in the MethodSet: " + (through.get(0) as MethodSet).getName() + "\n\t"
 		}
 		
 		if(sink instanceof Method)
-			taintFlowInEnglish += " and finally reaches the sink Method: " + (sink as Method).getSignature()
+			taintFlowInEnglish += "and finally reaches the sink Method: " + (sink as Method).getSignature()
 		else 
-			taintFlowInEnglish += " and finally reaches one of sinks in the MethodSet: " + (sink as MethodSet).getName()
+			taintFlowInEnglish += "and finally reaches one of sinks in the MethodSet: " + (sink as MethodSet).getName()
 
 		return taintFlowInEnglish
 	}
@@ -71,7 +71,7 @@ class BriefFluentTQL2Eng {
 		}
 		else {
 			fluentTQL2E += multipleTaintFlows(taintFlows)
-			fluentTQL2E += "If, above all the TaintFlows are present in the given program then report the error message "
+			fluentTQL2E += "\nIf, above all the TaintFlows are present in the given program then report the error message\n"
 		}
 			
 		fluentTQL2E += '''"''' + taintFlowQuery.getReportMessage() + '''"''' + " at "
