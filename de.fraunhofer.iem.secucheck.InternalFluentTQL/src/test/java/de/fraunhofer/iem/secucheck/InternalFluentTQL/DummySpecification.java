@@ -59,4 +59,19 @@ public class DummySpecification {
     static Method outputDeclarationTest3 = new MethodConfigurator("Test3: java.lang.String test3()")
             .out().thisObject().returnValue()
             .configure();
+
+    static Method methodTest1 = new MethodConfigurator("Method1: java.lang.String methodTest1()")
+            .out().thisObject().returnValue().param(0).param(5).param(2).param(8)
+            .in().thisObject().param(5).param(2)
+            .configure();
+
+    static Method methodTest2 = new MethodConfigurator("Method1: java.lang.String methodTest1()")
+            .in().thisObject().param(5).param(2)
+            .out().thisObject().returnValue().param(0).param(5).param(2).param(8)
+            .configure();
+
+    static Method methodTest3 = new MethodConfigurator("Method3: java.lang.String methodTest3()")
+            .in().thisObject().param(5).param(2)
+            .out().thisObject().returnValue().param(0).param(5).param(2).param(8)
+            .configure();
 }
