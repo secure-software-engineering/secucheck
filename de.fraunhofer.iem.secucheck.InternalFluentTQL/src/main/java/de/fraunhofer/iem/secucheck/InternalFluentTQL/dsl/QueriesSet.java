@@ -13,14 +13,12 @@ import java.util.Set;
  * @author Ranjith Krishnamurthy
  */
 public class QueriesSet extends FluentTQLSpecificationImpl {
-    //    private String queriesSetName;
     private final String categoryName;
     private final Set<TaintFlowQuery> taintFlowQueries = new HashSet<>();
 
     private final List<TaintFlowQuery> taintFlowQueriesAsList = new ArrayList<>();
 
     public QueriesSet(String categoryName) {
-//        this.queriesSetName = queriesSetName;
         this.categoryName = categoryName;
     }
 
@@ -28,11 +26,6 @@ public class QueriesSet extends FluentTQLSpecificationImpl {
         taintFlowQueries.add(taintFlowQuery);
         return this;
     }
-
-/*    public String getName() {
-        return queriesSetName;
-    }
-*/
 
     public String getCategoryName() {
         return categoryName;
