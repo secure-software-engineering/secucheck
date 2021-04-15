@@ -345,7 +345,7 @@ public final class Utility {
                     break;
             }
 
-            reportMessage += "\n\n\n" + new FluentTQL2English().translate(taintFlowQueryWithID.get(compositeQuery.getId()));
+            reportMessage += "\n\n\n" + new BriefFluentTQL2Eng().translate(taintFlowQueryWithID.get(compositeQuery.getId()));
             analysisResult.setMessage(reportMessage);
 
             //Todo: Verify if code is needed at all ?
