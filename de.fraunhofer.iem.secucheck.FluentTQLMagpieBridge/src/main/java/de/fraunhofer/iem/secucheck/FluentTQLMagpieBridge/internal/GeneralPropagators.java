@@ -8,32 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeneralPropagators {
-
-    static Method JAVA_11_STR_CONCAT1 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String)")
-            .in().param(0)
-            .out().returnValue()
-            .configure();
-
-    static Method JAVA_11_STR_CONCAT2 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String)")
-            .in().param(0).param(1)
-            .out().returnValue()
-            .configure();
-
-    static Method JAVA_11_STR_CONCAT3 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String,java.lang.String)")
-            .in().param(0).param(1).param(2)
-            .out().returnValue()
-            .configure();
-
-    static Method JAVA_11_STR_CONCAT4 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String,java.lang.String,java.lang.String)")
-            .in().param(0).param(1).param(2).param(3)
-            .out().returnValue()
-            .configure();
-
-    static Method JAVA_11_STR_CONCAT5 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)")
-            .in().param(0).param(1).param(2).param(3).param(4)
-            .out().returnValue()
-            .configure();
-
     static Method S_VALUE_OF = new MethodConfigurator("java.lang.String: java.lang.String valueOf(java.lang.Object)")
             .in().param(0)
             .out().returnValue()
@@ -72,6 +46,32 @@ public class GeneralPropagators {
     public static Method inputSource = new MethodConfigurator("org.xml.sax.InputSource: void <init>(java.io.Reader)")
             .in().param(0)
             .out().thisObject()
+            .configure();
+
+    //TODO: Check and model correctly to handle Java 11 dynamic calls for string concat
+    static Method JAVA_11_STR_CONCAT1 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String)")
+            .in().param(0)
+            .out().returnValue()
+            .configure();
+
+    static Method JAVA_11_STR_CONCAT2 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String)")
+            .in().param(0).param(1)
+            .out().returnValue()
+            .configure();
+
+    static Method JAVA_11_STR_CONCAT3 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String,java.lang.String)")
+            .in().param(0).param(1).param(2)
+            .out().returnValue()
+            .configure();
+
+    static Method JAVA_11_STR_CONCAT4 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String,java.lang.String,java.lang.String)")
+            .in().param(0).param(1).param(2).param(3)
+            .out().returnValue()
+            .configure();
+
+    static Method JAVA_11_STR_CONCAT5 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)")
+            .in().param(0).param(1).param(2).param(3).param(4)
+            .out().returnValue()
             .configure();
 
     public static List<MethodImpl> getGP() {
