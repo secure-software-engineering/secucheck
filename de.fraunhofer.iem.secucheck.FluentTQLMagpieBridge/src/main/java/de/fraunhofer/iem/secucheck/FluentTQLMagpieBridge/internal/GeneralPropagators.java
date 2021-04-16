@@ -9,6 +9,31 @@ import java.util.List;
 
 public class GeneralPropagators {
 
+    static Method JAVA_11_STR_CONCAT1 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String)")
+            .in().param(0)
+            .out().returnValue()
+            .configure();
+
+    static Method JAVA_11_STR_CONCAT2 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String)")
+            .in().param(0).param(1)
+            .out().returnValue()
+            .configure();
+
+    static Method JAVA_11_STR_CONCAT3 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String,java.lang.String)")
+            .in().param(0).param(1).param(2)
+            .out().returnValue()
+            .configure();
+
+    static Method JAVA_11_STR_CONCAT4 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String,java.lang.String,java.lang.String)")
+            .in().param(0).param(1).param(2).param(3)
+            .out().returnValue()
+            .configure();
+
+    static Method JAVA_11_STR_CONCAT5 = new MethodConfigurator("java.lang.String makeConcatWithConstants(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)")
+            .in().param(0).param(1).param(2).param(3).param(4)
+            .out().returnValue()
+            .configure();
+
     static Method S_VALUE_OF = new MethodConfigurator("java.lang.String: java.lang.String valueOf(java.lang.Object)")
             .in().param(0)
             .out().returnValue()
@@ -60,6 +85,11 @@ public class GeneralPropagators {
         gp.add(Utility.getMethodImpl(getFile));
         gp.add(Utility.getMethodImpl(stringReader));
         gp.add(Utility.getMethodImpl(inputSource));
+        gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT1));
+        gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT2));
+        gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT3));
+        gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT4));
+        gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT5));
 
         return gp;
     }
