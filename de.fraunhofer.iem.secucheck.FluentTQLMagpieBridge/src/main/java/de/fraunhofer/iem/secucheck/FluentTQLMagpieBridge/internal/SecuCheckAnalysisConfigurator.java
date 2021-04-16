@@ -60,7 +60,6 @@ public class SecuCheckAnalysisConfigurator {
                         else
                             operatingSystem = OS.OTHER;
 
-                        System.out.println("----> " + operatingSystem);
                         SecucheckAnalysisConfiguration configuration = getAnalysisConfiguration(Solver.BOOMERANG3, operatingSystem);
                         SecuCheckAnalysisWrapper secucheckAnalysis = new SecuCheckAnalysisWrapper(true, configuration);
 
