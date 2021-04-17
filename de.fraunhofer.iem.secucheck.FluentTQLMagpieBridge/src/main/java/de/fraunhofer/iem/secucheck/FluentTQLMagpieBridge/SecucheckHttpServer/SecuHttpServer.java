@@ -24,6 +24,8 @@ public class SecuHttpServer {
             httpServer.createContext("/configSubmit", new ConfigSubmissionHandler());
             httpServer.createContext("/runAnalysis", new SecuMainHandler());
             httpServer.createContext("/cancelAnalysis", new SecuMainHandler());
+            httpServer.createContext("/clearResultMarkers", new SecuMainHandler());
+
             httpServer.setExecutor(null);
         } catch (IOException e) {
             e.printStackTrace();

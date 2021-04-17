@@ -5,9 +5,11 @@ import com.sun.net.httpserver.HttpHandler;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfigurator;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.InputStreamUtility;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
+import de.fraunhofer.iem.secucheck.analysis.query.Solver;
 import org.eclipse.lsp4j.MessageType;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -63,6 +65,21 @@ public class ConfigSubmissionHandler implements HttpHandler {
         boolean isSuccess1 = FluentTQLAnalysisConfigurator.processFluentTQLSpecificationFiles(specSettings.keySet());
         boolean isSuccess2 = FluentTQLAnalysisConfigurator.processJavaFiles(entryPointSettings.keySet());
         FluentTQLAnalysisConfigurator.printForNow();
+
+        String entryPointSettings1;
+
+        for (Map.Entry<String, String> entry : settings.entrySet()) {
+            if (entry.getKey().endsWith("solverOption")) {
+                entryPointSettings1 = entry.getValue();
+
+                if (entryPointSettings1.equals("boomerang"))
+                    FluentTQLAnalysisConfigurator.setAnalysisSolver(Solver.BOOMERANG3);
+                else if (entryPointSettings1.equals("flowdroid"))
+                    FluentTQLAnalysisConfigurator.setAnalysisSolver(Solver.FLOWDROID);
+                else
+                    FluentTQLAnalysisConfigurator.setAnalysisSolver(Solver.BOOMERANG3);
+            }
+        }
 
         if (isSuccess1 && isSuccess2) {
             PrintUtility.printMessageInIDE(MessageType.Info,

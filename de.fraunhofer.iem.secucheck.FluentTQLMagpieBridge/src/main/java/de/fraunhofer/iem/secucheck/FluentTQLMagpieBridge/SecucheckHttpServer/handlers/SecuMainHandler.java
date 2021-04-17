@@ -7,9 +7,12 @@ import java.nio.file.Files;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfigurator;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLMagpieBridgeMainServer;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.FreeMarkerUtility;
+import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.ResourceUtility;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisConfigurator;
+import org.eclipse.lsp4j.MessageType;
 
 @SuppressWarnings("restriction")
 public class SecuMainHandler implements HttpHandler {
@@ -62,12 +65,24 @@ public class SecuMainHandler implements HttpHandler {
                 FluentTQLAnalysisConfigurator.runAnalysis();
                 t.sendResponseHeaders(HTTP_OK_STATUS, 0);
                 os.close();
+                PrintUtility.printMessageInIDE(MessageType.Info,
+                        "Analysis has been started!!!");
                 break;
 
             case "/cancelAnalysis":
                 SecuCheckAnalysisConfigurator.cancel();
                 t.sendResponseHeaders(HTTP_OK_STATUS, 0);
                 os.close();
+                PrintUtility.printMessageInIDE(MessageType.Info,
+                        "Analysis has been cancelled!!!");
+                break;
+
+            case "/clearResultMarkers":
+                FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer.cleanUp();
+                t.sendResponseHeaders(HTTP_OK_STATUS, 0);
+                os.close();
+                PrintUtility.printMessageInIDE(MessageType.Info,
+                        "All the result markers are cleared from the IDE!!!");
                 break;
         }
     }

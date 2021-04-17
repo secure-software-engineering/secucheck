@@ -11,6 +11,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSp
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
+import de.fraunhofer.iem.secucheck.analysis.query.Solver;
 import j2html.tags.ContainerTag;
 import j2html.tags.EmptyTag;
 import magpiebridge.projectservice.java.JavaProjectService;
@@ -81,6 +82,10 @@ public class FluentTQLAnalysisConfigurator {
      */
     private static String currentConfigHtmlPage = "";
 
+    /**
+     * Analysis solver. By default its Boomerang3
+     */
+    private static Solver analysisSolver = Solver.BOOMERANG3;
 
     private static final Set<Path> sourcePath = new HashSet<>();
 
@@ -109,6 +114,15 @@ public class FluentTQLAnalysisConfigurator {
 
     public static Set<Path> getSourcePath() {
         return sourcePath;
+    }
+
+    /**
+     * Setter
+     *
+     * @param solver Analysis solver
+     */
+    public static void setAnalysisSolver(Solver solver) {
+        FluentTQLAnalysisConfigurator.analysisSolver = solver;
     }
 
     /**
@@ -226,7 +240,12 @@ public class FluentTQLAnalysisConfigurator {
                     .withName(key + "-specs")
                     .withId(key + "-specs");
             temp.attr("checked");
-            ContainerTag temp1 = label(join(temp, i(" " + key))).withClass("checkboxes-label");
+
+            ContainerTag aTag = a(
+                    label(i(" " + key)).attr("for", key + "-specs")
+            ).withHref("#");
+
+            ContainerTag temp1 = li(div(join(temp, aTag)));
 
             tags[i++] = temp1;
 
@@ -236,9 +255,10 @@ public class FluentTQLAnalysisConfigurator {
             );
         }
 
-        return div(tags)
-                .withClass("checkboxes")
-                .withId("fluentSpec")
+        return ul(tags)
+                .withClass("nav")
+                .withId("fluentSpecsLists")
+                .withStyle("font-size:18px")
                 .renderFormatted();
     }
 
@@ -274,15 +294,19 @@ public class FluentTQLAnalysisConfigurator {
                     .withName(javaFile + ".java" + "-entryPoint")
                     .withId(javaFile + ".java" + "-entryPoint");
             temp.attr("checked");
-            ContainerTag temp1 = label(join(temp, i(" " + javaFile))).withClass("checkboxes-label");
+
+            ContainerTag aTag = a(
+                    label(i(" " + javaFile)).attr("for", javaFile + ".java" + "-entryPoint")
+            ).withHref("#");
+
+            ContainerTag temp1 = li(div(join(temp, aTag)));
 
             tags[i++] = temp1;
         }
 
-        return div(tags)
-                .withClass("checkboxes")
-                .withId("entryPoints")
-                .withStyle("display: none;")
+        return ul(tags)
+                .withClass("nav")
+                .withId("entryPointsLists")
                 .renderFormatted();
     }
 
@@ -437,7 +461,7 @@ public class FluentTQLAnalysisConfigurator {
     }
 
     public static void runAnalysis() {
-        SecuCheckAnalysisConfigurator.run(taintFlowQueries);
+        SecuCheckAnalysisConfigurator.run(taintFlowQueries, analysisSolver);
     }
 
     public static String getClassPathAsString() {

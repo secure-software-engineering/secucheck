@@ -1,128 +1,159 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <title>${projectName}</title>
-      <meta name="viewport" content="width=devide-width, initial-scale=1.0">
-      <meta charset="utf-8">
-      <link rel="stylesheet" type="text/css" href="static/app.css">
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <!-- If IE use the latest rendering engine -->
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- Set the page to the width of the device and set the zoon level -->
+   <meta name="viewport" content="width = device-width, initial-scale = 1">
+   <title>${projectName}</title>
+   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   <style>
+      .jumbotron{
+         background-color:#363594;
+         color:white;
+         padding: 1px 1px 1px 1px;
+         text-align: center;
+      }
+      /* Adds borders for tabs */
+      .tab-content {
+         border-left: 1px solid #ddd;
+         border-right: 1px solid #ddd;
+         border-bottom: 1px solid #ddd;
+         padding: 10px;
+      }
+      .nav-tabs {
+         margin-bottom: 0;
+      }
+   </style>
+   <script>
+      function searchFunction(myInput, myUL) {
+         // Declare variables
+         var input, filter, ul, li, a, i, txtValue;
+         input = document.getElementById(myInput);
+         filter = input.value.toUpperCase();
+         ul = document.getElementById(myUL);
+         li = ul.getElementsByTagName('li');
 
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-      <script type="text/javascript">
-         function switchTabs(switchToID) {
-            var el = document.getElementsByClassName("checkboxes");
-
-            for (var i = 0; i < el.length; i++) {
-               if (el[i].id == switchToID) {
-                  el[i].style.display = 'inline-block';
-               } else {
-                  el[i].style.display = 'none';
-               }
+         // Loop through all list items, and hide those who don't match the search query
+         for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+               li[i].style.display = "";
+            } else {
+               li[i].style.display = "none";
             }
+         }
+      }
 
-            var btn_el = document.getElementsByClassName("menu-button");
-            for (var i = 0; i < btn_el.length; i++) {
-               if (btn_el[i].id == (switchToID + "Btn")) {
-                  btn_el[i].style.backgroundColor = '#5b5ea6';
-               } else {
-                  btn_el[i].style.backgroundColor = '#707070';
-               }
+      function sendRunAnalysisRequest(path) {
+         var xhr = new XMLHttpRequest();
+
+         xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+               //alert(xhr.response);
             }
          }
 
-         function selectAllCheckBoxes() {
-            var el = document.getElementsByClassName("checkboxes");
+         xhr.open('get', 'http://localhost:' + window.location.port + path, true);
+         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+         xhr.send();
+      }
 
-            for (var i = 0; i < el.length; i++) {
-               if (el[i].style.display != 'none') {
-                  var chkBoxes = document.getElementsByClassName(el[i].id + "Class");
+      function selectAllCheckBoxes() {
+         var id = $('.tab-content .active').attr('id');
 
-                  for (var j = chkBoxes.length - 1; j >= 0; j--) {
-                     chkBoxes[j].checked = true;
-                  }
-               }
-            }
+         var chkBoxes = document.getElementsByClassName(id + "Class");
+
+         for (var j = chkBoxes.length - 1; j >= 0; j--) {
+            chkBoxes[j].checked = true;
          }
+      }
 
-         function unSelectAllCheckBoxes() {
-            var el = document.getElementsByClassName("checkboxes");
+      function unSelectAllCheckBoxes() {
+         var id = $('.tab-content .active').attr('id');
 
-            for (var i = 0; i < el.length; i++) {
-               if (el[i].style.display != 'none') {
-                  var chkBoxes = document.getElementsByClassName(el[i].id + "Class");
+         var chkBoxes = document.getElementsByClassName(id + "Class");
 
-                  for (var j = chkBoxes.length - 1; j >= 0; j--) {
-                     chkBoxes[j].checked = false;
-                  }
-               }
-            }
+         for (var j = chkBoxes.length - 1; j >= 0; j--) {
+            chkBoxes[j].checked = false;
          }
+      }
+   </script>
+</head>
+<body>
+<!-- CONTAINERS -->
+<!-- container puts padding around itself while container-fluid fills the whole screen. Bootstap grids require a container. -->
+<div class="container">
+   <!-- page-header adds space aroundtext and enlarges it. It also adds an underline at the end -->
+   <div class="page-header">
+      <h1 style="text-align:center"><i><b>Secucheck</i></b></br>${projectName}</h1>
+   </div>
 
-         function sendRunAnalysisRequest(path) {
-            var xhr = new XMLHttpRequest();
+   <!-- jumbotron enlarges fonts and puts everything in a gray box with rounded corners. If jumbotron is outside a container it fills the total width. You can change the styles by placing the changes after the Bootstrap CDN link -->
+   <div class="jumbotron">
+      <!-- BUTTONS -->
+      <!-- There are many built in button colors and sizes. If a link is to trigger in page functionality it should use role="button". The button element should be used in most situations -->
+      <p>
+         <!-- You can group buttons. You can size the buttons with btn-group-lg, btn-group-sm, or btn-group-xs -->
+      <div class="btn-group btn-group-lg" role="group" aria-label="..." style="justify-content:center;align-items:center;">
+         <button class="btn btn-default btn3d" style="background-color:#2E2D88;color:#FFFFFF;opacity: 0.8;" form="secondForm" type="submit">Submit Configuration</button>
+         <button class="btn btn-default" style="background-color:#2E2D88;color:#FFFFFF;opacity: 0.8;" id="analysisBtn" onclick="sendRunAnalysisRequest('/runAnalysis')">Run Analysis</button>
+         <button class="btn btn-default" style="background-color:#2E2D88;color:#FFFFFF;opacity: 0.8;" id="cancelBtn" onclick="sendRunAnalysisRequest('/cancelAnalysis')">Cancel Analysis</button>
+         <button class="btn btn-default" style="background-color:#2E2D88;color:#FFFFFF;opacity: 0.8;" id="clearBtn" onclick="sendRunAnalysisRequest('/clearResultMarkers')">Clear Result Markers</button>
+         <button type="button" class="btn btn-default" style="background-color:#2E2D88;color:#FFFFFF;opacity: 0.8;" onclick="selectAllCheckBoxes()">Select All</button>
+         <button type="button" class="btn btn-default" style="background-color:#2E2D88;color:#FFFFFF;opacity: 0.8;" onclick="unSelectAllCheckBoxes()">Deselect All</button>
+      </div>
+      </p>
+   </div>
+</div>
 
-            xhr.onreadystatechange = function () {
-               if (xhr.readyState === 4) {
-                  //alert(xhr.response);
-               }
-            }
+<div class="container">
+   <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
+   <ul class="nav nav-pills" style="font-size:18px">
+      <li class="active"><a data-toggle="tab" href="#fluentSpec">FluentTQL Specifications</a></li>
+      <li><a data-toggle="tab" href="#entryPoints">Entry Points</a></li>
+      <li><a data-toggle="tab" href="#analysisSolver">Analysis Solver</a></li>
+   </ul>
 
-            xhr.open('get', 'http://localhost:' + window.location.port + path, true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-            xhr.send();
-         }
-      </script>
-   </head>
-   <body data-new-gr-c-s-check-loaded="14.990.0" data-gr-ext-installed="">
-      <div class="secu-container">
-         <div class="logo-header">
-            <img src="img/secu.png">
-         </div>
-         <div class="app-name-header">
-            <h1 style="font-family: 'Impact, Charcoal, sans-serif'; text-shadow: 1px 1px 15px black; color: white; margin-left: 1.5%">
-               <i>
-               Secucheck --- 
-               </i>
-               ${projectName}<br>
-               <button class="btn btn--pill btn--green" form="secondForm" type="submit">Submit Configuration</button>
-               <button class="btn btn--pill btn--green" id="analysisBtn" onclick="sendRunAnalysisRequest('/runAnalysis')">Run Analysis</button>
-               <button class="btn btn--pill btn--green" id="analysisBtn" onclick="sendRunAnalysisRequest('/cancelAnalysis')">Cancel Analysis</button>
-               <button class="btn btn--pill btn--green" type="button" onclick="selectAllCheckBoxes()">Select All</button>
-               <button class="btn btn--pill btn--green" type="button" onclick="unSelectAllCheckBoxes()">De-Select All</button>
-            </h1>
-         </div>
-         <div class="menu-header" style="grid-row: 3 / span 1;grid-column: 1 / span 1;">
-            <button class="menu-button" style="background-color: #5b5ea6;" id="fluentSpecBtn" onclick="switchTabs('fluentSpec')">
-            FluentTQL Specifications
-            </button>
-         </div>
-         <div class="menu-header" style="grid-row: 4 / span 1;grid-column: 1 / span 1;">
-            <button class="menu-button" id="entryPointsBtn" onclick="switchTabs('entryPoints')">
-               Analysis Entry points
-            </button>
-         </div>
-         <div class="menu-empty-space menu-empty-space-row2">
-         </div>
-         <div class="page-content-without-grid">
-            <style>
-               .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px; }
-            </style>
+   <div class="tab-content">
 
-            <iframe name="hiddenFrame" class="hide"></iframe>
-            <form id="secondForm" method="POST" action="/configSubmit" style="margin-top: 2%; margin-left: 2%;" target="hiddenFrame">
+      <iframe name="myForm" style="display:none;"></iframe>
+      <form id="secondForm" method="POST" action="/configSubmit" target="myForm">
+         <div class="tab-content" style="border-bottom: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;">
+
+            <div id="fluentSpec" class="tab-pane fade in active checkboxes" style="font-size: 18px">
+               <input type="text" id="fluentSpecsInput" onkeyup="searchFunction('fluentSpecsInput', 'fluentSpecsLists')" placeholder="Search for FluentTQL spec..." class="form-control">
+               </br>
                <!-- This is the FluentTQL specification tab -->
 
                ${specDiv}
+            </div>
 
-
-
-
-
+            <div id="entryPoints" class="tab-pane fade checkboxes" style="font-size: 18px">
+               <input type="text" id="entryPointsInput" onkeyup="searchFunction('entryPointsInput', 'entryPointsLists')" placeholder="Search for Entrypoints..." class="form-control">
+               </br>
                <!-- This is the Analysis entry points tab -->
+
                ${entryPointDiv}
-            </form>
+            </div>
+
+            <div id="analysisSolver" class="tab-pane fade" style="font-size: 18px">
+               <label class="radio-inline">
+                  <input type="radio" id="boomerang" value="boomerang" name="solverOption" checked>Boomerang 3.x
+               </label>
+               <label class="radio-inline">
+                  <input type="radio" id="flowdroid" value="flowdroid" name="solverOption">FlowDroid
+               </label>
+            </div>
+
          </div>
-      </div>
-   </body>
+      </form>
+   </div>
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
 </html>

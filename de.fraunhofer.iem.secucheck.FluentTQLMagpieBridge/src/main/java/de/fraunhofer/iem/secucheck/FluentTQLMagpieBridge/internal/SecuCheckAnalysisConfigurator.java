@@ -41,7 +41,7 @@ public class SecuCheckAnalysisConfigurator {
         }
     }
 
-    public static void run(List<TaintFlowQuery> taintFlowQueries) {
+    public static void run(List<TaintFlowQuery> taintFlowQueries, Solver analysisSolver) {
         cancel();
 
         // Perform validation synchronously and run analysis asynchronously.
@@ -60,7 +60,7 @@ public class SecuCheckAnalysisConfigurator {
                         else
                             operatingSystem = OS.OTHER;
 
-                        SecucheckAnalysisConfiguration configuration = getAnalysisConfiguration(Solver.BOOMERANG3, operatingSystem);
+                        SecucheckAnalysisConfiguration configuration = getAnalysisConfiguration(analysisSolver, operatingSystem);
                         SecuCheckAnalysisWrapper secucheckAnalysis = new SecuCheckAnalysisWrapper(true, configuration);
 
                         //List<CompositeTaintFlowQueryImpl> compositeQueries = FluentTQLUtility.getCompositeTaintFlowQueries(taintFlowQueries);
