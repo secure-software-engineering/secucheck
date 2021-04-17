@@ -39,7 +39,7 @@
 
    <!-- page-header adds space aroundtext and enlarges it. It also adds an underline at the end -->
    <div class="page-header">
-      <h1 style="text-align:center"><i><b>Secucheck</i></b></br>${projectName}</h1>
+      <h1 style="font-family: 'Impact, Charcoal, sans-serif'; text-shadow: 1px 1px 15px #a6a2a2;text-align:center"><i><b>Secucheck</b></br>${projectName}</i></h1>
    </div>
 </div>
 
@@ -50,12 +50,14 @@
    </ul>
 
    <div class="tab-content">
-      <div id="fluentSpec" class="tab-pane fade in active">
+      <div id="fluentSpec" class="tab-pane fade in active" style="text-align:center;">
          <form id="specform" method="POST" action="/specPathResponse" class="navbar-form" role="search">
             <div class="form-group" style="font-size: 18px">
-               <input type="text" id="specpath" name="specPath" spellcheck="false" class="form-control" placeholder="Absolute path to Directory containing compiled Jar" size=40>
+               <input type="text" id="specpath" name="specPath" spellcheck="false" class="form-control" placeholder="Absolute path to Directory containing compiled Jar" size=50>
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            </br>
+            <button style="margin-top:1em;margin-right:1em;padding:0.5em 1em 0.5em 1em;" type="submit" class="btn btn-default">Submit</button>
+            <button style="margin-top:1em;padding:0.5em 1em 0.5em 1em;" type="reset" class="btn btn-default">Reset</button>
          </form>
       </div>
    </div>

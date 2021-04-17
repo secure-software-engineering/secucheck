@@ -25,10 +25,18 @@
       .nav-tabs {
          margin-bottom: 0;
       }
+      .form-control-clear {
+         z-index: 10;
+         pointer-events: auto;
+         cursor: pointer;
+      }
    </style>
    <script>
-      function searchFunction(myInput, myUL) {
+      function searchFunction(myInput, myUL, clearer) {
          // Declare variables
+         myClearer = document.getElementById(clearer);
+         myClearer.classList.remove('hidden');
+
          var input, filter, ul, li, a, i, txtValue;
          input = document.getElementById(myInput);
          filter = input.value.toUpperCase();
@@ -80,6 +88,14 @@
             chkBoxes[j].checked = false;
          }
       }
+
+      function clearSearchBox(searchBoxID, clearer) {
+         input = document.getElementById(searchBoxID);
+         input.value = '';
+         myClearer = document.getElementById(clearer);
+         myClearer.classList.add('hidden');
+         input.dispatchEvent(new KeyboardEvent('keyup',  {'key':'h'}));
+      }
    </script>
 </head>
 <body>
@@ -88,9 +104,8 @@
 <div class="container">
    <!-- page-header adds space aroundtext and enlarges it. It also adds an underline at the end -->
    <div class="page-header">
-      <h1 style="text-align:center"><i><b>Secucheck</i></b></br>${projectName}</h1>
+      <h1 style="font-family: 'Impact, Charcoal, sans-serif'; text-shadow: 1px 1px 15px #a6a2a2;text-align:center"><i><b>Secucheck</b></br>${projectName}</i></h1>
    </div>
-
    <!-- jumbotron enlarges fonts and puts everything in a gray box with rounded corners. If jumbotron is outside a container it fills the total width. You can change the styles by placing the changes after the Bootstrap CDN link -->
    <div class="jumbotron">
       <!-- BUTTONS -->
@@ -108,7 +123,6 @@
       </p>
    </div>
 </div>
-
 <div class="container">
    <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
    <ul class="nav nav-pills" style="font-size:18px">
@@ -116,29 +130,28 @@
       <li><a data-toggle="tab" href="#entryPoints">Entry Points</a></li>
       <li><a data-toggle="tab" href="#analysisSolver">Analysis Solver</a></li>
    </ul>
-
    <div class="tab-content">
-
       <iframe name="myForm" style="display:none;"></iframe>
       <form id="secondForm" method="POST" action="/configSubmit" target="myForm">
          <div class="tab-content" style="border-bottom: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;">
-
             <div id="fluentSpec" class="tab-pane fade in active checkboxes" style="font-size: 18px">
-               <input type="text" id="fluentSpecsInput" onkeyup="searchFunction('fluentSpecsInput', 'fluentSpecsLists')" placeholder="Search for FluentTQL spec..." class="form-control">
-               </br>
-               <!-- This is the FluentTQL specification tab -->
+               <div class="form-group has-feedback has-clear">
+                  <input type="text" id="fluentSpecsInput" onkeyup="searchFunction('fluentSpecsInput', 'fluentSpecsLists', 'fluentSpecsInputClearer')" placeholder="Search for FluentTQL spec..." class="form-control">
+                  <span id="fluentSpecsInputClearer" class="form-control-clear glyphicon glyphicon-remove form-control-feedback hidden" onclick="clearSearchBox('fluentSpecsInput', 'fluentSpecsInputClearer')"></span>
+               </div>
 
+               <!-- This is the FluentTQL specification tab -->
                ${specDiv}
             </div>
-
             <div id="entryPoints" class="tab-pane fade checkboxes" style="font-size: 18px">
-               <input type="text" id="entryPointsInput" onkeyup="searchFunction('entryPointsInput', 'entryPointsLists')" placeholder="Search for Entrypoints..." class="form-control">
-               </br>
-               <!-- This is the Analysis entry points tab -->
+               <div class="form-group has-feedback has-clear">
+                  <input type="text" id="entryPointsInput" onkeyup="searchFunction('entryPointsInput', 'entryPointsLists', 'entryPointsInputClearer')" placeholder="Search for Entrypoints..." class="form-control">
+                  <span id="entryPointsInputClearer" class="form-control-clear glyphicon glyphicon-remove form-control-feedback hidden" onclick="clearSearchBox('entryPointsInput', 'entryPointsInputClearer')"></span>
+               </div>
 
+               <!-- This is the Analysis entry points tab -->
                ${entryPointDiv}
             </div>
-
             <div id="analysisSolver" class="tab-pane fade" style="font-size: 18px">
                <label class="radio-inline">
                   <input type="radio" id="boomerang" value="boomerang" name="solverOption" checked>Boomerang 3.x
@@ -147,7 +160,6 @@
                   <input type="radio" id="flowdroid" value="flowdroid" name="solverOption">FlowDroid
                </label>
             </div>
-
          </div>
       </form>
    </div>
