@@ -9,6 +9,7 @@ import de.fraunhofer.iem.secucheck.analysis.query.Solver;
 import org.eclipse.lsp4j.MessageType;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -85,6 +86,13 @@ public class ConfigSubmissionHandler implements HttpHandler {
             PrintUtility.printMessageInIDE(MessageType.Info,
                     "Configuration Submitted Successfully!!!");
         }
+
+        OutputStream os = t.getResponseBody();
+        t.getResponseHeaders().add("Cache-Control", "no-cache, no-store, must-revalidate");
+        t.getResponseHeaders().add("Pragma", "no-cache");
+        t.getResponseHeaders().add("Expires", "0");
+        t.sendResponseHeaders(200, 0);
+        os.close();
         /*
         System.out.println("Entered here!!!!");
         if (CurrentProjectInformation.isNullJavaProjectService()) {
