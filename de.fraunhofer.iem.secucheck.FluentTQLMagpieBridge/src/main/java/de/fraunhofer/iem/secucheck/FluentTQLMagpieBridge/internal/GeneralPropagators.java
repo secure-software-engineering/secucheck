@@ -74,6 +74,12 @@ public class GeneralPropagators {
             .out().returnValue()
             .configure();
 
+
+    public static Method kotlinSB = new MethodConfigurator("kotlin.jvm.internal.Intrinsics: java.lang.String stringPlus(java.lang.String,java.lang.Object)")
+            .in().param(0).param(1)
+            .out().returnValue()
+            .configure();
+
     public static List<MethodImpl> getGP() {
         List<MethodImpl> gp = new ArrayList<>();
 
@@ -90,6 +96,7 @@ public class GeneralPropagators {
         gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT3));
         gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT4));
         gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT5));
+        gp.add(Utility.getMethodImpl(kotlinSB));
 
         return gp;
     }
