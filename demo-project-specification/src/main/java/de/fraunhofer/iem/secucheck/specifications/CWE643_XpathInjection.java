@@ -23,8 +23,7 @@ public class CWE643_XpathInjection implements FluentTQLUserInterface {
     /**
      * Sources
      */
-    public Method source1 = new MethodConfigurator(
-            "javax.servlet.ServletRequest: java.lang.String getParameter(java.lang.String)")
+    public Method source1 = new MethodConfigurator("javax.servlet.http.HttpServletRequest: java.lang.String getParameter(java.lang.String)")
             .out().returnValue()
             .configure();
 
@@ -55,7 +54,7 @@ public class CWE643_XpathInjection implements FluentTQLUserInterface {
                 .build();
 
         TaintFlowQuery myTF2 = new TaintFlowQueryBuilder()
-                .from(source1)
+                .from(source2)
                 .to(sink1)
                 .report("CWE-634 detected: XPath Injection from untrusted value 'getParameterValues()'")
                 .at(LOCATION.SOURCEANDSINK)
