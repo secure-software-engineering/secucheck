@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.InFlowParam;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.OutFlowParam;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -16,37 +13,37 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 
 /**
  * CWE-20: Improper Input Validation
- *
+ * <p>
  * The product receives input or data, but it does not validate or incorrectly
  * validates that the input has the properties that are required to process
  * the data safely and correctly.
  */
-@FluentTQLSpecificationClass
 public class CWE20_ImproperInputValidation implements FluentTQLUserInterface {
 
     /**
      * Source
      */
-    @OutFlowParam(parameterID = {0})
-	public Method sourceMethod = new MethodSelector(
-				"de.fraunhofer.iem.secucheck.todolist.controllers.LoginController: "+
-				"org.springframework.web.servlet.ModelAndView createNewUser("+
-				"de.fraunhofer.iem.secucheck.todolist.model.User,"+
-				"org.springframework.validation.BindingResult,"+
-				"javax.servlet.http.HttpServletRequest,"+
-				"javax.servlet.http.HttpServletResponse)");
-     
+    public Method sourceMethod = new MethodConfigurator(
+            "de.fraunhofer.iem.secucheck.todolist.controllers.LoginController: " +
+                    "org.springframework.web.servlet.ModelAndView createNewUser(" +
+                    "de.fraunhofer.iem.secucheck.todolist.model.User," +
+                    "org.springframework.validation.BindingResult," +
+                    "javax.servlet.http.HttpServletRequest," +
+                    "javax.servlet.http.HttpServletResponse)")
+            .out().param(0)
+            .configure();
+
     /**
-     * Sink 
+     * Sink
      */
-    @InFlowParam(parameterID = {0})
-	public Method sinkMethod = new MethodSelector(
-				"de.fraunhofer.iem.secucheck.todolist.service.UserService: "+
-				"void saveUserDefault("+
-				"de.fraunhofer.iem.secucheck.todolist.model.User)");
-	
-	
-	
+    public Method sinkMethod = new MethodConfigurator(
+            "de.fraunhofer.iem.secucheck.todolist.service.UserService: " +
+                    "void saveUserDefault(" +
+                    "de.fraunhofer.iem.secucheck.todolist.model.User)")
+            .in().param(0)
+            .configure();
+
+
     /**
      * Returns the Internal FluentTQL specification
      *
@@ -57,7 +54,7 @@ public class CWE20_ImproperInputValidation implements FluentTQLUserInterface {
                 .from(sourceMethod)
                 .to(sinkMethod)
                 .report("CWE-20 detected: Improper Input Validation from 'User user'")
-                .at(LOCATION.SINK)
+                .at(LOCATION.SOURCEANDSINK)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();

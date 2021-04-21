@@ -32,6 +32,7 @@
         <module>WebGoatSpecifications</module>
         <module>de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge</module>
         <module>de.fraunhofer.iem.secucheck.fluentTQL2English</module>
+        <module>demo-project-specification</module>
     </modules>
 
 
