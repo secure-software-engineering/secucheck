@@ -98,10 +98,12 @@ public class SecuCheckAnalysisConfigurator {
 
 
     private static String getSootClassPath() {
-        if (new File(System.getProperty("java.home") + File.separator + "lib" + File.separator + "rt.jar").exists())
-            return System.getProperty("java.home") + File.separator + "lib" + File.separator + "rt.jar";
-        else
+        String rtJarPath = System.getProperty("java.home") + File.separator + "lib" + File.separator + "rt.jar";
+        if (new File(rtJarPath).exists()) {
+            return rtJarPath;
+        } else {
             return "";
+        }
     }
 
     private static List<EntryPoint> getEntryPoints() {
