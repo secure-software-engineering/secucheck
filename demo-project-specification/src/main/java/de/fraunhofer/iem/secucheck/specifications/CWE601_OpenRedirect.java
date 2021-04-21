@@ -101,9 +101,9 @@ public class CWE601_OpenRedirect implements FluentTQLUserInterface {
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();
-        //myFluentTQLSpecs.add(myTF);
+        myFluentTQLSpecs.add(myTF);
         myFluentTQLSpecs.add(myTF2);
-        //myFluentTQLSpecs.add(myTF3);
+        myFluentTQLSpecs.add(myTF3);
 
         return myFluentTQLSpecs;
     }
