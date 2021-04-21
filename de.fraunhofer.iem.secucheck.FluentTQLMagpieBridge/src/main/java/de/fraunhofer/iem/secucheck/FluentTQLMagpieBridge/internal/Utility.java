@@ -352,7 +352,12 @@ public final class Utility {
             if (analysisResult.position().getFirstCol() < 0 || analysisResult.position().getFirstLine() <= 0) {
                 analysisResult.setCode("");
             } else {
-                String code = SourceCodeReader.getLinesInString(analysisResult.position());
+                String code = "";
+                try {
+                    code = SourceCodeReader.getLinesInString(analysisResult.position());
+                } catch (Exception | Error ignored) {
+                }
+
                 analysisResult.setCode(code);
             }
 
