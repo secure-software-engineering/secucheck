@@ -23,6 +23,11 @@ public class GeneralPropagators {
             .out().returnValue()
             .configure();
 
+    static Method SB_APPEND_INT = new MethodConfigurator("java.lang.StringBuilder: java.lang.StringBuilder append(int)")
+            .in().thisObject().param(0)
+            .out().returnValue()
+            .configure();
+
     static Method SB_INIT = new MethodConfigurator("java.lang.StringBuilder: void <init>(java.lang.String)")
             .in().param(0)
             .out().thisObject()
@@ -86,6 +91,7 @@ public class GeneralPropagators {
         gp.add(Utility.getMethodImpl(S_VALUE_OF));
         gp.add(Utility.getMethodImpl(SB_TO_STRING));
         gp.add(Utility.getMethodImpl(SB_APPEND));
+        gp.add(Utility.getMethodImpl(SB_APPEND_INT));
         gp.add(Utility.getMethodImpl(SB_INIT));
         gp.add(Utility.getMethodImpl(classLoaderResource));
         gp.add(Utility.getMethodImpl(getFile));
