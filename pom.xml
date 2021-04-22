@@ -34,6 +34,7 @@
         <module>de.fraunhofer.iem.secucheck.fluentTQL2English</module>
         <module>demo-project-specification</module>
         <module>demo-project</module>
+        <module>de.fraunhofer.iem.secucheck.secucheck-cmd</module>
     </modules>
 
 
