@@ -139,7 +139,11 @@ public class SecuCheckAnalysisConfigurator {
         return new AnalysisResultListener() {
             @Override
             public boolean isCancelled() {
-                return false;
+                if (lastAnalysisTask != null) {
+                    return lastAnalysisTask.isCancelled() || lastAnalysisTask.isDone();
+                }
+
+                return true;
             }
 
             @Override
@@ -147,12 +151,15 @@ public class SecuCheckAnalysisConfigurator {
             }
 
             @Override
-            public void reportSecucheckTaintFlowQueryResult(SecucheckTaintFlowQueryResult secucheckTaintFlowQueryResult) {
+            public void reportSecucheckTaintFlowQueryResult(SecucheckTaintFlowQueryResult
+                                                                    secucheckTaintFlowQueryResult) {
             }
 
             @Override
             public void reportTaintFlowResult(TaintFlowResult taintFlowResult) {
             }
-        };
+        }
+
+                ;
     }
 }
