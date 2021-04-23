@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>de.fraunhofer.iem.secucheck.secucheck-core-query-utility</artifactId>
+    <artifactId>de.fraunhofer.iem.secucheck.secucheck-commons-utility</artifactId>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
