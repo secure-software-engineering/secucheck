@@ -2,6 +2,7 @@ package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.SecuCheckCoreQueryUtility;
 import de.fraunhofer.iem.secucheck.analysis.query.MethodImpl;
 
 import java.util.ArrayList;
@@ -88,21 +89,21 @@ public class GeneralPropagators {
     public static List<MethodImpl> getGP() {
         List<MethodImpl> gp = new ArrayList<>();
 
-        gp.add(Utility.getMethodImpl(S_VALUE_OF));
-        gp.add(Utility.getMethodImpl(SB_TO_STRING));
-        gp.add(Utility.getMethodImpl(SB_APPEND));
-        gp.add(Utility.getMethodImpl(SB_APPEND_INT));
-        gp.add(Utility.getMethodImpl(SB_INIT));
-        gp.add(Utility.getMethodImpl(classLoaderResource));
-        gp.add(Utility.getMethodImpl(getFile));
-        gp.add(Utility.getMethodImpl(stringReader));
-        gp.add(Utility.getMethodImpl(inputSource));
-        gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT1));
-        gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT2));
-        gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT3));
-        gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT4));
-        gp.add(Utility.getMethodImpl(JAVA_11_STR_CONCAT5));
-        gp.add(Utility.getMethodImpl(kotlinSB));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(S_VALUE_OF));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(SB_TO_STRING));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(SB_APPEND));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(SB_APPEND_INT));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(SB_INIT));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(classLoaderResource));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(getFile));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(stringReader));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(inputSource));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(JAVA_11_STR_CONCAT1));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(JAVA_11_STR_CONCAT2));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(JAVA_11_STR_CONCAT3));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(JAVA_11_STR_CONCAT4));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(JAVA_11_STR_CONCAT5));
+        gp.add(SecuCheckCoreQueryUtility.getMethodImpl(kotlinSB));
 
         return gp;
     }
