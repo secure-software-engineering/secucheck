@@ -32,6 +32,7 @@ public class SecuCheckConfiguration {
 
     /**
      * SecuCheck analysis solver.
+     * <p>
      * Boomerang3
      * FlowDroid
      */

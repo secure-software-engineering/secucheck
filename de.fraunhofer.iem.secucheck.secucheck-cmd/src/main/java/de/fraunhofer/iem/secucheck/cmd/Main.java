@@ -1,12 +1,10 @@
 package de.fraunhofer.iem.secucheck.cmd;
 
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
+import com.sun.jna.Platform;
+import de.fraunhofer.iem.secucheck.analysis.query.OS;
+import org.apache.commons.cli.*;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 /**
  * Main class of the SecuCheck-cmd
@@ -14,15 +12,56 @@ import java.io.InputStream;
  * @author Ranjith Krishnamurthy
  */
 public class Main {
-    private static final String SECU_CONFIG_PATH_SHORT = "-scp";
-    private static final String OUT_DIR_SHORT = "-o";
+    /**
+     * Below are the command line arguments options short and long names
+     */
+    private static final String SECU_CONFIG_PATH_SHORT = "scp";
+    private static final String SECU_CONFIG_PATH_LONG = "secu-config-file";
+    private static final String OUT_DIR_SHORT = "od";
+    private static final String OUT_DIR_LONG = "out-dir";
+    private static final String OUT_FILE_SHORT = "of";
+    private static final String OUT_FILE_LONG = "out-file";
 
-    private static final String HELP_MESSAGE = "Invalid option. Available option is:\n" +
-            SECU_CONFIG_PATH_SHORT + " <SecuCheck configuration file path>\n" +
-            OUT_DIR_SHORT + " <Analysis result out-directory>\n";
 
-    private static String secuCheckConfigurationFilePath = "";
     private static String analysisResultOutDIrectory = "";
+
+    /**
+     * Initializes the command line options.
+     * <p>
+     * Note: In future, if needed to add new options, then add it here.
+     *
+     * @return Command line options
+     */
+    private static Options initializeCommandLineOptions() {
+        Options cmdOptions = new Options();
+
+        Option configSettingsFileOption = new Option(
+                SECU_CONFIG_PATH_SHORT,
+                SECU_CONFIG_PATH_LONG,
+                true,
+                "SecuCheck configuration settings file");
+        configSettingsFileOption.setRequired(true);
+
+        Option outFile = new Option(
+                OUT_FILE_SHORT,
+                OUT_FILE_LONG,
+                true,
+                "SecuCheck analysis result output filename without the file extension");
+        outFile.setRequired(true);
+
+        Option outDir = new Option(
+                OUT_DIR_SHORT,
+                OUT_DIR_LONG,
+                true,
+                "SecuCheck analysis result output directory");
+        outFile.setRequired(true);
+
+        cmdOptions.addOption(configSettingsFileOption);
+        cmdOptions.addOption(outFile);
+        cmdOptions.addOption(outDir);
+
+        return cmdOptions;
+    }
 
     /**
      * Main method
@@ -30,79 +69,63 @@ public class Main {
      * @param args Command line arguments
      */
     public static void main(String[] args) {
-        // Check for the invalid arguments
-        if (!checkArguments(args)) {
-            System.out.println(HELP_MESSAGE);
+
+        // Initialize the command line options
+        Options cmdOptions = initializeCommandLineOptions();
+
+        CommandLineParser commandLineParser = new DefaultParser();
+        HelpFormatter helpFormatter = new HelpFormatter();
+        CommandLine commandLine;
+
+        try {
+            // Parse the command line arguments
+            commandLine = commandLineParser.parse(cmdOptions, args);
+        } catch (ParseException ex) {
+            helpFormatter.printHelp("secucheck-cmd", cmdOptions);
             return;
         }
+
+        String secuCheckConfigurationFilePath = commandLine.getOptionValue(SECU_CONFIG_PATH_LONG);
+
 
         // Check for the valid SecuCheckConfiguration file
         File file = new File(secuCheckConfigurationFilePath);
 
         if (!file.exists() || !secuCheckConfigurationFilePath.endsWith(".yml")) {
             System.err.println("Given SecuCheck Configuration file(" + secuCheckConfigurationFilePath + ") does not exist or invalid!!");
+            return;
         }
 
-        //TODO: Verify the out-dir
+        SecuCheckConfiguration secuCheckConfiguration = null;
 
-        // Load the SecuCheck configuration yaml file
-        SecuCheckConfiguration secuCheckConfiguration = YamlUtils.loadYamlAndGetSecuCheckConfiguration(secuCheckConfigurationFilePath);
-
-        //TODO: Start processing the specification and call the SecuCheck analysis
-        System.out.println(secuCheckConfiguration.getClassPath());
-        for (String ep : secuCheckConfiguration.getEntryPoints()) {
-            System.out.println(ep);
-        }
-        System.out.println(secuCheckConfiguration.getSpecPath());
-        for (String ss : secuCheckConfiguration.getSelectedSpecs()) {
-            System.out.println(ss);
-        }
-        System.out.println(secuCheckConfiguration.getSolver());
-    }
-
-    /**
-     * Checks whether the given command line arguments is correct or not
-     *
-     * @param args Command line arguments
-     * @return True if the command line arguments are valid otherwise false
-     */
-    private static boolean checkArguments(String[] args) {
-        // Given argument cound should be exact 4
-        if (args.length < 4) {
-            System.err.println("Got too few arguments.");
-            return false;
+        try {
+            // Load the SecuCheck configuration yaml file
+            secuCheckConfiguration = YamlUtils.loadYamlAndGetSecuCheckConfiguration(secuCheckConfigurationFilePath);
+        } catch (Exception | Error ex) {
+            System.err.println("Could not load the configuration file(" + secuCheckConfigurationFilePath + ").\n" +
+                    ex.getMessage());
+            return;
         }
 
-        // Given argument cound should be exact 4
-        if (args.length > 4) {
-            System.err.println("Got too many arguments.");
-            return false;
-        }
+        // Check for the valid Secucheck configuration settings
+        SecuCheckConfigurationSettingsChecker.check(secuCheckConfiguration, commandLine.getOptionValue(OUT_DIR_LONG));
 
-        // If two options are same then false
-        if (args[0].equals(args[2]))
-            return false;
+        OS operatingSystem;
 
-        // Check whether the second option is a valid option
-        if (!(SECU_CONFIG_PATH_SHORT.equals(args[2]) || OUT_DIR_SHORT.equals(args[2])))
-            return false;
-
-        // Check whether the first option is a valid option
-        if (!(SECU_CONFIG_PATH_SHORT.equals(args[0]) || OUT_DIR_SHORT.equals(args[0])))
-            return false;
-
-        // Take the first option value and store it in a correct register
-        if (SECU_CONFIG_PATH_SHORT.equals(args[0]))
-            secuCheckConfigurationFilePath = args[1];
+        if (Platform.isWindows())
+            operatingSystem = OS.WINDOWS;
+        else if (Platform.isLinux())
+            operatingSystem = OS.LINUX;
+        else if (Platform.isMac())
+            operatingSystem = OS.MACOS;
         else
-            analysisResultOutDIrectory = args[1];
+            operatingSystem = OS.OTHER;
 
-        // Take the second option value and store it in a correct register
-        if (OUT_DIR_SHORT.equals(args[2]))
-            analysisResultOutDIrectory = args[3];
-        else
-            secuCheckConfigurationFilePath = args[3];
+        // Create SecuCheckAnalysisConfigurator and run the analysis
+        SecuCheckAnalysisConfigurator secuCheckAnalysisConfigurator = new SecuCheckAnalysisConfigurator(secuCheckConfiguration);
 
-        return true;
+        secuCheckAnalysisConfigurator.run(SecuCheckConfigurationSettingsChecker.getTaintFlowQueries(),
+                SecuCheckConfigurationSettingsChecker.getAnalysisSolver(),
+                operatingSystem);
     }
 }
