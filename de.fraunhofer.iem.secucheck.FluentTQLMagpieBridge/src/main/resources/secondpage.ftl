@@ -101,7 +101,7 @@
 <body>
 <!-- CONTAINERS -->
 <!-- container puts padding around itself while container-fluid fills the whole screen. Bootstap grids require a container. -->
-<div class="container">
+<div class="container" style="word-wrap: break-word;">
    <!-- page-header adds space aroundtext and enlarges it. It also adds an underline at the end -->
    <div class="page-header">
       <h1 style="font-family: 'Impact, Charcoal, sans-serif'; text-shadow: 1px 1px 15px #a6a2a2;text-align:center"><i><b>SecuCheck</b></br>${projectName}</i></h1>
@@ -123,7 +123,7 @@
       </p>
    </div>
 </div>
-<div class="container">
+<div class="container" style="word-wrap: break-word;">
    <!-- Use nav-pills, nav-tabs. To center tabs add nav-justified to the class for ul -->
    <ul class="nav nav-pills" style="font-size:18px">
       <li class="active"><a data-toggle="tab" href="#fluentSpec">FluentTQL Specifications</a></li>
