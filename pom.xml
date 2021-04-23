@@ -21,6 +21,7 @@
         <InternalFluentTQL.catalogSpecification.version>0.0.1-SNAPSHOT</InternalFluentTQL.catalogSpecification.version>
         <fluentTQl.maven.plugin.version>0.0.1-SNAPSHOT</fluentTQl.maven.plugin.version>
         <WebGoatSpecification.version>0.0.1-SNAPSHOT</WebGoatSpecification.version>
+        <secucheck-commons-utility.version>0.0.1-SNAPSHOT</secucheck-commons-utility.version>
     </properties>
 
     <modules>
