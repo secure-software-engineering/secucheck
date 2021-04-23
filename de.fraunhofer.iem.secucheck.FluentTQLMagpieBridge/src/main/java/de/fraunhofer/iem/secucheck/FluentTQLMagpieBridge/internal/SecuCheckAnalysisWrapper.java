@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.SecuCheckCoreQueryUtility;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysis;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckTaintAnalysis;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisConfiguration;
@@ -42,7 +43,7 @@ public final class SecuCheckAnalysisWrapper implements SecucheckMagpieBridgeAnal
         analysis.setSootClassPathJars(Utility.getSootClassPath());
         analysis.setListener(getResultListener());
 */
-        DifferentTypedPair<HashMap<Integer, TaintFlowQuery>, List<SecucheckTaintFlowQueryImpl>> queriesWithID = Utility.getCompositeTaintFlowQueries(configTaintFlows);
+        DifferentTypedPair<HashMap<Integer, TaintFlowQuery>, List<SecucheckTaintFlowQueryImpl>> queriesWithID = SecuCheckCoreQueryUtility.getCompositeTaintFlowQueries(configTaintFlows);
         SecucheckTaintAnalysisResult result = analysis.run(queriesWithID.getSecond());
 
         return Utility.getMagpieBridgeResult(result, queriesWithID.getFirst());
