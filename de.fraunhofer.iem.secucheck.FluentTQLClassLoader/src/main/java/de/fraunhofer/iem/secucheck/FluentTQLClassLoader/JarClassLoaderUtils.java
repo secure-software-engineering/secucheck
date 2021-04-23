@@ -160,7 +160,7 @@ public class JarClassLoaderUtils {
     private boolean processFluentTQLObject(Object obj, boolean isPrettyPrint) {
         if (obj instanceof FluentTQLUserInterface) {
             FluentTQLUserInterface fluentTQLUserInterface = (FluentTQLUserInterface) obj;
-            fluentTQLSpecs.put(obj.getClass().getSimpleName(), fluentTQLUserInterface);
+            fluentTQLSpecs.put(obj.getClass().getCanonicalName(), fluentTQLUserInterface);
 
             if (isPrettyPrint)
                 printUtils.printClassStatus(
