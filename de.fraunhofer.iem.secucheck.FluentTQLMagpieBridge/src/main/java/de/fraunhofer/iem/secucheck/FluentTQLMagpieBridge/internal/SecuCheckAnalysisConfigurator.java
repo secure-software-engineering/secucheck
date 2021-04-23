@@ -158,8 +158,6 @@ public class SecuCheckAnalysisConfigurator {
             @Override
             public void reportTaintFlowResult(TaintFlowResult taintFlowResult) {
             }
-        }
-
-                ;
+        };
     }
 }
