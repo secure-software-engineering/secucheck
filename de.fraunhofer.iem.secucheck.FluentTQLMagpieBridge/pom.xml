@@ -110,6 +110,11 @@
             <artifactId>de.fraunhofer.iem.secucheck.fluentTQL2English</artifactId>
             <version>${fluentTQL2English.version}</version>
         </dependency>
+        <dependency>
+            <groupId>de.fraunhofer.iem.secucheck</groupId>
+            <artifactId>de.fraunhofer.iem.secucheck.secucheck-commons-utility</artifactId>
+            <version>${secucheck-commons-utility.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
