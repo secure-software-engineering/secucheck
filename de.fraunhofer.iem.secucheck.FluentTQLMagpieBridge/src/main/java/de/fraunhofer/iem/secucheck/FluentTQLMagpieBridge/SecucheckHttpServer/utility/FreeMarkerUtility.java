@@ -15,6 +15,11 @@ import java.util.Map;
 public class FreeMarkerUtility {
     public static String setFirstPageFile(String projectName) {
 
+        String resolvedProjectName = "null";
+
+        if (projectName != null && !"".equals(projectName))
+            resolvedProjectName = projectName;
+
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
 
         try {
@@ -27,7 +32,7 @@ public class FreeMarkerUtility {
 
             //Port number and query file to insert into benchmark template
             Map<String, Object> templateData = new HashMap<>();
-            templateData.put("projectName", projectName);
+            templateData.put("projectName", resolvedProjectName);
 
             StringWriter out = new StringWriter();
             template.process(templateData, out);
@@ -42,6 +47,20 @@ public class FreeMarkerUtility {
 
     public static String setSecondPageFile(String projectName, String specDiv, String entryPointDiv) {
 
+        String resolvedProjectName = "null";
+        String resolvedSpecDiv = "null";
+        String resolvedEntryPointDiv = "null";
+
+        if (projectName != null && !"".equals(projectName))
+            resolvedProjectName = projectName;
+
+        if (specDiv != null && !"".equals(specDiv))
+            resolvedSpecDiv = specDiv;
+
+        if (entryPointDiv != null && !"".equals(entryPointDiv))
+            resolvedEntryPointDiv = entryPointDiv;
+
+
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
 
         try {
@@ -54,9 +73,9 @@ public class FreeMarkerUtility {
 
             //Port number and query file to insert into benchmark template
             Map<String, Object> templateData = new HashMap<>();
-            templateData.put("projectName", projectName);
-            templateData.put("specDiv", specDiv);
-            templateData.put("entryPointDiv", entryPointDiv);
+            templateData.put("projectName", resolvedProjectName);
+            templateData.put("specDiv", resolvedSpecDiv);
+            templateData.put("entryPointDiv", resolvedEntryPointDiv);
 
             StringWriter out = new StringWriter();
             template.process(templateData, out);
