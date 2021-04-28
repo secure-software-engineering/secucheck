@@ -3,6 +3,7 @@ package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.ErrorModel;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.Errors;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.DuplicateTaintFlowQueryIDException;
 import de.fraunhofer.iem.secucheck.JarUtility;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisConfigurator;
@@ -167,7 +168,13 @@ public class FluentTQLAnalysisConfigurator {
                 JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
 
                 //Todo:
-                fluentTQLSpecs.putAll(jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(out.getAbsolutePath()));
+                try {
+                    fluentTQLSpecs.putAll(jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(out.getAbsolutePath()));
+                } catch (DuplicateTaintFlowQueryIDException e) {
+                    PrintUtility.printMessageInIDE(MessageType.Warning,
+                            e.getMessage());
+                    return false;
+                }
                 //fluentTQLSpecs.putAll(InternalFluentTQLIntegration.getSpecs(file.getAbsolutePath()));
 
                 JarUtility.deleteDir(out);
