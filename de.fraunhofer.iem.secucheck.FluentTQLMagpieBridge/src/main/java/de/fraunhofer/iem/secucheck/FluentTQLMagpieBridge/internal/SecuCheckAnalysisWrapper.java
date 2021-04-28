@@ -37,6 +37,13 @@ public final class SecuCheckAnalysisWrapper implements SecucheckMagpieBridgeAnal
         List<SecucheckTaintFlowQueryImpl> compositeTaintFlowQueries = SecuCheckCoreQueryUtility.getCompositeTaintFlowQueries(taintFlowQueries);
         SecucheckTaintAnalysisResult result = analysis.run(compositeTaintFlowQueries);
 
+        System.out.println("\n\n\n*******************************************");
+        System.out.println("Start Time of Analysis = " + result.getStartTime());
+        System.out.println("End Time of Analysis = " + result.getEndTime());
+        System.out.println("Total time taken by the Analysis in milli seconds = " + result.getExecutionTimeInMilliSec());
+        System.out.println("Total time taken by the Analysis in seconds = " + result.getExecutionTimeInSec());
+        System.out.println("*******************************************\n\n\n");
+
         return Utility.getMagpieBridgeResult(result, taintFlowQueries);
     }
 }
