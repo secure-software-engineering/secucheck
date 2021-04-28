@@ -31,7 +31,7 @@ public class Assignment5Spec implements FluentTQLUserInterface {
             .configure();
 
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery taintFlow = new TaintFlowQueryBuilder()
+        TaintFlowQuery taintFlow = new TaintFlowQueryBuilder("Assignment5_SQLInjection")
                 .from(source)
                 .through(propagator)
                 .to(sink)

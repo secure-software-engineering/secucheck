@@ -26,7 +26,7 @@ public class SqlInjectionLesson4Spec implements FluentTQLUserInterface {
             .configure();
 
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery taintFlow = new TaintFlowQueryBuilder()
+        TaintFlowQuery taintFlow = new TaintFlowQueryBuilder("SQLInjectionLesson4")
                 .from(source)
                 .to(sink)
                 .report("Webgoat application: Introduction -> SqlInjectionLesson4")

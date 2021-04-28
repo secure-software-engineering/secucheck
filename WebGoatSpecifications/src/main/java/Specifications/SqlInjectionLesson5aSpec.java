@@ -39,21 +39,21 @@ public class SqlInjectionLesson5aSpec implements FluentTQLUserInterface {
             .configure();
 
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery taintFlow1 = new TaintFlowQueryBuilder()
+        TaintFlowQuery taintFlow1 = new TaintFlowQueryBuilder("SQLInjectionLesson5a_TF1")
                 .from(source1)
                 .to(sink)
                 .report("Webgoat application: Introduction -> SqlInjectionLesson5a TF1")
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery taintFlow2 = new TaintFlowQueryBuilder()
+        TaintFlowQuery taintFlow2 = new TaintFlowQueryBuilder("SQLInjectionLesson5a_TF2")
                 .from(source2)
                 .to(sink)
                 .report("Webgoat application: Introduction -> SqlInjectionLesson5a TF2")
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery taintFlow3 = new TaintFlowQueryBuilder()
+        TaintFlowQuery taintFlow3 = new TaintFlowQueryBuilder("SQLInjectionLesson5a_TF3")
                 .from(source3)
                 .to(sink)
                 .report("Webgoat application: Introduction -> SqlInjectionLesson5a TF3")

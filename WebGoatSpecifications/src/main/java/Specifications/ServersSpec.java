@@ -31,7 +31,7 @@ public class ServersSpec implements FluentTQLUserInterface {
             .configure();
 
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery taintFlow = new TaintFlowQueryBuilder()
+        TaintFlowQuery taintFlow = new TaintFlowQueryBuilder("Servers_SQLiWithPreparedStmt")
                 .from(source)
                 .through(propagator)
                 .to(sink)
