@@ -18,6 +18,13 @@ public interface TaintFlowQuery extends FluentTQLSpecification {
      *
      * @return List of TaintFlow
      */
+    String getId();
+
+    /**
+     * Returns the List of TaintFlow
+     *
+     * @return List of TaintFlow
+     */
     List<TaintFlow> getTaintFlows();
 
     /**

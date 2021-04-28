@@ -20,11 +20,21 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
     private String reportMessage = "";
     private LOCATION reportLocation = LOCATION.SOURCEANDSINK;
     private QueriesSet queriesSet;
+    private final String id;
 
     private final List<TaintFlow> taintFlowsAsList = new ArrayList<>();
 
+    public TaintFlowQueryImpl(String id) {
+        this.id = id;
+    }
+
     public void addTaintFlow(TaintFlow taintFlow) {
         taintFlows.add(taintFlow);
+    }
+
+    @Override
+    public String getId() {
+        return this.id;
     }
 
     public List<TaintFlow> getTaintFlows() {
@@ -62,6 +72,7 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
         final int prime = 31;
         int result = 1;
 
+        result = prime * result + id.hashCode();
         result = prime * result + taintFlows.hashCode();
         result = prime * result + reportMessage.hashCode();
         result = prime * result + reportLocation.hashCode();
@@ -77,6 +88,7 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
 
         TaintFlowQueryImpl other = (TaintFlowQueryImpl) obj;
 
+        if (!id.equals(other.getId())) return false;
         if (taintFlows.size() != other.getTaintFlows().size()) return false;
         if (!taintFlows.containsAll(other.getTaintFlows())) return false;
         if (!other.getTaintFlows().containsAll(taintFlows)) return false;
@@ -91,7 +103,7 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
         StringBuilder str = new StringBuilder();
 
         for (TaintFlow taintFlow : taintFlows) {
-            str.append("TaintFlow: \n").append(taintFlow.toString()).append("\n");
+            str.append("TaintFlow [").append(this.id).append("]: \n").append(taintFlow.toString()).append("\n");
         }
 
         str.append("Report Message = ").append(reportMessage).append("\n");

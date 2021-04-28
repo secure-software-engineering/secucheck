@@ -11,9 +11,9 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 public class TaintFlowQueryBuilder {
     private TaintFlowQueryImpl taintFlowQuery = null;
 
-    public TaintFlowQueryBuilder() {
+    public TaintFlowQueryBuilder(String taintFlowQueryID) {
         if (taintFlowQuery == null)
-            taintFlowQuery = new TaintFlowQueryImpl();
+            taintFlowQuery = new TaintFlowQueryImpl(taintFlowQueryID);
     }
 
     public TaintFlowQueryBuilder(TaintFlowQuery taintFlowQuery) {
