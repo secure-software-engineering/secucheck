@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.cmd;
 
 import com.sun.jna.Platform;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.DuplicateTaintFlowQueryIDException;
 import de.fraunhofer.iem.secucheck.analysis.query.OS;
 import org.apache.commons.cli.*;
 
@@ -108,7 +109,12 @@ public class Main {
         }
 
         // Check for the valid Secucheck configuration settings
-        SecuCheckConfigurationSettingsChecker.check(secuCheckConfiguration, commandLine.getOptionValue(OUT_DIR_LONG));
+        try {
+            SecuCheckConfigurationSettingsChecker.check(secuCheckConfiguration, commandLine.getOptionValue(OUT_DIR_LONG));
+        } catch (DuplicateTaintFlowQueryIDException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
 
         OS operatingSystem;
 

@@ -4,6 +4,7 @@ import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.ErrorModel;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.Errors;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.DuplicateTaintFlowQueryIDException;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
@@ -50,7 +51,7 @@ public class SecuCheckConfigurationSettingsChecker {
      * @param secuCheckConfiguration SecuCheckConfiguration settings
      * @param baseDir                Output directory provided by the user
      */
-    public static void check(SecuCheckConfiguration secuCheckConfiguration, String baseDir) {
+    public static void check(SecuCheckConfiguration secuCheckConfiguration, String baseDir) throws DuplicateTaintFlowQueryIDException {
         String classPath = secuCheckConfiguration.getClassPath();
         List<String> entryPoints = secuCheckConfiguration.getEntryPoints();
         String specPath = secuCheckConfiguration.getSpecPath();
@@ -134,7 +135,7 @@ public class SecuCheckConfigurationSettingsChecker {
      * @param selectedSpecs List of specification selected by the user
      * @param baseDir       Output  directory given by the user
      */
-    private static void checkSpecPath(String specPath, List<String> selectedSpecs, String baseDir) {
+    private static void checkSpecPath(String specPath, List<String> selectedSpecs, String baseDir) throws DuplicateTaintFlowQueryIDException {
         File file = new File(specPath);
 
         if (file.exists()) {
