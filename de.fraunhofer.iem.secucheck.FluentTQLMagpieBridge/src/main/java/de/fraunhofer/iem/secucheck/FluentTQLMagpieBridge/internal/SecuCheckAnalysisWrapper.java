@@ -5,19 +5,12 @@ import de.fraunhofer.iem.secucheck.SecuCheckCoreQueryUtility;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckAnalysis;
 import de.fraunhofer.iem.secucheck.analysis.SecucheckTaintAnalysis;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisConfiguration;
-import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.query.SecucheckTaintFlowQueryImpl;
-import de.fraunhofer.iem.secucheck.analysis.result.AnalysisResultListener;
 import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
-import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintFlowQueryResult;
-import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowResult;
 import magpiebridge.core.AnalysisResult;
 
-import java.nio.file.Path;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Wrapper for the SecuCheck core analysis
