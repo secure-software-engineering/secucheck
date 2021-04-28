@@ -33,7 +33,7 @@ public class ServletSQLInjectionSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("SQLiInServler")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .to(SQLSinks.sqlSinks)

@@ -75,7 +75,7 @@ public class SQLiWithPreparedStatementsSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("SQLiWithPreparedStmt")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .through(requiredPropagator)

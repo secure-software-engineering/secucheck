@@ -77,7 +77,7 @@ public class NoSQLInjectionWithMultipleSources implements FluentTQLUserInterface
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery noSQLWithMultipleSourcesSpec = new TaintFlowQueryBuilder()
+        TaintFlowQuery noSQLWithMultipleSourcesSpec = new TaintFlowQueryBuilder("NoSQLiWithMultipleSources")
                 .from(source1).notThrough(sanitizer).through(requiredPropagator1).to(sink)
                 .and()
                 .from(source2).notThrough(sanitizer).through(requiredPropagator1).to(sink)

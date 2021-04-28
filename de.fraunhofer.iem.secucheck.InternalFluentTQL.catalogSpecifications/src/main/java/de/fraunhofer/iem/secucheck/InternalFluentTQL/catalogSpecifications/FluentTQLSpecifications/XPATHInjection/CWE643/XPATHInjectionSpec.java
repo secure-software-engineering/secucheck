@@ -33,7 +33,7 @@ public class XPATHInjectionSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("XPATHi")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .to(XPathSinks.xpathSinks)

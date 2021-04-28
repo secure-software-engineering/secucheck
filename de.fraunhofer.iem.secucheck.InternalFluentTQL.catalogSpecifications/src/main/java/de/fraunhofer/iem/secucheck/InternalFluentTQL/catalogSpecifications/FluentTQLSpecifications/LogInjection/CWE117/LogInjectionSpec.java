@@ -43,7 +43,7 @@ public class LogInjectionSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery logInjectionSpec1 = new TaintFlowQueryBuilder()
+        TaintFlowQuery logInjectionSpec1 = new TaintFlowQueryBuilder("LogInjectionWithDeSanitizer")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .through(deSanitizer)
@@ -52,7 +52,7 @@ public class LogInjectionSpec implements FluentTQLUserInterface {
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery logInjectionSpec2 = new TaintFlowQueryBuilder()
+        TaintFlowQuery logInjectionSpec2 = new TaintFlowQueryBuilder("LogInjectionWithoutDesanitizer")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .to(LogInjectionSinks.logInjectionSinks)

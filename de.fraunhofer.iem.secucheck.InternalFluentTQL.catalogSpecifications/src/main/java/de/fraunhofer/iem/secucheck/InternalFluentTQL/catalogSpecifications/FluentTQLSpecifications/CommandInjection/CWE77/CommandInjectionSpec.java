@@ -50,7 +50,7 @@ public class CommandInjectionSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery commandInjectionSpecification = new TaintFlowQueryBuilder()
+        TaintFlowQuery commandInjectionSpecification = new TaintFlowQueryBuilder("CommandInjection_CWE77")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .through(requiredPropagator)

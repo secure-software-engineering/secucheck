@@ -68,7 +68,7 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery noSQLInSpringBootSpec = new TaintFlowQueryBuilder()
+        TaintFlowQuery noSQLInSpringBootSpec = new TaintFlowQueryBuilder("NoSQLiInSpring")
                 .from(source)                            //source methods
                 .notThrough(sanitizer)                    //sanitizer
                 .through(requiredPropogator)            //requires propagator

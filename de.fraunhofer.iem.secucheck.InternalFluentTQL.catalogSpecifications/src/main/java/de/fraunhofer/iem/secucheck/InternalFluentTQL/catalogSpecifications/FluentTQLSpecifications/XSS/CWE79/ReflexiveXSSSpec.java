@@ -42,7 +42,7 @@ public class ReflexiveXSSSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("ReflexiveXSS")
                 .from(ServletSources.servletSources)
                 .through(deSanitizer)
                 .notThrough(sanitizer)

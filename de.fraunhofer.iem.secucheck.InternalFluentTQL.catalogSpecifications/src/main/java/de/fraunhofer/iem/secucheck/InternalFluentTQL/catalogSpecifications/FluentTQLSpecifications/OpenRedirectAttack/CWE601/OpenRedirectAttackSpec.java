@@ -53,7 +53,7 @@ public class OpenRedirectAttackSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery tf1 = new TaintFlowQueryBuilder()
+        TaintFlowQuery tf1 = new TaintFlowQueryBuilder("OpenRedirect_TF1")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .to(sink1)
@@ -61,7 +61,7 @@ public class OpenRedirectAttackSpec implements FluentTQLUserInterface {
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery tf2 = new TaintFlowQueryBuilder()
+        TaintFlowQuery tf2 = new TaintFlowQueryBuilder("OpenRedirect_TF2")
                 .from(source4)
                 .notThrough(sanitizer)
                 .to(sink2)

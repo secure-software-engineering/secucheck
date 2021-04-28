@@ -53,7 +53,7 @@ public class StoredXSSSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("StoredXSS")
                 .from(source)
                 .through(deSanitizer)
                 .notThrough(sanitizer)

@@ -46,7 +46,7 @@ public class SimpleSQLInjectionSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("SimpleSQLi")
                 .from(source)
                 .notThrough(sanitizer)
                 .to(sink)

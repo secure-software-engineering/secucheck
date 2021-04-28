@@ -33,7 +33,7 @@ public class XMLInjectionSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("XMLi")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .to(XMLSinks.sinksXMLinjection)

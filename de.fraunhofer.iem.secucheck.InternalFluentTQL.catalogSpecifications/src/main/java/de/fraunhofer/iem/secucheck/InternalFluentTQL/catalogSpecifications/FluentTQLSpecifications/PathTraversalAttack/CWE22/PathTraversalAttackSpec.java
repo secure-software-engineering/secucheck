@@ -58,7 +58,7 @@ public class PathTraversalAttackSpec implements FluentTQLUserInterface {
         /*
          * This is the first taint flow that achieves path traversal attack.
          */
-        TaintFlowQuery tf1 = new TaintFlowQueryBuilder()
+        TaintFlowQuery tf1 = new TaintFlowQueryBuilder("PathTraversal_TF1")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .to(sink1)
@@ -66,7 +66,7 @@ public class PathTraversalAttackSpec implements FluentTQLUserInterface {
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery tf2 = new TaintFlowQueryBuilder()
+        TaintFlowQuery tf2 = new TaintFlowQueryBuilder("PathTraversal_TF2")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .through(requiredPropagator)

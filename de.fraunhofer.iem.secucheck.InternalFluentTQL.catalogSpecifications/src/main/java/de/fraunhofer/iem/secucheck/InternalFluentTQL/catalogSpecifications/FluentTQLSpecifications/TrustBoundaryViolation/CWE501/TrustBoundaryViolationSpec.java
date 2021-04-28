@@ -41,7 +41,7 @@ public class TrustBoundaryViolationSpec implements FluentTQLUserInterface {
      * @return Internal FluentTQL specification
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("TrustBoundaryViolation")
                 .from(ServletSources.servletSources)
                 .notThrough(sanitizer)
                 .to(sink)
