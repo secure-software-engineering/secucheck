@@ -60,7 +60,7 @@ class BriefFluentTQL2Eng {
 	
 	def String translate(TaintFlowQuery taintFlowQuery) {
 		val List<TaintFlow> taintFlows = taintFlowQuery.getTaintFlows();
-		var String fluentTQL2E = ""
+		var String fluentTQL2E = "TaintFlowQuery ID = " + taintFlowQuery.getId() + "\n";
 		
 		if(taintFlows.size() == 1) {
 			fluentTQL2E += singleTaintFlows(taintFlows.get(0))

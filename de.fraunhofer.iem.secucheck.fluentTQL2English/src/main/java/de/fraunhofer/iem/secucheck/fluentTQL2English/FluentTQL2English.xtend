@@ -165,7 +165,7 @@ class FluentTQL2English {
 
 	def String translate(TaintFlowQuery taintFlowQuery) {
 		val List<TaintFlow> taintFlows = taintFlowQuery.getTaintFlows();
-		var String fluentTQL2E = ""
+		var String fluentTQL2E = "TaintFlowQuery ID = " + taintFlowQuery.getId() + "\n\n";
 
 		if(taintFlows.size() == 1) {
 			fluentTQL2E += singleTaintFlows(taintFlows.get(0))
