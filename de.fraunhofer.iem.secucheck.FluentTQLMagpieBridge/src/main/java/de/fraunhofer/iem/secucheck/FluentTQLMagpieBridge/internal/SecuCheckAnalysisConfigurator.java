@@ -61,11 +61,10 @@ public class SecuCheckAnalysisConfigurator {
                             operatingSystem = OS.OTHER;
 
                         SecucheckAnalysisConfiguration configuration = getAnalysisConfiguration(analysisSolver, operatingSystem);
-                        SecuCheckAnalysisWrapper secucheckAnalysis = new SecuCheckAnalysisWrapper(true, configuration);
+                        SecuCheckAnalysisWrapper secucheckAnalysis = new SecuCheckAnalysisWrapper(configuration);
 
                         //List<CompositeTaintFlowQueryImpl> compositeQueries = FluentTQLUtility.getCompositeTaintFlowQueries(taintFlowQueries);
-                        Collection<AnalysisResult> result = secucheckAnalysis.run(taintFlowQueries, null, null
-                                , null, null);
+                        Collection<AnalysisResult> result = secucheckAnalysis.run(taintFlowQueries);
                         System.out.println("\n\n\nCheck critical results = " + result.size() + "\n\n\n");
 
                         //Collection<AnalysisResult> results = Utility.getMagpieBridgeResult(result);
