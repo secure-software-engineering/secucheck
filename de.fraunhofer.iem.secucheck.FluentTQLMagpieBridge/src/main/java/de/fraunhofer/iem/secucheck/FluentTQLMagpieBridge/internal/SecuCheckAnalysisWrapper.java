@@ -19,54 +19,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Wrapper for the SecuCheck core analysis
+ *
+ * @author Ranjith Krishnamurthy
+ */
 public final class SecuCheckAnalysisWrapper implements SecucheckMagpieBridgeAnalysis {
+    private final SecucheckAnalysis analysis;
 
-    private boolean isCancelled;
-    private SecucheckAnalysis analysis;
-
-    public SecuCheckAnalysisWrapper(boolean inProc, SecucheckAnalysisConfiguration configuration) {
-        //analysis = inProc ? new SecucheckTaintAnalysis() : new SecuCheckTaintAnalysisOutOfProcess();
+    public SecuCheckAnalysisWrapper(SecucheckAnalysisConfiguration configuration) {
         analysis = new SecucheckTaintAnalysis();
         analysis.setConfiguration(configuration);
     }
 
-    public void isCancelled(boolean value) {
-        this.isCancelled = value;
-    }
+    /**
+     * Generates the composite TaintFlowQueries and calls the SecuCheck core analysis
+     *
+     * @param taintFlowQueries FluentTQL TaintFlowQueries
+     * @return Analysis Result
+     * @throws Exception If it fails to run SecuCheck core analysis
+     */
+    public Collection<AnalysisResult> run(List<TaintFlowQuery> taintFlowQueries) throws Exception {
 
-    public Collection<AnalysisResult> run(List<TaintFlowQuery> configTaintFlows,
-                                          List<String> analysisFiles, Set<Path> userClassPaths, Set<Path> refferedClassPaths,
-                                          String projectPath) throws Exception {
-    /*    analysis.setOs(Utility.getOperatingSystem());
-        analysis.setAnalysisEntryPoints(Utility.getAllMethodsEntryPoints(analysisFiles));
-        analysis.setApplicationClassPath(Utility.getAppendedUserClassPath(userClassPaths, refferedClassPaths));
-        analysis.setSootClassPathJars(Utility.getSootClassPath());
-        analysis.setListener(getResultListener());
-*/
-        DifferentTypedPair<HashMap<Integer, TaintFlowQuery>, List<SecucheckTaintFlowQueryImpl>> queriesWithID = SecuCheckCoreQueryUtility.getCompositeTaintFlowQueries(configTaintFlows);
-        SecucheckTaintAnalysisResult result = analysis.run(queriesWithID.getSecond());
+        List<SecucheckTaintFlowQueryImpl> compositeTaintFlowQueries = SecuCheckCoreQueryUtility.getCompositeTaintFlowQueries(taintFlowQueries);
+        SecucheckTaintAnalysisResult result = analysis.run(compositeTaintFlowQueries);
 
-        return Utility.getMagpieBridgeResult(result, queriesWithID.getFirst());
-    }
-
-    private AnalysisResultListener getResultListener() {
-        return new AnalysisResultListener() {
-            public void reportCompleteResult(SecucheckTaintAnalysisResult arg0) {
-            }
-
-            @Override
-            public void reportSecucheckTaintFlowQueryResult(SecucheckTaintFlowQueryResult secucheckTaintFlowQueryResult) {
-
-            }
-
-            @Override
-            public void reportTaintFlowResult(TaintFlowResult taintFlowResult) {
-
-            }
-
-            public boolean isCancelled() {
-                return isCancelled;
-            }
-        };
+        return Utility.getMagpieBridgeResult(result, taintFlowQueries);
     }
 }
