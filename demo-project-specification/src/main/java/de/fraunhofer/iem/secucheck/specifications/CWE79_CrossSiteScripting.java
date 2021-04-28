@@ -62,7 +62,7 @@ public class CWE79_CrossSiteScripting implements FluentTQLUserInterface {
      * @return Internal FluentTQL specifications
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("CWE79_CrossSiteScripting")
                 .from(sourceMethod)
                 .to(sinkMethod)
                 .report("CWE-79 detected: Cross-site Scripting from untrusted value 'String pattern'")

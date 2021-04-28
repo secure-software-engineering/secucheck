@@ -72,7 +72,7 @@ public class CWE78_OsCommandInjection implements FluentTQLUserInterface {
      * @return Internal FluentTQL specifications
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("CWE78_OsCommandInjection_TF1")
                 .from(sourceMethod)
                 .notThrough(sanitizerMethod)
                 .to(sinkMethod)
@@ -80,7 +80,7 @@ public class CWE78_OsCommandInjection implements FluentTQLUserInterface {
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery myTF2 = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF2 = new TaintFlowQueryBuilder("CWE78_OsCommandInjection_TF2")
                 .from(sourceMethod)
                 .notThrough(sanitizerMethod)
                 .to(sinkMethod2)

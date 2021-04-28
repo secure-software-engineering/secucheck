@@ -77,14 +77,14 @@ public class CWE601_OpenRedirect implements FluentTQLUserInterface {
      * @return Internal FluentTQL specifications
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("CWE601_OpenRedirect_TF1")
                 .from(sourceMethod)
                 .to(sinkMethod)
                 .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'String page'")
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery myTF2 = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF2 = new TaintFlowQueryBuilder("CWE601_OpenRedirect_TF2")
                 .from(sourceMethod2)
                 .through(rp1)
                 .through(rp2)
@@ -93,7 +93,7 @@ public class CWE601_OpenRedirect implements FluentTQLUserInterface {
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery myTF3 = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF3 = new TaintFlowQueryBuilder("CWE601_OpenRedirect_TF3")
                 .from(sourceMethod3)
                 .to(sinkMethod)
                 .report("CWE-601 detected: URL Redirection to Untrusted Site ('Open Redirect') from untrusted value 'HttpServletRequest request'")

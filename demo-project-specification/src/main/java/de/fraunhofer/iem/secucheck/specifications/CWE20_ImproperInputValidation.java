@@ -50,7 +50,7 @@ public class CWE20_ImproperInputValidation implements FluentTQLUserInterface {
      * @return Internal FluentTQL specifications
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("CWE20_ImproperInputValidation")
                 .from(sourceMethod)
                 .to(sinkMethod)
                 .report("CWE-20 detected: Improper Input Validation from 'User user'")

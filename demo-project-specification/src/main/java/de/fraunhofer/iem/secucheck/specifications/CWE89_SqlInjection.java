@@ -66,21 +66,21 @@ public class CWE89_SqlInjection implements FluentTQLUserInterface {
      * @return Internal FluentTQL specifications
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("CWE89_SqlInjection_TF1")
                 .from(sourceMethod)
                 .to(sinkMethod)
                 .report("CWE-89 detected: 'SQL Injection' from untrusted value 'String pattern'")
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery myTF2 = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF2 = new TaintFlowQueryBuilder("CWE89_SqlInjection_TF2")
                 .from(sourceMethod2)
                 .to(sinkMethod)
                 .report("CWE-89 detected: 'SQL Injection' from untrusted value 'String shortname'")
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery myTF3 = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF3 = new TaintFlowQueryBuilder("CWE89_SqlInjection_TF3")
                 .from(sourceMethod2)
                 .to(sinkMethod2)
                 .report("CWE-89 detected: 'SQL Injection' from untrusted value 'String shortname'")

@@ -46,14 +46,14 @@ public class CWE643_XpathInjection implements FluentTQLUserInterface {
      * @return Internal FluentTQL specifications
      */
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
-        TaintFlowQuery myTF = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF = new TaintFlowQueryBuilder("CWE643_XpathInjection_TF1")
                 .from(source1)
                 .to(sink1)
                 .report("CWE-634 detected: XPath Injection from untrusted value 'getPartameter()'")
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery myTF2 = new TaintFlowQueryBuilder()
+        TaintFlowQuery myTF2 = new TaintFlowQueryBuilder("CWE643_XpathInjection_TF2")
                 .from(source2)
                 .to(sink1)
                 .report("CWE-634 detected: XPath Injection from untrusted value 'getParameterValues()'")
