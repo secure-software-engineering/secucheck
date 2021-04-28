@@ -26,32 +26,25 @@ public final class SecuCheckCoreQueryUtility {
      * @param taintFlowQueries InternalFLuentTQL taintflow queries
      * @return Secuchcek-core taintflow queries
      */
-    public static DifferentTypedPair<HashMap<Integer, TaintFlowQuery>, List<SecucheckTaintFlowQueryImpl>> getCompositeTaintFlowQueries(List<TaintFlowQuery> taintFlowQueries) {
+    public static List<SecucheckTaintFlowQueryImpl> getCompositeTaintFlowQueries(List<TaintFlowQuery> taintFlowQueries) {
         List<SecucheckTaintFlowQueryImpl> compositeQueries = new ArrayList<SecucheckTaintFlowQueryImpl>();
 
-        HashMap<Integer, TaintFlowQuery> taintFLowQueriesWithID = new HashMap<>();
-        int id = 0;
-
         for (TaintFlowQuery flowQuery : taintFlowQueries) {
-            id++;
-            taintFLowQueriesWithID.put(id, flowQuery);
-
-            SecucheckTaintFlowQueryImpl compositeQuery = getCompositeTaintFlowQuery(flowQuery, id);
+            SecucheckTaintFlowQueryImpl compositeQuery = getCompositeTaintFlowQuery(flowQuery);
             compositeQueries.add(compositeQuery);
         }
 
-        return new DifferentTypedPair<>(taintFLowQueriesWithID, compositeQueries);
+        return compositeQueries;
     }
 
     /**
      * Converts the InternalFluentTQL single Taintflow query into secucheck-core composite single taintflowquery
      *
      * @param taintFlowQuery InternalFLuentTQL taintflow queries
-     * @param id             InternalFLuentTQL single taintflow query
      * @return Secuchcek-core single taintflow query
      */
-    public static SecucheckTaintFlowQueryImpl getCompositeTaintFlowQuery(TaintFlowQuery taintFlowQuery, int id) {
-        SecucheckTaintFlowQueryImpl compositeQuery = new SecucheckTaintFlowQueryImpl(id);
+    public static SecucheckTaintFlowQueryImpl getCompositeTaintFlowQuery(TaintFlowQuery taintFlowQuery) {
+        SecucheckTaintFlowQueryImpl compositeQuery = new SecucheckTaintFlowQueryImpl(taintFlowQuery.getId());
         compositeQuery.setReportMessage(taintFlowQuery.getReportMessage());
         compositeQuery.setReportLocation(getReportLocation(taintFlowQuery.getReportLocation()));
 

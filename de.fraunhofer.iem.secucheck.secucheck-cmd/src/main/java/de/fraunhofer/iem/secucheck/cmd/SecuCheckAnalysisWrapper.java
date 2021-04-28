@@ -34,8 +34,8 @@ public class SecuCheckAnalysisWrapper {
      */
     public SecucheckTaintAnalysisResult run(List<TaintFlowQuery> configTaintFlows) throws Exception {
 
-        DifferentTypedPair<HashMap<Integer, TaintFlowQuery>, List<SecucheckTaintFlowQueryImpl>> queriesWithID = SecuCheckCoreQueryUtility.getCompositeTaintFlowQueries(configTaintFlows);
+        List<SecucheckTaintFlowQueryImpl> compositeTaintFlowQueries = SecuCheckCoreQueryUtility.getCompositeTaintFlowQueries(configTaintFlows);
 
-        return analysis.run(queriesWithID.getSecond());
+        return analysis.run(compositeTaintFlowQueries);
     }
 }
