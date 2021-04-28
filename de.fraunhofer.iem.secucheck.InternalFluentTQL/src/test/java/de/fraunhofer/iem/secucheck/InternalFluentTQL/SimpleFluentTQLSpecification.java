@@ -34,7 +34,7 @@ public class SimpleFluentTQLSpecification implements FluentTQLUserInterface {
     @Override
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
 
-        TaintFlowQuery simpleTaintFlow = new TaintFlowQueryBuilder()
+        TaintFlowQuery simpleTaintFlow = new TaintFlowQueryBuilder("SimpleSpec")
                 .from(source)
                 .notThrough(sanitizer)
                 .to(sink)

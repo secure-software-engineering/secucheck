@@ -83,7 +83,7 @@ public class DummySpecification {
             .configure();
 
     public static List<FluentTQLSpecification> getSpecForTaintFlowTest1() {
-        TaintFlowQuery taintFlowQuery1 = new TaintFlowQueryBuilder()
+        TaintFlowQuery taintFlowQuery1 = new TaintFlowQueryBuilder("Dummy1")
                 .from(method1)
                 .through(method2)
                 .through(method3)
@@ -94,7 +94,7 @@ public class DummySpecification {
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery taintFlowQuery2 = new TaintFlowQueryBuilder()
+        TaintFlowQuery taintFlowQuery2 = new TaintFlowQueryBuilder("Dummy2")
                 .from(method1)
                 .notThrough(method4)
                 .notThrough(method5)
@@ -105,7 +105,7 @@ public class DummySpecification {
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
-        TaintFlowQuery taintFlowQuery3 = new TaintFlowQueryBuilder()
+        TaintFlowQuery taintFlowQuery3 = new TaintFlowQueryBuilder("Dummy3")
                 .from(method5)
                 .through(method4)
                 .through(method3)

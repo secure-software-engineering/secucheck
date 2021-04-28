@@ -47,7 +47,7 @@ public class  FluentTQLSpecificationTestForNoSQLInjection implements FluentTQLUs
         Method sink = new MethodConfigurator("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject, com.mongodb.BasicDBObject)")
                 .in().param(0).param(1).configure();
 
-        TaintFlowQuery noSQLInjection = new TaintFlowQueryBuilder()
+        TaintFlowQuery noSQLInjection = new TaintFlowQueryBuilder("NoSQL")
                 .from(source1).notThrough(sanitizer).through(requiredPropagator1).to(sink)
                 .and()
                 .from(source2).notThrough(sanitizer).through(requiredPropagator1).to(sink)
