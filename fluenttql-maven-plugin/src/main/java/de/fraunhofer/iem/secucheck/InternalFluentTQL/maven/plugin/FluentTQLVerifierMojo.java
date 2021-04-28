@@ -19,6 +19,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.ErrorModel;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.Errors;
 import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.DuplicateTaintFlowQueryIDException;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -84,7 +85,11 @@ public class FluentTQLVerifierMojo extends AbstractMojo {
                     " does not exist. Please compile the project and then run FluentTQL-Verifier");
 
         JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
-        jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(file.getAbsolutePath(), true);
+        try {
+            jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(file.getAbsolutePath(), true);
+        } catch (DuplicateTaintFlowQueryIDException e) {
+            throw new MojoExecutionException(e.getMessage());
+        }
 
         createErrorText(jarClassLoaderUtils.getErrorModel());
     }
