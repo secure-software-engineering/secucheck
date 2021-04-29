@@ -1,11 +1,18 @@
 package de.fraunhofer.iem.secucheck.cmd;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sun.jna.Platform;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.DuplicateTaintFlowQueryIDException;
+import de.fraunhofer.iem.secucheck.SecuCheckSARIFGenerator.SarifGenerator;
 import de.fraunhofer.iem.secucheck.analysis.query.OS;
+import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
 import org.apache.commons.cli.*;
+import org.apache.commons.io.FileUtils;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Main class of the SecuCheck-cmd
@@ -97,9 +104,27 @@ public class Main {
             return;
         }
 
+        // Check for the valid output directory
+        File outDirFile = new File(commandLine.getOptionValue(OUT_DIR_LONG));
+
+        if (!outDirFile.exists() || !outDirFile.isDirectory()) {
+            System.err.println("Given Output directory (" + commandLine.getOptionValue(OUT_DIR_LONG) +
+                    ") is not valid. It is not present or it is not directory.");
+            return;
+        }
+
+        File outFile = new File(outDirFile.getAbsolutePath() + File.separator + commandLine.getOptionValue(OUT_FILE_LONG) + ".sarif.json");
+
+        if (outFile.exists()) {
+            System.err.println("Given filename with the sarif extension (" + commandLine.getOptionValue(OUT_FILE_LONG) +
+                    ".sarif.json) already present.");
+            return;
+        }
+
         SecuCheckConfiguration secuCheckConfiguration = null;
 
         try {
+            System.out.println("Loading the Yaml settings file.");
             // Load the SecuCheck configuration yaml file
             secuCheckConfiguration = YamlUtils.loadYamlAndGetSecuCheckConfiguration(secuCheckConfigurationFilePath);
         } catch (Exception | Error ex) {
@@ -130,8 +155,78 @@ public class Main {
         // Create SecuCheckAnalysisConfigurator and run the analysis
         SecuCheckAnalysisConfigurator secuCheckAnalysisConfigurator = new SecuCheckAnalysisConfigurator(secuCheckConfiguration);
 
-        secuCheckAnalysisConfigurator.run(SecuCheckConfigurationSettingsChecker.getTaintFlowQueries(),
-                SecuCheckConfigurationSettingsChecker.getAnalysisSolver(),
-                operatingSystem);
+        SecucheckTaintAnalysisResult secucheckTaintAnalysisResult;
+        try {
+            secucheckTaintAnalysisResult = secuCheckAnalysisConfigurator.run(SecuCheckConfigurationSettingsChecker.getTaintFlowQueries(),
+                    SecuCheckConfigurationSettingsChecker.getAnalysisSolver(),
+                    operatingSystem);
+        } catch (Exception exception) {
+            System.err.println("Something went wrong while running analysis:\n" + exception.getMessage());
+            return;
+        }
+
+        String result = "";
+
+        try {
+            result = SarifGenerator.getSarifAsJsonString(secucheckTaintAnalysisResult, SecuCheckConfigurationSettingsChecker.getTaintFlowQueries(), secuCheckConfiguration.getClassPath());
+        } catch (JsonProcessingException e) {
+            System.err.println("Something went wrong while generating SARIF\n" + e.getMessage());
+            return;
+        }
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outFile));
+            bufferedWriter.write(result);
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        File additionalFile = new File(outDirFile.getAbsolutePath() + File.separator + commandLine.getOptionValue(OUT_FILE_LONG) + "_additional.txt");
+
+        if (additionalFile.isDirectory()) {
+            try {
+                FileUtils.deleteDirectory(additionalFile);
+            } catch (IOException ignored) {
+
+            }
+        }
+
+        if (additionalFile.exists())
+            additionalFile.delete();
+
+        StringBuilder res = new StringBuilder();
+
+        res.append("Analysis start time = ").append(secucheckTaintAnalysisResult.getStartTime());
+        res.append("\nAnalysis end time = ").append(secucheckTaintAnalysisResult.getEndTime());
+        res.append("\nAnalysis total execution time in milli seconds = ").append(secucheckTaintAnalysisResult.getExecutionTimeInMilliSec());
+        res.append("\nAnalysis total execution time in seconds = ").append(secucheckTaintAnalysisResult.getExecutionTimeInSec());
+
+        res.append("\n\n\n**************************************************");
+        res.append("\n\nFinal SecuCheck settings = ");
+        res.append("\nSolver : \n").append(secuCheckConfiguration.getSolver());
+        res.append("\n\nEntryPoints : \n");
+
+        for (String entryPoint : secuCheckConfiguration.getEntryPoints()) {
+            res.append(entryPoint).append('\n');
+        }
+
+        res.append("\nSelected Specs : \n");
+
+        for (String spec : secuCheckConfiguration.getSelectedSpecs()) {
+            res.append(spec).append('\n');
+        }
+
+        res.append("\n**************************************************\n\n");
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(additionalFile));
+            bufferedWriter.write(res.toString());
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

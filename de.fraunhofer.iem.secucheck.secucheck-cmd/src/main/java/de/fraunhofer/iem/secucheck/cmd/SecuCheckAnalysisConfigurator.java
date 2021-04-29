@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.cmd;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.SecuCheckSARIFGenerator.SarifGenerator;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisDefaultConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.query.EntryPoint;
@@ -37,23 +38,15 @@ public class SecuCheckAnalysisConfigurator {
      * @param analysisSolver   Analysis solver
      * @param operatingSystem  Operatin system
      */
-    public void run(List<TaintFlowQuery> taintFlowQueries, Solver analysisSolver, OS operatingSystem) {
+    public SecucheckTaintAnalysisResult run(List<TaintFlowQuery> taintFlowQueries, Solver analysisSolver, OS operatingSystem) throws Exception {
 
-        try {
-            try {
-                SecucheckAnalysisConfiguration configuration = getAnalysisConfiguration(analysisSolver, operatingSystem);
-                SecuCheckAnalysisWrapper secucheckAnalysis = new SecuCheckAnalysisWrapper(configuration);
+        SecucheckAnalysisConfiguration configuration = getAnalysisConfiguration(analysisSolver, operatingSystem);
+        SecuCheckAnalysisWrapper secucheckAnalysis = new SecuCheckAnalysisWrapper(configuration);
 
-                //List<CompositeTaintFlowQueryImpl> compositeQueries = FluentTQLUtility.getCompositeTaintFlowQueries(taintFlowQueries);
-                SecucheckTaintAnalysisResult result = secucheckAnalysis.run(taintFlowQueries);
-                System.out.println("\n\n\nCheck critical results = " + result.size() + "\n\n\n");
+        //List<CompositeTaintFlowQueryImpl> compositeQueries = FluentTQLUtility.getCompositeTaintFlowQueries(taintFlowQueries);
+        SecucheckTaintAnalysisResult result = secucheckAnalysis.run(taintFlowQueries);
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return result;
     }
 
     /**

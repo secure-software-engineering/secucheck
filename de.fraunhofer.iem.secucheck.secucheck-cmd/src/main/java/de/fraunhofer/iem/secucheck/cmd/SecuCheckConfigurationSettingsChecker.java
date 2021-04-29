@@ -15,11 +15,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Checker for the Secucheck configuration settings based on the provided settings yaml file.
@@ -72,12 +76,15 @@ public class SecuCheckConfigurationSettingsChecker {
             System.exit(-1);
         }
 
+        System.out.println("Verifying the classPath and the entryPoints");
         // Check for the classPath validness
-        checkClassPath(classPath, entryPoints);
+        checkClassPath(classPath, entryPoints, secuCheckConfiguration);
 
+        System.out.println("Verifying the specPath and the selectedSpecs");
         // Check for the specPath validness
-        checkSpecPath(specPath, selectedSpecs, baseDir);
+        checkSpecPath(specPath, selectedSpecs, baseDir, secuCheckConfiguration);
 
+        System.out.println("Verifying solver");
         // Check for the solver validness
         checkSolver(solver);
     }
@@ -103,7 +110,7 @@ public class SecuCheckConfigurationSettingsChecker {
      * @param classPath   Class path that needs to be analyzed
      * @param entryPoints Entry points (List of class names)
      */
-    private static void checkClassPath(String classPath, List<String> entryPoints) {
+    private static void checkClassPath(String classPath, List<String> entryPoints, SecuCheckConfiguration secuCheckConfiguration) {
         File file = new File(classPath);
         if (!file.exists()) {
             System.err.println("Given class-path " + classPath + " does not exist.\n" +
@@ -115,6 +122,24 @@ public class SecuCheckConfigurationSettingsChecker {
             System.err.println("Given class-path " + classPath + " is not a directory.\n" +
                     "Please give a valid path to a directory that contains classes to be analyzed.");
             System.exit(-1);
+        }
+
+        if (entryPoints == null) {
+            try {
+                List<String> classes = Files.walk(Paths.get(classPath))
+                        .filter(Files::isRegularFile)
+                        .map(Path::toAbsolutePath)
+                        .map(Path::toString)
+                        .filter(a -> a.endsWith(".class"))
+                        .map(a -> a.replace(classPath, "").replace(File.separator, ".").replaceAll("^\\.", "").replaceAll("\\.class$", ""))
+                        .collect(Collectors.toList());
+
+                secuCheckConfiguration.setEntryPoints(classes);
+                entryPoints = classes;
+            } catch (IOException e) {
+                System.err.println("Something went wrong.\n" + e.getMessage());
+                System.exit(-1);
+            }
         }
 
         for (String entryPoint : entryPoints) {
@@ -135,7 +160,7 @@ public class SecuCheckConfigurationSettingsChecker {
      * @param selectedSpecs List of specification selected by the user
      * @param baseDir       Output  directory given by the user
      */
-    private static void checkSpecPath(String specPath, List<String> selectedSpecs, String baseDir) throws DuplicateTaintFlowQueryIDException {
+    private static void checkSpecPath(String specPath, List<String> selectedSpecs, String baseDir, SecuCheckConfiguration secuCheckConfiguration) throws DuplicateTaintFlowQueryIDException {
         File file = new File(specPath);
 
         if (file.exists()) {
@@ -160,23 +185,30 @@ public class SecuCheckConfigurationSettingsChecker {
                 JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
 
                 HashMap<String, FluentTQLUserInterface> specs = jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(out.getAbsolutePath());
+
+                if (selectedSpecs == null) {
+                    selectedSpecs = new ArrayList<>(specs.keySet());
+                    secuCheckConfiguration.setSelectedSpecs(selectedSpecs);
+                }
+
+                for (String spec : selectedSpecs) {
+                    if (!specs.containsKey(spec)) {
+                        System.err.println(spec + " is not found in the given FluentTQL specifications (Path: " +
+                                file.getAbsolutePath() + ")");
+                        System.exit(-1);
+                    }
+                }
+
                 for (String key : specs.keySet()) {
-                    addTaintFLowQueries(specs.get(key).getFluentTQLSpecification());
+                    if (selectedSpecs.contains(key))
+                        addTaintFLowQueries(specs.get(key).getFluentTQLSpecification());
                 }
 
                 JarUtility.deleteDir(out);
 
                 createErrorText(jarClassLoaderUtils.getErrorModel(), baseDir);
 
-                if (taintFlowQueries.size() > 0) {
-                    for (String spec : selectedSpecs) {
-                        if (!specs.containsKey(spec)) {
-                            System.err.println(spec + " is not found in the given FluentTQL specifications (Path: " +
-                                    file.getAbsolutePath() + ")");
-                            System.exit(-1);
-                        }
-                    }
-                } else {
+                if (taintFlowQueries.size() <= 0) {
                     System.err.println("No FluentTQL specifications present in the given path!!!");
                     System.exit(-1);
                 }
