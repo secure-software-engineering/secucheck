@@ -22,6 +22,7 @@
         <fluentTQl.maven.plugin.version>0.0.1-SNAPSHOT</fluentTQl.maven.plugin.version>
         <WebGoatSpecification.version>0.0.1-SNAPSHOT</WebGoatSpecification.version>
         <secucheck-commons-utility.version>0.0.1-SNAPSHOT</secucheck-commons-utility.version>
+        <SecuCheckSARIFGenerator.version>0.0.1-SNAPSHOT</SecuCheckSARIFGenerator.version>
     </properties>
 
     <modules>
