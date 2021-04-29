@@ -30,12 +30,12 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.secucheck-commons-utility</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${secucheck-commons-utility.version}</version>
         </dependency>
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.fluentTQL2English</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${fluentTQL2English.version}</version>
         </dependency>
     </dependencies>
 </project>
