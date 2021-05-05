@@ -5,10 +5,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Implementation of TaintFlowQuery
@@ -16,7 +13,7 @@ import java.util.Set;
  * @author Ranjith Krishnamurthy
  */
 class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlowQuery {
-    private final Set<TaintFlow> taintFlows = new HashSet<>();
+    private final Set<TaintFlow> taintFlows = new LinkedHashSet<>();
     private String reportMessage = "";
     private LOCATION reportLocation = LOCATION.SOURCEANDSINK;
     private QueriesSet queriesSet;
