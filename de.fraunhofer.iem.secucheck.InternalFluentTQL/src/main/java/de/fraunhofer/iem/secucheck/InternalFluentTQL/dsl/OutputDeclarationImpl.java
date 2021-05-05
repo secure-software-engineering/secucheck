@@ -4,10 +4,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.ThisObject;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Implementation of OutputDeclaration
@@ -15,7 +12,7 @@ import java.util.Set;
  * @author Ranjith Krishnamurthy
  */
 class OutputDeclarationImpl implements OutputDeclaration {
-    private final Set<Output> outputs = new HashSet<>();
+    private final Set<Output> outputs = new LinkedHashSet<>();
 
     private final List<Output> outputsAsList = new ArrayList<>();
 
@@ -25,7 +22,13 @@ class OutputDeclarationImpl implements OutputDeclaration {
         return outputsAsList;
     }
 
+    public Set<Output> getOutputsAsSet() {
+        return outputs;
+    }
+
     public void addOutput(Output output) {
+        Objects.requireNonNull(output, "addOutput() method's argument is null.");
+
         if (output instanceof ThisObjectImpl) {
             for (Output itr : outputs) {
                 if (itr instanceof ThisObject)
