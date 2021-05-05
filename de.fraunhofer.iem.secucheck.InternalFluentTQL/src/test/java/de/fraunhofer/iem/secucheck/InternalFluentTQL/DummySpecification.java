@@ -44,7 +44,7 @@ public class DummySpecification {
             .configure();
 
     static Method inputDeclarationTest2 = new MethodConfigurator("Test2: java.lang.String test2()")
-            .in().thisObject().param(0).param(5).param(3).param(9)
+            .in().thisObject().param(0).param(3).param(5).param(9)
             .configure();
 
     static Method inputDeclarationTest3 = new MethodConfigurator("Test3: java.lang.String test3()")
