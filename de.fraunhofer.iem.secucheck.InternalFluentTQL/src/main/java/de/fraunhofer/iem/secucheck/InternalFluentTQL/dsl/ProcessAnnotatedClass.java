@@ -509,9 +509,6 @@ public class ProcessAnnotatedClass {
     private boolean isValidMethod(Method method) {
         //Todo: Also add to check for valid Signature.
 
-        System.out.println(method == null);
-        System.out.println(method.getInputDeclaration() == null);
-        System.out.println(method.getInputDeclaration().getInputs() == null);
         boolean emptyInputs = isEmptyInputs(method.getInputDeclaration().getInputs());
         boolean emptyOutputs = isEmptyOutputs(method.getOutputDeclaration().getOutputs());
 
