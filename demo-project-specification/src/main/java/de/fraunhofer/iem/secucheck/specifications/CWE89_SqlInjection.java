@@ -3,6 +3,7 @@ package de.fraunhofer.iem.secucheck.specifications;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -18,6 +19,7 @@ import java.util.List;
  * from an upstream component, but it does not neutralize or incorrectly neutralizes special
  * elements that could modify the intended SQL command when it is sent to a downstream component.
  */
+@FluentTQLSpecificationClass
 public class CWE89_SqlInjection implements FluentTQLUserInterface {
 
     /**

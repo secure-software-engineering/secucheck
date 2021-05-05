@@ -3,6 +3,7 @@ package de.fraunhofer.iem.secucheck.specifications;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -19,6 +20,7 @@ import java.util.List;
  * but the software does not properly neutralize special elements within the pathname
  * that can cause the pathname to resolve to a location that is outside of the restricted directory.
  */
+@FluentTQLSpecificationClass
 public class CWE22_PathTraversal implements FluentTQLUserInterface {
 
     /**

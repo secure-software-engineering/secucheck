@@ -5,7 +5,11 @@ import java.util.List;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.InFlowParam;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.OutFlowReturnValue;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -18,6 +22,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
  * validates that the input has the properties that are required to process
  * the data safely and correctly.
  */
+@FluentTQLSpecificationClass
 public class CWE20_ImproperInputValidation implements FluentTQLUserInterface {
 
     /**

@@ -3,6 +3,7 @@ package de.fraunhofer.iem.secucheck.specifications;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -17,6 +18,7 @@ import java.util.List;
  * The software does not neutralize or incorrectly neutralizes user-controllable input before
  * it is placed in output that is used as a web page that is served to other users.
  */
+@FluentTQLSpecificationClass
 public class CWE79_CrossSiteScripting implements FluentTQLUserInterface {
 
     /**
