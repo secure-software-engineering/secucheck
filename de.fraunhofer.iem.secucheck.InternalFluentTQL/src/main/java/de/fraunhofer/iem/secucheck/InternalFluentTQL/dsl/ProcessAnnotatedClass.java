@@ -228,6 +228,7 @@ public class ProcessAnnotatedClass {
             }
 
             if (obj instanceof MethodImpl) {
+                processForGeneralPropagatorAnnotation(field, obj);
                 return;
             }
 
@@ -301,10 +302,12 @@ public class ProcessAnnotatedClass {
 
         if (field.getType().equals(Method.class)) {
             Method method = (Method) obj;
-            generalPropagators.add(method);
+            if (isValidMethod(method)) {
+                generalPropagators.add(method);
+            }
         } else if (field.getType().equals(MethodSet.class)) {
             MethodSet methodSet = (MethodSet) obj;
-            generalPropagators.addAll(methodSet.getMethods());
+            generalPropagators.addAll(isValidMethodSet(methodSet).getMethods());
         }
     }
 
@@ -544,11 +547,18 @@ public class ProcessAnnotatedClass {
      * This method recursively checks all the Method in MethodSet are valid.
      *
      * @param methodSet MethodSet
+     * @return Returns MethodSet with only the valid Methods in it.
      */
-    private void isValidMethodSet(MethodSet methodSet) {
+    private MethodSet isValidMethodSet(MethodSet methodSet) {
+        MethodSet validMethodSet = new MethodSet(methodSet.getName());
+
         for (Method method : methodSet.getMethods()) {
-            isValidMethod(method);
+            if (isValidMethod(method)) {
+                validMethodSet.addMethod(method);
+            }
         }
+
+        return validMethodSet;
     }
 
     /**
