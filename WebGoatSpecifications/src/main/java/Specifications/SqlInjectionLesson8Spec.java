@@ -3,6 +3,7 @@ package Specifications;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -11,22 +12,23 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 import java.util.ArrayList;
 import java.util.List;
 
+@FluentTQLSpecificationClass
 public class SqlInjectionLesson8Spec implements FluentTQLUserInterface {
-    Method source1 = new MethodConfigurator(
+    public Method source1 = new MethodConfigurator(
             "org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson8: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
                     "completed(java.lang.String,java.lang.String)")
             .out().param(0)
             .configure();
 
-    Method source2 = new MethodConfigurator(
+    public Method source2 = new MethodConfigurator(
             "org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson8: " +
                     "org.owasp.webgoat.assignments.AttackResult " +
                     "completed(java.lang.String,java.lang.String)")
             .out().param(1)
             .configure();
 
-    Method sink = new MethodConfigurator(
+    public Method sink = new MethodConfigurator(
             "java.sql.Statement: java.sql.ResultSet executeQuery(java.lang.String)")
             .in().param(0)
             .configure();

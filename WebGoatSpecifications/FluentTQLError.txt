@@ -1,0 +1,553 @@
+FluentTQL:     2021-05-05 04:28:57
+
+
+1. Specifications.SqlInjectionLesson4Spec
+**********************************************
+
+Error Message: 
+------------------
+
+"source" in "SqlInjectionLesson4Spec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source" in "SqlInjectionLesson4Spec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+2. Specifications.SqlInjectionLesson6aSpec
+***********************************************
+
+Error Message: 
+------------------
+
+"source" in "SqlInjectionLesson6aSpec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source" in "SqlInjectionLesson6aSpec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+3. Specifications.SqlInjectionLesson5aSpec
+***********************************************
+
+Error Message: 
+------------------
+
+"source1" in "SqlInjectionLesson5aSpec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source1" in "SqlInjectionLesson5aSpec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+4. Specifications.SqlInjectionLesson10Spec
+***********************************************
+
+Error Message: 
+------------------
+
+"source" in "SqlInjectionLesson10Spec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source" in "SqlInjectionLesson10Spec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+5. Specifications.ServersSpec
+**********************************
+
+Error Message: 
+------------------
+
+"source" in "ServersSpec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source" in "ServersSpec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+6. Specifications.Assignment5Spec
+**************************************
+
+Error Message: 
+------------------
+
+"source" in "Assignment5Spec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source" in "Assignment5Spec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+7. Specifications.SqlInjectionLesson5bSpec
+***********************************************
+
+Error Message: 
+------------------
+
+"source" in "SqlInjectionLesson5bSpec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source" in "SqlInjectionLesson5bSpec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+8. Specifications.SqlInjectionLesson2Spec
+**********************************************
+
+Error Message: 
+------------------
+
+"source" in "SqlInjectionLesson2Spec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source" in "SqlInjectionLesson2Spec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+9. Specifications.SqlInjectionChallengeSpec
+************************************************
+
+Error Message: 
+------------------
+
+"source" in "SqlInjectionChallengeSpec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source" in "SqlInjectionChallengeSpec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+10. Specifications.SqlInjectionLesson3Spec
+**********************************************
+
+Error Message: 
+------------------
+
+"source" in "SqlInjectionLesson3Spec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source" in "SqlInjectionLesson3Spec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+11. Specifications.SqlInjectionLesson9Spec
+**********************************************
+
+Error Message: 
+------------------
+
+"source1" in "SqlInjectionLesson9Spec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source1" in "SqlInjectionLesson9Spec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+12. Specifications.SqlInjectionLesson8Spec
+**********************************************
+
+Error Message: 
+------------------
+
+"source1" in "SqlInjectionLesson8Spec" class is not public, failed to configure the field. Please make the field public.
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FieldNotPublicException: "source1" in "SqlInjectionLesson8Spec" class is not public, failed to configure the field. Please make the field public.
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processSingleField(ProcessAnnotatedClass.java:288)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processEachField(ProcessAnnotatedClass.java:197)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:144)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+

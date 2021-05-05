@@ -3,6 +3,7 @@ package Specifications;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -11,21 +12,22 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 import java.util.ArrayList;
 import java.util.List;
 
+@FluentTQLSpecificationClass
 public class ServersSpec implements FluentTQLUserInterface {
-    Method source = new MethodConfigurator(
+    public Method source = new MethodConfigurator(
             "org.owasp.webgoat.sql_injection.mitigation.Servers: " +
                     "java.util.List " +
                     "sort(java.lang.String)")
             .out().param(0)
             .configure();
 
-    Method propagator = new MethodConfigurator(
+    public Method propagator = new MethodConfigurator(
             "java.sql.Connection: java.sql.PreparedStatement prepareStatement(java.lang.String)")
             .in().param(0)
             .out().returnValue()
             .configure();
 
-    Method sink = new MethodConfigurator(
+    public Method sink = new MethodConfigurator(
             "java.sql.PreparedStatement: java.sql.ResultSet executeQuery()")
             .in().thisObject()
             .configure();
