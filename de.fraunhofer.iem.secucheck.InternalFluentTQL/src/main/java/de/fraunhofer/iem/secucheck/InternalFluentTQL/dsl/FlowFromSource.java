@@ -4,6 +4,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 
+import java.util.Objects;
+
 /**
  * This class represents the incomplete TaintFlow that started from some source.
  *
@@ -19,16 +21,22 @@ public class FlowFromSource {
     }
 
     public FlowFromSource notThrough(FlowParticipant sanitizer) {
+        Objects.requireNonNull(sanitizer, "notThrough() method's argument is null.");
+
         singleTaintFlow.addNotThrough(sanitizer);
         return this;
     }
 
-    public FlowFromSource through(FlowParticipant deSanitizer) {
-        singleTaintFlow.addThrough(deSanitizer);
+    public FlowFromSource through(FlowParticipant requiredPropagator) {
+        Objects.requireNonNull(requiredPropagator, "through() method's argument is null.");
+
+        singleTaintFlow.addThrough(requiredPropagator);
         return this;
     }
 
     public JustTaintFlow to(FlowParticipant sink) {
+        Objects.requireNonNull(sink, "to() method's argument is null.");
+
         singleTaintFlow.setTo(sink);
         singleTaintFlow.setTaintFlowQuery(taintFlowQuery);
         taintFlowQuery.addTaintFlow(singleTaintFlow);
