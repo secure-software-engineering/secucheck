@@ -2,10 +2,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * QueriesSet contains list of TaintFlowQuery
@@ -14,7 +11,7 @@ import java.util.Set;
  */
 public class QueriesSet extends FluentTQLSpecificationImpl {
     private final String categoryName;
-    private final Set<TaintFlowQuery> taintFlowQueries = new HashSet<>();
+    private final Set<TaintFlowQuery> taintFlowQueries = new LinkedHashSet<>();
 
     private final List<TaintFlowQuery> taintFlowQueriesAsList = new ArrayList<>();
 
@@ -23,6 +20,8 @@ public class QueriesSet extends FluentTQLSpecificationImpl {
     }
 
     public QueriesSet addTaintFlowQuery(TaintFlowQuery taintFlowQuery) {
+        Objects.requireNonNull(taintFlowQuery, "addTaintFlowQuery() method's argument is null.");
+
         taintFlowQueries.add(taintFlowQuery);
         return this;
     }
