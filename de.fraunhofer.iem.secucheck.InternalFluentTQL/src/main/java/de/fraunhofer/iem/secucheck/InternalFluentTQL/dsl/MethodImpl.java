@@ -12,8 +12,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 class MethodImpl implements Method {
     private String methodSignature;
     private MethodSet methodSet;
-    private InputDeclaration inputDeclaration = null;
-    private OutputDeclaration outputDeclaration = null;
+    private InputDeclaration inputDeclaration = new InputDeclarationImpl();
+    private OutputDeclaration outputDeclaration = new OutputDeclarationImpl();
 
     public String getSignature() {
         return methodSignature;
