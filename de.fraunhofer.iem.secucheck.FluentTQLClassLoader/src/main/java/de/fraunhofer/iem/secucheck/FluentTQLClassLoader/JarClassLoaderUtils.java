@@ -1,7 +1,11 @@
 package de.fraunhofer.iem.secucheck.FluentTQLClassLoader;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnalysisEntryPointAnnotation;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.DuplicateTaintFlowQueryIDException;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.FluentTQLException;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -136,10 +140,10 @@ public class JarClassLoaderUtils {
                         jarClassLoader, loadedClassesKey.toString().replaceAll("/", "\\.").replace(".class", "")
                 );
 
-                if (!processFluentTQLObject(obj, isPrettyPrint)) {
+                if (!processFluentTQLAnnotation(obj, isPrettyPrint)) {
                     if (isPrettyPrint)
                         printUtils.printClassStatus(
-                                obj.getClass().getSimpleName(),
+                                obj.getClass().getName(),
                                 "There is no FluentTQL Specification available in the given Jar.",
                                 false);
                 }
@@ -167,27 +171,41 @@ public class JarClassLoaderUtils {
      * This method process the FluentTQL related classes
      *
      * @param obj FluentTQL related Object
-     * @throws DuplicateTaintFlowQueryIDException If there is duplicate TaintFlowQuery id defined in the given list of specifications
      */
-    private boolean processFluentTQLObject(Object obj, boolean isPrettyPrint) throws DuplicateTaintFlowQueryIDException {
-        if (obj instanceof FluentTQLUserInterface) {
-            FluentTQLUserInterface fluentTQLUserInterface = (FluentTQLUserInterface) obj;
+    private boolean processFluentTQLAnnotation(Object obj, boolean isPrettyPrint) throws DuplicateTaintFlowQueryIDException {
+        ProcessAnnotatedClass processAnnotatedClass = new ProcessAnnotatedClass();
+        ProcessAnalysisEntryPointAnnotation processAnalysisEntryPointAnnotation = new ProcessAnalysisEntryPointAnnotation();
 
-            checkForUniqueTaintFlowQueryID(fluentTQLUserInterface.getFluentTQLSpecification());
+        try {
+            if (obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) {
+                FluentTQLUserInterface fluentTQLUserInterface = processAnnotatedClass.processFluentTQLSpecificationClassAnnotation(obj);
+                checkForUniqueTaintFlowQueryID(fluentTQLUserInterface.getFluentTQLSpecification());
+                fluentTQLSpecs.put(obj.getClass().getSimpleName(), fluentTQLUserInterface);
+            } else {
+                processAnnotatedClass.processFluentTQLAnnotation(obj);
+            }
 
-            fluentTQLSpecs.put(obj.getClass().getCanonicalName(), fluentTQLUserInterface);
+            entryPoints.addAll(processAnalysisEntryPointAnnotation.getEntryPoints(obj));
+            generalPropagators.addAll(processAnnotatedClass.getGeneralPropagators());
 
             if (isPrettyPrint)
                 printUtils.printClassStatus(
-                        obj.getClass().getSimpleName(),
+                        obj.getClass().getName(),
                         "Verified",
                         false);
-        } else {
+
+        } catch (DuplicateTaintFlowQueryIDException ex) {
+            throw ex;
+        } catch (FluentTQLException ex) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            ex.printStackTrace(pw);
+            errors.addError(
+                    new ErrorModel(errors.getErrors().size() + 1, obj.getClass().getName(), ex.getMessage(), sw.toString())
+            );
+
             if (isPrettyPrint)
-                printUtils.printClassStatus(
-                        obj.getClass().getSimpleName(),
-                        "Not a FluentTQL Specification",
-                        false);
+                printUtils.printClassStatus(obj.getClass().getName(), "Failed", true);
         }
 
         return fluentTQLSpecs.size() > 0;
