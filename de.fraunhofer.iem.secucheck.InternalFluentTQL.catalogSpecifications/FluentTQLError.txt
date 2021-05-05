@@ -1,0 +1,816 @@
+FluentTQL:     2021-05-05 02:54:27
+
+
+1. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.XSS.CWE79.StoredXSSSpec
+***************************************************************************************************************************
+
+Error Message: 
+------------------
+
+FluentTQL specification(s) is/are broken. 
+Below method(s) are not configured and has invalid taint flow. Please use FluentTQL annotation to configure the methods. 
+* catalog.XSS.CWE79.StoredXSS: java.lang.String getLastComment()
+* org.owasp.esapi.Encoder: java.lang.String decodeForHTML(java.lang.String)
+* org.owasp.esapi.Encoder: java.lang.String encodeForHTML(java.lang.String)
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.InvalidFluentTQLSpecificationException: FluentTQL specification(s) is/are broken. 
+Below method(s) are not configured and has invalid taint flow. Please use FluentTQL annotation to configure the methods. 
+* catalog.XSS.CWE79.StoredXSS: java.lang.String getLastComment()
+* org.owasp.esapi.Encoder: java.lang.String decodeForHTML(java.lang.String)
+* org.owasp.esapi.Encoder: java.lang.String encodeForHTML(java.lang.String)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.isValidTaintFlowSpecification(ProcessAnnotatedClass.java:465)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:156)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+2. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.PathTraversalAttack.CWE22.PathTraversalAttackSpec
+*****************************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "PathTraversalAttackSpec". 
+Reason: (ExceptionInInitializerError) null
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "PathTraversalAttackSpec". 
+Reason: (ExceptionInInitializerError) null
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+3. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.SQLInjection.CWE89.SimpleSQLInjectionSpec
+*********************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+FluentTQL specification(s) is/are broken. 
+Below method(s) are not configured and has invalid taint flow. Please use FluentTQL annotation to configure the methods. 
+* java.util.Scanner: java.lang.String nextLine()
+* org.owasp.html.PolicyFactory: java.lang.String sanitize(java.lang.String)
+* java.sql.Statement: java.sql.ResultSet executeQuery(java.lang.String)
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.InvalidFluentTQLSpecificationException: FluentTQL specification(s) is/are broken. 
+Below method(s) are not configured and has invalid taint flow. Please use FluentTQL annotation to configure the methods. 
+* java.util.Scanner: java.lang.String nextLine()
+* org.owasp.html.PolicyFactory: java.lang.String sanitize(java.lang.String)
+* java.sql.Statement: java.sql.ResultSet executeQuery(java.lang.String)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.isValidTaintFlowSpecification(ProcessAnnotatedClass.java:465)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:156)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+4. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.CommandInjection.CWE77.CommandInjectionSpec
+***********************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "CommandInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "CommandInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+5. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.SQLInjection.CWE89.ServletSQLInjectionSpec
+**********************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "ServletSQLInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "ServletSQLInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+6. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.XSS.CWE79.ReflexiveXSSSpec
+******************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "ReflexiveXSSSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "ReflexiveXSSSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+7. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.SQLInjection.CWE89.SQLiWithPreparedStatementsSpec
+*****************************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "SQLiWithPreparedStatementsSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "SQLiWithPreparedStatementsSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+8. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.NoSQLInjection.CWE943.NoSQLInjectionWithMultipleSources
+***********************************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+FluentTQL specification(s) is/are broken. 
+Below method(s) are not configured and has invalid taint flow. Please use FluentTQL annotation to configure the methods. 
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String getNewPassword()
+* com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String
+* com.mongodb.BasicDBObject)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String sanitizeForMongoDB(java.lang.String)
+* com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject
+* com.mongodb.BasicDBObject)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String getUserName()
+* com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String
+* java.lang.String)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String sanitizeForMongoDB(java.lang.String)
+* com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject
+* com.mongodb.BasicDBObject)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String getOldPassword()
+* com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String
+* java.lang.String)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String sanitizeForMongoDB(java.lang.String)
+* com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject
+* com.mongodb.BasicDBObject)
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.InvalidFluentTQLSpecificationException: FluentTQL specification(s) is/are broken. 
+Below method(s) are not configured and has invalid taint flow. Please use FluentTQL annotation to configure the methods. 
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String getNewPassword()
+* com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String
+* com.mongodb.BasicDBObject)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String sanitizeForMongoDB(java.lang.String)
+* com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject
+* com.mongodb.BasicDBObject)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String getUserName()
+* com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String
+* java.lang.String)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String sanitizeForMongoDB(java.lang.String)
+* com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject
+* com.mongodb.BasicDBObject)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String getOldPassword()
+* com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String
+* java.lang.String)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources: java.lang.String sanitizeForMongoDB(java.lang.String)
+* com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject
+* com.mongodb.BasicDBObject)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.isValidTaintFlowSpecification(ProcessAnnotatedClass.java:465)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:156)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+9. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.LogInjection.CWE117.LogInjectionSpec
+****************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "LogInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "LogInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+10. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot
+****************************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+FluentTQL specification(s) is/are broken. 
+Below method(s) are not configured and has invalid taint flow. Please use FluentTQL annotation to configure the methods. 
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String getMyInformation(java.lang.String)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String getMyInformationSafely(java.lang.String)
+* com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String
+* java.lang.String)
+* catalog.CWE943.NoSQLInjection.NoSQLInjectionInSpringBoot: java.lang.String sanitizeForMongoDB(java.lang.String)
+* com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable find(com.mongodb.BasicDBObject)
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.InvalidFluentTQLSpecificationException: FluentTQL specification(s) is/are broken. 
+Below method(s) are not configured and has invalid taint flow. Please use FluentTQL annotation to configure the methods. 
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String getMyInformation(java.lang.String)
+* catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String getMyInformationSafely(java.lang.String)
+* com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String
+* java.lang.String)
+* catalog.CWE943.NoSQLInjection.NoSQLInjectionInSpringBoot: java.lang.String sanitizeForMongoDB(java.lang.String)
+* com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable find(com.mongodb.BasicDBObject)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.isValidTaintFlowSpecification(ProcessAnnotatedClass.java:465)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:156)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+11. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.OpenRedirectAttack.CWE601.OpenRedirectAttackSpec
+****************************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "OpenRedirectAttackSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "OpenRedirectAttackSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+12. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.XMLInjection.CWE91.XMLInjectionSpec
+***************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "XMLInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "XMLInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+13. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.XPATHInjection.CWE643.XPATHInjectionSpec
+********************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "XPATHInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "XPATHInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+14. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+***********************************************************************************************************************
+
+Error Message: 
+------------------
+
+java.lang.NoClassDefFoundError: Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+org.xeustechnologies.jcl.exception.JclException: java.lang.NoClassDefFoundError: Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:93)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:76)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:139)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+Caused by: java.lang.NoClassDefFoundError: Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at java.base/java.lang.Class.newInstance(Class.java:584)
+	at org.xeustechnologies.jcl.JclObjectFactory.create(JclObjectFactory.java:91)
+	... 25 more
+
+
+
+
+15. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.TrustBoundaryViolation.CWE501.TrustBoundaryViolationSpec
+************************************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "TrustBoundaryViolationSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "TrustBoundaryViolationSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+
+
+
+16. de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.LDAPInjection.CWE90.LDAPInjectionSpec
+*****************************************************************************************************************************************
+
+Error Message: 
+------------------
+
+Failed to import and process "ServletSources" in "LDAPInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+
+Stack Trace: 
+----------------
+
+de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImportAndProcessAnnotationException: Failed to import and process "ServletSources" in "LDAPInjectionSpec". 
+Reason: (NoClassDefFoundError) Could not initialize class de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.importAndProcessStaticOnly(ProcessAnnotatedClass.java:402)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:147)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLAnnotation(ProcessAnnotatedClass.java:106)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ProcessAnnotatedClass.processFluentTQLSpecificationClassAnnotation(ProcessAnnotatedClass.java:82)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.processFluentTQLAnnotation(JarClassLoaderUtils.java:181)
+	at de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(JarClassLoaderUtils.java:143)
+	at de.fraunhofer.iem.secucheck.InternalFluentTQL.maven.plugin.FluentTQLVerifierMojo.execute(FluentTQLVerifierMojo.java:89)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:192)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347)
+
+

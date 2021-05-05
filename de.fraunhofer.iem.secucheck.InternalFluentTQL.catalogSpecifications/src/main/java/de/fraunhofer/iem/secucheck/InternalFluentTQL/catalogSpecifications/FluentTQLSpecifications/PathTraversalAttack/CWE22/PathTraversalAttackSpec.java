@@ -1,10 +1,11 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.PathTraversalAttack.CWE22;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.Sources.ServletSources;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -18,36 +19,34 @@ import java.util.List;
  *
  * @author Ranjith Krishnamurthy
  */
+@FluentTQLSpecificationClass
+@ImportAndProcessOnlyStaticFields(classList = {ServletSources.class})
 public class PathTraversalAttackSpec implements FluentTQLUserInterface {
     /**
      * This is a user defined sanitizer for avoiding path traversal attack. This is not recommended to use this method. This is for example.
      */
-    public Method sanitizer = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.PathTraversalAttack.CWE22.PathTraversal: java.lang.String sanitizeForPATH(java.lang.String)")
-            .in().param(0)
-            .out().returnValue()
-            .configure();
+    @InFlowParam(parameterID = {0})
+    @OutFlowReturnValue
+    public Method sanitizer = new MethodSelector("catalog.PathTraversalAttack.PathTraversal: java.lang.String sanitizeForPATH(java.lang.String)");
 
     /**
      * This is a required propagator that is used in the second taint flow to achieve path traversal attack.
      */
-    public Method requiredPropagator = new MethodConfigurator("java.io.File: void <init>(java.lang.String)")
-            .in().param(0)
-            .out().thisObject()
-            .configure();
+    @InFlowParam(parameterID = {0})
+    @OutFlowThisObject
+    public Method requiredPropagator = new MethodSelector("java.io.File: java.io.File File(java.lang.String)");
 
     /**
      * This is the sink in first taint flow where File constructor is not used.
      */
-    public Method sink1 = new MethodConfigurator("java.io.FileInputStream: void <init>(java.lang.String)")
-            .in().param(0)
-            .configure();
+    @InFlowParam(parameterID = {0})
+    public Method sink1 = new MethodSelector("java.io.FileInputStream: java.io.FileInputStream FileInputStream(java.lang.String)");
 
     /**
      * This is the sink for second taint flow where File constructor is used as a required propagator.
      */
-    public Method sink2 = new MethodConfigurator("java.io.FileInputStream: void <init>(java.io.File)")
-            .in().param(0)
-            .configure();
+    @InFlowParam(parameterID = {0})
+    public Method sink2 = new MethodSelector("java.io.FileInputStream: java.io.FileInputStream FileInputStream(java.io.File)");
 
     /**
      * Returns the Internal FluentTQL specification

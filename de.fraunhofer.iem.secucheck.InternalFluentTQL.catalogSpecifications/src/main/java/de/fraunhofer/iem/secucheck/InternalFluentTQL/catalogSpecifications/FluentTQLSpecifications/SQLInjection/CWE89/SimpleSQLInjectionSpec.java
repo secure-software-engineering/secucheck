@@ -1,8 +1,12 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.SQLInjection.CWE89;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.AnalysisEntryPoint;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.InFlowParam;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.OutFlowReturnValue;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -16,29 +20,32 @@ import java.util.List;
  *
  * @author Ranjith Krishnamurthy
  */
+@FluentTQLSpecificationClass
 public class SimpleSQLInjectionSpec implements FluentTQLUserInterface {
     /**
      * Source
      */
-    public Method source = new MethodConfigurator("java.util.Scanner: java.lang.String nextLine()")
-            .out().returnValue()
-            .configure();
+    @OutFlowReturnValue
+    public Method source = new MethodSelector("java.util.Scanner: java.lang.String nextLine()");
 
     /**
      * sanitize method is OWASP HTML sanitizer, that sanitizes the special characters, so that SQL Injection does not occur. It is a simple example, For security its better to use
      * encodeForSQL or make the settings of sanitize method to avoid SQL Injection.
      */
-    public Method sanitizer = new MethodConfigurator("org.owasp.html.PolicyFactory: java.lang.String sanitize(java.lang.String)")
-            .in().param(0)
-            .out().returnValue()
-            .configure();
+    @InFlowParam(parameterID = {0})
+    @OutFlowReturnValue
+    public Method sanitizer = new MethodSelector("org.owasp.html.PolicyFactory: java.lang.String sanitize(java.lang.String)");
 
     /**
      * Sink
      */
-    public Method sink = new MethodConfigurator("java.sql.Statement: java.sql.ResultSet executeQuery(java.lang.String)")
-            .in().param(0)
-            .configure();
+    @InFlowParam(parameterID = {0})
+    public Method sink = new MethodSelector("java.sql.Statement: java.sql.ResultSet executeQuery(java.lang.String)");
+
+    @AnalysisEntryPoint
+    public Method entryPoint = new MethodSelector(
+            "de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SQLInjection.CWE89.SimpleSQLInjection: java.sql.ResultSet getEmployeeInformationWithoutSanitizer()"
+    );
 
     /**
      * Returns the Internal FluentTQL specification

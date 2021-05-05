@@ -1,10 +1,14 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.SQLInjection.CWE89;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.Sinks.SQLSinks;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.Sources.ServletSources;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sinks.SQLSinks;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.ImportAndProcessOnlyStaticFields;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.InFlowParam;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.OutFlowReturnValue;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -18,14 +22,15 @@ import java.util.List;
  *
  * @author Ranjith Krishnamurthy
  */
+@FluentTQLSpecificationClass
+@ImportAndProcessOnlyStaticFields(classList = {ServletSources.class, SQLSinks.class})
 public class ServletSQLInjectionSpec implements FluentTQLUserInterface {
     /**
      * encodeForSQL is a OWASP sanitizer that encodes the SQL related data. Therefore, flow should go through this method to avoid vulnerability.
      */
-    public Method sanitizer = new MethodConfigurator("org.owasp.esapi.Encoder: java.lang.String encodeForSQL(org.owasp.esapi.codecs.Codec,java.lang.String)")
-            .in().param(1)
-            .out().returnValue()
-            .configure();
+    @InFlowParam(parameterID = {1})
+    @OutFlowReturnValue
+    public Method sanitizer = new MethodSelector("org.owasp.esapi.Encoder: java.lang.String encodeForSQL(org.owasp.esapi.codecs.Codec, java.lang.String)");
 
     /**
      * Returns the Internal FluentTQL specification

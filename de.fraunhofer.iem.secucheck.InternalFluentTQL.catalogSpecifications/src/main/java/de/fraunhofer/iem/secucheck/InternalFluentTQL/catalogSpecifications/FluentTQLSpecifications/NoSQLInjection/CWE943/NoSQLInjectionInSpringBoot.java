@@ -1,9 +1,10 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.NoSQLInjection.CWE943;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -17,20 +18,19 @@ import java.util.List;
  *
  * @author Ranjith Krishnamurthy
  */
+@FluentTQLSpecificationClass
 public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
     /**
      * Source 1
      */
-    public Method source1 = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: org.springframework.http.ResponseEntity getMyInformation(java.lang.String)")
-            .out().param(0)
-            .configure();
+    @OutFlowParam(parameterID = {0})
+    public Method source1 = new MethodSelector("catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String getMyInformation(java.lang.String)");
 
     /**
      * Source 2
      */
-    public Method source2 = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: org.springframework.http.ResponseEntity getMyInformationSafely(java.lang.String)")
-            .out().param(0)
-            .configure();
+    @OutFlowParam(parameterID = {0})
+    public Method source2 = new MethodSelector("catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String getMyInformationSafely(java.lang.String)");
 
     /**
      * getMyInformation and getMyInformationSafely are source, since both take input from user.
@@ -42,25 +42,22 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
     /**
      * sanitizeForMongoDB is user defined simple sanitizer for mongodb.
      */
-    public Method sanitizer = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String sanitizeForMongoDB(java.lang.String)")
-            .in().param(0)
-            .out().returnValue()
-            .configure();
+    @InFlowParam(parameterID = {0})
+    @OutFlowReturnValue
+    public Method sanitizer = new MethodSelector("catalog.CWE943.NoSQLInjection.NoSQLInjectionInSpringBoot: java.lang.String sanitizeForMongoDB(java.lang.String)");
 
     /**
      * put is a method that the data flow has to go through after sanitizer. If the data flow goes through this method before sanitizer then there will be a security vulnerability.
      */
-    public Method requiredPropogator = new MethodConfigurator("com.mongodb.BasicDBObject: java.lang.Object put(java.lang.Object,java.lang.Object)")
-            .in().param(1)
-            .out().thisObject()
-            .configure();
+    @InFlowParam(parameterID = {1})
+    @OutFlowThisObject
+    public Method requiredPropogator = new MethodSelector("com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String, java.lang.String)");
 
     /**
      * find is a sink that retrieves sensitive information from mongodb.
      */
-    public Method sink = new MethodConfigurator("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable find(org.bson.conversions.Bson)")
-            .in().param(0)
-            .configure();
+    @InFlowParam(parameterID = {0})
+    public Method sink = new MethodSelector("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable find(com.mongodb.BasicDBObject)");
 
     /**
      * Returns the Internal FluentTQL specification
@@ -74,7 +71,7 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
                 .through(requiredPropogator)            //requires propagator
                 .to(sink)                                //sink methods
                 .report("No-SQL-Injection - CWE943!")        //report message
-                .at(LOCATION.SOURCEANDSINK)
+                .at(LOCATION.SOURCE)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();

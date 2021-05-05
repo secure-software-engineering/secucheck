@@ -1,9 +1,10 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.CommandInjection.CWE77;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.Sources.ServletSources;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -17,32 +18,31 @@ import java.util.List;
  *
  * @author Ranjith Krishnamurthy
  */
+@FluentTQLSpecificationClass
+@ImportAndProcessOnlyStaticFields(classList = {ServletSources.class})
 public class CommandInjectionSpec implements FluentTQLUserInterface {
 
     /**
      * encodeForOS is OWASP sanitizer that encodes the string to avoid command injection. This method
      * has to be called before the requiredPropagator to avoid the security vulnerability.
      */
-    public Method sanitizer = new MethodConfigurator("org.owasp.esapi.Encoder: java.lang.String encodeForOS(org.owasp.esapi.codecs.Codec,java.lang.String)")
-            .in().param(1)
-            .out().returnValue()
-            .configure();
+    @InFlowParam(parameterID = {1})
+    @OutFlowReturnValue
+    public Method sanitizer = new MethodSelector("org.owasp.esapi.Encoder: java.lang.String encodeForOS(org.owasp.esapi.codecs.Codec, java.lang.String)");
 
     /**
      * ProcessBuilder constructor should be called to run the command, but first arguments should be sanitized to
      * avoid the security vulnerability.
      */
-    public Method requiredPropagator = new MethodConfigurator("java.lang.ProcessBuilder: void <init>(java.lang.String[])")
-            .in().param(0)
-            .out().thisObject()
-            .configure();
+    @InFlowParam(parameterID = {0})
+    @OutFlowThisObject
+    public Method requiredPropagator = new MethodSelector("java.lang.ProcessBuilder: java.lang.ProcessBuilder ProcessBuilder(java.lang.String[])");
 
     /**
      * Sink.
      */
-    public Method sink = new MethodConfigurator("java.lang.ProcessBuilder: java.lang.Process start()")
-            .in().thisObject()
-            .configure();
+    @InFlowThisObject
+    public Method sink = new MethodSelector("java.lang.ProcessBuilder: java.lang.Process start()");
 
     /**
      * Returns the Internal FluentTQL specification
