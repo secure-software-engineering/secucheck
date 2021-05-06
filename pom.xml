@@ -25,7 +25,7 @@
         <module>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</module>
         <module>fluenttql-maven-plugin</module>
         <module>de.fraunhofer.iem.secucheck.fluentTQL2English</module>
-        <module>de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge</module>
+        <module>de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge</module>
         <module>de.fraunhofer.iem.secucheck.SecuCheckSARIF</module>
         <module>de.fraunhofer.iem.secucheck.secucheck-cmd</module>
     </modules>
