@@ -13,7 +13,7 @@
     <packaging>maven-plugin</packaging>
 
     <name>fluenttql-maven-plugin Maven Mojo</name>
-    <url>http://maven.apache.org</url>
+    <url>https://maven.apache.org</url>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
