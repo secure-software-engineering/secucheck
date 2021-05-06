@@ -1,10 +1,13 @@
 package de.fraunhofer.iem.secucheck.cmd;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.SecuCheckCoreQueryUtility;
 import de.fraunhofer.iem.secucheck.SecuCheckSARIFGenerator.SarifGenerator;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisDefaultConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.query.EntryPoint;
+import de.fraunhofer.iem.secucheck.analysis.query.MethodImpl;
 import de.fraunhofer.iem.secucheck.analysis.query.OS;
 import de.fraunhofer.iem.secucheck.analysis.query.Solver;
 import de.fraunhofer.iem.secucheck.analysis.result.AnalysisResultListener;
@@ -99,7 +102,14 @@ public class SecuCheckAnalysisConfigurator {
         configuration.setApplicationClassPath(secuCheckConfiguration.getClassPath());
         configuration.setSootClassPathJars(getSootClassPath());
         configuration.setListener(resultListener);
-        configuration.setAnalysisGeneralPropagators(GeneralPropagators.getGP());
+
+        List<MethodImpl> generalPropagators = new ArrayList<>();
+
+        for (Method method : SecuCheckConfigurationSettingsChecker.getGeneralPropagators()) {
+            generalPropagators.add(SecuCheckCoreQueryUtility.getMethodImpl(method));
+        }
+
+        configuration.setAnalysisGeneralPropagators(generalPropagators);
         return configuration;
     }
 

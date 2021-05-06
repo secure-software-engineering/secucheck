@@ -6,6 +6,7 @@ import de.fraunhofer.iem.secucheck.FluentTQLClassLoader.JarClassLoaderUtils;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.DuplicateTaintFlowQueryIDException;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import de.fraunhofer.iem.secucheck.JarUtility;
@@ -19,10 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -40,6 +38,24 @@ public class SecuCheckConfigurationSettingsChecker {
      * Analysis solver. By default its Boomerang3
      */
     private static Solver analysisSolver = Solver.BOOMERANG3;
+
+    /**
+     * Set of strings that contains the entry points as method
+     */
+    private static final HashSet<String> entryPointsAsMethod = new HashSet<>();
+
+    /**
+     * Set of FluentTQL Method that represents the General Propagators
+     */
+    private static final HashSet<Method> generalPropagators = new HashSet<>();
+
+    public static HashSet<String> getEntryPointsAsMethod() {
+        return entryPointsAsMethod;
+    }
+
+    public static HashSet<Method> getGeneralPropagators() {
+        return generalPropagators;
+    }
 
     public static ArrayList<TaintFlowQuery> getTaintFlowQueries() {
         return taintFlowQueries;
@@ -207,6 +223,8 @@ public class SecuCheckConfigurationSettingsChecker {
                 JarUtility.deleteDir(out);
 
                 createErrorText(jarClassLoaderUtils.getErrorModel(), baseDir);
+                entryPointsAsMethod.addAll(jarClassLoaderUtils.getEntryPoints());
+                generalPropagators.addAll(jarClassLoaderUtils.getGeneralPropagators());
 
                 if (taintFlowQueries.size() <= 0) {
                     System.err.println("No FluentTQL specifications present in the given path!!!");
