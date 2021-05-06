@@ -180,7 +180,7 @@ public class JarClassLoaderUtils {
             if (obj.getClass().isAnnotationPresent(FluentTQLSpecificationClass.class)) {
                 FluentTQLUserInterface fluentTQLUserInterface = processAnnotatedClass.processFluentTQLSpecificationClassAnnotation(obj);
                 checkForUniqueTaintFlowQueryID(fluentTQLUserInterface.getFluentTQLSpecification());
-                fluentTQLSpecs.put(obj.getClass().getSimpleName(), fluentTQLUserInterface);
+                fluentTQLSpecs.put(obj.getClass().getName(), fluentTQLUserInterface);
             } else {
                 processAnnotatedClass.processFluentTQLAnnotation(obj);
             }
