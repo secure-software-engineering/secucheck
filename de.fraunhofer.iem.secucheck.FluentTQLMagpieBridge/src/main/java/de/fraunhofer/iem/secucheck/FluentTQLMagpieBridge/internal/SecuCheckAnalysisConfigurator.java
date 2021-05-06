@@ -140,7 +140,7 @@ public class SecuCheckAnalysisConfigurator {
             generalPropagators.add(SecuCheckCoreQueryUtility.getMethodImpl(method));
         }
 
-        configuration.setAnalysisGeneralPropagators(GeneralPropagators.getGP());
+        configuration.setAnalysisGeneralPropagators(generalPropagators);
         return configuration;
     }
 
