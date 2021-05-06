@@ -57,7 +57,7 @@ public class OpenRedirectAttackSpec implements FluentTQLUserInterface {
                 .notThrough(sanitizer)
                 .to(sink1)
                 .report("Open-Redirect - CWE601!")
-                .at(LOCATION.SOURCE)
+                .at(LOCATION.SOURCEANDSINK)
                 .build();
 
         TaintFlowQuery tf2 = new TaintFlowQueryBuilder("OpenRedirect_TF2")

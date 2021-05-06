@@ -71,7 +71,7 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
                 .through(requiredPropogator)            //requires propagator
                 .to(sink)                                //sink methods
                 .report("No-SQL-Injection - CWE943!")        //report message
-                .at(LOCATION.SOURCE)
+                .at(LOCATION.SOURCEANDSINK)
                 .build();
 
         List<FluentTQLSpecification> myFluentTQLSpecs = new ArrayList<FluentTQLSpecification>();
