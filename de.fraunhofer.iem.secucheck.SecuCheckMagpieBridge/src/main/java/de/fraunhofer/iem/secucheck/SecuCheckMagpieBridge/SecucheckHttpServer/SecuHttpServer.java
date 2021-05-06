@@ -1,12 +1,12 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import com.sun.net.httpserver.HttpServer;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.handlers.ConfigSubmissionHandler;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.handlers.SecuMainHandler;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.handlers.SpecPathResponseHandler;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.handlers.ConfigSubmissionHandler;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.handlers.SecuMainHandler;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.handlers.SpecPathResponseHandler;
 
 @SuppressWarnings("restriction")
 public class SecuHttpServer {

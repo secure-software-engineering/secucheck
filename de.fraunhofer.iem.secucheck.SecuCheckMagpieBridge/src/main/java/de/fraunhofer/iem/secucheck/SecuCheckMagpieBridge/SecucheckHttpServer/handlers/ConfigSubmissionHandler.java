@@ -1,16 +1,15 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.handlers;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfigurator;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.InputStreamUtility;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLAnalysisConfigurator;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.utility.InputStreamUtility;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
 import de.fraunhofer.iem.secucheck.analysis.query.Solver;
 import org.eclipse.lsp4j.MessageType;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 

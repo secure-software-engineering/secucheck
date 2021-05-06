@@ -1,7 +1,7 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.internal;
 
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfigurator;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLMagpieBridgeMainServer;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLAnalysisConfigurator;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLMagpieBridgeMainServer;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.SecuCheckCoreQueryUtility;

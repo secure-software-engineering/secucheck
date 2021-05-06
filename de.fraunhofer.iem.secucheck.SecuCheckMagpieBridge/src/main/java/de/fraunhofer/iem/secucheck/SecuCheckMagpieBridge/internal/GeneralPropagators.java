@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.internal;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;

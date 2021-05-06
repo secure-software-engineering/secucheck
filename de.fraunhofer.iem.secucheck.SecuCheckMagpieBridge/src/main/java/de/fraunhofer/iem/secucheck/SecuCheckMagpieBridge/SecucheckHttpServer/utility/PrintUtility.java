@@ -1,6 +1,6 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.utility;
 
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLMagpieBridgeMainServer;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLMagpieBridgeMainServer;
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;
 

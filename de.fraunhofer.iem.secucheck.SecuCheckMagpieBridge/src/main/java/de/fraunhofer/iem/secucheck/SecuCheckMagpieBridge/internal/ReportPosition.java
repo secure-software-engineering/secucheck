@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.internal;
 
 import java.io.IOException;
 import java.io.Reader;

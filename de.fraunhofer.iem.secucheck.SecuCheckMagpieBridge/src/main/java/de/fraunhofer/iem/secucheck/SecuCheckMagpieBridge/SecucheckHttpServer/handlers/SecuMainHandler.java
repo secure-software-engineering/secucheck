@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.handlers;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.handlers;
 
 import java.io.*;
 import java.net.URI;
@@ -6,12 +6,12 @@ import java.nio.file.Files;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfigurator;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLMagpieBridgeMainServer;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.FreeMarkerUtility;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLAnalysisConfigurator;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLMagpieBridgeMainServer;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.utility.FreeMarkerUtility;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
 import de.fraunhofer.iem.secucheck.ResourceUtility;
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal.SecuCheckAnalysisConfigurator;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.internal.SecuCheckAnalysisConfigurator;
 import org.eclipse.lsp4j.MessageType;
 
 @SuppressWarnings("restriction")

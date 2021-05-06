@@ -130,7 +130,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>
-                                de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLMagpieBridgeMainServer
+                                de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLMagpieBridgeMainServer
                             </mainClass>
                         </manifest>
                     </archive>
@@ -160,7 +160,7 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLMagpieBridgeMainServer
+                                de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLMagpieBridgeMainServer
                             </mainClass>
                         </manifest>
                     </archive>

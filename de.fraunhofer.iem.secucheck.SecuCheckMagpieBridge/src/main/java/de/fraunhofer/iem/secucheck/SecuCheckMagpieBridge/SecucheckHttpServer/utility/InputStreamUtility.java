@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.utility;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.utility;
 
 import java.io.*;
 import java.net.URLDecoder;

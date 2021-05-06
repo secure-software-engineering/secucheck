@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 import net.openhft.compiler.CompilerUtils;

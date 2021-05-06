@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge;
 
 import com.ibm.wala.classLoader.Module;
 import magpiebridge.core.AnalysisConsumer;

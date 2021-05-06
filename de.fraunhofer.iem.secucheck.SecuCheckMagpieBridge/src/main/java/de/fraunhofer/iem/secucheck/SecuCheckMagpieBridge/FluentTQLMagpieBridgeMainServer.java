@@ -1,6 +1,6 @@
-package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge;
+package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge;
 
-import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.SecucheckHttpServer.SecuHttpServer;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.SecuHttpServer;
 import magpiebridge.core.*;
 import magpiebridge.projectservice.java.JavaProjectService;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
