@@ -3,10 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * MethodSet can containt list of Method
@@ -24,6 +21,8 @@ public class MethodSet implements FlowParticipant {
     }
 
     public MethodSet addMethod(Method method) {
+        Objects.requireNonNull(method, "addMethod() method's argument is null.");
+
         methods.add(method);
         return this;
     }

@@ -4,10 +4,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.ThisObject;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Implementation of OutputDeclaration
@@ -26,6 +23,8 @@ class OutputDeclarationImpl implements OutputDeclaration {
     }
 
     public void addOutput(Output output) {
+        Objects.requireNonNull(output, "addOutput() method's argument is null.");
+
         if (output instanceof ThisObjectImpl) {
             for (Output itr : outputs) {
                 if (itr instanceof ThisObject)
