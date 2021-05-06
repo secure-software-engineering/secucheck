@@ -1,11 +1,24 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.GeneralPropagators;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 
 @FluentTQLRepositoryClass
 public class StringBuilderGeneralPropagators {
+    @GeneralPropagator
+    public static Method SB_TO_STRING = new MethodConfigurator("java.lang.StringBuilder: java.lang.String toString()")
+            .in().thisObject()
+            .out().returnValue()
+            .configure();
+
+    @GeneralPropagator
+    public static Method SB_INIT = new MethodConfigurator("java.lang.StringBuilder: void <init>(java.lang.String)")
+            .in().param(0)
+            .out().thisObject()
+            .configure();
+
     @GeneralPropagator
     @InFlowThisObject
     @InFlowParam(parameterID = {0})
@@ -61,6 +74,7 @@ public class StringBuilderGeneralPropagators {
 
     @GeneralPropagator
     @InFlowThisObject
+    @InFlowParam(parameterID = {0})
     @OutFlowReturnValue
     public static Method gp10 = new MethodSelector("java.lang.StringBuilder: java.lang.StringBuilder append(int)");
 

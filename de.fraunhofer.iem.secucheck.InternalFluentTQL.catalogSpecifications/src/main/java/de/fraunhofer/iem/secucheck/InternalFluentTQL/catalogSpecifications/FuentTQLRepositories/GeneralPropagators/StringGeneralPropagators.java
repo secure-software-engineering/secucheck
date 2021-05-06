@@ -1,11 +1,18 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.GeneralPropagators;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 
 @FluentTQLRepositoryClass
 public class StringGeneralPropagators {
+    @GeneralPropagator
+    public static Method S_VALUE_OF = new MethodConfigurator("java.lang.String: java.lang.String valueOf(java.lang.Object)")
+            .in().param(0)
+            .out().returnValue()
+            .configure();
+
     @GeneralPropagator
     @InFlowThisObject
     @InFlowParam(parameterID = {0})
