@@ -25,7 +25,7 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.analysis.result</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${secucheck.core.version}</version>
         </dependency>
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>

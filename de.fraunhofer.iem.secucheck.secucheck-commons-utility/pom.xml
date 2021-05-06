@@ -44,32 +44,32 @@
         </dependency>
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${secucheck.core.version}</version>
             <artifactId>de.fraunhofer.iem.secucheck.analysis</artifactId>
         </dependency>
 
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.analysis.configuration</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${secucheck.core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.analysis.result</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${secucheck.core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.analysis.query</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${secucheck.core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.analysis.datastructures</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${secucheck.core.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/de.scrum-master/jar-class-loader -->
@@ -81,7 +81,7 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${secucheck.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.rapidoid/rapidoid-rest -->
         <dependency>
