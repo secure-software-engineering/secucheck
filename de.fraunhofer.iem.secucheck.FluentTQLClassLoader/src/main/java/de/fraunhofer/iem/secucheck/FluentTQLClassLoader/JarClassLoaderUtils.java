@@ -139,7 +139,7 @@ public class JarClassLoaderUtils {
                 if (!processFluentTQLObject(obj, isPrettyPrint)) {
                     if (isPrettyPrint)
                         printUtils.printClassStatus(
-                                obj.getClass().getSimpleName(),
+                                obj.getClass().getName(),
                                 "There is no FluentTQL Specification available in the given Jar.",
                                 false);
                 }
@@ -179,13 +179,13 @@ public class JarClassLoaderUtils {
 
             if (isPrettyPrint)
                 printUtils.printClassStatus(
-                        obj.getClass().getSimpleName(),
+                        obj.getClass().getName(),
                         "Verified",
                         false);
         } else {
             if (isPrettyPrint)
                 printUtils.printClassStatus(
-                        obj.getClass().getSimpleName(),
+                        obj.getClass().getName(),
                         "Not a FluentTQL Specification",
                         false);
         }
