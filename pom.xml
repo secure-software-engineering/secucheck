@@ -30,11 +30,6 @@
         <module>de.fraunhofer.iem.secucheck.InternalFluentTQL</module>
         <module>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</module>
         <module>fluenttql-maven-plugin</module>
-        <module>de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog</module>
-        <module>de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications</module>
-        <module>WebGoatSpecifications</module>
-        <module>demo-project-specification</module>
-        <module>demo-project</module>
         <module>de.fraunhofer.iem.secucheck.fluentTQL2English</module>
         <module>de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge</module>
         <module>de.fraunhofer.iem.secucheck.SecuCheckSARIF</module>
