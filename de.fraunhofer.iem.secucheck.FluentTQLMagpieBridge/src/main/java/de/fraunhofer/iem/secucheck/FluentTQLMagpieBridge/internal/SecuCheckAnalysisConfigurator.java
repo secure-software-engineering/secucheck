@@ -2,10 +2,13 @@ package de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.internal;
 
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLAnalysisConfigurator;
 import de.fraunhofer.iem.secucheck.FluentTQLMagpieBridge.FluentTQLMagpieBridgeMainServer;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.SecuCheckCoreQueryUtility;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisDefaultConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.query.EntryPoint;
+import de.fraunhofer.iem.secucheck.analysis.query.MethodImpl;
 import de.fraunhofer.iem.secucheck.analysis.query.OS;
 import de.fraunhofer.iem.secucheck.analysis.query.Solver;
 import de.fraunhofer.iem.secucheck.analysis.result.AnalysisResultListener;
@@ -130,6 +133,13 @@ public class SecuCheckAnalysisConfigurator {
         configuration.setApplicationClassPath(FluentTQLAnalysisConfigurator.getClassPathAsString());
         configuration.setSootClassPathJars(getSootClassPath());
         configuration.setListener(resultListener);
+
+        List<MethodImpl> generalPropagators = new ArrayList<>();
+
+        for (Method method : FluentTQLAnalysisConfigurator.getGeneralPropagators()) {
+            generalPropagators.add(SecuCheckCoreQueryUtility.getMethodImpl(method));
+        }
+
         configuration.setAnalysisGeneralPropagators(GeneralPropagators.getGP());
         return configuration;
     }
