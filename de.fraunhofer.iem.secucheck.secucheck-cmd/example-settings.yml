@@ -1,5 +1,5 @@
-classPath: 'D:\Work\Secucheck\magpeibridge\v110\secucheck-magpiebridge\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
+classPath: 'D:\Work\Latest\SC-1.1.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
 entryPoints:
-specPath: 'D:\Work\Secucheck\magpeibridge\v110\secucheck-magpiebridge\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
+specPath: 'D:\Work\Latest\SC-1.1.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
 selectedSpecs:
 solver: "Boomerang3"
