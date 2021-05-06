@@ -36,7 +36,7 @@ public class CommandInjectionSpec implements FluentTQLUserInterface {
      */
     @InFlowParam(parameterID = {0})
     @OutFlowThisObject
-    public Method requiredPropagator = new MethodSelector("java.lang.ProcessBuilder: java.lang.ProcessBuilder ProcessBuilder(java.lang.String[])");
+    public Method requiredPropagator = new MethodSelector("java.lang.ProcessBuilder: void <init>(java.lang.String[])");
 
     /**
      * Sink.

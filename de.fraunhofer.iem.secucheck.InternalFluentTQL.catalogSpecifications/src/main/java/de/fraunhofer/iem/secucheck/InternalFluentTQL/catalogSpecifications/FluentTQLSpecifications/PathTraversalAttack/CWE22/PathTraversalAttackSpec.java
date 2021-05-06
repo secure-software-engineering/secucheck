@@ -27,26 +27,26 @@ public class PathTraversalAttackSpec implements FluentTQLUserInterface {
      */
     @InFlowParam(parameterID = {0})
     @OutFlowReturnValue
-    public Method sanitizer = new MethodSelector("catalog.PathTraversalAttack.PathTraversal: java.lang.String sanitizeForPATH(java.lang.String)");
+    public Method sanitizer = new MethodSelector("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.PathTraversalAttack.CWE22.PathTraversal: java.lang.String sanitizeForPATH(java.lang.String)");
 
     /**
      * This is a required propagator that is used in the second taint flow to achieve path traversal attack.
      */
     @InFlowParam(parameterID = {0})
     @OutFlowThisObject
-    public Method requiredPropagator = new MethodSelector("java.io.File: java.io.File File(java.lang.String)");
+    public Method requiredPropagator = new MethodSelector("java.io.File: void <init>(java.lang.String)");
 
     /**
      * This is the sink in first taint flow where File constructor is not used.
      */
     @InFlowParam(parameterID = {0})
-    public Method sink1 = new MethodSelector("java.io.FileInputStream: java.io.FileInputStream FileInputStream(java.lang.String)");
+    public Method sink1 = new MethodSelector("java.io.FileInputStream: void <init>(java.lang.String)");
 
     /**
      * This is the sink for second taint flow where File constructor is used as a required propagator.
      */
     @InFlowParam(parameterID = {0})
-    public Method sink2 = new MethodSelector("java.io.FileInputStream: java.io.FileInputStream FileInputStream(java.io.File)");
+    public Method sink2 = new MethodSelector("java.io.FileInputStream: void <init>(java.io.File)");
 
     /**
      * Returns the Internal FluentTQL specification

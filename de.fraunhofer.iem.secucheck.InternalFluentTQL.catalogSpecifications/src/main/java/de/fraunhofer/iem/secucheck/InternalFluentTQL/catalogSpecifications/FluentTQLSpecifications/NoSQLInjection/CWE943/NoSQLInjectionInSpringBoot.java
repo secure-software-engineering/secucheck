@@ -24,13 +24,13 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
      * Source 1
      */
     @OutFlowParam(parameterID = {0})
-    public Method source1 = new MethodSelector("catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String getMyInformation(java.lang.String)");
+    public Method source1 = new MethodSelector("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: org.springframework.http.ResponseEntity getMyInformation(java.lang.String)");
 
     /**
      * Source 2
      */
     @OutFlowParam(parameterID = {0})
-    public Method source2 = new MethodSelector("catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String getMyInformationSafely(java.lang.String)");
+    public Method source2 = new MethodSelector("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: org.springframework.http.ResponseEntity getMyInformationSafely(java.lang.String)");
 
     /**
      * getMyInformation and getMyInformationSafely are source, since both take input from user.
@@ -44,20 +44,20 @@ public class NoSQLInjectionInSpringBoot implements FluentTQLUserInterface {
      */
     @InFlowParam(parameterID = {0})
     @OutFlowReturnValue
-    public Method sanitizer = new MethodSelector("catalog.CWE943.NoSQLInjection.NoSQLInjectionInSpringBoot: java.lang.String sanitizeForMongoDB(java.lang.String)");
+    public Method sanitizer = new MethodSelector("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot: java.lang.String sanitizeForMongoDB(java.lang.String)");
 
     /**
      * put is a method that the data flow has to go through after sanitizer. If the data flow goes through this method before sanitizer then there will be a security vulnerability.
      */
     @InFlowParam(parameterID = {1})
     @OutFlowThisObject
-    public Method requiredPropogator = new MethodSelector("com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String, java.lang.String)");
+    public Method requiredPropogator = new MethodSelector("com.mongodb.BasicDBObject: java.lang.Object put(java.lang.Object,java.lang.Object)");
 
     /**
      * find is a sink that retrieves sensitive information from mongodb.
      */
     @InFlowParam(parameterID = {0})
-    public Method sink = new MethodSelector("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable find(com.mongodb.BasicDBObject)");
+    public Method sink = new MethodSelector("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable find(org.bson.conversions.Bson)");
 
     /**
      * Returns the Internal FluentTQL specification

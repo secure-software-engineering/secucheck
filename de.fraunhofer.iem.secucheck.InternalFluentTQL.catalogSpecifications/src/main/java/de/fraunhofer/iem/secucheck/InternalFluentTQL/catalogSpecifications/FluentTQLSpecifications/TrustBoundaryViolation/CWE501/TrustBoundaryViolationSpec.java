@@ -2,6 +2,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.Flue
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sources.ServletSources;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
@@ -29,15 +30,17 @@ public class TrustBoundaryViolationSpec implements FluentTQLUserInterface {
      * This is a sanitizer for this example that authenticate the username and then returns the valid username. If authentication fails then
      * it returns the null so that user input will not be directly set in session object to avoid trust boundary violation.
      */
-    @InFlowParam(parameterID = {0})
-    @OutFlowReturnValue
-    public Method sanitizer = new MethodSelector("catalog.TrustBoundaryViolation.CWE501.TrustBoundaryViolation: java.lang.String authenticate(java.lang.String, java.lang.String)");
+    public Method sanitizer = new MethodConfigurator("de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.TrustBoundaryViolation.CWE501.TrustBoundaryViolation: java.lang.String authenticate(java.lang.String,java.lang.String)")
+            .in().param(0).param(1)
+            .out().returnValue()
+            .configure();
 
     /**
      * sink
      */
-    @InFlowParam(parameterID = {1})
-    public Method sink = new MethodSelector("javax.servlet.http.HttpSession: void setAttribute(java.lang.String, java.lang.Object)");
+    public Method sink = new MethodConfigurator("javax.servlet.http.HttpSession: void setAttribute(java.lang.String,java.lang.Object)")
+            .in().param(1)
+            .configure();
 
     /**
      * Returns the Internal FluentTQL specification

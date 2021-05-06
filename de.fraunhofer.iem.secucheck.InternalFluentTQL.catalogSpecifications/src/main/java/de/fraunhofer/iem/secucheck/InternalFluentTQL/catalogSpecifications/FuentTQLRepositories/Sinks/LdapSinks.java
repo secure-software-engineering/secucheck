@@ -1,5 +1,6 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FuentTQLRepositories.Sinks;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLRepositoryClass;
@@ -39,6 +40,8 @@ public class LdapSinks {
     @InFlowParam(parameterID = {2})
     public static final Method sink8 = new MethodSelector("com.unboundid.ldap.sdk.LDAPInterface: com.unboundid.ldap.sdk.SearchResult search(java.lang.String, com.unboundid.ldap.sdk.SearchScope, java.lang.String)");
 
+    @InFlowParam(parameterID = {2})
+    public static final Method sink9 = new MethodSelector("com.unboundid.ldap.sdk.LDAPInterface: com.unboundid.ldap.sdk.SearchResult search(java.lang.String,com.unboundid.ldap.sdk.SearchScope,java.lang.String,java.lang.String[])");
 
     /**
      * This MethodSet contains some of the sink methods for LDAP injection.
@@ -51,5 +54,6 @@ public class LdapSinks {
             .addMethod(sink5)
             .addMethod(sink6)
             .addMethod(sink7)
-            .addMethod(sink8);
+            .addMethod(sink8)
+            .addMethod(sink9);
 }
