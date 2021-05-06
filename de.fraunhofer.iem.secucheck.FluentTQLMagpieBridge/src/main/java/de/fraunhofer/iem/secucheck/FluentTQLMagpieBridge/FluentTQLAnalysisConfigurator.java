@@ -117,6 +117,14 @@ public class FluentTQLAnalysisConfigurator {
         return sourcePath;
     }
 
+    public static HashSet<String> getEntryPointsAsMethod() {
+        return entryPointsAsMethod;
+    }
+
+    public static HashSet<Method> getGeneralPropagators() {
+        return generalPropagators;
+    }
+
     /**
      * Setter
      *
