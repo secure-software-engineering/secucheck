@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>secucheck-magpiebridge</artifactId>
+        <artifactId>secucheck</artifactId>
         <groupId>de.fraunhofer.iem.secucheck</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>SC-1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -22,20 +22,23 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.10.0.pr2</version>
         </dependency>
+
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.analysis.result</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${secucheck.core.version}</version>
         </dependency>
+
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.secucheck-commons-utility</artifactId>
-            <version>${secucheck-commons-utility.version}</version>
+            <version>${secucheck.version}</version>
         </dependency>
+
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <artifactId>de.fraunhofer.iem.secucheck.fluentTQL2English</artifactId>
-            <version>${fluentTQL2English.version}</version>
+            <version>${secucheck.version}</version>
         </dependency>
     </dependencies>
 </project>
