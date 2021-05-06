@@ -5,24 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.fraunhofer.iem.secucheck</groupId>
-    <artifactId>secucheck-magpiebridge</artifactId>
+    <artifactId>secucheck</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>SecuCheck Magpie Bridge</name>
+    <version>SC-1.1.0</version>
+    <name>SecuCheck</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <fluentTQL2English.version>0.0.1-SNAPSHOT</fluentTQL2English.version>
-        <FluentTQLClassLoader.version>0.0.1-SNAPSHOT</FluentTQLClassLoader.version>
-        <FluentTQLMagpieBridge.version>0.0.1-SNAPSHOT</FluentTQLMagpieBridge.version>
-        <InternalFluentTQL.version>0.0.1-SNAPSHOT</InternalFluentTQL.version>
-        <InternalFluentTQL.catalog.version>0.0.1-SNAPSHOT</InternalFluentTQL.catalog.version>
-        <InternalFluentTQL.catalogSpecification.version>0.0.1-SNAPSHOT</InternalFluentTQL.catalogSpecification.version>
-        <fluentTQl.maven.plugin.version>0.0.1-SNAPSHOT</fluentTQl.maven.plugin.version>
-        <WebGoatSpecification.version>0.0.1-SNAPSHOT</WebGoatSpecification.version>
-        <secucheck-commons-utility.version>0.0.1-SNAPSHOT</secucheck-commons-utility.version>
-        <SecuCheckSARIFGenerator.version>0.0.1-SNAPSHOT</SecuCheckSARIFGenerator.version>
+
+        <!--The whole project uses the currently working project version-->
+        <secucheck.version>${project.version}</secucheck.version>
     </properties>
 
     <modules>
