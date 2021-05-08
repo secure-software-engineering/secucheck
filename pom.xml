@@ -20,8 +20,8 @@
     </properties>
 
     <modules>
-        <module>de.fraunhofer.iem.secucheck.secucheck-commons-utility</module>
         <module>de.fraunhofer.iem.secucheck.InternalFluentTQL</module>
+        <module>de.fraunhofer.iem.secucheck.secucheck-commons-utility</module>
         <module>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</module>
         <module>fluenttql-maven-plugin</module>
         <module>de.fraunhofer.iem.secucheck.fluentTQL2English</module>
