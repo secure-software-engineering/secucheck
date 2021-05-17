@@ -1,5 +1,10 @@
 classPath: 'D:\Work\Latest\SC-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
 entryPoints:
+  - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.XSS.CWE79.StoredXSS
+  - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SQLInjection.CWE89.SimpleSQLInjection
+  - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.TrustBoundaryViolation.CWE501.TrustBoundaryViolation
 specPath: 'D:\Work\Latest\SC-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
 selectedSpecs:
+  - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.SQLInjection.CWE89.SimpleSQLInjectionSpec
+  - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.SQLInjection.CWE89.ServletSQLInjectionSpec
 solver: "Boomerang3"
