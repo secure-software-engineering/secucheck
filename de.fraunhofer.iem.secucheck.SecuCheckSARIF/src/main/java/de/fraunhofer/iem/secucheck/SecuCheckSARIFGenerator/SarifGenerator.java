@@ -21,10 +21,7 @@ import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.SameTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.query.SecucheckTaintFlowQueryImpl;
 import de.fraunhofer.iem.secucheck.analysis.query.TaintFlowImpl;
-import de.fraunhofer.iem.secucheck.analysis.result.LocationDetails;
-import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
-import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintFlowQueryResult;
-import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowResult;
+import de.fraunhofer.iem.secucheck.analysis.result.*;
 import de.fraunhofer.iem.secucheck.fluentTQL2English.BriefFluentTQL2Eng;
 import de.fraunhofer.iem.secucheck.fluentTQL2English.FluentTQL2English;
 
@@ -126,7 +123,7 @@ public class SarifGenerator {
         // This loop is for and operator. If only one then no and operator.
         for (DifferentTypedPair<TaintFlowImpl, TaintFlowResult> taintFlowResultWithAndOp : result.getSecond().getResults()) {
             // This loop is for the single taintflow there are multiple instance are found in the source.
-            for (DifferentTypedPair<TaintFlowImpl, SameTypedPair<LocationDetails>> taintFlowResult : taintFlowResultWithAndOp.getSecond().getQueryResultMap()) {
+            for (DifferentTypedPair<TaintFlowImpl, SingleTaintFlowAnalysisResult> taintFlowResult : taintFlowResultWithAndOp.getSecond().getQueryResultMap()) {
                 Result res = new Result();
 
                 res.setRuleId(taintFlowQuery.getId());
@@ -147,7 +144,7 @@ public class SarifGenerator {
                     PhysicalLocation physicalLocation = new PhysicalLocation();
                     FileLocation fileLocation = new FileLocation();
 
-                    LocationDetails sourceDetails = taintFlowResult.getSecond().getFirst();
+                    LocationDetails sourceDetails = taintFlowResult.getSecond().getLocationDetails().getSecond().getFirst();
 
                     String fqn = baseDir +
                             File.separator +
@@ -185,7 +182,7 @@ public class SarifGenerator {
                     PhysicalLocation physicalLocation = new PhysicalLocation();
                     FileLocation fileLocation = new FileLocation();
 
-                    LocationDetails sinDetails = taintFlowResult.getSecond().getSecond();
+                    LocationDetails sinDetails = taintFlowResult.getSecond().getLocationDetails().getSecond().getSecond();
 
                     String fqn = baseDir +
                             File.separator +

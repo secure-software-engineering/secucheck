@@ -4,8 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sun.jna.Platform;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.DuplicateTaintFlowQueryIDException;
 import de.fraunhofer.iem.secucheck.SecuCheckSARIFGenerator.SarifGenerator;
+import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.query.OS;
+import de.fraunhofer.iem.secucheck.analysis.query.SecucheckTaintFlowQueryImpl;
+import de.fraunhofer.iem.secucheck.analysis.query.TaintFlowImpl;
 import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
+import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintFlowQueryResult;
+import de.fraunhofer.iem.secucheck.analysis.result.SingleTaintFlowAnalysisResult;
+import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowResult;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
 
@@ -201,7 +207,19 @@ public class Main {
         res.append("\nAnalysis end time = ").append(secucheckTaintAnalysisResult.getEndTime());
         res.append("\nAnalysis total execution time in milli seconds = ").append(secucheckTaintAnalysisResult.getExecutionTimeInMilliSec());
         res.append("\nAnalysis total execution time in seconds = ").append(secucheckTaintAnalysisResult.getExecutionTimeInSec());
+        res.append("\n\n****************************************************\n");
 
+        for (DifferentTypedPair<SecucheckTaintFlowQueryImpl, SecucheckTaintFlowQueryResult> res1 : secucheckTaintAnalysisResult.getResults()) {
+            for (DifferentTypedPair<TaintFlowImpl, TaintFlowResult> res2 : res1.getSecond().getResults()) {
+                for (DifferentTypedPair<TaintFlowImpl, SingleTaintFlowAnalysisResult> res3 : res2.getSecond().getQueryResultMap()) {
+                    res.append(res1.getFirst().getId()).append(" : ");
+                    // TODO: check isPostProcessing enabled
+                    res.append(res2.getSecond().getSeedCount()).append(" : ").append(res3.getSecond().getPath().toString()).append("\n");
+                }
+            }
+        }
+
+        res.append("\n\n****************************************************\n\n");
         res.append("\n\n\n**************************************************");
         res.append("\n\nFinal SecuCheck settings = ");
         res.append("\nSolver : \n").append(secuCheckConfiguration.getSolver());

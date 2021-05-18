@@ -6,10 +6,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.SameTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.query.*;
-import de.fraunhofer.iem.secucheck.analysis.result.LocationDetails;
-import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintAnalysisResult;
-import de.fraunhofer.iem.secucheck.analysis.result.SecucheckTaintFlowQueryResult;
-import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowResult;
+import de.fraunhofer.iem.secucheck.analysis.result.*;
 import de.fraunhofer.iem.secucheck.fluentTQL2English.BriefFluentTQL2Eng;
 import magpiebridge.core.AnalysisResult;
 import magpiebridge.core.Kind;
@@ -122,7 +119,7 @@ public final class Utility {
             return analysisResults;
         }
 
-        for (DifferentTypedPair<TaintFlowImpl, SameTypedPair<LocationDetails>> pair : singleFlowQueryResult.getQueryResultMap()) {
+        for (DifferentTypedPair<TaintFlowImpl, SingleTaintFlowAnalysisResult> pair : singleFlowQueryResult.getQueryResultMap()) {
             SecuCheckMapieBridgeResult analysisResult = new SecuCheckMapieBridgeResult();
             // Start: Hard-coded.
             analysisResult.setKind(Kind.Diagnostic);
@@ -137,14 +134,14 @@ public final class Utility {
                 default:
                 case Source: // First result will have source in all the cases ...
 //                    pair = singleFlowQueryResult.getQueryResultMap().get(i);
-                    locationPair = pair.getSecond();
+                    locationPair = pair.getSecond().getLocationDetails().getSecond();
                     analysisResult.setPosition(createReportPosition(locationPair.getFirst()));
                     reportMessage += "Source: " + compositeQuery.getReportMessage();
                     break;
                 case Sink: // Last result will have sink in all the cases ...
                     //           pair = singleFlowQueryResult.getQueryResultMap().get(
                     //                 singleFlowQueryResult.getQueryResultMap().size() - 1);
-                    locationPair = pair.getSecond();
+                    locationPair = pair.getSecond().getLocationDetails().getSecond();
                     analysisResult.setPosition(createReportPosition(locationPair.getSecond()));
                     reportMessage += "Sink: " + compositeQuery.getReportMessage();
                     break;
