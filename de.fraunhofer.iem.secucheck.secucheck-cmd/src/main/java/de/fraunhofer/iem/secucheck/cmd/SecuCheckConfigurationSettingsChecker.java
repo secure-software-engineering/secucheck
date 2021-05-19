@@ -77,6 +77,7 @@ public class SecuCheckConfigurationSettingsChecker {
         String specPath = secuCheckConfiguration.getSpecPath();
         List<String> selectedSpecs = secuCheckConfiguration.getSelectedSpecs();
         String solver = secuCheckConfiguration.getSolver();
+        boolean isPostProcessResult = secuCheckConfiguration.getIsPostProcessResult();
 
         // Check for the classPath null or empty
         if (classPath == null || "".equals(classPath.trim())) {
@@ -103,6 +104,27 @@ public class SecuCheckConfigurationSettingsChecker {
         System.out.println("Verifying solver");
         // Check for the solver validness
         checkSolver(solver);
+
+        // Check for the isPostProcessResult validness
+        checkIsPostProcessResult(isPostProcessResult, solver);
+    }
+
+    /**
+     * Check for the isPostProcessResult validness.
+     * Note: For now, if the isPostProcessResult is enabled for the FlowDroid solver, application exits because
+     * Post processing of a result is not avaliable for FlowDroid solver
+     *
+     * @param isPostProcessResult isPostProcessResult
+     * @param solver              Solver
+     */
+    private static void checkIsPostProcessResult(boolean isPostProcessResult, String solver) {
+        if ("flowdroid".equalsIgnoreCase(solver.trim())) {
+            if (isPostProcessResult) {
+                System.err.println("Post process of a result is not available for FlowDroid solver.\n");
+                System.exit(-1);
+            }
+        }
+        System.out.println("Post processing of the result enabled\n");
     }
 
     /**

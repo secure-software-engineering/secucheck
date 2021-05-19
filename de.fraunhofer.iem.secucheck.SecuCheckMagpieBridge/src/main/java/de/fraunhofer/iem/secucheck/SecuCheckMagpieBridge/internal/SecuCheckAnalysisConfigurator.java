@@ -134,6 +134,10 @@ public class SecuCheckAnalysisConfigurator {
         configuration.setSootClassPathJars(getSootClassPath());
         configuration.setListener(resultListener);
 
+        //TODO: For now, post processing of result is not included. In future needed then set to true or take it from
+        // the configuration page.
+        configuration.setIsPostProcessResult(false);
+
         List<MethodImpl> generalPropagators = new ArrayList<>();
 
         for (Method method : FluentTQLAnalysisConfigurator.getGeneralPropagators()) {

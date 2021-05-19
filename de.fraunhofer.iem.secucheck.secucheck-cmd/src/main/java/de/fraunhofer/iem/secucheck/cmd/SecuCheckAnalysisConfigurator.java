@@ -102,6 +102,7 @@ public class SecuCheckAnalysisConfigurator {
         configuration.setApplicationClassPath(secuCheckConfiguration.getClassPath());
         configuration.setSootClassPathJars(getSootClassPath());
         configuration.setListener(resultListener);
+        configuration.setIsPostProcessResult(secuCheckConfiguration.getIsPostProcessResult());
 
         List<MethodImpl> generalPropagators = new ArrayList<>();
 

@@ -168,6 +168,7 @@ public class Main {
                     operatingSystem);
         } catch (Exception exception) {
             System.err.println("Something went wrong while running analysis:\n" + exception.getMessage());
+            exception.printStackTrace();
             return;
         }
 
@@ -214,7 +215,10 @@ public class Main {
                 for (DifferentTypedPair<TaintFlowImpl, SingleTaintFlowAnalysisResult> res3 : res2.getSecond().getQueryResultMap()) {
                     res.append(res1.getFirst().getId()).append(" : ");
                     // TODO: check isPostProcessing enabled
-                    res.append(res2.getSecond().getSeedCount()).append(" : ").append(res3.getSecond().getPath().toString()).append("\n");
+
+                    if (secuCheckConfiguration.getIsPostProcessResult()) {
+                        res.append(res2.getSecond().getSeedCount()).append(" : ").append(res3.getSecond().getPath().toString()).append("\n");
+                    }
                 }
             }
         }

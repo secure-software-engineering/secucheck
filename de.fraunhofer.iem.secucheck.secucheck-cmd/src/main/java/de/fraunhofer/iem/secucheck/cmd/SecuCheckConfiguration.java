@@ -38,6 +38,12 @@ public class SecuCheckConfiguration {
      */
     private String solver;
 
+    /**
+     * is the Post process of the result enabled.
+     * Note: For now, this can be enabled only for the Boomerang3 solver
+     */
+    private boolean isPostProcessResult;
+
     public void setClassPath(String classPath) {
         this.classPath = classPath;
     }
@@ -58,6 +64,10 @@ public class SecuCheckConfiguration {
         this.solver = solver;
     }
 
+    public void setIsPostProcessResult(boolean isPostProcessResult) {
+        this.isPostProcessResult = isPostProcessResult;
+    }
+
     public String getClassPath() {
         return classPath;
     }
@@ -76,5 +86,9 @@ public class SecuCheckConfiguration {
 
     public String getSolver() {
         return solver;
+    }
+
+    public boolean getIsPostProcessResult() {
+        return isPostProcessResult;
     }
 }

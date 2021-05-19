@@ -3,3 +3,4 @@ entryPoints:
 specPath: 'D:\Work\Latest\SC-1.1.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
 selectedSpecs:
 solver: "Boomerang3"
+isPostProcessResult: true
