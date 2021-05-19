@@ -227,6 +227,9 @@ public class Main {
         // Total time in milli seconds
         root.put("totalTimeInMilli", secucheckTaintAnalysisResult.getExecutionTimeInMilliSec());
 
+        // Total time in milli seconds
+        root.put("totalSeedCount", secucheckTaintAnalysisResult.getTotalSeedCount());
+
         // Solver
         root.put("solver", secuCheckConfiguration.getSolver());
 
