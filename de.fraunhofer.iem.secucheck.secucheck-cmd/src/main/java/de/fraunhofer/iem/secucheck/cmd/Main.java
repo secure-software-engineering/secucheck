@@ -14,11 +14,13 @@ import de.fraunhofer.iem.secucheck.analysis.result.SingleTaintFlowAnalysisResult
 import de.fraunhofer.iem.secucheck.analysis.result.TaintFlowResult;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
+import org.yaml.snakeyaml.Yaml;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Main class of the SecuCheck-cmd
@@ -189,8 +191,16 @@ public class Main {
             e.printStackTrace();
         }
 
-        File additionalFile = new File(outDirFile.getAbsolutePath() + File.separator + commandLine.getOptionValue(OUT_FILE_LONG) + "_additional.txt");
+        File additionalFile = new File(outDirFile.getAbsolutePath() + File.separator + commandLine.getOptionValue(OUT_FILE_LONG) + "_additional.yml");
 
+        createAdditionalInformationFile(additionalFile,
+                secucheckTaintAnalysisResult,
+                secuCheckConfiguration);
+    }
+
+    private static void createAdditionalInformationFile(File additionalFile,
+                                                        SecucheckTaintAnalysisResult secucheckTaintAnalysisResult,
+                                                        SecuCheckConfiguration secuCheckConfiguration) {
         if (additionalFile.isDirectory()) {
             try {
                 FileUtils.deleteDirectory(additionalFile);
@@ -202,53 +212,67 @@ public class Main {
         if (additionalFile.exists())
             additionalFile.delete();
 
-        StringBuilder res = new StringBuilder();
+        // Main Yaml
+        LinkedHashMap<String, Object> root = new LinkedHashMap<>();
 
-        res.append("Analysis start time = ").append(secucheckTaintAnalysisResult.getStartTime());
-        res.append("\nAnalysis end time = ").append(secucheckTaintAnalysisResult.getEndTime());
-        res.append("\nAnalysis total execution time in milli seconds = ").append(secucheckTaintAnalysisResult.getExecutionTimeInMilliSec());
-        res.append("\nAnalysis total execution time in seconds = ").append(secucheckTaintAnalysisResult.getExecutionTimeInSec());
-        res.append("\n\n****************************************************\n");
+        // Start Time
+        root.put("startTime", secucheckTaintAnalysisResult.getStartTime());
+
+        // End time
+        root.put("endTime", secucheckTaintAnalysisResult.getEndTime());
+
+        // Total time in seconds
+        root.put("totalTimeInSec", secucheckTaintAnalysisResult.getExecutionTimeInSec());
+
+        // Total time in milli seconds
+        root.put("totalTimeInMilli", secucheckTaintAnalysisResult.getExecutionTimeInMilliSec());
+
+        // Solver
+        root.put("solver", secuCheckConfiguration.getSolver());
+
+        ArrayList<LinkedHashMap<String, Object>> taintFlowQueryInfo = new ArrayList<>();
 
         for (DifferentTypedPair<SecucheckTaintFlowQueryImpl, SecucheckTaintFlowQueryResult> res1 : secucheckTaintAnalysisResult.getResults()) {
+            int totalTaintFlowFound = 0;
+            int totalSeedCount = 0;
+            ArrayList<HashMap<String, Object>> info = new ArrayList<>();
+
             for (DifferentTypedPair<TaintFlowImpl, TaintFlowResult> res2 : res1.getSecond().getResults()) {
-                for (DifferentTypedPair<TaintFlowImpl, SingleTaintFlowAnalysisResult> res3 : res2.getSecond().getQueryResultMap()) {
-                    res.append(res1.getFirst().getId()).append(" : ");
-                    // TODO: check isPostProcessing enabled
-
-                    if (secuCheckConfiguration.getIsPostProcessResult()) {
-                        res.append(res2.getSecond().getSeedCount()).append(" : ").append(res3.getSecond().getPath().toString()).append("\n");
-                    }
-                }
+                totalSeedCount += res2.getSecond().getSeedCount();
+                totalTaintFlowFound += res2.getSecond().size();
             }
+
+            // Seed count
+            HashMap<String, Object> seedCount = new HashMap<String, Object>();
+            seedCount.put("seedCount", totalSeedCount);
+
+            info.add(seedCount);
+
+            // TaintFlow found count
+            HashMap<String, Object> taintFlowFoundCount = new HashMap<String, Object>();
+            taintFlowFoundCount.put("taintFlowFoundCount", totalTaintFlowFound);
+
+            info.add(taintFlowFoundCount);
+
+            taintFlowQueryInfo.add(new LinkedHashMap<String, Object>(){{put(res1.getFirst().getId(), info);}});
         }
 
-        res.append("\n\n****************************************************\n\n");
-        res.append("\n\n\n**************************************************");
-        res.append("\n\nFinal SecuCheck settings = ");
-        res.append("\nSolver : \n").append(secuCheckConfiguration.getSolver());
-        res.append("\n\nEntryPoints : \n");
+        root.put("result", taintFlowQueryInfo);
 
-        for (String entryPoint : secuCheckConfiguration.getEntryPoints()) {
-            res.append(entryPoint).append('\n');
-        }
+        // Entry points
+        root.put("entryPoints", secuCheckConfiguration.getEntryPoints().iterator());
 
-        res.append("\nSelected Specs : \n");
-
-        for (String spec : secuCheckConfiguration.getSelectedSpecs()) {
-            res.append(spec).append('\n');
-        }
-
-        res.append("\n**************************************************\n\n");
+        // Selected Specs
+        root.put("selectedSpecs", secuCheckConfiguration.getSelectedSpecs());
 
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(additionalFile));
-            bufferedWriter.write(res.toString());
-            bufferedWriter.close();
-        } catch (IOException e) {
+            PrintWriter printWriter = new PrintWriter(additionalFile);
+
+            Yaml yaml = new Yaml();
+            yaml.dump(root, printWriter);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
+            System.exit(-1);
         }
-
-
     }
 }
