@@ -16,7 +16,7 @@
 
         <!--The whole project uses the currently working project version-->
         <secucheck.version>${project.version}</secucheck.version>
-        <secucheck.core.version>SCC-1.0.0</secucheck.core.version>
+        <secucheck.core.version>SCC-1.1.0</secucheck.core.version>
     </properties>
 
     <modules>
