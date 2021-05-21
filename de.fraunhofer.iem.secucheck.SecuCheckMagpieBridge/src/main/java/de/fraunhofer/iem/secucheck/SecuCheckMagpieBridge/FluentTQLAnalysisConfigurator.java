@@ -36,6 +36,16 @@ public class FluentTQLAnalysisConfigurator {
     private static final List<TaintFlowQuery> taintFlowQueries = new ArrayList<>();
 
     /**
+     * This contains the complete taintflow queries with their respective taintflow query id.
+     */
+    private static final HashMap<String, TaintFlowQuery> completeTaintFlowQueries = new HashMap<>();
+
+    /**
+     * Display the specification as a spec file rather than taintflow queries ID
+     */
+    private static boolean isDisplayAsSpecFile = false;
+
+    /**
      * Set of strings that represents the entry points class for Analysis, this is configured by the user and passed to Analysis
      */
     private static final HashSet<String> entryPoints = new HashSet<>();
@@ -97,6 +107,10 @@ public class FluentTQLAnalysisConfigurator {
     private static String source = null;
     private static JavaProjectService javaProjectService = null;
 
+    public static boolean isIsDisplayAsSpecFile() {
+        return isDisplayAsSpecFile;
+    }
+
     public static String getSource() {
         return source;
     }
@@ -140,7 +154,7 @@ public class FluentTQLAnalysisConfigurator {
      * @param specPath Specification's path
      * @return ConfigurationOption - alert configuration if there is an error otherwise it returns null
      */
-    public static boolean processFluentTQLSpecificationsPath(String specPath) {
+    public static boolean processFluentTQLSpecificationsPath(String specPath, boolean isDisplayAsSpecFile) {
         fluentTQLSpecPath = specPath;
 
         if (specPath == null || "".equals(specPath)) {
@@ -172,7 +186,9 @@ public class FluentTQLAnalysisConfigurator {
                 fluentTQLSpecs.clear();
                 entryPointsAsMethod.clear();
                 generalPropagators.clear();
+                completeTaintFlowQueries.clear();
 
+                FluentTQLAnalysisConfigurator.isDisplayAsSpecFile = isDisplayAsSpecFile;
                 JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
 
                 //Todo:
@@ -192,6 +208,7 @@ public class FluentTQLAnalysisConfigurator {
                 generalPropagators.addAll(jarClassLoaderUtils.getGeneralPropagators());
 
                 if (fluentTQLSpecs.size() > 0) {
+                    storeCompleteTaintFlowQueries();
                     return true;
                 } else {
                     PrintUtility.printMessageInIDE(MessageType.Warning,
@@ -210,6 +227,27 @@ public class FluentTQLAnalysisConfigurator {
                     "Given FluentTQL Specification's path does not exist!!!");
             //isFirstPageDone = false;
             return false;
+        }
+    }
+
+    private static void storeCompleteTaintFlowQueries() {
+        // Get the TaintFLowQuery object.
+        for (String fluentSpecFileName : fluentTQLSpecs.keySet()) {
+            FluentTQLUserInterface fluentTQLUserInterface = fluentTQLSpecs.get(fluentSpecFileName);
+
+            for (FluentTQLSpecification fluentTQLSpecification : fluentTQLUserInterface.getFluentTQLSpecification()) {
+                if (fluentTQLSpecification instanceof TaintFlowQuery) {
+                    TaintFlowQuery taintFlowQuery = (TaintFlowQuery) fluentTQLSpecification;
+
+                    completeTaintFlowQueries.put(taintFlowQuery.getId(), taintFlowQuery);
+                } else if (fluentTQLSpecification instanceof QueriesSet) {
+                    QueriesSet queriesSet = (QueriesSet) fluentTQLSpecification;
+
+                    for (TaintFlowQuery taintFlowQuery : queriesSet.getTaintFlowQueries()) {
+                        completeTaintFlowQueries.put(taintFlowQuery.getId(), taintFlowQuery);
+                    }
+                }
+            }
         }
     }
 
@@ -244,7 +282,13 @@ public class FluentTQLAnalysisConfigurator {
     public static String setConfig() {
         taintFlowQueries.clear();
 
-        Set<String> keys = fluentTQLSpecs.keySet();
+        Set<String> keys;
+        if (isDisplayAsSpecFile) {
+            keys = fluentTQLSpecs.keySet();
+        } else {
+            keys = completeTaintFlowQueries.keySet();
+        }
+
         ContainerTag[] tags = new ContainerTag[keys.size()];
 
         int i = 0;
@@ -264,10 +308,13 @@ public class FluentTQLAnalysisConfigurator {
 
             tags[i++] = temp1;
 
-
-            addTaintFLowQueries(
-                    fluentTQLSpecs.get(key).getFluentTQLSpecification()
-            );
+            if (isDisplayAsSpecFile) {
+                addTaintFLowQueries(
+                        fluentTQLSpecs.get(key).getFluentTQLSpecification()
+                );
+            } else {
+                taintFlowQueries.add(completeTaintFlowQueries.get(key));
+            }
         }
 
         return ul(tags)
@@ -412,10 +459,14 @@ public class FluentTQLAnalysisConfigurator {
         }
 
         for (String spec : specList) {
-            List<FluentTQLSpecification> fluentTQLSpecificationList = fluentTQLSpecs.get(
-                    spec.split("-")[0]).getFluentTQLSpecification();
+            if (isDisplayAsSpecFile) {
+                List<FluentTQLSpecification> fluentTQLSpecificationList = fluentTQLSpecs.get(
+                        spec.split("-")[0]).getFluentTQLSpecification();
+                addTaintFLowQueries(fluentTQLSpecificationList);
+            } else {
+                taintFlowQueries.add(completeTaintFlowQueries.get(spec.split("-")[0]));
+            }
 
-            addTaintFLowQueries(fluentTQLSpecificationList);
         }
 
         return true;

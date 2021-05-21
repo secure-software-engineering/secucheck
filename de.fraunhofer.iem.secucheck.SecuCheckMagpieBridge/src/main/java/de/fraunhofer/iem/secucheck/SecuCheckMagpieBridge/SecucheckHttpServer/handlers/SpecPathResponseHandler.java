@@ -18,7 +18,10 @@ public class SpecPathResponseHandler implements HttpHandler {
 
         Map<String, String> requestOptions = InputStreamUtility.getOptionsFromInputStream(t.getRequestBody());
 
-        boolean isSuccess = FluentTQLAnalysisConfigurator.processFluentTQLSpecificationsPath(requestOptions.get("specPath"));
+        String displayFormat = requestOptions.get("displayFormat");
+
+        boolean isSuccess = FluentTQLAnalysisConfigurator.processFluentTQLSpecificationsPath(requestOptions.get("specPath"),
+                "displayAsSpecFile".equals(displayFormat));
 
         OutputStream os = t.getResponseBody();
         String response = "";
