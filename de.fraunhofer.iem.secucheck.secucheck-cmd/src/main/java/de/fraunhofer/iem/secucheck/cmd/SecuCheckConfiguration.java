@@ -31,6 +31,11 @@ public class SecuCheckConfiguration {
     private List<String> selectedSpecs;
 
     /**
+     * The given selectedSpecs is as spec file or TaintFlowQueryID
+     */
+    private boolean asSpecFile;
+
+    /**
      * SecuCheck analysis solver.
      * <p>
      * Boomerang3
@@ -43,6 +48,14 @@ public class SecuCheckConfiguration {
      * Note: For now, this can be enabled only for the Boomerang3 solver
      */
     private boolean isPostProcessResult;
+
+    public boolean isAsSpecFile() {
+        return asSpecFile;
+    }
+
+    public void setAsSpecFile(boolean asSpecFile) {
+        this.asSpecFile = asSpecFile;
+    }
 
     public void setClassPath(String classPath) {
         this.classPath = classPath;

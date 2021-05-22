@@ -97,6 +97,13 @@ public class SecuCheckConfigurationSettingsChecker {
         // Check for the classPath validness
         checkClassPath(classPath, entryPoints, secuCheckConfiguration);
 
+        // Check for the asSpecFile
+        if (secuCheckConfiguration.isAsSpecFile()) {
+            System.out.println("Given selectedSpecs are Specification files.");
+        } else {
+            System.out.println("Given selectedSpecs are TaintFlowQueries ID.");
+        }
+
         System.out.println("Verifying the specPath and the selectedSpecs");
         // Check for the specPath validness
         checkSpecPath(specPath, selectedSpecs, baseDir, secuCheckConfiguration);
@@ -224,22 +231,36 @@ public class SecuCheckConfigurationSettingsChecker {
 
                 HashMap<String, FluentTQLUserInterface> specs = jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(out.getAbsolutePath());
 
+                HashMap<String, TaintFlowQuery> specWithID = storeCompleteTaintFlowQueries(specs);
+
                 if (selectedSpecs == null) {
-                    selectedSpecs = new ArrayList<>(specs.keySet());
+                    if (secuCheckConfiguration.isAsSpecFile()) {
+                        selectedSpecs = new ArrayList<>(specs.keySet());
+                    } else {
+                        selectedSpecs = new ArrayList<>(specWithID.keySet());
+                    }
+
                     secuCheckConfiguration.setSelectedSpecs(selectedSpecs);
                 }
 
                 for (String spec : selectedSpecs) {
-                    if (!specs.containsKey(spec)) {
-                        System.err.println(spec + " is not found in the given FluentTQL specifications (Path: " +
-                                file.getAbsolutePath() + ")");
-                        System.exit(-1);
+                    if (secuCheckConfiguration.isAsSpecFile()) {
+                        if (!specs.containsKey(spec)) {
+                            System.err.println(spec + " is not found in the given FluentTQL specifications (Path: " +
+                                    file.getAbsolutePath() + ")");
+                            System.exit(-1);
+                        } else {
+                            addTaintFLowQueries(specs.get(spec).getFluentTQLSpecification());
+                        }
+                    } else {
+                        if (!specWithID.containsKey(spec)) {
+                            System.err.println(spec + " is not found in the given FluentTQL specifications (Path: " +
+                                    file.getAbsolutePath() + ")");
+                            System.exit(-1);
+                        } else {
+                            taintFlowQueries.add(specWithID.get(spec));
+                        }
                     }
-                }
-
-                for (String key : specs.keySet()) {
-                    if (selectedSpecs.contains(key))
-                        addTaintFLowQueries(specs.get(key).getFluentTQLSpecification());
                 }
 
                 JarUtility.deleteDir(out);
@@ -260,6 +281,31 @@ public class SecuCheckConfigurationSettingsChecker {
             System.err.println("Given FluentTQL Specification's path does not exist!!!");
             System.exit(-1);
         }
+    }
+
+    private static HashMap<String, TaintFlowQuery> storeCompleteTaintFlowQueries(HashMap<String, FluentTQLUserInterface> fluentTQLSpecs) {
+        HashMap<String, TaintFlowQuery> completeTaintFlowQueries = new HashMap<>();
+
+        // Get the TaintFLowQuery object.
+        for (String fluentSpecFileName : fluentTQLSpecs.keySet()) {
+            FluentTQLUserInterface fluentTQLUserInterface = fluentTQLSpecs.get(fluentSpecFileName);
+
+            for (FluentTQLSpecification fluentTQLSpecification : fluentTQLUserInterface.getFluentTQLSpecification()) {
+                if (fluentTQLSpecification instanceof TaintFlowQuery) {
+                    TaintFlowQuery taintFlowQuery = (TaintFlowQuery) fluentTQLSpecification;
+
+                    completeTaintFlowQueries.put(taintFlowQuery.getId(), taintFlowQuery);
+                } else if (fluentTQLSpecification instanceof QueriesSet) {
+                    QueriesSet queriesSet = (QueriesSet) fluentTQLSpecification;
+
+                    for (TaintFlowQuery taintFlowQuery : queriesSet.getTaintFlowQueries()) {
+                        completeTaintFlowQueries.put(taintFlowQuery.getId(), taintFlowQuery);
+                    }
+                }
+            }
+        }
+
+        return completeTaintFlowQueries;
     }
 
     /**

@@ -2,5 +2,6 @@ classPath: 'D:\Work\Latest\SC-1.1.0\secucheck-catalog\de.fraunhofer.iem.secuchec
 entryPoints:
 specPath: 'D:\Work\Latest\SC-1.1.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
 selectedSpecs:
+asSpecFile: false
 solver: "Boomerang3"
 isPostProcessResult: true
