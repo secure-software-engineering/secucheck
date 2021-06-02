@@ -131,7 +131,11 @@ public class SecuCheckConfigurationSettingsChecker {
                 System.exit(-1);
             }
         }
-        System.out.println("Post processing of the result enabled\n");
+
+        if (isPostProcessResult)
+            System.out.println("Post processing of the result enabled\n");
+        else
+            System.out.println("Post processing of the result disabled\n");
     }
 
     /**
