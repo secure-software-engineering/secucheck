@@ -1,6 +1,5 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Input;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Output;
 import org.junit.Test;
 

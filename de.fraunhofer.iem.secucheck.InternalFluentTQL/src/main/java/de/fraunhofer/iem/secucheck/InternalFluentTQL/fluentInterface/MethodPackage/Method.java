@@ -9,6 +9,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
  * Interface for Method
  *
  * @author Ranjith Krishnamurthy
+ * @author Enri Ozuni
  */
 public interface Method extends FlowParticipant {
 
@@ -18,6 +19,13 @@ public interface Method extends FlowParticipant {
      * @return Method signature
      */
     String getSignature();
+    
+    /**
+     * Returns the Method signature
+     *
+     * @return Method signature
+     */
+    MethodSignature getMethodSignature();
 
     /**
      * Returns the MethodSet
