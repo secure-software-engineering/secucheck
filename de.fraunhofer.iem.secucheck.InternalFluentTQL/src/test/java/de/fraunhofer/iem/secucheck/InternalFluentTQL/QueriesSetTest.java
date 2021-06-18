@@ -1,6 +1,5 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import org.junit.Test;

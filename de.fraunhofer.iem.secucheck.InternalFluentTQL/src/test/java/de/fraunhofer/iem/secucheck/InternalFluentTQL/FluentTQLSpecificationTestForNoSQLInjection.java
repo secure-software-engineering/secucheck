@@ -11,7 +11,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 import java.util.ArrayList;
 import java.util.List;
 
-public class  FluentTQLSpecificationTestForNoSQLInjection implements FluentTQLUserInterface {
+public class FluentTQLSpecificationTestForNoSQLInjection implements FluentTQLUserInterface {
 
     public List<FluentTQLSpecification> getFluentTQLSpecification() {
         //First source that takes userName from the user.

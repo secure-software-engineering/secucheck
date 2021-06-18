@@ -3,6 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.InputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
 import java.util.Objects;
 
@@ -135,4 +136,11 @@ public class MethodSelector implements Method {
 
         return str.toString();
     }
+    
+    // set as unimplemented at the moment
+	@Override
+	public MethodSignature getMethodSignature() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
