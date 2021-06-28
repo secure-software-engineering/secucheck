@@ -159,8 +159,19 @@ public final class SecuCheckCoreQueryUtility {
      */
     public static MethodImpl getMethodImpl(Method method) {
         MethodImpl methodImpl = new MethodImpl();
-        methodImpl.setName(method.getSignature());
-        methodImpl.setSignature(method.getSignature());
+        
+        if(method.getSignature() != null) {
+        	methodImpl.setName(method.getSignature());
+            methodImpl.setSignature(method.getSignature());
+        }
+        else {
+        	String signature = method.getMethodSignature().getMethodPackage()+": "
+        						+method.getMethodSignature().getReturnType()+" "
+        						+method.getMethodSignature().getMethodName()+"("
+        						+method.getMethodSignature().getMethodParameters()+")";
+        	methodImpl.setName(signature);
+            methodImpl.setSignature(signature);
+        }
 
         List<InputParameter> inputParams = new ArrayList<InputParameter>();
         if (method.getInputDeclaration() != null &&
