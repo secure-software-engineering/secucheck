@@ -10,11 +10,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 public class MethodSignatureConfigurator {
 	private final MethodSignatureImpl methodSignature;
 	
-	public MethodSignatureConfigurator(String packageName) {
-		methodSignature = new MethodSignatureImpl(packageName);
+	public MethodSignatureConfigurator() {
+		methodSignature = new MethodSignatureImpl();
 	}
 	
-	public MethodSignatureWithReturn returns(String returns) {
-		return new MethodSignatureWithReturn(returns, methodSignature);
+	public MethodSignatureWithClass atClass(String methodClass) {
+		return new MethodSignatureWithClass(methodClass, methodSignature);
 	}
 }

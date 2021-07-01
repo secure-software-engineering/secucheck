@@ -15,18 +15,25 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
 
 public class SimpleFluentTQLSpecificationWithMethodSign implements FluentTQLUserInterface {
-	static MethodSignature sourceSignature = new MethodSignatureConfigurator("Test").returns("java.lang.String").named("getSecret").accepts("").configure();
+	
+	static MethodSignature sourceSignature = new MethodSignatureConfigurator()
+			.atClass("Test").returns("java.lang.String").named("getSecret").accepts("")
+			.configure();
 	static Method source = new MethodConfigurator(sourceSignature)
             .out().returnValue()
             .configure();
 
-	static MethodSignature sanitizerSignature = new MethodSignatureConfigurator("Test").returns("java.lang.String").named("sanitize").accepts("java.lang.String").configure();
+	static MethodSignature sanitizerSignature = new MethodSignatureConfigurator()
+			.atClass("Test").returns("java.lang.String").named("sanitize").accepts("java.lang.String")
+			.configure();
     static Method sanitizer = new MethodConfigurator(sanitizerSignature)
             .in().param(0)
             .out().returnValue()
             .configure();
 
-    static MethodSignature sinkSignature = new MethodSignatureConfigurator("Test").returns("void").named("printSecret").accepts("java.lang.String").configure();
+    static MethodSignature sinkSignature = new MethodSignatureConfigurator()
+    		.atClass("Test").returns("void").named("printSecret").accepts("java.lang.String")
+    		.configure();
     static Method sink = new MethodConfigurator(sinkSignature)
             .in().param(0)
             .configure();
@@ -52,4 +59,5 @@ public class SimpleFluentTQLSpecificationWithMethodSign implements FluentTQLUser
 
         return myFluentTQLSpecification;
     }
+    
 }

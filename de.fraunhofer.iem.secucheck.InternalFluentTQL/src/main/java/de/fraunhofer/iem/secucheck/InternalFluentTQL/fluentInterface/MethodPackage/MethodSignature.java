@@ -12,27 +12,27 @@ public interface MethodSignature {
      *
      * @return The package location of method in String format
      */
-	String getMethodPackage();
+	String getClassOfMethodSign();
 	
 	/**
      * Get the return type of the method signature
      *
      * @return The return data type in String format
      */
-    String getReturnType();
+    String getReturnOfMethodSign();
     
     /**
      * Get the method name of the method signature
      *
      * @return The method name in String format
      */
-    String getMethodName();
+    String getNameOfMethodSign();
     
     /**
      * Get the parameters that the method signature accepts
      *
      * @return The method parameters in String format
      */
-    String getMethodParameters();
+    String getParamOfMethodSign();
 	
 }
