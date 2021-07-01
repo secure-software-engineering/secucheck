@@ -6,7 +6,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 import java.util.Objects;
 
 /**
- * Builder for building TaintFlowQuery
+ * Builder for building {@link TaintFlowQuery}
  *
  * @author Ranjith Krishnamurthy
  */

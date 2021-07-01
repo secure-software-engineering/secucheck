@@ -6,7 +6,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 import java.util.*;
 
 /**
- * MethodSet can containt list of Method
+ * MethodSet can containt list of {@link Method}
  *
  * @author Ranjith Krishnamurthy
  */

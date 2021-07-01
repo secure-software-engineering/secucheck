@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 
 /**
- * This method represents that it contains Method with complete out with this object and return value.
+ * This method represents that it contains {@link Method} with complete out with this object and return value.
  * Example: MethodConfigurator("...").out().thisObject().returnValue()
  *
  * @author Ranjith Krishnamurthy

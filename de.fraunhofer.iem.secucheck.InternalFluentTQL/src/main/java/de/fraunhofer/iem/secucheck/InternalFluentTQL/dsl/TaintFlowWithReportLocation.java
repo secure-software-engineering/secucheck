@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 
 /**
- * This class represents that it contains complete taintflows as well as report location
+ * This class represents that it contains complete taint flows as well as report location
  *
  * @author Ranjith Krishnamurthy
  */

@@ -5,7 +5,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
 import java.util.*;
 
 /**
- * QueriesSet contains list of TaintFlowQuery
+ * QueriesSet contains list of {@link TaintFlowQuery}
  *
  * @author Ranjith Krishnamurthy
  */

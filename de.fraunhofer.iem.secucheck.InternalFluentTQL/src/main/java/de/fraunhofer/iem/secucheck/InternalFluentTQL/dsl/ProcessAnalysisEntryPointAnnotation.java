@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This class processes the FluentTQL AnalysisEntryPoint annotations and givens the list of all the method signature annotated as AnalysisEntryPoint.
+ * This class processes the FluentTQL {@link AnalysisEntryPoint} annotations and givens the list of all the method signature annotated as {@link AnalysisEntryPoint}.
  *
  * @author Ranjith Krishnamurthy
  */

@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 
 /**
- * This method represents that it contains Method with in and out operator with this object.
+ * This method represents that it contains {@link Method} with in and out operator with this object.
  * Example: MethodConfigurator("...").in()...out().thisObject()
  *
  * @author Ranjith Krishnamurthy

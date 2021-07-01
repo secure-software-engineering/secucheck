@@ -1,7 +1,9 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
+
 /**
- * This class represents that it contains Method with complete in operator and started out operator
+ * This class represents that it contains {@link Method} with complete in operator and started out operator.
  * Example: MethodConfigurator("...").in()...out()
  *
  * @author Ranjith Krishnamurthy

@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
 
 /**
- * This exception indicates that the fluentTQL specification is broken and some of the methods are not configured or empty specification list is returned.
+ * This exception indicates that the FluentTQL specification is broken and some of the methods are not configured or empty specification list is returned.
  *
  * @author Ranjith Krishnamurthy
  */

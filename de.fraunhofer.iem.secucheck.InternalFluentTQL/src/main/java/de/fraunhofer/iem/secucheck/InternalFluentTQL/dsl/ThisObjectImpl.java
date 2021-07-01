@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.ThisObject;
 
 /**
- * Implementation of This object
+ * Implementation of {@link ThisObject}
  *
  * @author Ranjith Krishnamurthy
  */

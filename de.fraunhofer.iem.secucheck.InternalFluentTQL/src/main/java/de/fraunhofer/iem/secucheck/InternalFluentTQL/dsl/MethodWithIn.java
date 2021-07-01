@@ -1,7 +1,9 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
+
 /**
- * This class represents that it contains Method with in operator
+ * This class represents that it contains {@link Method} with in operator.
  * Example: MethodConfigurator("...").in()
  *
  * @author Ranjith Krishnamurthy

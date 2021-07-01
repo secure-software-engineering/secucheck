@@ -1,7 +1,9 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
+
 /**
- * This exception indicates that there is duplicate TaintFlowQuery ID present.
+ * This exception indicates that there is duplicate {@link TaintFlowQuery} ID present.
  *
  * @author Ranjith Krishnamurthy
  */

@@ -7,7 +7,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 import java.util.*;
 
 /**
- * Implementation of TaintFlow
+ * Implementation of {@link TaintFlow}
  *
  * @author Ranjith Krishnamurthy
  */

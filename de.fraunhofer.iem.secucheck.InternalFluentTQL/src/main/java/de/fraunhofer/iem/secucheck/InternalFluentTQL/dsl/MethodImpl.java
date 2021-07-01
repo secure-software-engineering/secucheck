@@ -6,7 +6,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
 /**
- * Implementation of the Method
+ * Implementation of the {@link Method}
  *
  * @author Ranjith Krishnamurthy
  * @author Enri Ozuni

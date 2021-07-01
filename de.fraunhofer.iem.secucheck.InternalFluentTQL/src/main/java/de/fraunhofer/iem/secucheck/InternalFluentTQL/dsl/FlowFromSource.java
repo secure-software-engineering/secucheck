@@ -7,7 +7,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 import java.util.Objects;
 
 /**
- * This class represents the incomplete TaintFlow that started from some source.
+ * This class represents the incomplete {@link TaintFlow} that started from some source.
  *
  * @author Ranjith Krishnamurthy
  */

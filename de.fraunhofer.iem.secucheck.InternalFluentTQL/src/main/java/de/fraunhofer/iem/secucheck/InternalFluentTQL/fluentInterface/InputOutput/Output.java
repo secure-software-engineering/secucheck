@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput;
 
 /**
- * Interface between OutputDeclaration and Return, ThisObject, Parameter
+ * Interface between {@link OutputDeclaration} and {@link Return}, {@link ThisObject}, {@link Parameter}
  *
  * @author Ranjith Krishnamurthy
  */

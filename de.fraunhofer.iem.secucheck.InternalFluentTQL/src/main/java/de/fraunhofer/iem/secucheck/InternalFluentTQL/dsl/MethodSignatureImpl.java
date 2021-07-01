@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
 /**
- * Implementation of the MethodSignature
+ * Implementation of the {@link MethodSignature}
  *
  * @author Enri Ozuni
  */

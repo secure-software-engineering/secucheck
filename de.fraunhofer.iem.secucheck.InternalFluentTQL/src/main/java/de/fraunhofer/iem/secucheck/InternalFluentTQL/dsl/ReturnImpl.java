@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Return;
 
 /**
- * Implementation of Return value
+ * Implementation of {@link Return} value
  *
  * @author Ranjith Krishnamurthy
  */

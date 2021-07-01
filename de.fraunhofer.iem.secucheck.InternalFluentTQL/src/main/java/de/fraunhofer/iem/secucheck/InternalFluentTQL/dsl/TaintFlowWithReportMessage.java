@@ -7,7 +7,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPa
 import java.util.Objects;
 
 /**
- * This class represents that it contains complete taintflows with report message
+ * This class represents that it contains complete taint flows with report message
  *
  * @author Ranjith Krishnamurthy
  */
