@@ -8,7 +8,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import java.util.Objects;
 
 /**
- * This class is used to instantiate the Method, that can be annotated with the FluentTQL annotation to configure the method
+ * This class is used to instantiate the {@link Method}, that can be annotated with the FluentTQL annotation to configure the method
  * for the taint flow.
  *
  * @author Ranjith Krishnamurthy

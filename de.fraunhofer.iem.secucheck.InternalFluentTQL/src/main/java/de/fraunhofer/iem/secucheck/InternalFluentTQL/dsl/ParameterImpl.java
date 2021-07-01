@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.Parameter;
 
 /**
- * Implementaion of Parameter
+ * Implementaion of {@link Parameter}
  *
  * @author Ranjith Krishnamurthy
  */

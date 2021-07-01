@@ -1,7 +1,10 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
+
 /**
- * This exception indicates that the given class does not implement FluentTQLUserInterface, therefore FluentTQLSpecification can not
+ * This exception indicates that the given class does not implement {@link FluentTQLUserInterface}, therefore {@link FluentTQLSpecification} can not
  * be retrieved.
  *
  * @author Ranjith Krishnamurthy

@@ -7,7 +7,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import java.util.*;
 
 /**
- * Implementation of InputDeclaration
+ * Implementation of {@link InputDeclaration}
  *
  * @author Ranjith Krishnamurthy
  */

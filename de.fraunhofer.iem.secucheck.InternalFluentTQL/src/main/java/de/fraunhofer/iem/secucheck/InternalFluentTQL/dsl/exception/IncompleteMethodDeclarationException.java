@@ -1,7 +1,9 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
+
 /**
- * This exception indicates that the field (Method type) is not annotated with any of the FluentTQL configure annotation to configure the taint
+ * This exception indicates that the field of type {@link Method} is not annotated with any of the FluentTQL configure annotation to configure the taint
  * flow in the method.
  *
  * @author Ranjith Krishnamurthy

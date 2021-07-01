@@ -1,7 +1,10 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLRepositoryClass;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
+
 /**
- * This Exception indicates that the class does not have FluentTQLSpecificationClass or FluentTQLRepositoryClass annotation.
+ * This exception indicates that the class does not have {@link FluentTQLSpecificationClass} or {@link FluentTQLRepositoryClass} annotation.
  *
  * @author Ranjith Krishnamurthy
  */

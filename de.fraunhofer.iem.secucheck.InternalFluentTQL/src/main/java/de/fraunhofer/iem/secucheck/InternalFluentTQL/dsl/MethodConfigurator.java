@@ -1,9 +1,10 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
 /**
- * Configurator for the Method
+ * Configurator for the {@link Method}
  *
  * @author Ranjith Krishnamurthy
  * @author Enri Ozuni

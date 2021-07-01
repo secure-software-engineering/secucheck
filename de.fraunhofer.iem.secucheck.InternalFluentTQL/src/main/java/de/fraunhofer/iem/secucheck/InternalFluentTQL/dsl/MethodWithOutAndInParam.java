@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 
 /**
- * This method represents that it contains Method with complete out and in operator with param value.
+ * This method represents that it contains {@link Method} with complete out and in operator with param value.
  * Example: MethodConfigurator("...").out()...in().param(...)
  *
  * @author Ranjith Krishnamurthy

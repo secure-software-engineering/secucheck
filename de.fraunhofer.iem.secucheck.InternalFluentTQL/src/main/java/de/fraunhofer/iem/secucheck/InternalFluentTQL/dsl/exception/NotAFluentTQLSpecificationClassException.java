@@ -1,7 +1,9 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
+
 /**
- * This Exception indicates that the class is not a FluentTQLSpecification class and is trying to get the FluentTQL specifications from that class.
+ * This exception indicates that the class is not a {@link FluentTQLSpecification} class and is trying to get the FluentTQL specifications from that class.
  *
  * @author Ranjith Krishnamurthy
  */

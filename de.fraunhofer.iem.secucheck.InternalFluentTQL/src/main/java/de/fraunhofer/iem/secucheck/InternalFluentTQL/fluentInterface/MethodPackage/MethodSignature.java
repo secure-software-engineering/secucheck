@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage;
 
 /**
- * Interface for MethodSignature, which is utilized by Method
+ * Interface for MethodSignature, which is utilized by {@link Method}
  *
  * @author Enri Ozuni
  */

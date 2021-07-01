@@ -1,7 +1,9 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.ImportAndProcessAnnotation;
+
 /**
- * This exception indicates that there is an error while processing the field annotated with ImportAndProcessAnnotation.
+ * This exception indicates that there is an error while processing the field annotated with {@link ImportAndProcessAnnotation}.
  *
  * @author Ranjith Krishnamurthy
  */

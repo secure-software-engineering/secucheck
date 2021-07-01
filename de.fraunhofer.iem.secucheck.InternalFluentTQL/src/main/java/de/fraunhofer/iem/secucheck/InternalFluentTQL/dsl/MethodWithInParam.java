@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 
 /**
- * This method represents that it contains Method with in and param value.
+ * This method represents that it contains {@link Method} with in and param value.
  * Example: MethodConfigurator("...").in().param(...)
  *
  * @author Ranjith Krishnamurthy

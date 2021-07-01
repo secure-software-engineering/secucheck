@@ -1,7 +1,10 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
+
 /**
- * This Exception indicates that the given class implements FluentTQLUserInterface, but FluentTQLSpecificationClass annotation is not used.
+ * This exception indicates that the given class implements {@link FluentTQLUserInterface}, but {@link FluentTQLSpecificationClass} annotation is not used.
  *
  * @author Ranjith Krishnamurthy
  */
