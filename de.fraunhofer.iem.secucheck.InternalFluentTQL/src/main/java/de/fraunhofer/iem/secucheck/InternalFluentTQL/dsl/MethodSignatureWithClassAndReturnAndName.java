@@ -8,16 +8,15 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
  *
  * @author Enri Ozuni
  */
-public class MethodSignatureWithReturnsAndName {
+public class MethodSignatureWithClassAndReturnAndName {
 	private MethodSignatureImpl methodSignature;
 	
-	public MethodSignatureWithReturnsAndName(String name, MethodSignatureImpl methodSignature) {
+	public MethodSignatureWithClassAndReturnAndName(String methodName, MethodSignatureImpl methodSignature) {
 		this.methodSignature = methodSignature;
-		this.methodSignature.setMethodName(name);
+		this.methodSignature.setNameOfMethodSign(methodName);
 	}
 	
-	public MethodSignatureWithReturnsAndNameAndParam accepts(String param) {
-		methodSignature.setMethodParameters(param);
-		return new MethodSignatureWithReturnsAndNameAndParam(param, methodSignature);
+	public MethodSignatureWithClassAndReturnAndNameAndParam accepts(String methodParam) {
+		return new MethodSignatureWithClassAndReturnAndNameAndParam(methodParam, methodSignature);
 	}
 }

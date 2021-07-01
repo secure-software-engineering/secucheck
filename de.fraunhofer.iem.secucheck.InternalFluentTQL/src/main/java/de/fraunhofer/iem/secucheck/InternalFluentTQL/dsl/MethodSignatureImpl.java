@@ -8,58 +8,54 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
  * @author Enri Ozuni
  */
 public class MethodSignatureImpl implements MethodSignature {
-	private String methodPackage;
-	private String methodReturnType;
+	private String methodClass;
+	private String methodReturn;
 	private String methodName;
-	private String methodParameters;
+	private String methodParam;
 	
-	public MethodSignatureImpl(String packageName) {
-		this.methodPackage = packageName;
+	@Override
+	public String getClassOfMethodSign() {
+		return methodClass;
+	}
+	
+	public void setClassOfMethodSign(String methodClass) {
+		this.methodClass = methodClass;
 	}
 	
 	@Override
-	public String getMethodPackage() {
-		return methodPackage;
+	public String getReturnOfMethodSign() {
+		return methodReturn;
 	}
 	
-	public void setMethodPackage(String packageName) {
-		this.methodPackage = packageName;
-	}
-	
-	@Override
-	public String getReturnType() {
-		return methodReturnType;
-	}
-	
-	public void setReturnType(String returnType) {
-		this.methodReturnType = returnType;
+	public void setReturnOfMethodSign(String methodReturn) {
+		this.methodReturn = methodReturn;
 	}
 
 	@Override
-	public String getMethodName() {
+	public String getNameOfMethodSign() {
 		return methodName;
 	}
 	
-	public void setMethodName(String name) {
-		this.methodName = name;
+	public void setNameOfMethodSign(String methodName) {
+		this.methodName = methodName;
 	}
 
 	@Override
-	public String getMethodParameters() {
-		return methodParameters;
+	public String getParamOfMethodSign() {
+		return methodParam;
 	}
 	
-	public void setMethodParameters(String parameters) {
-		this.methodParameters = parameters;
+	public void setParamOfMethodSign(String methodParam) {
+		this.methodParam = methodParam;
 	}
 	
 	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((methodReturnType == null) ? 0 : methodReturnType.hashCode());
+        result = prime * result + ((methodReturn == null) ? 0 : methodReturn.hashCode());
         result = prime * result + ((methodName == null) ? 0 : methodName.hashCode());
-        result = prime * result + ((methodParameters == null) ? 0 : methodParameters.hashCode());
+        result = prime * result + ((methodParam == null) ? 0 : methodParam.hashCode());
         return result;
     }
 	
@@ -70,22 +66,22 @@ public class MethodSignatureImpl implements MethodSignature {
         if (getClass() != obj.getClass()) return false;
 
         MethodSignatureImpl other = (MethodSignatureImpl) obj;
-        if (methodReturnType == null) {
-            if (other.getReturnType() != null)
+        if (methodReturn == null) {
+            if (other.getReturnOfMethodSign() != null)
                 return false;
-        } else if (!methodReturnType.equals(other.getReturnType()))
+        } else if (!methodReturn.equals(other.getReturnOfMethodSign()))
             return false;
         
         if (methodName == null) {
-            if (other.getMethodName() != null)
+            if (other.getNameOfMethodSign() != null)
                 return false;
-        } else if (!methodName.equals(other.getMethodName()))
+        } else if (!methodName.equals(other.getNameOfMethodSign()))
             return false;
 
-        if (methodParameters == null) {
-            if (other.getMethodParameters() != null)
+        if (methodParam == null) {
+            if (other.getParamOfMethodSign() != null)
                 return false;
-        } else if (!methodParameters.equals(other.getMethodParameters()))
+        } else if (!methodParam.equals(other.getParamOfMethodSign()))
             return false;
 
         return true;
@@ -93,9 +89,10 @@ public class MethodSignatureImpl implements MethodSignature {
 	
 	@Override
     public String toString() {
-		StringBuilder str = new StringBuilder("MethodSignature(\"" + methodReturnType + "\")\n      ");
+		StringBuilder str = new StringBuilder("MethodSignature(\"" + methodClass + "\")\n      ");
+		str.append(".").append(methodReturn.toString()).append("\n      ");
 		str.append(".").append(methodName.toString()).append("\n      ");
-		str.append(".").append(methodParameters.toString());
+		str.append(".").append(methodParam.toString());
 		return str.toString();
     }
 }
