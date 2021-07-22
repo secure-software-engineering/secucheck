@@ -1,5 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
+import java.util.Objects;
+
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
 /**
@@ -15,6 +17,8 @@ public class MethodSignatureConfigurator {
 	}
 	
 	public MethodSignatureWithClass atClass(String methodClass) {
-		return new MethodSignatureWithClass(methodClass, methodSignature);
+		Objects.requireNonNull(methodClass, "atClass() method's argument is null.");
+		this.methodSignature.setClassOfMethodSign(methodClass);
+		return new MethodSignatureWithClass(methodSignature);
 	}
 }

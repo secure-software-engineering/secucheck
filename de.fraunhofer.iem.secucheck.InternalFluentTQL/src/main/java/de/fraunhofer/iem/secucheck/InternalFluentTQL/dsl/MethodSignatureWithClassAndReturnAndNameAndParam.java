@@ -4,16 +4,15 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 
 /**
  * This class represents that it contains {@link MethodSignature} with returns, name, and accepts operators.
- * Example: MethodSignatureConfigurator().returns("...").named("...").accepts("...")
+ * Example: MethodSignatureConfigurator().atClass("...").returns("...").named("...").accepts("...")
  *
  * @author Enri Ozuni
  */
 public class MethodSignatureWithClassAndReturnAndNameAndParam {
 	private MethodSignatureImpl methodSignature;
 	
-	public MethodSignatureWithClassAndReturnAndNameAndParam(String methodParam, MethodSignatureImpl methodSignature) {
+	public MethodSignatureWithClassAndReturnAndNameAndParam(MethodSignatureImpl methodSignature) {
 		this.methodSignature = methodSignature;
-		this.methodSignature.setParamOfMethodSign(methodParam);
 	}
 	
 	public MethodSignature configure() {

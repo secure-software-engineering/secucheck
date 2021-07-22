@@ -1,5 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
+import java.util.Objects;
+
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
 /**
@@ -13,13 +15,14 @@ public class MethodSignatureWithClass {
 
 	private final MethodSignatureImpl methodSignature;
 	
-	public MethodSignatureWithClass(String methodClass, MethodSignatureImpl methodSignature) {
+	public MethodSignatureWithClass(MethodSignatureImpl methodSignature) {
 		this.methodSignature = methodSignature;
-		this.methodSignature.setClassOfMethodSign(methodClass);
 	}
 	
 	public MethodSignatureWithClassAndReturn returns(String methodReturn) {
-		return new MethodSignatureWithClassAndReturn(methodReturn, methodSignature);
+		Objects.requireNonNull(methodReturn, "returns() method's argument is null.");
+		this.methodSignature.setReturnOfMethodSign(methodReturn);
+		return new MethodSignatureWithClassAndReturn(methodSignature);
 	}
 
 }
