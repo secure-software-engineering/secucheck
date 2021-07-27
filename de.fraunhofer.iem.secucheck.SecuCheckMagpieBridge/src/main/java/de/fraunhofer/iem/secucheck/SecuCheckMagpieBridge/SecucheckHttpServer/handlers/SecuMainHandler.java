@@ -66,7 +66,7 @@ public class SecuMainHandler implements HttpHandler {
                 t.sendResponseHeaders(HTTP_OK_STATUS, 0);
                 os.close();
                 PrintUtility.printMessageInIDE(MessageType.Info,
-                        "Analysis has been started!!!");
+                        "SecuCheck’s Analysis has started.");
                 break;
 
             case "/cancelAnalysis":
@@ -74,7 +74,7 @@ public class SecuMainHandler implements HttpHandler {
                 t.sendResponseHeaders(HTTP_OK_STATUS, 0);
                 os.close();
                 PrintUtility.printMessageInIDE(MessageType.Info,
-                        "Analysis has been cancelled!!!");
+                        "SecuCheck’s Analysis has cancelled");
                 break;
 
             case "/clearResultMarkers":
@@ -82,7 +82,7 @@ public class SecuMainHandler implements HttpHandler {
                 t.sendResponseHeaders(HTTP_OK_STATUS, 0);
                 os.close();
                 PrintUtility.printMessageInIDE(MessageType.Info,
-                        "All the result markers are cleared from the IDE!!!");
+                        "All the result markers are cleared from the IDE.");
                 break;
         }
     }

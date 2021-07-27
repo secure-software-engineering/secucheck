@@ -158,7 +158,7 @@ public class FluentTQLAnalysisConfigurator {
         fluentTQLSpecPath = specPath;
 
         if (specPath == null || "".equals(specPath)) {
-            PrintUtility.printMessageInIDE(MessageType.Warning, "FluentTQL Specification's path is invalid!!!");
+            PrintUtility.printMessageInIDE(MessageType.Warning, "FluentTQL Specification's path is invalid.");
             //isFirstPageDone = false;
             return false;
         }
@@ -212,19 +212,19 @@ public class FluentTQLAnalysisConfigurator {
                     return true;
                 } else {
                     PrintUtility.printMessageInIDE(MessageType.Warning,
-                            "No FluentTQL specifications present in the given path!!!");
+                            "No FluentTQL specifications present in the given path.");
                     //isFirstPageDone = false;
                     return false;
                 }
             } else {
                 PrintUtility.printMessageInIDE(MessageType.Warning,
-                        "Given FluentTQL Specification's path is not a directory!!! \nPlease give valid directory name.");
+                        "Given FluentTQL Specification's path is not a directory. \nPlease give valid directory name.");
                 //isFirstPageDone = false;
                 return false;
             }
         } else {
             PrintUtility.printMessageInIDE(MessageType.Warning,
-                    "Given FluentTQL Specification's path does not exist!!!");
+                    "Given FluentTQL Specification's path does not exist.");
             //isFirstPageDone = false;
             return false;
         }
@@ -454,7 +454,7 @@ public class FluentTQLAnalysisConfigurator {
 
         if (specList.size() == 0) {
             PrintUtility.printMessageInIDE(MessageType.Warning,
-                    "No specifications are selected. \nPlease select the FluentTQL specifications");
+                    "No specifications are selected. \nPlease select the FluentTQL specifications.");
             return false;
         }
 
@@ -482,7 +482,7 @@ public class FluentTQLAnalysisConfigurator {
 
         if (entryPointList.size() == 0) {
             PrintUtility.printMessageInIDE(MessageType.Warning,
-                    "No Java files are selected as entry points. \nPlease select the Java files for entry points");
+                    "No Java files are selected as entry points. \nPlease select the Java files for entry points.");
             return false;
         }
 
