@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.entrypoint.EntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 
@@ -16,6 +17,7 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
     private String reportMessage = "";
     private LOCATION reportLocation = LOCATION.SOURCEANDSINK;
     private QueriesSet queriesSet;
+    private List<EntryPoint> entryPoints;
     private final String id;
 
     private final List<TaintFlow> taintFlowsAsList = new ArrayList<>();
@@ -62,6 +64,14 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
     public void setReportLocation(LOCATION reportLocation) {
         this.reportLocation = reportLocation;
     }
+    
+    public List<EntryPoint> getEntryPoints() {
+		return entryPoints;
+	}
+
+	public void setEntryPoints(List<EntryPoint> entryPoints) {
+		this.entryPoints = entryPoints;
+	}
 
     @Override
     public int hashCode() {
@@ -72,6 +82,7 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
         result = prime * result + taintFlows.hashCode();
         result = prime * result + reportMessage.hashCode();
         result = prime * result + reportLocation.hashCode();
+        result = prime * result + entryPoints.hashCode();
 
         return result;
     }
@@ -85,10 +96,15 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
         TaintFlowQueryImpl other = (TaintFlowQueryImpl) obj;
 
         if (!id.equals(other.getId())) return false;
+        
         if (taintFlows.size() != other.getTaintFlows().size()) return false;
         if (!taintFlows.containsAll(other.getTaintFlows())) return false;
         if (!other.getTaintFlows().containsAll(taintFlows)) return false;
-
+        
+        if (entryPoints.size() != other.getEntryPoints().size()) return false;
+        if (!entryPoints.containsAll(other.getEntryPoints())) return false;
+        if (!other.getEntryPoints().containsAll(entryPoints)) return false;
+        
         if (!reportMessage.equals(other.getReportMessage())) return false;
 
         return reportLocation.equals(other.getReportLocation());
@@ -101,10 +117,15 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
         for (TaintFlow taintFlow : taintFlows) {
             str.append("TaintFlow [").append(this.id).append("]: \n").append(taintFlow.toString()).append("\n");
         }
+        
+        for (Object entryPoint : entryPoints) {
+        	str.append("EntryPoint [").append(entryPoint.toString()).append("]: \n");
+        }
 
         str.append("Report Message = ").append(reportMessage).append("\n");
         str.append("Report Location = ").append(reportLocation).append("\n");
 
         return str.toString();
     }
+
 }

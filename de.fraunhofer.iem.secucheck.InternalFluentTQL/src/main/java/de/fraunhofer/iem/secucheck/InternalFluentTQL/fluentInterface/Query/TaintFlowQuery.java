@@ -2,6 +2,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.entrypoint.EntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
 
@@ -47,4 +48,11 @@ public interface TaintFlowQuery extends FluentTQLSpecification {
      * @return Report Location
      */
     LOCATION getReportLocation();
+    
+    /**
+     * Returns the List of Entry Points
+     *
+     * @return List of Entry Points
+     */
+    List<EntryPoint> getEntryPoints();
 }

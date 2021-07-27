@@ -1,8 +1,10 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.entrypoint.EntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,6 +22,12 @@ public class TaintFlowQueryBuilder {
 
     public TaintFlowQueryBuilder(TaintFlowQuery taintFlowQuery) {
         this.taintFlowQuery = (TaintFlowQueryImpl) taintFlowQuery;
+    }
+    
+    public TaintFlowWithEntryPoint atEntryPoint(List<EntryPoint> entryPoints) {
+    	Objects.requireNonNull(entryPoints, "atEntryPoint() method's argument is null.");
+    	taintFlowQuery.setEntryPoints(entryPoints);
+    	return new TaintFlowWithEntryPoint(taintFlowQuery);
     }
 
     public FlowFromSource from(FlowParticipant source) {
