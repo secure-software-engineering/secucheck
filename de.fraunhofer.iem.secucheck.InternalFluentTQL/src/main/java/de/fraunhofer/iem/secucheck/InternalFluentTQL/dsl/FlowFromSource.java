@@ -41,6 +41,6 @@ public class FlowFromSource {
         singleTaintFlow.setTaintFlowQuery(taintFlowQuery);
         taintFlowQuery.addTaintFlow(singleTaintFlow);
 
-        return new JustTaintFlow(taintFlowQuery, singleTaintFlow);
+        return new JustTaintFlow(taintFlowQuery);
     }
 }

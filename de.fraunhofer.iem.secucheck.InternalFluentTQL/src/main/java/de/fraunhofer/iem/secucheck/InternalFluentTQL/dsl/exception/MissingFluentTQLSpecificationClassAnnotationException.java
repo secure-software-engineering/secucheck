@@ -10,6 +10,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
  */
 public class MissingFluentTQLSpecificationClassAnnotationException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the MissingFluentTQLSpecificationClassAnnotationException with the corresponding message.
      *
      * @param className Class Name.

@@ -7,6 +7,11 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
  */
 public class NotFoundZeroArgumentConstructorException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs NotFoundZeroArgumentConstructorException with corresponding message.
      *
      * @param className Class Name.

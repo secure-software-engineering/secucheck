@@ -7,6 +7,11 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
  */
 public class InvalidFluentTQLSpecificationException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the InvalidFluentTQLSpecificationException with the corresponding error message.
      *
      * @param reason Reason.

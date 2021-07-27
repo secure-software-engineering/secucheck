@@ -10,6 +10,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSp
  */
 public class NotAFluentTQLRelatedClassException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the NotAFluentTQLRelatedClassException with the corresponding message.
      *
      * @param className Class Name.

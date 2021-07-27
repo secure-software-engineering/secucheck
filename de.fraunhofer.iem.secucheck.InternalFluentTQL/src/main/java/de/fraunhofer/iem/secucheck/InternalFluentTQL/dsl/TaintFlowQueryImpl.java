@@ -17,7 +17,7 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
     private String reportMessage = "";
     private LOCATION reportLocation = LOCATION.SOURCEANDSINK;
     private QueriesSet queriesSet;
-    private List<EntryPoint> entryPoints;
+    private List<EntryPoint> entryPoints = new ArrayList<>();
     private final String id;
 
     private final List<TaintFlow> taintFlowsAsList = new ArrayList<>();

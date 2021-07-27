@@ -7,6 +7,11 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
  */
 public class CyclicImportException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the CyclicImportException with the corresponding error message.
      *
      * @param chain Chain that caused Cyclic import

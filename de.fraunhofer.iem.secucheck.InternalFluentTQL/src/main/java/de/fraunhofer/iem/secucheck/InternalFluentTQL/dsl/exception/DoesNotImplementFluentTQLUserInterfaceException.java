@@ -11,6 +11,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
  */
 public class DoesNotImplementFluentTQLUserInterfaceException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the DoesNotImplementFluentTQLUserInterfaceException with the corresponding error message.
      *
      * @param className Class Name

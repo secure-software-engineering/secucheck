@@ -7,6 +7,11 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
  */
 public class FieldNotPublicException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the FieldNotPublicException with the given message.
      *
      * @param fieldName Field name.

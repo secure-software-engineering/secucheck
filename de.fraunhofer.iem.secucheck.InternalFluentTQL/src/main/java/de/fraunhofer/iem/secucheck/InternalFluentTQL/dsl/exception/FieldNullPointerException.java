@@ -7,6 +7,11 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
  */
 public class FieldNullPointerException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the FieldNullPointerException with the corresponding error message.
      *
      * @param fieldName Field Name

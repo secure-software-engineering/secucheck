@@ -10,6 +10,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
  */
 public class IncompleteMethodDeclarationException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the IncompleteMethodDeclarationException with the corresponding error message.
      *
      * @param fieldName Field Name

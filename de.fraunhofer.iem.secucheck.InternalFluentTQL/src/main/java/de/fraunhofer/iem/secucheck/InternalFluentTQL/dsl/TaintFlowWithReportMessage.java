@@ -2,8 +2,6 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
-
 import java.util.Objects;
 
 /**
@@ -12,11 +10,9 @@ import java.util.Objects;
  * @author Ranjith Krishnamurthy
  */
 public class TaintFlowWithReportMessage {
-    private final TaintFlowImpl taintFlow;
     private final TaintFlowQueryImpl taintFlowQuery;
 
-    public TaintFlowWithReportMessage(TaintFlowQuery taintFlowQuery, TaintFlow taintFlow) {
-        this.taintFlow = (TaintFlowImpl) taintFlow;
+    public TaintFlowWithReportMessage(TaintFlowQuery taintFlowQuery) {
         this.taintFlowQuery = (TaintFlowQueryImpl) taintFlowQuery;
     }
 

@@ -9,6 +9,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSp
  */
 public class NotAFluentTQLSpecificationClassException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the NotAFluentTQLSpecificationClassException with the corresponding message.
      *
      * @param className Class Name.

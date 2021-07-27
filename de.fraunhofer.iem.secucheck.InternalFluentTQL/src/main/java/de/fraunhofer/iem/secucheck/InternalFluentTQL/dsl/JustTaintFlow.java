@@ -11,11 +11,9 @@ import java.util.Objects;
  * @author Ranjith Krishnamurthy
  */
 public class JustTaintFlow {
-    private final TaintFlowImpl taintFlow;
     private final TaintFlowQueryImpl taintFlowQuery;
 
-    public JustTaintFlow(TaintFlowQuery taintFlowQuery, TaintFlow taintFlow) {
-        this.taintFlow = (TaintFlowImpl) taintFlow;
+    public JustTaintFlow(TaintFlowQuery taintFlowQuery) {
         this.taintFlowQuery = (TaintFlowQueryImpl) taintFlowQuery;
     }
 
@@ -23,7 +21,7 @@ public class JustTaintFlow {
         Objects.requireNonNull(reportMessage, "report() method's argument is null.");
 
         taintFlowQuery.setReportMessage(reportMessage);
-        return new TaintFlowWithReportMessage(taintFlowQuery, taintFlow);
+        return new TaintFlowWithReportMessage(taintFlowQuery);
     }
 
     public TaintFlowQueryBuilder and() {

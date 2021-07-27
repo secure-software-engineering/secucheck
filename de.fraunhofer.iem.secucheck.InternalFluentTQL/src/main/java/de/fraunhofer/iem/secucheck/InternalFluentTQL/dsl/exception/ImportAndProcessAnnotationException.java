@@ -9,6 +9,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.ImportAndPr
  */
 public class ImportAndProcessAnnotationException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the ImportAndProcessAnnotationException with the corresponding error message.
      *
      * @param classNameToImport Class name that should be import and process

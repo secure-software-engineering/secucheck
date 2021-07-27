@@ -9,6 +9,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.Taint
  */
 public class DuplicateTaintFlowQueryIDException extends FluentTQLException {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs the DuplicateTaintFlowQueryIDException with the given message.
      *
      * @param taintFlowQueryId TaintFlowQuery ID.

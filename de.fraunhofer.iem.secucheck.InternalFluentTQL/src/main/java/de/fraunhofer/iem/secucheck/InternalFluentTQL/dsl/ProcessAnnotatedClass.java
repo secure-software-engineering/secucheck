@@ -423,8 +423,6 @@ public class ProcessAnnotatedClass {
         erroneousMethods.clear();
 
         List<FluentTQLSpecification> fluentTQLSpecifications = fluentTQLUserInterface.getFluentTQLSpecification();
-        List<String> missingConfigurationMethods = new ArrayList<>();
-
         Objects.requireNonNull(fluentTQLSpecifications, "FluentTQLSpecifications returned by the getFluentTQLSpecification()" +
                 " method in " + fluentTQLUserInterface.getClass().getSimpleName() + " is null.");
 
