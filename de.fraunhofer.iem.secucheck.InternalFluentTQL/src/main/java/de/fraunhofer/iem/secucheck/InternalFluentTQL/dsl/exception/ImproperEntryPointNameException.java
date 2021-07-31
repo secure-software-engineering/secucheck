@@ -1,8 +1,8 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.entrypoint.ClassEntryPoint;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.entrypoint.MethodEntryPoint;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.entrypoint.PackageEntryPoint;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ClassEntryPoint;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodEntryPoint;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.PackageEntryPoint;
 
 /**
  * This exception indicates that the given entry point through the classes of 

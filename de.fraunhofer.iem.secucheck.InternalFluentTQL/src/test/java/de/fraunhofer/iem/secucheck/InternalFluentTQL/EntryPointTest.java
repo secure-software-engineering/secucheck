@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ClassEntryPoint;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodEntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSignatureConfigurator;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.entrypoint.ClassEntryPoint;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.entrypoint.MethodEntryPoint;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.entrypoint.PackageEntryPoint;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.PackageEntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
 /**

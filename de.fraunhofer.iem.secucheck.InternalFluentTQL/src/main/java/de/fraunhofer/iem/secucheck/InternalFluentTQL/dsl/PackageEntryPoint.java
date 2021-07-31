@@ -1,8 +1,9 @@
-package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.entrypoint;
+package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 import java.util.Objects;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImproperEntryPointNameException;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.EntryPoint.EntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 
 /**
