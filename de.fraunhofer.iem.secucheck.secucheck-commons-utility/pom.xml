@@ -35,5 +35,11 @@
             <artifactId>de.fraunhofer.iem.secucheck.analysis.query</artifactId>
             <version>${secucheck.core.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>de.fraunhofer.iem.secucheck</groupId>
+            <artifactId>de.fraunhofer.iem.secucheck.analysis.parser</artifactId>
+            <version>${secucheck.core.version}</version>
+        </dependency>
     </dependencies>
 </project>

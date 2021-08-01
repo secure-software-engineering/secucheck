@@ -2,7 +2,6 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 import java.util.Objects;
 
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImproperEntryPointNameException;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.EntryPoint.EntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 
@@ -26,21 +25,7 @@ public class ClassEntryPoint implements EntryPoint {
 
 	public void setClassEntryPointName(String classEntryPointName) {
 		Objects.requireNonNull(classEntryPointName, "Argument of setClassEntryPointName() method is null.");
-		
-		try {
-			this.classEntryPointName = parseClassEntryPointName(classEntryPointName);
-		} catch (ImproperEntryPointNameException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	private String parseClassEntryPointName(String classEntryPointName) throws ImproperEntryPointNameException {
-		if(classEntryPointName.trim().split("\\s+").length > 1) {
-			throw new ImproperEntryPointNameException("Entry point name "+classEntryPointName+
-					" that was given as class, is not a proper Java class name.");
-		}
-		return classEntryPointName.trim().replaceAll(":", "");
+		this.classEntryPointName = classEntryPointName;
 	}
 	
 }

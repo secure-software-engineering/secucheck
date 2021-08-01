@@ -2,9 +2,6 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 import java.util.Objects;
 
-import org.apache.commons.lang3.StringUtils;
-
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.ImproperEntryPointNameException;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.EntryPoint.EntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
@@ -38,73 +35,7 @@ public class MethodEntryPoint implements EntryPoint {
 	
 	public void setMethodEntryPointName(String methodEntryPointName) {
 		Objects.requireNonNull(methodEntryPointName, "Argument of setMethodEntryPointName() method is null.");
-		try {
-			this.methodEntryPointName = parseMethodEntryPointName(methodEntryPointName);
-		} catch (ImproperEntryPointNameException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	private String parseMethodEntryPointName(String methodEntryPointName) throws ImproperEntryPointNameException {
-		
-		String exceptionMessage = "Entry point name <"+methodEntryPointName+
-				"> that was given as method, is not a proper Java method name.";
-		
-		String parsedMethodEntryPointName = "";
-		
-		String methodFullyQualifiedName;
-		if(methodEntryPointName.contains(":")) {
-			String[] subSignatures = methodEntryPointName.split(":");
-			if(subSignatures.length == 2) {
-				parsedMethodEntryPointName += subSignatures[0].replaceAll("\\s+", "")+":";
-				methodFullyQualifiedName = subSignatures[1].trim();
-			}
-			else {
-				throw new ImproperEntryPointNameException(exceptionMessage);
-			}
-		}
-		else {
-			throw new ImproperEntryPointNameException(exceptionMessage);
-		}
-		
-		String[] splittedMethodFullyQualifiedName;
-		if(methodFullyQualifiedName.matches(".*\\s.*")) {
-			splittedMethodFullyQualifiedName = methodFullyQualifiedName.split("\\s+", 2);
-			parsedMethodEntryPointName += " "+splittedMethodFullyQualifiedName[0].trim();
-		}
-		else {
-			throw new ImproperEntryPointNameException(exceptionMessage);
-		}
-		
-		String methodNameAndParam = splittedMethodFullyQualifiedName[1].trim();
-		if(methodNameAndParam.contains("(") && methodNameAndParam.contains(")")) {
-			parsedMethodEntryPointName += " "+methodNameAndParam.substring(0, methodNameAndParam.indexOf("(")).trim();
-		}
-		else {
-			throw new ImproperEntryPointNameException(exceptionMessage);
-		}
-		
-		String methodParam = methodNameAndParam.substring(methodNameAndParam.indexOf("(")+1, methodNameAndParam.indexOf(")"));
-		if(StringUtils.isBlank(methodParam)){
-			parsedMethodEntryPointName += "()";
-		} 
-		else {
-			parsedMethodEntryPointName += "(";
-			String[] methodParamArray = methodParam.split(",");
-			int i = 0;
-			for(String param : methodParamArray) {
-				if(i==methodParamArray.length-1) {
-					parsedMethodEntryPointName += param.trim().replaceAll("\\s+", "");
-					break;
-				}
-				parsedMethodEntryPointName += param.trim().replaceAll("\\s+", "")+",";
-				i++;
-			}
-			parsedMethodEntryPointName += ")";
-		}
-		
-		return parsedMethodEntryPointName;
+		this.methodEntryPointName = methodEntryPointName;
 	}
 	
 }

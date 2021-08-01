@@ -1,14 +1,18 @@
 package de.fraunhofer.iem.secucheck;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ClassEntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodEntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.PackageEntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.EntryPoint.EntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.*;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
+import de.fraunhofer.iem.secucheck.analysis.parser.fluenttql.methodsignature.ParsedMethodSignature;
+import de.fraunhofer.iem.secucheck.analysis.parser.fluenttql.methodsignature.SignatureParser;
 import de.fraunhofer.iem.secucheck.analysis.query.*;
 
 import java.util.ArrayList;
@@ -51,13 +55,34 @@ public final class SecuCheckCoreQueryUtility {
         List<de.fraunhofer.iem.secucheck.analysis.query.EntryPoint> compositeEntryPoints = new ArrayList<de.fraunhofer.iem.secucheck.analysis.query.EntryPoint>();
         for (EntryPoint entryPoint : taintFlowQuery.getEntryPoints()) {
         	if(entryPoint instanceof MethodEntryPoint) {
-        		de.fraunhofer.iem.secucheck.analysis.query.EntryPoint compositeEntryPoint = new de.fraunhofer.iem.secucheck.analysis.query.EntryPoint();
-        		String fullyQualifiedNameEntryPoint = ((MethodEntryPoint) entryPoint).getMethodEntryPointName();
-        		String methodNameAndParam = fullyQualifiedNameEntryPoint.split(":")[1].trim().split("\\s")[1].trim();
-        		compositeEntryPoint.addMethod(methodNameAndParam.substring(0, methodNameAndParam.indexOf("(")));
-        		compositeEntryPoint.setAllMethods(false);
-        		compositeEntryPoint.setCanonicalClassName(fullyQualifiedNameEntryPoint.split(":")[0]);
-        		compositeEntryPoints.add(compositeEntryPoint);
+        		ParsedMethodSignature parsedMethodEntryPoint = SignatureParser.parseDSLMethodSignature(((MethodEntryPoint) entryPoint).getMethodEntryPointName());
+        		if(parsedMethodEntryPoint == null) {
+        			continue;
+        		}
+        		else {
+            		de.fraunhofer.iem.secucheck.analysis.query.EntryPoint compositeEntryPoint = new de.fraunhofer.iem.secucheck.analysis.query.EntryPoint();
+            		compositeEntryPoint.setCanonicalClassName(parsedMethodEntryPoint.getClassName());
+            		compositeEntryPoint.addMethod(parsedMethodEntryPoint.getMethodName());
+            		compositeEntryPoint.setAllMethods(false);
+            		compositeEntryPoints.add(compositeEntryPoint);
+        		}
+        	}
+        	
+        	else if(entryPoint instanceof ClassEntryPoint) {
+        		String parsedClassEntryPoint = SignatureParser.parseDSLClassOrPackageSignature(((ClassEntryPoint) entryPoint).getClassEntryPointName());
+        		if(parsedClassEntryPoint == null) {
+        			continue;
+        		}
+        		else {
+            		de.fraunhofer.iem.secucheck.analysis.query.EntryPoint compositeEntryPoint = new de.fraunhofer.iem.secucheck.analysis.query.EntryPoint();
+            		compositeEntryPoint.setCanonicalClassName(parsedClassEntryPoint);
+            		compositeEntryPoint.setAllMethods(false);
+            		compositeEntryPoints.add(compositeEntryPoint);
+        		}
+        	}
+        	
+        	else if(entryPoint instanceof PackageEntryPoint) {
+        		// ToDo: implement for package entry point
         	}
         }
         
