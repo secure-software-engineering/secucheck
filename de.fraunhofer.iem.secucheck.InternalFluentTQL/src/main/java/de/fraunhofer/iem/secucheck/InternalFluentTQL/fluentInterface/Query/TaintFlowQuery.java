@@ -55,4 +55,11 @@ public interface TaintFlowQuery extends FluentTQLSpecification {
      * @return List of Entry Points
      */
     List<EntryPoint> getEntryPoints();
+    
+    /**
+     * Returns the information to whether only DSL entry points will be used
+     *
+     * @return Boolean of whether DSL entry points will be used
+     */
+    boolean isDSLEntryPoints();
 }

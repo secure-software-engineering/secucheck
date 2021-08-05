@@ -24,9 +24,17 @@ public class TaintFlowQueryBuilder {
         this.taintFlowQuery = (TaintFlowQueryImpl) taintFlowQuery;
     }
     
-    public TaintFlowWithEntryPoint atEntryPoint(List<EntryPoint> entryPoints) {
-    	Objects.requireNonNull(entryPoints, "atEntryPoint() method's argument is null.");
+    public TaintFlowWithEntryPoint atAllEntryPoints(List<EntryPoint> entryPoints) {
+    	Objects.requireNonNull(entryPoints, "atAllEntryPoints() method's argument is null.");
     	taintFlowQuery.setEntryPoints(entryPoints);
+    	taintFlowQuery.setDSLEntryPoints(false);
+    	return new TaintFlowWithEntryPoint(taintFlowQuery);
+    }
+    
+    public TaintFlowWithEntryPoint atOnlyDSLEntryPoints(List<EntryPoint> entryPoints) {
+    	Objects.requireNonNull(entryPoints, "atOnlyDSLEntryPoints() method's argument is null.");
+    	taintFlowQuery.setEntryPoints(entryPoints);
+    	taintFlowQuery.setDSLEntryPoints(true);
     	return new TaintFlowWithEntryPoint(taintFlowQuery);
     }
 

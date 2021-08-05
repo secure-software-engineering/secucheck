@@ -19,6 +19,7 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
     private QueriesSet queriesSet;
     private List<EntryPoint> entryPoints = new ArrayList<>();
     private final String id;
+    private boolean DSLEntryPoints = false;
 
     private final List<TaintFlow> taintFlowsAsList = new ArrayList<>();
 
@@ -72,6 +73,14 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
 	public void setEntryPoints(List<EntryPoint> entryPoints) {
 		this.entryPoints = entryPoints;
 	}
+	
+	public boolean isDSLEntryPoints() {
+		return DSLEntryPoints;
+	}
+
+	public void setDSLEntryPoints(boolean dSLEntryPoints) {
+		DSLEntryPoints = dSLEntryPoints;
+	}
 
     @Override
     public int hashCode() {
@@ -121,7 +130,7 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
         for (Object entryPoint : entryPoints) {
         	str.append("EntryPoint [").append(entryPoint.toString()).append("]: \n");
         }
-
+        
         str.append("Report Message = ").append(reportMessage).append("\n");
         str.append("Report Location = ").append(reportLocation).append("\n");
 

@@ -51,6 +51,7 @@ public final class SecuCheckCoreQueryUtility {
         SecucheckTaintFlowQueryImpl compositeQuery = new SecucheckTaintFlowQueryImpl(taintFlowQuery.getId());
         compositeQuery.setReportMessage(taintFlowQuery.getReportMessage());
         compositeQuery.setReportLocation(getReportLocation(taintFlowQuery.getReportLocation()));
+        compositeQuery.setDSLEntryPoints(taintFlowQuery.isDSLEntryPoints());
         
         List<de.fraunhofer.iem.secucheck.analysis.query.EntryPoint> compositeEntryPoints = new ArrayList<de.fraunhofer.iem.secucheck.analysis.query.EntryPoint>();
         for (EntryPoint entryPoint : taintFlowQuery.getEntryPoints()) {
