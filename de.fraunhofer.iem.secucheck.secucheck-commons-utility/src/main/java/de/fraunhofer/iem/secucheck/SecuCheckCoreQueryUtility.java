@@ -11,8 +11,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.TaintFlow;
-import de.fraunhofer.iem.secucheck.analysis.parser.fluenttql.methodsignature.ParsedMethodSignature;
-import de.fraunhofer.iem.secucheck.analysis.parser.fluenttql.methodsignature.SignatureParser;
+import de.fraunhofer.iem.secucheck.analysis.parser.methodsignature.ParsedMethodSignature;
+import de.fraunhofer.iem.secucheck.analysis.parser.methodsignature.SignatureParser;
 import de.fraunhofer.iem.secucheck.analysis.query.*;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public final class SecuCheckCoreQueryUtility {
         for (EntryPoint entryPoint : taintFlowQuery.getEntryPoints()) {
         	if(entryPoint instanceof MethodEntryPoint) {
         		ParsedMethodSignature parsedMethodEntryPoint = SignatureParser.parseDSLMethodSignature(((MethodEntryPoint) entryPoint).getMethodEntryPointName());
-        		if(parsedMethodEntryPoint == null) {
+        		if(parsedMethodEntryPoint.getClassName().equals("") || parsedMethodEntryPoint.getMethodName().equals("")) {
         			continue;
         		}
         		else {
@@ -70,13 +70,13 @@ public final class SecuCheckCoreQueryUtility {
         	
         	else if(entryPoint instanceof ClassEntryPoint) {
         		String parsedClassEntryPoint = SignatureParser.parseDSLClassOrPackageSignature(((ClassEntryPoint) entryPoint).getClassEntryPointName());
-        		if(parsedClassEntryPoint == null) {
+        		if(parsedClassEntryPoint.equals("")) {
         			continue;
         		}
         		else {
             		de.fraunhofer.iem.secucheck.analysis.query.EntryPoint compositeEntryPoint = new de.fraunhofer.iem.secucheck.analysis.query.EntryPoint();
             		compositeEntryPoint.setCanonicalClassName(parsedClassEntryPoint);
-            		compositeEntryPoint.setAllMethods(false);
+            		compositeEntryPoint.setAllMethods(true);
             		compositeEntryPoints.add(compositeEntryPoint);
         		}
         	}
