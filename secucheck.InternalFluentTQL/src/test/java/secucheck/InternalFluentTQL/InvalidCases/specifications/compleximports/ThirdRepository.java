@@ -1,0 +1,29 @@
+package secucheck.InternalFluentTQL.InvalidCases.specifications.compleximports;
+
+import secucheck.InternalFluentTQL.dsl.MethodSelector;
+import secucheck.InternalFluentTQL.dsl.annotations.FluentTQLRepositoryClass;
+import secucheck.InternalFluentTQL.dsl.annotations.ImportAndProcessOnlyStaticFields;
+import secucheck.InternalFluentTQL.dsl.annotations.OutFlowReturnValue;
+import secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
+
+@FluentTQLRepositoryClass
+@ImportAndProcessOnlyStaticFields(classList = {FirstRepository.class})
+public class ThirdRepository {
+    @OutFlowReturnValue
+    public static Method source111 = new MethodSelector("Test1: java.lang.String source111()");
+
+    @OutFlowReturnValue
+    public static Method source222 = new MethodSelector("Test1: java.lang.String source222()");
+
+    @OutFlowReturnValue
+    public static Method source333 = new MethodSelector("Test1: java.lang.String source333()");
+
+    @OutFlowReturnValue
+    public static Method source444 = new MethodSelector("Test1: java.lang.String source444()");
+
+    @OutFlowReturnValue
+    public static Method source555 = new MethodSelector("Test1: java.lang.String source555()");
+
+    @OutFlowReturnValue
+    public static Method source666 = new MethodSelector("Test1: java.lang.String source666()");
+}

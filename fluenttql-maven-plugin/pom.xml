@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>secucheck</artifactId>
-        <groupId>de.fraunhofer.iem.secucheck</groupId>
-        <version>SC-1.1.0</version>
+        <groupId>secucheck</groupId>
+        <version>SC-Anonymous</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -44,8 +44,8 @@
             <version>2.2.1</version>
         </dependency>
         <dependency>
-            <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</artifactId>
+            <groupId>secucheck</groupId>
+            <artifactId>secucheck.FluentTQLClassLoader</artifactId>
             <version>${secucheck.version}</version>
         </dependency>
         <dependency>

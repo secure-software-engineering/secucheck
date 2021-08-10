@@ -1,0 +1,24 @@
+package secucheck.InternalFluentTQL.fluentInterface.InputOutput;
+
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Interface for InputDeclaration
+ *
+ */
+public interface InputDeclaration {
+    /**
+     * Returns the List of Input
+     *
+     * @return List of Input
+     */
+    List<Input> getInputs();
+
+    /**
+     * Returns the List of Input as Set
+     *
+     * @return List of Input as Set
+     */
+    Set<Input> getInputsAsSet();
+}

@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.fraunhofer.iem.secucheck</groupId>
+    <groupId>secucheck</groupId>
     <artifactId>secucheck</artifactId>
     <packaging>pom</packaging>
-    <version>SC-1.1.0</version>
+    <version>SC-Anonymous</version>
     <name>SecuCheck</name>
 
     <properties>
@@ -16,18 +16,18 @@
 
         <!--The whole project uses the currently working project version-->
         <secucheck.version>${project.version}</secucheck.version>
-        <secucheck.core.version>SCC-1.1.0</secucheck.core.version>
+        <secucheck.core.version>SCC-Anonymous</secucheck.core.version>
     </properties>
 
     <modules>
-        <module>de.fraunhofer.iem.secucheck.InternalFluentTQL</module>
-        <module>de.fraunhofer.iem.secucheck.secucheck-commons-utility</module>
-        <module>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</module>
+        <module>secucheck.InternalFluentTQL</module>
+        <module>secucheck.secucheck-commons-utility</module>
+        <module>secucheck.FluentTQLClassLoader</module>
         <module>fluenttql-maven-plugin</module>
-        <module>de.fraunhofer.iem.secucheck.fluentTQL2English</module>
-        <module>de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge</module>
-        <module>de.fraunhofer.iem.secucheck.SecuCheckSARIF</module>
-        <module>de.fraunhofer.iem.secucheck.secucheck-cmd</module>
+        <module>secucheck.fluentTQL2English</module>
+        <module>secucheck.SecuCheckMagpieBridge</module>
+        <module>secucheck.SecuCheckSARIF</module>
+        <module>secucheck.secucheck-cmd</module>
     </modules>
 
 

@@ -1,0 +1,31 @@
+package secucheck.InternalFluentTQL.dsl;
+
+/**
+ * This method represents that it contains Method with out operator.
+ * Example: MethodConfigurator("...").out()
+ *
+ */
+public class MethodWithOut {
+    private final MethodImpl method;
+    private final OutputDeclarationImpl outputDeclaration;
+
+    public MethodWithOut(OutputDeclarationImpl outputDeclaration, MethodImpl method) {
+        this.method = method;
+        this.outputDeclaration = outputDeclaration;
+    }
+
+    public MethodWithOutParam param(int parameterID) {
+        outputDeclaration.addOutput(new ParameterImpl(parameterID));
+        return new MethodWithOutParam(outputDeclaration, method);
+    }
+
+    public MethodWithOutReturn returnValue() {
+        outputDeclaration.addOutput(new ReturnImpl());
+        return new MethodWithOutReturn(outputDeclaration, method);
+    }
+
+    public MethodWithOutThisObj thisObject() {
+        outputDeclaration.addOutput(new ThisObjectImpl());
+        return new MethodWithOutThisObj(outputDeclaration, method);
+    }
+}

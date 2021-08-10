@@ -1,0 +1,7 @@
+classPath: 'D:\Work\Latest\SC-Anonymous\secucheck-catalog\secucheck.InternalFluentTQL.catalog\target\classes'
+entryPoints:
+specPath: 'D:\Work\Latest\SC-Anonymous\secucheck-catalog\secucheck.InternalFluentTQL.catalogSpecifications\target'
+selectedSpecs:
+asSpecFile: false
+solver: "Boomerang3"
+isPostProcessResult: true
