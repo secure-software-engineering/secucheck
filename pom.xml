@@ -16,7 +16,7 @@
 
         <!--The whole project uses the currently working project version-->
         <secucheck.version>${project.version}</secucheck.version>
-        <secucheck.core.version>SCC-Anonymous</secucheck.core.version>
+        <secucheck.core.version>SCC-ANONYMOUS</secucheck.core.version>
     </properties>
 
     <modules>
