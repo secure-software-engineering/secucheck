@@ -5,6 +5,7 @@ import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLMagpieBridgeMa
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.SecuCheckCoreQueryUtility;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.utility.PrintUtility;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisDefaultConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.query.EntryPoint;
@@ -68,16 +69,16 @@ public class SecuCheckAnalysisConfigurator {
 
                         //List<CompositeTaintFlowQueryImpl> compositeQueries = FluentTQLUtility.getCompositeTaintFlowQueries(taintFlowQueries);
                         Collection<AnalysisResult> result = secucheckAnalysis.run(taintFlowQueries);
-                        System.out.println("\n\n\nCheck critical results = " + result.size() + "\n\n\n");
+                        System.out.println("\n\n\nAnalysis result size = " + result.size() + "\n\n");
 
                         //Collection<AnalysisResult> results = Utility.getMagpieBridgeResult(result);
 
                         //System.out.println("\n\n\nSecondCheck critical results = " + results.size() + "\n\n\n");
 
                         if (!Thread.currentThread().isInterrupted()) {
-                            System.out.println("\n\n\nCritical Result = " + result.size());
                             FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer.cleanUp();
                             FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer.consume(result, "secucheck-analysis");
+                            PrintUtility.printMessageInIDE(MessageType.Info, "SecuCheck’s Analysis has completed.");
                         } else {
                             System.out.println("\n\n\nInterrupted = " + result.size() + "\n\n\n");
                         }

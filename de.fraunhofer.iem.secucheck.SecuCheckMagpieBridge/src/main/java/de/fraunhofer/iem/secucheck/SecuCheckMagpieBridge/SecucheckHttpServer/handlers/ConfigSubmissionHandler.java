@@ -83,7 +83,7 @@ public class ConfigSubmissionHandler implements HttpHandler {
 
         if (isSuccess1 && isSuccess2) {
             PrintUtility.printMessageInIDE(MessageType.Info,
-                    "Configuration Submitted Successfully!!!");
+                    "Configuration Submitted Successfully.");
         }
 
         OutputStream os = t.getResponseBody();
