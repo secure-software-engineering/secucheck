@@ -57,8 +57,10 @@ https://github.com/WebGoat/WebGoat.git
 
 ### Build the fluentTQL specifications for all the 4 evaluation projects.
 
-When you cloned and built SecuCheck-Catalog project in the [step](#clone-and-build-the-evaluation-projects), this project also contains the fluentTQL specifications projects.
-If the build of SecuCheck-Catalog project is successful in that [step](#clone-and-build-the-evaluation-projects), then building the fluentTQL specifications projects also successful.
+When you cloned and built SecuCheck-Catalog project in the [step](#clone-and-build-the-evaluation-projects), this
+project also contains the fluentTQL specifications projects. If the build of SecuCheck-Catalog project is successful in
+that [step](#clone-and-build-the-evaluation-projects), then building the fluentTQL specifications projects also
+successful.
 
 ### Install dependencies for the evaluation python scripts
 
@@ -188,8 +190,8 @@ TOTAL_RUN: int = 1
 ````
 
 * ***SECUCHECK_JAR*** : This is the executable jar file of SecuCheck-cmd, to run the SecuCheck through command line.
-Give the full absolute path of the downloaded secucheck-jar file in the [step](#download-the-secucheck-cmd-jar-files).
-  
+  Give the full absolute path of the downloaded secucheck-jar file in the [step](#download-the-secucheck-cmd-jar-files).
+
 ````shell
 # for example,
 SECUCHECK_JAR: str = '/home/secucheck/Downloads/secucheck-cmd.jar'
@@ -197,10 +199,10 @@ SECUCHECK_JAR: str = '/home/secucheck/Downloads/secucheck-cmd.jar'
 
 * ***HYPOTHESIS_PROJECTS*** : It is a dictionary, that contains the number of hypothesis and the respective evaluation
   projects for each hypothesis.
-  
+
 For example, if you want to run the evaluation for ***Hypothesis1*** with the evaluation project to only ***catalog***
-  and ***Hypothesis2_SingleEntryPoint*** with the evaluation project to ***catalog***, and ***petclinic***,
-  then the ***HYPOTHESIS_PROJECTS*** settings parameter should be as shown below
+and ***Hypothesis2_SingleEntryPoint*** with the evaluation project to ***catalog***, and ***petclinic***, then the ***
+HYPOTHESIS_PROJECTS*** settings parameter should be as shown below
 
 ````shell
 HYPOTHESIS_PROJECTS: dict = {
@@ -208,18 +210,146 @@ HYPOTHESIS_PROJECTS: dict = {
   "Hypothesis2_SingleEntryPoint": ["catalog", "petclinic"]
 }
 ````
-  
-**Note**: Evaluation environment contains the folder for each of the hypothesis with the same name mentioned in the
-  ***HYPOTHESIS_PROJECTS*** settings parameter. And each of these folder contains a folder for each of the
-  evaluation project with the same name as given in the ***HYPOTHESIS_PROJECTS*** settings parameter. And the script
-  look for the same name folders. Therefore, please do not change the name of the hypothesis and the evaluation
-  project. Just configure the settings parameter to run for particular hypothesis and the evaluation project as you wish,
-  but keep the names as it is.
 
-* ***TOTAL_RUN*** : Total number of runs that the evaluation should be carried out. 
-  
+**Note**: Evaluation environment contains the folder for each of the hypothesis with the same name mentioned in the
+***HYPOTHESIS_PROJECTS*** settings parameter. And each of these folder contains a folder for each of the evaluation
+project with the same name as given in the ***HYPOTHESIS_PROJECTS*** settings parameter. And the script look for the
+same name folders. Therefore, please do not change the name of the hypothesis and the evaluation project. Just configure
+the settings parameter to run for particular hypothesis and the evaluation project as you wish, but keep the names as it
+is.
+
+* ***TOTAL_RUN*** : Total number of runs that the evaluation should be carried out.
+
 **Note**:
-  1. For **TOTAL_RUN = 1**, and for all the hypotheses and the evaluation projects, in Windows 10 with 16 GB RAM,
-  it took almost **1 hour** to complete the evaluation.
-  2.  For **TOTAL_RUN = 10** (used for the actual paper), and for all the hypotheses and the evaluation projects,
-  in Windows 10 with 16 GB RAM, it took almost **8.5 hour** to complete the evaluation.
+
+1. For **TOTAL_RUN = 1**, and for all the hypotheses and the evaluation projects, in Windows 10 with 16 GB RAM, it took
+   almost **1 hour** to complete the evaluation.
+2. For **TOTAL_RUN = 10** (used for the actual paper), and for all the hypotheses and the evaluation projects, in
+   Windows 10 with 16 GB RAM, it took almost **8.5 hour** to complete the evaluation.
+
+## Run the evaluation
+
+Finally, run the ***run_secucheck_evaluation*** script to run the evaluation.
+
+## Important directories
+
+Note:
+All the below given directories are the relative path to the root of this project
+
+* ***Hypothesis1***
+
+There are 4 evaluation projects and their respective path
+
+````shell
+# catalog
+Hypothesis1/catalog/
+# demo-project 
+Hypothesis1/demo-project/
+# petclinic 
+Hypothesis1/petclinic/
+# Webgoat 
+Hypothesis1/Webgoat/
+````
+
+SecuCheck settings files (YAML) will be stored in
+
+````shell
+# catalog
+Hypothesis1/catalog/settings_files/
+# demo-project 
+Hypothesis1/demo-project/settings_files/
+# petclinic 
+Hypothesis1/petclinic/settings_files/
+# Webgoat 
+Hypothesis1/Webgoat/settings_files/
+````
+
+SecuCheck analysis result and the evaluation result (Excel file) for each run will be stored in
+
+````shell
+# catalog eg. Hypothesis1/catalog/run1_output/
+Hypothesis1/catalog/run[0-9]_output/
+# demo-project 
+Hypothesis1/demo-project/run[0-9]_output/
+# petclinic 
+Hypothesis1/petclinic/run[0-9]_output/
+# Webgoat 
+Hypothesis1/Webgoat/run[0-9]_output/
+````
+
+SecuCheck evaluation result (Excel file: average of TOTAL_RUN) for each project will be stored in the below directories.
+These directories also contains the visualization of the Excel file (average result), stored in JPG file.
+
+````shell
+# catalog eg. Hypothesis1/catalog/average_of_10_runs.jpg
+Hypothesis1/catalog/
+# demo-project 
+Hypothesis1/demo-project/
+# petclinic 
+Hypothesis1/petclinic/
+# Webgoat 
+Hypothesis1/Webgoat/
+````
+
+Visualization of the evaluation result of all the projects in a single graph for each hypothesis will be stored in
+
+**Note**:
+This is not valid for Hypothesis3, since Hypothesis3 is only possible on catalog project. Therefore, no comparion graph
+for Hypothesis3
+
+````shell
+Hypothesis1/
+````
+
+* ***Hypothesis2_AllEntryPoint***
+
+Follows the same format as **Hypothesis1**, the only difference is the base directory is as shown below
+````shell
+# base directory
+Hypothesis2_AllEntryPoint/
+
+# There are 4 evaluation projects in Hypothesis2_AllEntryPoint
+
+# catalog 
+Hypothesis2_AllEntryPoint/catalog/
+# demo-project 
+Hypothesis2_AllEntryPoint/demo-project/
+# petclinic 
+Hypothesis2_AllEntryPoint/petclinic/
+# Webgoat 
+Hypothesis2_AllEntryPoint/Webgoat/
+````
+
+* ***Hypothesis2_SingleEntryPoint***
+
+Follows the same format as **Hypothesis1**, the only difference is the base directory is as shown below
+````shell
+# base directory
+Hypothesis2_SingleEntryPoint/
+
+# There are 4 evaluation projects in Hypothesis2_SingleEntryPoint
+
+# catalog 
+Hypothesis2_SingleEntryPoint/catalog/
+# demo-project 
+Hypothesis2_SingleEntryPoint/demo-project/
+# petclinic 
+Hypothesis2_SingleEntryPoint/petclinic/
+# Webgoat 
+Hypothesis2_SingleEntryPoint/Webgoat/
+````
+
+* ***Hypothesis3***
+
+Follows the same format as **Hypothesis1**, the only difference is the base directory is as shown below.
+And, **Hypothesis3** does not have comparison visualization between multiple projects, since **Hypothesis3**
+runs only for **catalog** evaluation project.
+````shell
+# base directory
+Hypothesis3/
+
+# There is only 1 evaluation project in Hypothesis3
+
+# catalog 
+Hypothesis3/catalog/
+````
