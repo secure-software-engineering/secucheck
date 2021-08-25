@@ -57,8 +57,8 @@ https://github.com/WebGoat/WebGoat.git
 
 ### Build the fluentTQL specifications for all the 4 evaluation projects.
 
-When you cloned and built SecuCheck-Catalog project, this project also contains the fluentTQL specifications projects.
-If the build is successful in that step, building the fluentTQL specifications projects also successful.
+When you cloned and built SecuCheck-Catalog project in the [step](#clone-and-build-the-evaluation-projects), this project also contains the fluentTQL specifications projects.
+If the build of SecuCheck-Catalog project is successful in that [step](#clone-and-build-the-evaluation-projects), then building the fluentTQL specifications projects also successful.
 
 ### Install dependencies for the evaluation python scripts
 
@@ -219,7 +219,7 @@ HYPOTHESIS_PROJECTS: dict = {
 * ***TOTAL_RUN*** : Total number of runs that the evaluation should be carried out. 
   
 **Note**:
-  1. For TOTAL_RUN = 1, and for all the hypotheses and the evaluation projects, in Windows 10 with 16 GB RAM,
-  it took almost **1** hour to complete the evaluation.
-  2.  For TOTAL_RUN = 10 (used for the actual paper), and for all the hypotheses and the evaluation projects,
-  in Windows 10 with 16 GB RAM, it took almost **8.5** hour to complete the evaluation.
+  1. For **TOTAL_RUN = 1**, and for all the hypotheses and the evaluation projects, in Windows 10 with 16 GB RAM,
+  it took almost **1 hour** to complete the evaluation.
+  2.  For **TOTAL_RUN = 10** (used for the actual paper), and for all the hypotheses and the evaluation projects,
+  in Windows 10 with 16 GB RAM, it took almost **8.5 hour** to complete the evaluation.
