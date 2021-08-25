@@ -45,12 +45,14 @@ import run_visualization as visualizer
 
 # Evaluation settings
 SECUCHECK_JAR: str = 'SECUCHECK-CMD-SC-1.1.0-JAR_WITH_DEPENDENCIES_JAR_PATH'
+
 HYPOTHESIS_PROJECTS: dict = {
     "Hypothesis1": ["catalog", "demo-project", "petclinic", "Webgoat"],
     "Hypothesis2_AllEntryPoint": ["catalog", "demo-project", "petclinic", "Webgoat"],
     "Hypothesis2_SingleEntryPoint": ["catalog", "demo-project", "petclinic", "Webgoat"],
     "Hypothesis3": ["catalog"]
 }
+
 TOTAL_RUN: int = 1
 
 # Main
