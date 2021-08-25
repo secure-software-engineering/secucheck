@@ -2,7 +2,7 @@
 
 This project provides the evaluation environment for the evaluation of SecuCheck SC-1.1.0 for the IEEE-SCAM 2021
 conference.
-# title
+
 There are three scripts available on the root directory.
 
 * ***run_secucheck_evaluation***: This is the main script, user can configure the evaluation settings parameter in this
