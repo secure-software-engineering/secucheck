@@ -30,6 +30,10 @@
             2.  For TOTAL_RUN = 10 (used for the actual paper), and for all the hypotheses and the evaluation projects,
         in Windows 10 with 16 GB RAM, it took almost 8.5 hour to complete the evaluation.
 
+    Usage:
+        example:
+        $ python3 run_secucheck_evaluation.py
+
     Developer(s):
         Ranjith Krishnamurthy
 """
