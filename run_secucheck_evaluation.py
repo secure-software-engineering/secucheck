@@ -40,7 +40,7 @@ import run_secucheck as runner
 import run_visualization as visualizer
 
 # Evaluation settings
-SECUCHECK_JAR: str = '/home/secucheck/SecuCheck/secucheck/de.fraunhofer.iem.secucheck.secucheck-cmd/target/de.fraunhofer.iem.secucheck.secucheck-cmd-SC-1.1.0-jar-with-dependencies.jar'
+SECUCHECK_JAR: str = 'SECUCHECK-CMD-SC-1.1.0-JAR_WITH_DEPENDENCIES_JAR_PATH'
 HYPOTHESIS_PROJECTS: dict = {
     "Hypothesis1": ["catalog", "demo-project", "petclinic", "Webgoat"],
     "Hypothesis2_AllEntryPoint": ["catalog", "demo-project", "petclinic", "Webgoat"],
