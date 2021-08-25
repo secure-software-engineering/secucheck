@@ -1,0 +1,11 @@
+classPath: PETCLINIC_CLASS_PATH
+entryPoints:
+- org.springframework.samples.petclinic.owner.PetController
+- org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl
+specPath: PETCLINIC_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- h4
+- h1
+asSpecFile: false
+solver: "Boomerang3"
+isPostProcessResult: false

@@ -1,0 +1,23 @@
+classPath: WEBGOAT_CLASS_PATH
+entryPoints:
+- org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5b
+- org.owasp.webgoat.sql_injection.advanced.SqlInjectionAdvanced
+- org.owasp.webgoat.sql_injection.advanced.SqlInjectionChallenge
+- org.owasp.webgoat.sql_injection.advanced.SqlInjectionChallengeLogin
+- org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a
+- org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6b
+- org.owasp.webgoat.sql_injection.advanced.SqlInjectionQuiz
+- org.owasp.webgoat.sql_injection.introduction.SqlInjection
+- org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson10
+- org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson2
+- org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson3
+- org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson4
+- org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5
+- org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5a
+- org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson8
+specPath: WEBGOAT_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- SQLInjectionLesson5b
+asSpecFile: 'false'
+solver: Boomerang3
+isPostProcessResult: 'false'

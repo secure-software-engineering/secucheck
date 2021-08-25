@@ -1,0 +1,10 @@
+classPath: DEMO_PROJECT_CLASS_PATH
+entryPoints:
+- de.fraunhofer.iem.secucheck.todolist.controllers.DatabaseController
+- de.fraunhofer.iem.secucheck.todolist.configuration.SecurityConfiguration
+specPath: DEMO_PROJECT_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- CWE89_SqlInjection_TF1
+asSpecFile: 'false'
+solver: Boomerang3
+isPostProcessResult: 'false'

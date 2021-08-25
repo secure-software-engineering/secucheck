@@ -1,0 +1,23 @@
+classPath: CATALOG_CLASS_PATH
+entryPoints:
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SQLInjection.CWE89.SimpleSQLInjection
+specPath: CATALOG_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- SimpleSQLi
+- SQLiWithPreparedStmt
+- NoSQLiWithMultipleSources
+- StoredXSS
+- PathTraversal_TF2
+- LogInjectionWithDeSanitizer
+- OpenRedirect_TF1
+- TrustBoundaryViolation
+- OpenRedirect_TF2
+- PathTraversal_TF1
+- ReflexiveXSS
+- LogInjectionWithoutDesanitizer
+- NoSQLiInSpring
+- SQLiInServler
+- CommandInjection_CWE77
+asSpecFile: 'false'
+solver: Boomerang3
+isPostProcessResult: 'false'

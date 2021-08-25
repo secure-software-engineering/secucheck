@@ -1,0 +1,17 @@
+classPath: PETCLINIC_CLASS_PATH
+entryPoints:
+- org.springframework.samples.petclinic.owner.PetController
+- org.springframework.samples.petclinic.owner.OwnerRepositoryCustomImpl
+- org.springframework.samples.petclinic.model.BaseEntity
+- org.springframework.samples.petclinic.model.NamedEntity
+- org.springframework.samples.petclinic.model.Person
+- org.springframework.samples.petclinic.owner.CustomRepositoryFactory
+- org.springframework.samples.petclinic.owner.CustomRepositoryFactoryBean
+- org.springframework.samples.petclinic.owner.Owner
+- org.springframework.samples.petclinic.owner.OwnerController
+specPath: PETCLINIC_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- h4
+asSpecFile: false
+solver: "Boomerang3"
+isPostProcessResult: false

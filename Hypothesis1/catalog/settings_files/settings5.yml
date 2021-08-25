@@ -1,0 +1,13 @@
+classPath: CATALOG_CLASS_PATH
+entryPoints:
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SQLInjection.CWE89.SimpleSQLInjection
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.CommandInjection.CWE77.CommandInjection
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.LDAPInjection.CWE90.LdapInjection
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.LDAPInjection.CWE90.LDAPServerUtils
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.LogInjectionAttack.CWE117.LogInjection
+specPath: CATALOG_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- SimpleSQLi
+asSpecFile: 'false'
+solver: Boomerang3
+isPostProcessResult: 'false'

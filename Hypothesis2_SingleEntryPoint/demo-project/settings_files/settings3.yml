@@ -1,0 +1,11 @@
+classPath: DEMO_PROJECT_CLASS_PATH
+entryPoints:
+- de.fraunhofer.iem.secucheck.todolist.controllers.PasswordController
+specPath: DEMO_PROJECT_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- CWE643_XpathInjection_TF1
+- CWE601_OpenRedirect_TF1
+- CWE79_CrossSiteScripting
+asSpecFile: 'false'
+solver: Boomerang3
+isPostProcessResult: 'false'

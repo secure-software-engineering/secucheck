@@ -1,0 +1,22 @@
+classPath: CATALOG_CLASS_PATH
+entryPoints:
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SQLInjection.CWE89.SimpleSQLInjection
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.CommandInjection.CWE77.CommandInjection
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.LDAPInjection.CWE90.LdapInjection
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.LDAPInjection.CWE90.LDAPServerUtils
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.LogInjectionAttack.CWE117.LogInjection
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.OpenRedirect.CWE601.OpenRedirectAttack
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.PathTraversalAttack.CWE22.PathTraversal
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SQLInjection.CWE89.SQLInjectionUsingServletRequest
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SQLInjection.CWE89.SQLiWithPreparedStatement
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SuppressLibraryOutput
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.TrustBoundaryViolation.CWE501.TrustBoundaryViolation
+- de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.XMLInjection.CWE91.XMLInjectionAttack
+specPath: CATALOG_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- SimpleSQLi
+asSpecFile: 'false'
+solver: Boomerang3
+isPostProcessResult: 'false'

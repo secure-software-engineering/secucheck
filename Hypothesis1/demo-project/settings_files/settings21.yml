@@ -1,0 +1,29 @@
+classPath: DEMO_PROJECT_CLASS_PATH
+entryPoints:
+- de.fraunhofer.iem.secucheck.todolist.controllers.DatabaseController
+- de.fraunhofer.iem.secucheck.todolist.configuration.SecurityConfiguration
+- de.fraunhofer.iem.secucheck.todolist.configuration.WebMvcConfig
+- de.fraunhofer.iem.secucheck.todolist.controllers.AdminController
+- de.fraunhofer.iem.secucheck.todolist.utils.SecurityUtils
+- de.fraunhofer.iem.secucheck.todolist.controllers.ErrorController
+- de.fraunhofer.iem.secucheck.todolist.controllers.HomeController
+- de.fraunhofer.iem.secucheck.todolist.controllers.LoginController
+- de.fraunhofer.iem.secucheck.todolist.controllers.NewTaskController
+- de.fraunhofer.iem.secucheck.todolist.controllers.PasswordController
+- de.fraunhofer.iem.secucheck.todolist.controllers.TaskController
+- de.fraunhofer.iem.secucheck.todolist.model.Role
+- de.fraunhofer.iem.secucheck.todolist.model.Task
+- de.fraunhofer.iem.secucheck.todolist.model.TaskList
+- de.fraunhofer.iem.secucheck.todolist.model.User
+- de.fraunhofer.iem.secucheck.todolist.model.UserList
+- de.fraunhofer.iem.secucheck.todolist.repository.RoleRepository
+- de.fraunhofer.iem.secucheck.todolist.repository.TaskRepository
+- de.fraunhofer.iem.secucheck.todolist.repository.UserRepository
+- de.fraunhofer.iem.secucheck.todolist.service.DirectoryStorageService
+- de.fraunhofer.iem.secucheck.todolist.service.FileNotFoundException
+specPath: DEMO_PROJECT_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- CWE89_SqlInjection_TF1
+asSpecFile: 'false'
+solver: Boomerang3
+isPostProcessResult: 'false'

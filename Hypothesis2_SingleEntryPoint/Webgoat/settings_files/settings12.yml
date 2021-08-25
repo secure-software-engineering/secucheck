@@ -1,0 +1,20 @@
+classPath: WEBGOAT_CLASS_PATH
+entryPoints:
+- org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5b
+specPath: WEBGOAT_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- SQLInjectionLesson5b
+- Servers_SQLiWithPreparedStmt
+- SQLInjectionChallenge
+- SQLInjectionLesson2
+- SQLInjectionLesson3
+- SQLInjectionLesson4
+- SQLInjectionLesson5a_TF1
+- SQLInjectionLesson5a_TF2
+- SQLInjectionLesson5a_TF3
+- SQLInjectionLesson6a
+- SQLInjectionLesson8_TF1
+- SQLInjectionLesson8_TF2
+asSpecFile: 'false'
+solver: Boomerang3
+isPostProcessResult: 'false'

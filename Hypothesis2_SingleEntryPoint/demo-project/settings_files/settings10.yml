@@ -1,0 +1,18 @@
+classPath: DEMO_PROJECT_CLASS_PATH
+entryPoints:
+- de.fraunhofer.iem.secucheck.todolist.controllers.PasswordController
+specPath: DEMO_PROJECT_FLUENTTQL_SPEC_PATH
+selectedSpecs:
+- CWE643_XpathInjection_TF1
+- CWE601_OpenRedirect_TF1
+- CWE79_CrossSiteScripting
+- CWE22_PathTraversal
+- CWE78_OsCommandInjection_TF2
+- CWE20_ImproperInputValidation
+- CWE78_OsCommandInjection_TF1
+- CWE643_XpathInjection_TF2
+- CWE89_SqlInjection_TF3
+- CWE311_MissingEncryption
+asSpecFile: 'false'
+solver: Boomerang3
+isPostProcessResult: 'false'
