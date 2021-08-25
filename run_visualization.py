@@ -1,3 +1,24 @@
+""" This scripts runs the visualization for all the hypothesis and the evaluation projected as configured in run_secucheck_evaluation script.
+
+    1. Recursively, run the visualization for all the given hypotheses and the evaluation project for each hypothesis
+        configured in the run_secucheck_evaluation script. This script is run after the run_secucheck script that generates
+        the results
+    2. It also stores the graph for each hypothesis with each evaluation project.
+
+        For example, for the first run, and for the "Hypothesis1" and the evaluation project "catalog", it stores the
+        SecuCheck-cmd result in the below folder (relative path to this script).
+
+        Hypothesis1/catalog/run1_output/
+    3. It also stores the graph for average of TOTAL_RUN (for example, in the below path)
+        Hypothesis1/catalog/
+    4. It also stores a graph (for example, in the below path), that compares the multiple projects results in one graph. (This is not valid for
+        Hypothesis3, since Hypothesis3 is only possible on catalog project)
+        Hypothesis1/
+
+    Developer(s):
+        Ranjith Krishnamurthy
+"""
+
 import os
 
 import matplotlib.pyplot as plt

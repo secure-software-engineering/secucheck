@@ -1,3 +1,23 @@
+""" This scripts runs the SecuCheck-cmd for all the hypothesis and the evaluation projected as configured in run_secucheck_evaluation script.
+
+    1. Recursively, run the evaluation for all the given hypotheses and the evaluation project for each hypothesis
+    configured in the run_secucheck_evaluation script.
+    2. It also stores the SecuCheck-cmd results to respective folders.
+
+        For example, for the first run, and for the "Hypothesis1" and the evaluation project "catalog", it stores the
+        SecuCheck-cmd result in the below folder (relative path to this script).
+
+        Hypothesis1/catalog/run1_output/output/
+    3. It also stores the excel sheet (for example, in the below path), for each run that contains the information
+        required for the evaluation.
+        Hypothesis1/catalog/run1_output/
+    4. It also stores the average of TOTAL_RUN excel sheet information (for example, in the below path).
+        Hypothesis1/catalog/
+
+    Developer(s):
+        Ranjith Krishnamurthy
+"""
+
 import subprocess
 import os
 import xlsxwriter
