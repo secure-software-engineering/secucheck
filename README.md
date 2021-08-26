@@ -12,6 +12,12 @@ There are three scripts available on the root directory.
 * ***run_visualization***: This script is called internally by the *run_secucheck_evaluation* script. This script runs
   visualization of the evaluation and generates the graphs and stores in JPG file
 
+There are total of 4 hypothesis.
+* ***Hyothesis1*** : Figure 3 in submiited paper to IEEE SCAM 2021
+* ***Hyothesis2_AllEntryPoint*** : Figure 5 in submiited paper to IEEE SCAM 2021
+* ***Hyothesis2_SingleEntryPoint*** Figure 4 in submiited paper to IEEE SCAM 2021
+* ***Hypothesis3*** : It is mentioed in the paper as text at page 5 (section IV.b) at the last paragraph.
+
 ## Things that must be done before running the evaluation scripts
 
 ### Clone and Build the evaluation projects
