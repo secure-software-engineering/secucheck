@@ -24,3 +24,7 @@ mvn clean install -DskipTests
 * Then, in secucheck project, under the SecuCheck-Magpie module, use the generated jar-with-dependency jar (in target directory) to use SecuCheck in IDE.
 
 * In secucheck project, under the secucheck-cmd module, use the generated jar-with-dependency jar (in target directory) to use SecuCheck through command line prompt.
+
+## How to install SecuCheck in Eclipse
+
+To install SecuCheck in Eclipse, use this [link](https://github.com/secure-software-engineering/secucheck/wiki/Use-SecuCheck-in-Eclipse-IDE.)
