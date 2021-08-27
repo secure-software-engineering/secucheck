@@ -45,6 +45,11 @@ usage: secucheck-cmd
  -scp,--secu-config-file <arg>   SecuCheck configuration settings file
 ````
 
+Usage example 
+````shell
+java -jar secucheck-cmd.jar -scp /home/secucheck/catalog/settings.yml -od /home/secucheck/catalog/output/ -of run1_output
+````
+
 Configuration settings for the analysis is provided through the options **-scp** and provides the settings YAML file. Below is the simple example of settings YAML file for the SecuCheck-cmd
 
 ````shell
