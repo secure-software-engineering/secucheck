@@ -36,7 +36,7 @@ Use the secucheck-cmd jar from the [release](https://github.com/secure-software-
 Below is the output of the help options from the SecuCheck-cmd
 
 ````shell
-$ java -jar secucheck-cmd.jar 
+$ java -jar secucheck-cmd.jar -h
 usage: secucheck-cmd
  -od,--out-dir <arg>             SecuCheck analysis result output
                                  directory
@@ -64,7 +64,7 @@ isPostProcessResult: false
 * **selectedSpecs** : fluentTQL specification / taintflow queries that are considered for the analysis. In the above example it is empty, that means, all the fluentTQL specifications or taint flow queries that available in the provided fluentTQL specification path (**specPath**) are considered for the analysis and try to find the similar taintflow in the project. To select the particular specifications/taintflow queries as selected specifications. below is the example of settings YAML file.
 * **asSpecFile** : Each fluentTQL specification file can have multiple taintflow queries. If you specify taint flow query ID in the selectedSpecs parameter, then you much provide fase to asSpecFile, so that SecuCheck-cmd will look for that taint flow query ID. If you specify true to asSpecFile parameter, then SecuCheck-cmd look for the specifications file name rather than the taint flow query ID.
 * **solver** : It can be **Boomerang3** or **FlowDroid**.
-* **isPostProcessResult** : If you specify true, then SecuCheck will post process the result and provide the result in a object. For running the SecuCheck-cmd it does not matter since we are not accessing the post-process result for now.
+* **isPostProcessResult** : If you specify true, then SecuCheck will post process the result and provide the result in an object. For running the SecuCheck-cmd it does not matter since we are not accessing the post-process result for now.
 
 ````shell
 # If you specify using the taintflow query ID
@@ -86,7 +86,6 @@ selectedSpecs:
 asSpecFile: 'false'
 solver: "Boomerang3"
 isPostProcessResult: false
-````
 
 
 # If you specify using the fluentTQL specification file name
