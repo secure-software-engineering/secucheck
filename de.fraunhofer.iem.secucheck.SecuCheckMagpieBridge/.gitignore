@@ -7,3 +7,6 @@ out/
 .project
 .idea/
 .settings/
+*.log
+MagpieBridgeLSPSupportError.txt
+lsp/
