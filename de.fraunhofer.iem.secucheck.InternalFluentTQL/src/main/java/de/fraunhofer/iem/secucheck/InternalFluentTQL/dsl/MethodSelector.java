@@ -89,8 +89,8 @@ public class MethodSelector implements Method {
     public MethodSelector(String methodSignature) {
         Objects.requireNonNull(methodSignature, "methodSignature is null in MethodSelector constructor.");
 
-        this.signature = methodSignature;
         this.methodSignature = getMethodSignatureFromString(methodSignature);
+        this.signature = this.methodSignature.getCompleteMethodSignature();
     }
 
     protected static MethodSignature getMethodSignatureFromString(String signature) throws InvalidMethodSignatureException {
