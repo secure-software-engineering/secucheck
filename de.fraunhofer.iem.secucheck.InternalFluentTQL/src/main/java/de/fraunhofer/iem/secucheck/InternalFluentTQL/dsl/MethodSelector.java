@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.runTimeException.InvalidMethodSignatureException;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.kotlinTypeAlias.TypeAliases;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.methodSignature.MethodSignatureBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.InputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
@@ -22,8 +23,8 @@ public class MethodSelector implements Method {
     private String signature;
     private MethodSignature methodSignature;
     private MethodSet methodSet;
-    private InputDeclaration inputDeclaration = new InputDeclarationImpl();
-    private OutputDeclaration outputDeclaration = new OutputDeclarationImpl();
+    private final InputDeclaration inputDeclaration = new InputDeclarationImpl();
+    private final OutputDeclaration outputDeclaration = new OutputDeclarationImpl();
 
     /**
      * This returns the method signature.
@@ -89,11 +90,55 @@ public class MethodSelector implements Method {
     public MethodSelector(String methodSignature) {
         Objects.requireNonNull(methodSignature, "methodSignature is null in MethodSelector constructor.");
 
-        this.methodSignature = getMethodSignatureFromString(methodSignature);
+        this.methodSignature = getMethodSignatureFromString(methodSignature, null);
         this.signature = this.methodSignature.getCompleteMethodSignature();
     }
 
-    protected static MethodSignature getMethodSignatureFromString(String signature) throws InvalidMethodSignatureException {
+    /**
+     * Constructors that sets the method signature with the given type aliases.
+     *
+     * @param methodSignature Method Signature
+     * @param typeAliases     Kotlin Type aliases
+     */
+    public MethodSelector(String methodSignature, TypeAliases typeAliases) {
+        Objects.requireNonNull(methodSignature, "methodSignature is null in MethodSelector constructor.");
+
+        this.methodSignature = getMethodSignatureFromString(methodSignature, typeAliases);
+        this.signature = this.methodSignature.getCompleteMethodSignature();
+    }
+
+    /**
+     * Constructors that sets the method signature object.
+     *
+     * @param methodSignature Method Signature object
+     */
+    public MethodSelector(MethodSignature methodSignature) {
+        Objects.requireNonNull(methodSignature, "methodSignature is null in MethodSelector constructor.");
+
+        this.methodSignature = methodSignature;
+        this.signature = this.methodSignature.getCompleteMethodSignature();
+    }
+
+    /**
+     * Constructors that sets the method signature object with the given type aliases.
+     *
+     * @param methodSignature Method Signature object
+     * @param typeAliases     Kotlin Type aliases
+     */
+    public MethodSelector(MethodSignature methodSignature, TypeAliases typeAliases) {
+        Objects.requireNonNull(methodSignature, "methodSignature is null in MethodSelector constructor.");
+        Objects.requireNonNull(methodSignature, "typeAliases is null in MethodSelector constructor.");
+
+        this.methodSignature = new MethodSignatureBuilder(typeAliases)
+                .atClass(methodSignature.getFullyQualifiedClassName())
+                .returns(methodSignature.getReturnType())
+                .named(methodSignature.getMethodName())
+                .parameter(methodSignature.getParametersType())
+                .configure();
+        this.signature = this.methodSignature.getCompleteMethodSignature();
+    }
+
+    protected static MethodSignature getMethodSignatureFromString(String signature, TypeAliases typeAliases) throws InvalidMethodSignatureException {
         String[] temp = signature.split(":");
 
         if (temp.length != 2) {
@@ -142,12 +187,21 @@ public class MethodSelector implements Method {
             parametersType.add(elem.replaceAll("\\s+", ""));
         }
 
-        return new MethodSignatureBuilder()
-                .atClass(fullyQualifiedClassName)
-                .returns(returnType)
-                .named(methodName)
-                .parameter(parametersType)
-                .configure();
+        if (typeAliases == null) {
+            return new MethodSignatureBuilder()
+                    .atClass(fullyQualifiedClassName)
+                    .returns(returnType)
+                    .named(methodName)
+                    .parameter(parametersType)
+                    .configure();
+        } else {
+            return new MethodSignatureBuilder(typeAliases)
+                    .atClass(fullyQualifiedClassName)
+                    .returns(returnType)
+                    .named(methodName)
+                    .parameter(parametersType)
+                    .configure();
+        }
     }
 
     @Override

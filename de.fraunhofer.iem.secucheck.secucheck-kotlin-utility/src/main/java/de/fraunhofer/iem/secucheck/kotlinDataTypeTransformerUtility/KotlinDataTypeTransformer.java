@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.kotlinUtility;
+package de.fraunhofer.iem.secucheck.kotlinDataTypeTransformerUtility;
 
 import java.util.HashMap;
 
