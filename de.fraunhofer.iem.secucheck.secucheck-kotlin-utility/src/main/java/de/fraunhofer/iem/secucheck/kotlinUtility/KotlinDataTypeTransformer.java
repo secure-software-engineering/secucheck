@@ -160,7 +160,8 @@ public class KotlinDataTypeTransformer {
      * Transform the Kotlin's data type to Kotlin/JVM platform data types
      *
      * @param kotlinType Kotlin data type in String
-     * @return Kotlin/JVM platform data type in String
+     * @return if given Kotlin data type matched the type matcher then returns Kotlin/JVM platform data type in String
+     * otherwise it returns the same given kotlinType
      */
     public static String transform(String kotlinType) {
         String res = typeMatcher.get(kotlinType);
