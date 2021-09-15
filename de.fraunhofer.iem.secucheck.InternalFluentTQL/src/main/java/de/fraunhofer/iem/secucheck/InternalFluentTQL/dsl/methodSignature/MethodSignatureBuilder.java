@@ -6,11 +6,12 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
  * Configurator for the {@link MethodSignature}
  *
  * @author Enri Ozuni
+ * @author Ranjith Krishnamurthy
  */
-public class MethodSignatureConfigurator {
+public class MethodSignatureBuilder {
     private final MethodSignatureImpl methodSignature;
 
-    public MethodSignatureConfigurator() {
+    public MethodSignatureBuilder() {
         methodSignature = new MethodSignatureImpl();
     }
 

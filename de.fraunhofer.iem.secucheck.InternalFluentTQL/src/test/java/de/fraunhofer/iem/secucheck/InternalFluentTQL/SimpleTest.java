@@ -100,5 +100,8 @@ public class SimpleTest {
                 }
             }
         }
+
+        System.out.println(DummySpecification.method1.getMethodSignature());
+        System.out.println(DummySpecification.method1.getSignature());
     }
 }

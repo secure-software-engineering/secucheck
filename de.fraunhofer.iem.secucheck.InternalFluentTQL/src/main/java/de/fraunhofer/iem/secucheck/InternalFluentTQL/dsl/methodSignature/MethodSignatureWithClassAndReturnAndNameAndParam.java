@@ -2,9 +2,11 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.methodSignature;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
+import java.util.List;
+
 /**
  * This class represents that it contains {@link MethodSignature} with returns, name, and accepts operators.
- * Example: MethodSignatureConfigurator().returns("...").named("...").accepts("...")
+ * Example: MethodSignatureBuilder().returns("...").named("...").accepts("...")
  *
  * @author Enri Ozuni
  * @author Ranjith Krishnamurthy
@@ -12,9 +14,14 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 public class MethodSignatureWithClassAndReturnAndNameAndParam {
     private final MethodSignatureImpl methodSignature;
 
-    public MethodSignatureWithClassAndReturnAndNameAndParam(String methodParam, MethodSignatureImpl methodSignature) {
+    public MethodSignatureWithClassAndReturnAndNameAndParam(String methodParameter, MethodSignatureImpl methodSignature) {
         this.methodSignature = methodSignature;
-        this.methodSignature.addParameterType(methodParam);
+        this.methodSignature.addParameterType(methodParameter);
+    }
+
+    public MethodSignatureWithClassAndReturnAndNameAndParam(List<String> methodParameters, MethodSignatureImpl methodSignature) {
+        this.methodSignature = methodSignature;
+        this.methodSignature.addParametersType(methodParameters);
     }
 
     public MethodSignatureWithClassAndReturnAndNameAndParam parameter(String methodParam) {

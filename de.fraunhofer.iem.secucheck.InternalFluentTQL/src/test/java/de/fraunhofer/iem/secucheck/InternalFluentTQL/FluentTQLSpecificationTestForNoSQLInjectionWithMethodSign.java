@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.methodSignature.MethodSignatureConfigurator;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.methodSignature.MethodSignatureBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
@@ -16,7 +16,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 public class FluentTQLSpecificationTestForNoSQLInjectionWithMethodSign implements FluentTQLUserInterface {
 	public List<FluentTQLSpecification> getFluentTQLSpecification() {
         //First source that takes userName from the user.
-		MethodSignature source1signature = new MethodSignatureConfigurator()
+		MethodSignature source1signature = new MethodSignatureBuilder()
 				.atClass("catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources").returns("java.lang.String").named("getUserName").parameter("")
 				.configure();
         Method source1 = new MethodConfigurator(source1signature)
@@ -24,7 +24,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionWithMethodSign implement
                 .configure();
 
         //Second source that takes old password from the user.
-        MethodSignature source2signature = new MethodSignatureConfigurator()
+        MethodSignature source2signature = new MethodSignatureBuilder()
 				.atClass("catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources").returns("java.lang.String").named("getOldPassword").parameter("")
 				.configure();
         Method source2 = new MethodConfigurator(source2signature)
@@ -32,7 +32,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionWithMethodSign implement
                 .configure();
 
         //Third source that takes new password from the user.
-        MethodSignature source3signature = new MethodSignatureConfigurator()
+        MethodSignature source3signature = new MethodSignatureBuilder()
 				.atClass("catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources").returns("java.lang.String").named("getNewPassword").parameter("")
 				.configure();
         Method source3 = new MethodConfigurator(source3signature)
@@ -40,7 +40,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionWithMethodSign implement
                 .configure();
 
         //sanitizeForMongoDB is user defined simple sanitizer for MongoDB.
-        MethodSignature sanitizersignature = new MethodSignatureConfigurator()
+        MethodSignature sanitizersignature = new MethodSignatureBuilder()
 				.atClass("catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources").returns("java.lang.String").named("sanitizeForMongoDB").parameter("java.lang.String")
 				.configure();
         Method sanitizer = new MethodConfigurator(sanitizersignature)
@@ -50,7 +50,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionWithMethodSign implement
 
         //put is a method that the data flow has to go through after sanitizer to form a filer to update the password.
         //If the data flow goes through this method before sanitizer then there will be a security vulnerability.
-        MethodSignature requiredPropagator1signature = new MethodSignatureConfigurator()
+        MethodSignature requiredPropagator1signature = new MethodSignatureBuilder()
 				.atClass("com.mongodb.BasicDBObject").returns("com.mongodb.BasicDBObject").named("put").parameter("java.lang.String, java.lang.String")
 				.configure();
         Method requiredPropagator1 = new MethodConfigurator(requiredPropagator1signature)
@@ -60,7 +60,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionWithMethodSign implement
 
         //this put is a method that the data flow has to go through after sanitizer to form a new BasicDBObject password to update the password in MongoDB.
         //If the data flow goes through this method before sanitizer then there will be a security vulnerability.
-        MethodSignature requiredPropagator2signature = new MethodSignatureConfigurator()
+        MethodSignature requiredPropagator2signature = new MethodSignatureBuilder()
 				.atClass("com.mongodb.BasicDBObject").returns("com.mongodb.BasicDBObject").named("put").parameter("java.lang.String, com.mongodb.BasicDBObject")
 				.configure();
         Method requiredPropagator2 = new MethodConfigurator(requiredPropagator2signature)
@@ -69,7 +69,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionWithMethodSign implement
                 .configure();
 
         //updateOne is a sink that updates the password.
-        MethodSignature sinksignature = new MethodSignatureConfigurator()
+        MethodSignature sinksignature = new MethodSignatureBuilder()
 				.atClass("com.mongodb.client.MongoCollection").returns("com.mongodb.client.FindIterable").named("updateOne").parameter("com.mongodb.BasicDBObject, com.mongodb.BasicDBObject")
 				.configure();
         Method sink = new MethodConfigurator(sinksignature)

@@ -5,7 +5,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 /**
  * This class represents that it contains {@link MethodSignature} with class and return operator.
  * 
- * Example: MethodSignatureConfigurator().atClass("...").returns("...")
+ * Example: MethodSignatureBuilder().atClass("...").returns("...")
  *
  * @author Enri Ozuni
  */

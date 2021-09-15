@@ -5,7 +5,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 /**
  * This class represents that it contains {@link MethodSignature} with class name operator.
  * <p>
- * Example: MethodSignatureConfigurator().atClass("...")
+ * Example: MethodSignatureBuilder().atClass("...")
  *
  * @author Enri Ozuni
  * @author Ranjith Krishnamurthy
