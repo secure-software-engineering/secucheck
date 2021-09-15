@@ -5,7 +5,7 @@
     <parent>
         <artifactId>secucheck</artifactId>
         <groupId>de.fraunhofer.iem.secucheck</groupId>
-        <version>SC-1.1.0</version>
+        <version>SC-1.2.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

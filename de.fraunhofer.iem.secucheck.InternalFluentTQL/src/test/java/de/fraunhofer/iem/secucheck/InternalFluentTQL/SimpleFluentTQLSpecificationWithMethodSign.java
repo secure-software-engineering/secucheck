@@ -5,7 +5,7 @@ import java.util.List;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSignatureConfigurator;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.methodSignature.MethodSignatureConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
@@ -17,14 +17,14 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Specificati
 public class SimpleFluentTQLSpecificationWithMethodSign implements FluentTQLUserInterface {
 	
 	static MethodSignature sourceSignature = new MethodSignatureConfigurator()
-			.atClass("Test").returns("java.lang.String").named("getSecret").accepts("")
+			.atClass("Test").returns("java.lang.String").named("getSecret").parameter("")
 			.configure();
 	static Method source = new MethodConfigurator(sourceSignature)
             .out().returnValue()
             .configure();
 
 	static MethodSignature sanitizerSignature = new MethodSignatureConfigurator()
-			.atClass("Test").returns("java.lang.String").named("sanitize").accepts("java.lang.String")
+			.atClass("Test").returns("java.lang.String").named("sanitize").parameter("java.lang.String")
 			.configure();
     static Method sanitizer = new MethodConfigurator(sanitizerSignature)
             .in().param(0)
@@ -32,7 +32,7 @@ public class SimpleFluentTQLSpecificationWithMethodSign implements FluentTQLUser
             .configure();
 
     static MethodSignature sinkSignature = new MethodSignatureConfigurator()
-    		.atClass("Test").returns("void").named("printSecret").accepts("java.lang.String")
+    		.atClass("Test").returns("void").named("printSecret").parameter("java.lang.String")
     		.configure();
     static Method sink = new MethodConfigurator(sinkSignature)
             .in().param(0)

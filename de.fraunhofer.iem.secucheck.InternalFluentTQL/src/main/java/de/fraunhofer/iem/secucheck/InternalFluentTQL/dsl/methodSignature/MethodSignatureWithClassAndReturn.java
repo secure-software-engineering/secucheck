@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
+package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.methodSignature;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
@@ -14,7 +14,7 @@ public class MethodSignatureWithClassAndReturn {
 	
 	public MethodSignatureWithClassAndReturn(String methodReturn, MethodSignatureImpl methodSignature) {
 		this.methodSignature = methodSignature;
-		this.methodSignature.setReturnOfMethodSign(methodReturn);
+		this.methodSignature.setReturnType(methodReturn);
 	}
 	
 	public MethodSignatureWithClassAndReturnAndName named(String methodName) {

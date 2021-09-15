@@ -25,12 +25,12 @@ class MethodImpl implements Method {
     public void setSignature(String methodSignature) {
         this.signature = methodSignature;
     }
-    
-	public MethodSignature getMethodSignature() {
-		return methodSignature;
-	}
-	
-	public void setMethodSignature(MethodSignature methodSignature) {
+
+    public MethodSignature getMethodSignature() {
+        return methodSignature;
+    }
+
+    public void setMethodSignature(MethodSignature methodSignature) {
         this.methodSignature = methodSignature;
     }
 
@@ -61,9 +61,10 @@ class MethodImpl implements Method {
     public MethodImpl(String methodSignature) {
         this.signature = methodSignature;
     }
-    
+
     public MethodImpl(MethodSignature methodSignature) {
         this.methodSignature = methodSignature;
+        this.signature = this.methodSignature.getCompleteMethodSignature();
     }
 
     @Override
@@ -89,7 +90,7 @@ class MethodImpl implements Method {
                 return false;
         } else if (!signature.equals(other.getSignature()))
             return false;
-        
+
         if (methodSignature == null) {
             if (other.getMethodSignature() != null)
                 return false;
@@ -113,13 +114,12 @@ class MethodImpl implements Method {
 
     @Override
     public String toString() {
-    	StringBuilder str = null;
-    	if(signature != null) {
-    		str = new StringBuilder("Method(\"" + methodSignature + "\")\n      ");
-    	}
-    	else {
-    		str = new StringBuilder("Method(\"" + signature + "\")\n      ");
-    	}
+        StringBuilder str = null;
+        if (signature != null) {
+            str = new StringBuilder("Method(\"" + methodSignature + "\")\n      ");
+        } else {
+            str = new StringBuilder("Method(\"" + signature + "\")\n      ");
+        }
 
         if (inputDeclaration != null)
             str.append(".").append(inputDeclaration.toString()).append("\n      ");
