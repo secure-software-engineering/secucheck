@@ -1,6 +1,6 @@
 ## How to build SecuCheck manually
 
-* First build the SecuCheck-Core analysis using the [link](https://github.com/secure-software-engineering/secucheck-core/tree/SCC-1.1.0#how-to-build-secucheck-core-manually).
+* First build the SecuCheck-Core analysis using the [link](https://github.com/secure-software-engineering/secucheck-core/tree/SCCK-1.0.0#how-to-build-secucheck-core-manually).
 
 * Then build the SecuCheck
 * Git clone the SecuCheck repository
@@ -9,10 +9,10 @@
 git clone https://github.com/secure-software-engineering/secucheck.git
 ````
 
-* Change the branch to SC-1.2.0
+* Change the branch to SCK-1.0.0
 
 ````shell
-git checkout SC-1.2.0
+git checkout SCK-1.0.0
 ````
 
 * Build the SecuCheck using the below command
@@ -53,9 +53,9 @@ java -jar secucheck-cmd.jar -scp /home/secucheck/catalog/settings.yml -od /home/
 Configuration settings for the analysis is provided through the options **-scp** and provides the settings YAML file. Below is the simple example of settings YAML file for the SecuCheck-cmd
 
 ````shell
-classPath: 'D:\Work\Latest\SC-1.2.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
+classPath: 'D:\Work\Latest\SCK-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
 entryPoints:
-specPath: 'D:\Work\Latest\SC-1.2.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
+specPath: 'D:\Work\Latest\SCK-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
 selectedSpecs:
 asSpecFile: false
 solver: "Boomerang3"
@@ -73,7 +73,7 @@ isPostProcessResult: false
 
 ````shell
 # If you specify using the taintflow query ID
-classPath: 'D:\Work\Latest\SC-1.2.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
+classPath: 'D:\Work\Latest\SCK-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
 entryPoints:
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SQLInjection.CWE89.SimpleSQLInjection
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.CommandInjection.CWE77.CommandInjection
@@ -82,7 +82,7 @@ entryPoints:
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.LogInjectionAttack.CWE117.LogInjection
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources
-specPath: 'D:\Work\Latest\SC-1.2.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
+specPath: 'D:\Work\Latest\SCK-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
 selectedSpecs:
 - SimpleSQLi
 - SQLiWithPreparedStmt
@@ -94,7 +94,7 @@ isPostProcessResult: false
 
 
 # If you specify using the fluentTQL specification file name
-classPath: 'D:\Work\Latest\SC-1.2.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
+classPath: 'D:\Work\Latest\SCK-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
 entryPoints:
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.SQLInjection.CWE89.SimpleSQLInjection
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.CommandInjection.CWE77.CommandInjection
@@ -103,7 +103,7 @@ entryPoints:
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.LogInjectionAttack.CWE117.LogInjection
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionInSpringBoot
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog.NoSQLInjection.CWE943.NoSQLInjectionWithTwoSources
-specPath: 'D:\Work\Latest\SC-1.2.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
+specPath: 'D:\Work\Latest\SCK-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
 selectedSpecs:
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.SQLInjection.CWE89.SimpleSQLInjectionSpec
 - de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications.FluentTQLSpecifications.SQLInjection.CWE89.SQLiWithPreparedStatementsSpec

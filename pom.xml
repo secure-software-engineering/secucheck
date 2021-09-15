@@ -7,7 +7,7 @@
     <groupId>de.fraunhofer.iem.secucheck</groupId>
     <artifactId>secucheck</artifactId>
     <packaging>pom</packaging>
-    <version>SC-1.2.0</version>
+    <version>SCK-1.0.0</version>
     <name>SecuCheck</name>
 
     <properties>
@@ -16,7 +16,7 @@
 
         <!--The whole project uses the currently working project version-->
         <secucheck.version>${project.version}</secucheck.version>
-        <secucheck.core.version>SCC-1.2.0</secucheck.core.version>
+        <secucheck.core.version>SCCK-1.0.0</secucheck.core.version>
     </properties>
 
     <modules>

@@ -1,6 +1,6 @@
-classPath: 'D:\Work\Latest\SC-1.2.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
+classPath: 'D:\Work\Latest\SCK-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
 entryPoints:
-specPath: 'D:\Work\Latest\SC-1.2.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
+specPath: 'D:\Work\Latest\SCK-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
 selectedSpecs:
 asSpecFile: false
 solver: "Boomerang3"
