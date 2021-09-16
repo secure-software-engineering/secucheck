@@ -28,7 +28,9 @@ public class MethodWithInParamThisObj {
     }
 
     public MethodWithInRemainingParam param(int parameterID) {
-        inputDeclaration.addInput(new ParameterImpl(parameterID));
+        inputDeclaration.addInput(
+                ExtensionFunctionUtility.getCorrectParameterID(parameterID, method.getMethodSignature().isExtensionFunction())
+        );
         return new MethodWithInRemainingParam(inputDeclaration, method);
     }
 }

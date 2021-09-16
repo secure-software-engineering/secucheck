@@ -1,5 +1,6 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.methodSignature.QualifiedThis;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 
 /**
@@ -18,7 +19,9 @@ public class MethodWithOut {
     }
 
     public MethodWithOutParam param(int parameterID) {
-        outputDeclaration.addOutput(new ParameterImpl(parameterID));
+        outputDeclaration.addOutput(
+                ExtensionFunctionUtility.getCorrectParameterID(parameterID, method.getMethodSignature().isExtensionFunction())
+        );
         return new MethodWithOutParam(outputDeclaration, method);
     }
 
@@ -28,7 +31,14 @@ public class MethodWithOut {
     }
 
     public MethodWithOutThisObj thisObject() {
-        outputDeclaration.addOutput(new ThisObjectImpl());
+        outputDeclaration.addOutput(
+                ExtensionFunctionUtility.getDefaultOutputThisObjectForExtension(method.getMethodSignature().isExtensionFunction())
+        );
+        return new MethodWithOutThisObj(outputDeclaration, method);
+    }
+
+    public MethodWithOutThisObj thisObject(QualifiedThis qualifiedThis) {
+        outputDeclaration.addOutput(ExtensionFunctionUtility.getQualifiedThisOutPut(qualifiedThis, method));
         return new MethodWithOutThisObj(outputDeclaration, method);
     }
 }

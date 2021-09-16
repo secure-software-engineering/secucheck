@@ -24,7 +24,9 @@ public class MethodWithOutParamThisObj {
     }
 
     public MethodWithOutParamThisObj param(int parameterID) {
-        outputDeclaration.addOutput(new ParameterImpl(parameterID));
+        outputDeclaration.addOutput(
+                ExtensionFunctionUtility.getCorrectParameterID(parameterID, method.getMethodSignature().isExtensionFunction())
+        );
         return this;
     }
 

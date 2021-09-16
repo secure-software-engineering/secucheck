@@ -114,12 +114,7 @@ class MethodImpl implements Method {
 
     @Override
     public String toString() {
-        StringBuilder str = null;
-        if (signature != null) {
-            str = new StringBuilder("Method(\"" + methodSignature + "\")\n      ");
-        } else {
-            str = new StringBuilder("Method(\"" + signature + "\")\n      ");
-        }
+        StringBuilder str = new StringBuilder("Method(\"" + signature + "\")\n      ");
 
         if (inputDeclaration != null)
             str.append(".").append(inputDeclaration.toString()).append("\n      ");

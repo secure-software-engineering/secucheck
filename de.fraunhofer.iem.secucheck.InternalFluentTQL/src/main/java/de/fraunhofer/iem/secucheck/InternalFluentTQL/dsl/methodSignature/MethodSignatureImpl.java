@@ -142,7 +142,7 @@ class MethodSignatureImpl implements MethodSignature {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("\nMethodSignature<" + getCompleteMethodSignature() + ">");
+        StringBuilder stringBuilder = new StringBuilder("MethodSignature<" + getCompleteMethodSignature() + ">");
 
         if (isTopLevelMember) {
             stringBuilder.append("\n               .topLevelMember()");

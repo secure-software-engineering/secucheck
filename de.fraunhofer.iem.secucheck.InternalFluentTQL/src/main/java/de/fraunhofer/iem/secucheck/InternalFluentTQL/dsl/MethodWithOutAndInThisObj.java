@@ -18,7 +18,9 @@ public class MethodWithOutAndInThisObj {
     }
 
     public MethodWithOutAndInRemainingParam param(int parameterID) {
-        inputDeclaration.addInput(new ParameterImpl(parameterID));
+        inputDeclaration.addInput(
+                ExtensionFunctionUtility.getCorrectParameterID(parameterID, method.getMethodSignature().isExtensionFunction())
+        );
         return new MethodWithOutAndInRemainingParam(inputDeclaration, method);
     }
 

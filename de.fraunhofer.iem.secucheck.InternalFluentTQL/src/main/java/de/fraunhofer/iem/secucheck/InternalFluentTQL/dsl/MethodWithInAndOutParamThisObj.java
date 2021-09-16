@@ -24,7 +24,9 @@ public class MethodWithInAndOutParamThisObj {
     }
 
     public MethodWithInAndOutParamThisObj param(int parameterID) {
-        outputDeclaration.addOutput(new ParameterImpl(parameterID));
+        outputDeclaration.addOutput(
+                ExtensionFunctionUtility.getCorrectParameterID(parameterID, method.getMethodSignature().isExtensionFunction())
+        );
         return this;
     }
 
