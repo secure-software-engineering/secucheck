@@ -66,5 +66,11 @@ public class TestTypeAliases {
         System.out.println(method.getSignature());
         System.out.println(methodSelector1.getSignature());
         System.out.println(method1.getSignature());
+
+        System.out.println(methodSignature1);
+        System.out.println(methodSelector.getMethodSignature());
+        System.out.println(method.getMethodSignature());
+        System.out.println(methodSelector1.getMethodSignature());
+        System.out.println(method1.getMethodSignature());
     }
 }

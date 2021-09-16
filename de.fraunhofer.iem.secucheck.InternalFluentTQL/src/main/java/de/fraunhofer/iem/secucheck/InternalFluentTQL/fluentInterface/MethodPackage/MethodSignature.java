@@ -44,4 +44,11 @@ public interface MethodSignature {
      * @return Complete method signature
      */
     String getCompleteMethodSignature();
+
+    /**
+     * Whether the given method is a top level member
+     *
+     * @return is Top level member?
+     */
+    boolean isTopLevelMember();
 }

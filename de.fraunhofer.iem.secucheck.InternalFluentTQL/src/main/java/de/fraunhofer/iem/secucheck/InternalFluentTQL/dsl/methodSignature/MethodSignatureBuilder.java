@@ -62,6 +62,8 @@ public class MethodSignatureBuilder {
      */
     public MethodSignatureWithClass topLevelMember(String fileName,
                                                    String packageName) {
+        methodSignature.makeTopLevelMember();
+        
         return new MethodSignatureWithClass(
                 packageName + "." + fileName + "Kt",
                 methodSignature,

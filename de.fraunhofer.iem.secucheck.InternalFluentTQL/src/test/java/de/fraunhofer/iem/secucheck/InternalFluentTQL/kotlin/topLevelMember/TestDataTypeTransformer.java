@@ -63,5 +63,10 @@ public class TestDataTypeTransformer {
         System.out.println(method2.getSignature());
         System.out.println(method3.getSignature());
         System.out.println(method4.getSignature());
+
+        System.out.println(method1.getMethodSignature());
+        System.out.println(method2.getMethodSignature());
+        System.out.println(method3.getMethodSignature());
+        System.out.println(method4.getMethodSignature());
     }
 }

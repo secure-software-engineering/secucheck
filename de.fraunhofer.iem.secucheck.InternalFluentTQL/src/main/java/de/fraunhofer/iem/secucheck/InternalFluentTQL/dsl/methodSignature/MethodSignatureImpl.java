@@ -16,6 +16,7 @@ class MethodSignatureImpl implements MethodSignature {
     private String returnType;
     private String methodName;
     private final List<String> parametersType = new ArrayList<String>();
+    private boolean isTopLevelMember = false;
 
     @Override
     public String getCompleteMethodSignature() {
@@ -34,6 +35,11 @@ class MethodSignatureImpl implements MethodSignature {
         str.append(")");
 
         return str.toString();
+    }
+
+    @Override
+    public boolean isTopLevelMember() {
+        return isTopLevelMember;
     }
 
     @Override
@@ -76,6 +82,10 @@ class MethodSignatureImpl implements MethodSignature {
         this.parametersType.add(parametersType);
     }
 
+    public void makeTopLevelMember() {
+        this.isTopLevelMember = true;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -84,6 +94,7 @@ class MethodSignatureImpl implements MethodSignature {
         result = prime * result + ((returnType == null) ? 0 : returnType.hashCode());
         result = prime * result + ((methodName == null) ? 0 : methodName.hashCode());
         result = prime * result + parametersType.hashCode();
+        result = prime * result + Boolean.valueOf(isTopLevelMember).hashCode();
         return result;
     }
 
@@ -94,6 +105,11 @@ class MethodSignatureImpl implements MethodSignature {
         if (getClass() != obj.getClass()) return false;
 
         MethodSignatureImpl other = (MethodSignatureImpl) obj;
+
+        if (isTopLevelMember != other.isTopLevelMember) {
+            return false;
+        }
+
         if (returnType == null) {
             if (other.getReturnType() != null)
                 return false;
@@ -111,6 +127,12 @@ class MethodSignatureImpl implements MethodSignature {
 
     @Override
     public String toString() {
-        return "MethodSignature<" + getCompleteMethodSignature() + ">";
+        StringBuilder stringBuilder = new StringBuilder("MethodSignature<" + getCompleteMethodSignature() + ">");
+
+        if (isTopLevelMember) {
+            stringBuilder.append("\n               .topLevelMember()\n");
+        }
+
+        return stringBuilder.toString();
     }
 }
