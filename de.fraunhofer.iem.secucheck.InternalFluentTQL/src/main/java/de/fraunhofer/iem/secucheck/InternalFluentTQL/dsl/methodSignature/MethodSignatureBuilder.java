@@ -52,4 +52,21 @@ public class MethodSignatureBuilder {
                 kotlinTypeAliasChecker,
                 isApplyTypeAliases);
     }
+
+    /**
+     * This is for the top level member and forms the fully qualified class name in JVM
+     *
+     * @param fileName    File name in which the method is defined as top level member
+     * @param packageName Package name in which the method is defined as top level member
+     * @return MethodSignatureWithClass
+     */
+    public MethodSignatureWithClass topLevelMember(String fileName,
+                                                   String packageName) {
+        return new MethodSignatureWithClass(
+                packageName + "." + fileName + "Kt",
+                methodSignature,
+                typeAliases,
+                kotlinTypeAliasChecker,
+                isApplyTypeAliases);
+    }
 }
