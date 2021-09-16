@@ -154,6 +154,15 @@ public class KotlinDataTypeTransformer {
         typeMatcher.put("kotlin.collections.MutableList?", "java.util.List");
         typeMatcher.put("kotlin.collections.MutableListIterator?", "java.util.ListIterator");
         typeMatcher.put("kotlin.collections.MutableMap?", "java.util.Map");
+
+        typeMatcher.put("kotlin.Unit", "void");
+        typeMatcher.put("kotlin.Unit?", "kotlin.Unit");
+        typeMatcher.put("Unit", "void");
+        typeMatcher.put("Unit?", "kotlin.Unit");
+        typeMatcher.put("kotlin.Nothing", "java.lang.Void");
+        typeMatcher.put("kotlin.Nothing?", "java.lang.Void");
+        typeMatcher.put("Nothing", "java.lang.Void");
+        typeMatcher.put("Nothing?", "java.lang.Void");
     }
 
     /**
