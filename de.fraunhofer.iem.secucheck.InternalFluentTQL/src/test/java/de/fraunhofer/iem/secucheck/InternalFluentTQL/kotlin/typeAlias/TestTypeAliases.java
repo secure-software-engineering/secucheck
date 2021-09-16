@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class TestTypeAliases {
-    static TypeAliases validTypeAliases = new TypeAliases();
+    public static TypeAliases validTypeAliases = new TypeAliases();
 
     static {
         validTypeAliases.add("ArrayList", "java.util.ArrayList");

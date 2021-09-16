@@ -6,6 +6,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.kotlinDataTypeTransformerUtility.KotlinDataTypeTransformer;
 import de.fraunhofer.iem.secucheck.kotlinTypeAliasUtility.KotlinTypeAliasChecker;
 
+import java.util.Objects;
+
 /**
  * This class represents that the {@link MethodSignature} is a extension function in Kotlin
  * <p>
@@ -37,6 +39,8 @@ public class MethodSignatureExtensionFunctionEnabled {
     }
 
     public MethodSignatureWithClassAndReturn returns(String returnType) {
+        Objects.requireNonNull(returnType, "given returnType to returns() is null");
+
         String originalReturnType = returnType;
 
         if (isApplyTypeAliases) {

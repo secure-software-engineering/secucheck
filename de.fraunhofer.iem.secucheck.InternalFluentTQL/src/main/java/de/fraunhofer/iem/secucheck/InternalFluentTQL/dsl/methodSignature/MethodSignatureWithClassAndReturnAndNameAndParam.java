@@ -8,6 +8,7 @@ import de.fraunhofer.iem.secucheck.kotlinTypeAliasUtility.KotlinTypeAliasChecker
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class represents that it contains {@link MethodSignature} with returns, name, and accepts operators.
@@ -54,27 +55,37 @@ public class MethodSignatureWithClassAndReturnAndNameAndParam {
         this.isApplyTypeAliases = isApplyTypeAliases;
     }
 
-    public MethodSignatureWithClassAndReturnAndNameAndParam parameter(String parameterType) {
-        String originalParameterType = parameterType;
+    public MethodSignatureWithClassAndReturnAndNameAndParam parameter(String... methodParameter) {
+        Objects.requireNonNull(methodParameter, "given methodParameter to parameter() is null");
 
-        if (isApplyTypeAliases) {
-            originalParameterType = kotlinTypeAliasChecker.getOriginalTypeName(parameterType, typeAliases);
+        for (String elem : methodParameter) {
+            Objects.requireNonNull(elem, "one of the elements of methodParameter in parameter() is null");
 
-            if (originalParameterType == null) {
-                throw new CyclicTypeAliasException(parameterType);
+            String temp = elem;
+
+            if (isApplyTypeAliases) {
+                temp = kotlinTypeAliasChecker.getOriginalTypeName(elem, typeAliases);
             }
-        }
 
-        this.methodSignature.addParameterType(KotlinDataTypeTransformer.transform(originalParameterType));
+            if (temp == null) {
+                throw new CyclicTypeAliasException(elem);
+            }
+
+            this.methodSignature.addParameterType(KotlinDataTypeTransformer.transform(temp));
+        }
 
         return this;
     }
 
     public MethodSignatureWithClassAndReturnAndNameAndParam parameter(List<String> parametersType) {
+        Objects.requireNonNull(parametersType, "given parametersType to parameter() is null");
+
         List<String> originalParametersType = new ArrayList<>();
 
         if (isApplyTypeAliases) {
             for (String elem : parametersType) {
+                Objects.requireNonNull(elem, "one of the elements of parametersType in parameter() is null");
+
                 String originalMethodParameter;
 
                 originalMethodParameter = kotlinTypeAliasChecker.getOriginalTypeName(elem, typeAliases);
@@ -86,6 +97,9 @@ public class MethodSignatureWithClassAndReturnAndNameAndParam {
                 originalParametersType.add(originalMethodParameter);
             }
         } else {
+            if (parametersType.contains(null))
+                throw new NullPointerException("one of elements of parametersType in parameter() is null");
+
             originalParametersType.addAll(parametersType);
         }
 

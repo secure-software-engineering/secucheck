@@ -6,6 +6,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.kotlinDataTypeTransformerUtility.KotlinDataTypeTransformer;
 import de.fraunhofer.iem.secucheck.kotlinTypeAliasUtility.KotlinTypeAliasChecker;
 
+import java.util.Objects;
+
 /**
  * This class represents that it contains {@link MethodSignature} with class name operator.
  * <p>
@@ -36,6 +38,8 @@ public class MethodSignatureWithClass {
     }
 
     public MethodSignatureWithClassAndReturn returns(String returnType) {
+        Objects.requireNonNull(returnType, "given returnType to returns() is null");
+
         String originalReturnType = returnType;
 
         if (isApplyTypeAliases) {
@@ -55,6 +59,8 @@ public class MethodSignatureWithClass {
     }
 
     public MethodSignatureExtensionFunctionEnabled extensionFunction(String receiverType) {
+        Objects.requireNonNull(receiverType, "given receiverType to extensionFunction() is null");
+
         String originalReceiverType = receiverType;
 
         if (isApplyTypeAliases) {

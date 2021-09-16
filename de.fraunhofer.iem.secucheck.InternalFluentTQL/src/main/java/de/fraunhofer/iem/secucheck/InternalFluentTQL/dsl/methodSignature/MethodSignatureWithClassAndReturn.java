@@ -5,6 +5,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.kotlinDataTypeTransformerUtility.KotlinDataTypeTransformer;
 import de.fraunhofer.iem.secucheck.kotlinTypeAliasUtility.KotlinTypeAliasChecker;
 
+import java.util.Objects;
+
 /**
  * This class represents that it contains {@link MethodSignature} with class and return operator.
  * <p>
@@ -35,6 +37,8 @@ public class MethodSignatureWithClassAndReturn {
     }
 
     public MethodSignatureWithClassAndReturnAndName named(String methodName) {
+        Objects.requireNonNull(methodName, "given methodName to named() is null");
+
         return new MethodSignatureWithClassAndReturnAndName(
                 methodName,
                 methodSignature,
