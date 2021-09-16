@@ -7,28 +7,29 @@ import de.fraunhofer.iem.secucheck.kotlinDataTypeTransformerUtility.KotlinDataTy
 import de.fraunhofer.iem.secucheck.kotlinTypeAliasUtility.KotlinTypeAliasChecker;
 
 /**
- * This class represents that it contains {@link MethodSignature} with class name operator.
+ * This class represents that the {@link MethodSignature} is a extension function in Kotlin
  * <p>
- * Example: MethodSignatureBuilder().atClass("...")
+ * Example: MethodSignatureBuilder().atClass("...").extensionFunction(<receiverType>)
  *
  * @author Ranjith Krishnamurthy
- * @author Enri Ozuni
  */
-public class MethodSignatureWithClass {
+public class MethodSignatureExtensionFunctionEnabled {
     private final MethodSignatureImpl methodSignature;
 
     private final TypeAliases typeAliases;
     private final KotlinTypeAliasChecker kotlinTypeAliasChecker;
     private final boolean isApplyTypeAliases;
 
-    protected MethodSignatureWithClass(
-            String fullyQualifiedClassName,
+    protected MethodSignatureExtensionFunctionEnabled(
+            String receiverType,
             MethodSignatureImpl methodSignature,
             TypeAliases typeAliases,
             KotlinTypeAliasChecker kotlinTypeAliasChecker,
             boolean isApplyTypeAliases) {
         this.methodSignature = methodSignature;
-        this.methodSignature.setFullyQualifiedClassName(KotlinDataTypeTransformer.transform(fullyQualifiedClassName));
+
+        this.methodSignature.getParametersType().add(0, KotlinDataTypeTransformer.transform(receiverType));
+        this.methodSignature.makeExtensionFunction();
 
         this.typeAliases = typeAliases;
         this.kotlinTypeAliasChecker = kotlinTypeAliasChecker;
@@ -53,24 +54,4 @@ public class MethodSignatureWithClass {
                 kotlinTypeAliasChecker,
                 isApplyTypeAliases);
     }
-
-    public MethodSignatureExtensionFunctionEnabled extensionFunction(String receiverType) {
-        String originalReceiverType = receiverType;
-
-        if (isApplyTypeAliases) {
-            originalReceiverType = kotlinTypeAliasChecker.getOriginalTypeName(originalReceiverType, typeAliases);
-
-            if (originalReceiverType == null) {
-                throw new CyclicTypeAliasException(receiverType);
-            }
-        }
-
-        return new MethodSignatureExtensionFunctionEnabled(
-                originalReceiverType,
-                methodSignature,
-                typeAliases,
-                kotlinTypeAliasChecker,
-                isApplyTypeAliases);
-    }
-
 }

@@ -17,6 +17,7 @@ class MethodSignatureImpl implements MethodSignature {
     private String methodName;
     private final List<String> parametersType = new ArrayList<String>();
     private boolean isTopLevelMember = false;
+    private boolean isExtensionFunction = false;
 
     @Override
     public String getCompleteMethodSignature() {
@@ -40,6 +41,11 @@ class MethodSignatureImpl implements MethodSignature {
     @Override
     public boolean isTopLevelMember() {
         return isTopLevelMember;
+    }
+
+    @Override
+    public boolean isExtensionFunction() {
+        return isExtensionFunction;
     }
 
     @Override
@@ -86,6 +92,10 @@ class MethodSignatureImpl implements MethodSignature {
         this.isTopLevelMember = true;
     }
 
+    public void makeExtensionFunction() {
+        this.isExtensionFunction = true;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -95,6 +105,7 @@ class MethodSignatureImpl implements MethodSignature {
         result = prime * result + ((methodName == null) ? 0 : methodName.hashCode());
         result = prime * result + parametersType.hashCode();
         result = prime * result + Boolean.valueOf(isTopLevelMember).hashCode();
+        result = prime * result + Boolean.valueOf(isExtensionFunction).hashCode();
         return result;
     }
 
@@ -107,6 +118,10 @@ class MethodSignatureImpl implements MethodSignature {
         MethodSignatureImpl other = (MethodSignatureImpl) obj;
 
         if (isTopLevelMember != other.isTopLevelMember) {
+            return false;
+        }
+
+        if (isExtensionFunction != other.isExtensionFunction) {
             return false;
         }
 
@@ -127,10 +142,14 @@ class MethodSignatureImpl implements MethodSignature {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("MethodSignature<" + getCompleteMethodSignature() + ">");
+        StringBuilder stringBuilder = new StringBuilder("\nMethodSignature<" + getCompleteMethodSignature() + ">");
 
         if (isTopLevelMember) {
-            stringBuilder.append("\n               .topLevelMember()\n");
+            stringBuilder.append("\n               .topLevelMember()");
+        }
+
+        if (isExtensionFunction) {
+            stringBuilder.append("\n               .extensionFunction()");
         }
 
         return stringBuilder.toString();

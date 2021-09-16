@@ -51,4 +51,11 @@ public interface MethodSignature {
      * @return is Top level member?
      */
     boolean isTopLevelMember();
+
+    /**
+     * Whether the given method is an extension function
+     *
+     * @return is extension function?
+     */
+    boolean isExtensionFunction();
 }
