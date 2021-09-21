@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.kotlinTypeAlias;
+package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.kotlin.kotlinTypeAlias;
 
 import de.fraunhofer.iem.secucheck.kotlinTypeAliasUtility.AbstractTypeAliases;
 

@@ -2,7 +2,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.kotlin.typeAlias;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.kotlinTypeAlias.TypeAliases;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.kotlin.kotlinTypeAlias.TypeAliases;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.methodSignature.MethodSignatureBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
