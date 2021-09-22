@@ -1,7 +1,7 @@
-classPath: 'D:\Work\Latest\SCK-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalog\target\classes'
+classPath: 'D:\Master\Fifth_sem\Thesis\SecuCheck-Kotlin\secucheck-catalog\kotlin-evaluation-project\target\classes'
 entryPoints:
-specPath: 'D:\Work\Latest\SCK-1.0.0\secucheck-catalog\de.fraunhofer.iem.secucheck.InternalFluentTQL.catalogSpecifications\target'
+specPath: 'D:\Master\Fifth_sem\Thesis\SecuCheck-Kotlin\secucheck-catalog\kotlin-evaluation-project-specifications\target'
 selectedSpecs:
 asSpecFile: false
 solver: "Boomerang3"
-isPostProcessResult: true
+isPostProcessResult: false
