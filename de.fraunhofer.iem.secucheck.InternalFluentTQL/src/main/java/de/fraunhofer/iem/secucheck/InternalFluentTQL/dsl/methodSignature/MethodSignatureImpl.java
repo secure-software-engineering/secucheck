@@ -25,11 +25,10 @@ class MethodSignatureImpl implements MethodSignature {
                 ": " + returnType + " " + methodName + "(");
 
         for (String parameterType : parametersType) {
-            str.append(parameterType).append(", ");
+            str.append(parameterType).append(",");
         }
 
         if (parametersType.size() >= 1) {
-            str.deleteCharAt(str.length() - 1);
             str.deleteCharAt(str.length() - 1);
         }
 
