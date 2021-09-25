@@ -65,7 +65,7 @@ public class TestExtensionFunctionQualifiedThis {
                         "      .in().param(0).param(1)\n" +
                         "      .out().param(0).param(1)").replaceAll("\\s+", ""),
                 validMethod2.toString().replaceAll("\\s+", ""));
-        assertEquals(("Method(\"de.fraunhofer.iem.uniqueToKotlin.extensions.extensionFunctions.extenstionToCollections.ExampleKt: void customizedSwap(java.util.List, int, int)\")\n" +
+        assertEquals(("Method(\"de.fraunhofer.iem.uniqueToKotlin.extensions.extensionFunctions.extenstionToCollections.ExampleKt: void customizedSwap(java.util.List,int,int)\")\n" +
                         "      .in().param(1).param(2)\n" +
                         "      .out().param(0).param(2)").replaceAll("\\s+", ""),
                 validMethod3.toString().replaceAll("\\s+", ""));
@@ -112,11 +112,11 @@ public class TestExtensionFunctionQualifiedThis {
         System.out.println(method1);
         System.out.println(method2);
 
-        assertEquals(("Method(\"dummy: int testing(int, int, int)\")\n" +
+        assertEquals(("Method(\"dummy: int testing(int,int,int)\")\n" +
                         "      .in().thisObject()\n" +
                         "      .out().param(0)").replaceAll("\\s+", ""),
                 method1.toString().replaceAll("\\s+", ""));
-        assertEquals(("Method(\"dummy: int testing(int, int, int)\")\n" +
+        assertEquals(("Method(\"dummy: int testing(int,int,int)\")\n" +
                         "      .in().thisObject()\n" +
                         "      .out().param(0)").replaceAll("\\s+", ""),
                 method2.toString().replaceAll("\\s+", ""));

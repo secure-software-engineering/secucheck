@@ -17,7 +17,7 @@ public class TestDataTypeTransformer {
         assertEquals("int: double toDouble()",
                 method1.getSignature());
 
-        assertEquals("de.fraunhofer.iem.TestKt: double toDouble(double, int, java.lang.Int, Dummy)",
+        assertEquals("de.fraunhofer.iem.TestKt: double toDouble(double,int,java.lang.Int,Dummy)",
                 method2.getSignature());
 
         assertEquals("de.fraunhofer.iem.MainKt: java.util.List propagateList(java.util.List)",

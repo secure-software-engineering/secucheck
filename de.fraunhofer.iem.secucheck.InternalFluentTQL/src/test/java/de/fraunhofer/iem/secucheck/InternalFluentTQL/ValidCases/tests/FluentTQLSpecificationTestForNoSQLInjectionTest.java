@@ -64,7 +64,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionTest {
         Assert.assertEquals(0, ((Parameter) notThrough.getInputDeclaration().getInputs().get(0)).getParameterId());
 
         //Through
-        Assert.assertEquals("com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String, java.lang.String)", through.getSignature());
+        Assert.assertEquals("com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String,java.lang.String)", through.getSignature());
         Assert.assertEquals(1, through.getInputDeclaration().getInputs().size());
         Assert.assertEquals(2, through.getOutputDeclaration().getOutputs().size());
         Assert.assertTrue(through.getOutputDeclaration().getOutputs().get(0) instanceof Parameter);
@@ -74,7 +74,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionTest {
         Assert.assertEquals(1, ((Parameter) through.getOutputDeclaration().getOutputs().get(0)).getParameterId());
 
         //To
-        Assert.assertEquals("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject, com.mongodb.BasicDBObject)", to.getSignature());
+        Assert.assertEquals("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject,com.mongodb.BasicDBObject)", to.getSignature());
         Assert.assertEquals(2, to.getInputDeclaration().getInputs().size());
         Assert.assertEquals(0, to.getOutputDeclaration().getOutputs().size());
         Assert.assertTrue(to.getInputDeclaration().getInputs().get(0) instanceof Parameter);
@@ -110,7 +110,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionTest {
         Assert.assertEquals(0, ((Parameter) notThrough.getInputDeclaration().getInputs().get(0)).getParameterId());
 
         //Through
-        Assert.assertEquals("com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String, java.lang.String)", through.getSignature());
+        Assert.assertEquals("com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String,java.lang.String)", through.getSignature());
         Assert.assertEquals(1, through.getInputDeclaration().getInputs().size());
         Assert.assertEquals(2, through.getOutputDeclaration().getOutputs().size());
         Assert.assertTrue(through.getOutputDeclaration().getOutputs().get(0) instanceof Parameter);
@@ -120,7 +120,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionTest {
         Assert.assertEquals(1, ((Parameter) through.getOutputDeclaration().getOutputs().get(0)).getParameterId());
 
         //To
-        Assert.assertEquals("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject, com.mongodb.BasicDBObject)", to.getSignature());
+        Assert.assertEquals("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject,com.mongodb.BasicDBObject)", to.getSignature());
         Assert.assertEquals(2, to.getInputDeclaration().getInputs().size());
         Assert.assertEquals(0, to.getOutputDeclaration().getOutputs().size());
         Assert.assertTrue(to.getInputDeclaration().getInputs().get(0) instanceof Parameter);
@@ -156,7 +156,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionTest {
         Assert.assertEquals(0, ((Parameter) notThrough.getInputDeclaration().getInputs().get(0)).getParameterId());
 
         //Through
-        Assert.assertEquals("com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String, com.mongodb.BasicDBObject)", through.getSignature());
+        Assert.assertEquals("com.mongodb.BasicDBObject: com.mongodb.BasicDBObject put(java.lang.String,com.mongodb.BasicDBObject)", through.getSignature());
         Assert.assertEquals(1, through.getInputDeclaration().getInputs().size());
         Assert.assertEquals(1, through.getOutputDeclaration().getOutputs().size());
         Assert.assertTrue(through.getOutputDeclaration().getOutputs().get(0) instanceof ThisObject);
@@ -164,7 +164,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionTest {
         Assert.assertEquals(1, ((Parameter) through.getInputDeclaration().getInputs().get(0)).getParameterId());
 
         //To
-        Assert.assertEquals("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject, com.mongodb.BasicDBObject)", to.getSignature());
+        Assert.assertEquals("com.mongodb.client.MongoCollection: com.mongodb.client.FindIterable updateOne(com.mongodb.BasicDBObject,com.mongodb.BasicDBObject)", to.getSignature());
         Assert.assertEquals(2, to.getInputDeclaration().getInputs().size());
         Assert.assertEquals(0, to.getOutputDeclaration().getOutputs().size());
         Assert.assertTrue(to.getInputDeclaration().getInputs().get(0) instanceof Parameter);

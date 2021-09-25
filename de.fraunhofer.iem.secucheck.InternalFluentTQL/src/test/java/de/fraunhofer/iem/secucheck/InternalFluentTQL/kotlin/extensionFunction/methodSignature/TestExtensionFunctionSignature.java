@@ -36,7 +36,7 @@ public class TestExtensionFunctionSignature {
                 methodSignature1.getCompleteMethodSignature());
         assertEquals("de.fraunhofer.iem.uniqueToKotlin.extensions.extensionFunctions.extenstionToCollections.ExampleKt: int customizedMax(java.util.List)",
                 methodSignature2.getCompleteMethodSignature());
-        assertEquals("de.fraunhofer.iem.uniqueToKotlin.extensions.extensionFunctions.extenstionToCollections.ExampleKt: void customizedSwap(java.util.List, int, int)",
+        assertEquals("de.fraunhofer.iem.uniqueToKotlin.extensions.extensionFunctions.extenstionToCollections.ExampleKt: void customizedSwap(java.util.List,int,int)",
                 methodSignature3.getCompleteMethodSignature());
 
         System.out.println(methodSignature1.getCompleteMethodSignature());

@@ -18,9 +18,9 @@ public class TestToString {
                 .parameter("java.lang.String")
                 .configure();
 
-        assertEquals("MethodSignature<de.fraunhofer.iem.Dummy: java.lang.String sanitize(java.lang.String, java.lang.String)>",
+        assertEquals("MethodSignature<de.fraunhofer.iem.Dummy: java.lang.String sanitize(java.lang.String,java.lang.String)>",
                 methodSignature.toString());
-        assertEquals("de.fraunhofer.iem.Dummy: java.lang.String sanitize(java.lang.String, java.lang.String)",
+        assertEquals("de.fraunhofer.iem.Dummy: java.lang.String sanitize(java.lang.String,java.lang.String)",
                 methodSignature.getCompleteMethodSignature());
 
         System.out.println(methodSignature);
@@ -37,9 +37,9 @@ public class TestToString {
                 .parameter("_")
                 .configure();
 
-        assertEquals("MethodSignature<de.fraunhofer.iem.Dummy: java.lang.String sanitize(java.lang.String, _)>",
+        assertEquals("MethodSignature<de.fraunhofer.iem.Dummy: java.lang.String sanitize(java.lang.String,_)>",
                 methodSignature.toString());
-        assertEquals("de.fraunhofer.iem.Dummy: java.lang.String sanitize(java.lang.String, _)",
+        assertEquals("de.fraunhofer.iem.Dummy: java.lang.String sanitize(java.lang.String,_)",
                 methodSignature.getCompleteMethodSignature());
 
         System.out.println(methodSignature);
@@ -94,9 +94,9 @@ public class TestToString {
                 .parameter("kotlin.Int", "kotlin.Double")
                 .configure();
 
-        assertEquals("MethodSignature<de.fraunhofer.iem.Dummy: java.lang.String sanitize(int, float, double, java.util.List, byte, int, double)>",
+        assertEquals("MethodSignature<de.fraunhofer.iem.Dummy: java.lang.String sanitize(int,float,double,java.util.List,byte,int,double)>",
                 methodSignature.toString());
-        assertEquals("de.fraunhofer.iem.Dummy: java.lang.String sanitize(int, float, double, java.util.List, byte, int, double)",
+        assertEquals("de.fraunhofer.iem.Dummy: java.lang.String sanitize(int,float,double,java.util.List,byte,int,double)",
                 methodSignature.getCompleteMethodSignature());
 
         System.out.println(methodSignature);

@@ -25,6 +25,18 @@ public class TestTypeAliases {
         validTypeAliases.add("kotlin.collections.HashMap", "java.util.HashMap");
         validTypeAliases.add("kotlin.collections.LinkedHashSet", "java.util.LinkedHashSet");
         validTypeAliases.add("kotlin.collections.HashSet", "java.util.HashSet");
+
+        validTypeAliases.add("ArrayList?", "java.util.ArrayList");
+        validTypeAliases.add("LinkedHashMap?", "java.util.LinkedHashMap");
+        validTypeAliases.add("HashMap?", "java.util.HashMap");
+        validTypeAliases.add("LinkedHashSet?", "java.util.LinkedHashSet");
+        validTypeAliases.add("HashSet?", "java.util.HashSet");
+
+        validTypeAliases.add("kotlin.collections.ArrayList?", "java.util.ArrayList");
+        validTypeAliases.add("kotlin.collections.LinkedHashMap?", "java.util.LinkedHashMap");
+        validTypeAliases.add("kotlin.collections.HashMap?", "java.util.HashMap");
+        validTypeAliases.add("kotlin.collections.LinkedHashSet?", "java.util.LinkedHashSet");
+        validTypeAliases.add("kotlin.collections.HashSet?", "java.util.HashSet");
     }
 
     @Test
@@ -50,15 +62,15 @@ public class TestTypeAliases {
                 .in().param(0)
                 .configure();
 
-        assertEquals("de.fraunhofer.iem.MainKt: java.util.ArrayList dummy(java.util.LinkedHashMap, java.util.HashMap, java.util.HashSet)",
+        assertEquals("de.fraunhofer.iem.MainKt: java.util.ArrayList dummy(java.util.LinkedHashMap,java.util.HashMap,java.util.HashSet)",
                 methodSignature1.getCompleteMethodSignature());
-        assertEquals("de.fraunhofer.iem.MainKt: java.util.ArrayList dummy(java.util.LinkedHashMap, java.util.HashMap, java.util.HashSet)",
+        assertEquals("de.fraunhofer.iem.MainKt: java.util.ArrayList dummy(java.util.LinkedHashMap,java.util.HashMap,java.util.HashSet)",
                 methodSelector.getSignature());
-        assertEquals("de.fraunhofer.iem.MainKt: java.util.ArrayList dummy(java.util.LinkedHashMap, java.util.HashMap, java.util.HashSet)",
+        assertEquals("de.fraunhofer.iem.MainKt: java.util.ArrayList dummy(java.util.LinkedHashMap,java.util.HashMap,java.util.HashSet)",
                 method.getSignature());
-        assertEquals("de.fraunhofer.iem.MainKt: java.util.ArrayList dummy(java.util.LinkedHashMap, java.util.HashMap, java.util.HashSet)",
+        assertEquals("de.fraunhofer.iem.MainKt: java.util.ArrayList dummy(java.util.LinkedHashMap,java.util.HashMap,java.util.HashSet)",
                 methodSelector1.getSignature());
-        assertEquals("de.fraunhofer.iem.MainKt: java.util.ArrayList dummy(java.util.LinkedHashMap, java.util.HashMap, java.util.HashSet)",
+        assertEquals("de.fraunhofer.iem.MainKt: java.util.ArrayList dummy(java.util.LinkedHashMap,java.util.HashMap,java.util.HashSet)",
                 method1.getSignature());
 
         System.out.println(methodSignature1.getCompleteMethodSignature());
