@@ -7,7 +7,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
-import de.fraunhofer.iem.secucheck.kotlinFunctionTypeMatcher.KotlinFunctionTypeMatcherUtility;
+import de.fraunhofer.iem.secucheck.kotlinDataTypeTransformerUtility.KotlinDataTypeTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,7 +180,7 @@ public class MethodSelector implements Method {
                         temporary.substring(lastIndex + 5)
         ).replaceAll("<S_R>", "");
 
-        temp = KotlinFunctionTypeMatcherUtility.replaceFunctionTypeForReturnType(temporary)
+        temp = KotlinDataTypeTransformer.replaceFunctionTypeForReturnType(temporary)
                 .split(",");
 
         if (temp.length != 2) {
@@ -194,7 +194,7 @@ public class MethodSelector implements Method {
 
         String parameters = signature.substring(openParenthesesIndex + 1, closeParenthesesIndex);
 
-        parameters = KotlinFunctionTypeMatcherUtility.replaceFunctionType(parameters);
+        parameters = KotlinDataTypeTransformer.replaceFunctionType(parameters);
 
         temp = parameters.split(",");
 
