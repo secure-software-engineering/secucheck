@@ -4,6 +4,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.runTimeExcept
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.kotlin.kotlinTypeAlias.TypeAliases;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 import de.fraunhofer.iem.secucheck.kotlinDataTypeTransformerUtility.KotlinDataTypeTransformer;
+import de.fraunhofer.iem.secucheck.kotlinFunctionTypeMatcher.KotlinFunctionTypeMatcherUtility;
 import de.fraunhofer.iem.secucheck.kotlinTypeAliasUtility.KotlinTypeAliasChecker;
 
 import java.util.ArrayList;
@@ -47,7 +48,10 @@ public class MethodSignatureWithClassAndReturnAndNameAndParam {
         this.methodSignature = methodSignature;
 
         for (String elem : parametersType) {
-            this.methodSignature.addParameterType(KotlinDataTypeTransformer.transform(elem));
+            this.methodSignature.addParameterType(
+                    KotlinDataTypeTransformer.transform(
+                            KotlinFunctionTypeMatcherUtility.replaceFunctionType(elem)
+                    ));
         }
 
         this.typeAliases = typeAliases;
@@ -71,7 +75,10 @@ public class MethodSignatureWithClassAndReturnAndNameAndParam {
                 throw new CyclicTypeAliasException(elem);
             }
 
-            this.methodSignature.addParameterType(KotlinDataTypeTransformer.transform(temp));
+            this.methodSignature.addParameterType(
+                    KotlinDataTypeTransformer.transform(
+                            KotlinFunctionTypeMatcherUtility.replaceFunctionType(temp)
+                    ));
         }
 
         return this;
@@ -104,7 +111,10 @@ public class MethodSignatureWithClassAndReturnAndNameAndParam {
         }
 
         for (String elem : originalParametersType) {
-            this.methodSignature.addParameterType(KotlinDataTypeTransformer.transform(elem));
+            this.methodSignature.addParameterType(
+                    KotlinDataTypeTransformer.transform(
+                            KotlinFunctionTypeMatcherUtility.replaceFunctionType(elem)
+                    ));
         }
 
         return this;

@@ -7,6 +7,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
+import de.fraunhofer.iem.secucheck.kotlinFunctionTypeMatcher.KotlinFunctionTypeMatcherUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,49 +138,67 @@ public class MethodSelector implements Method {
         this.signature = this.methodSignature.getCompleteMethodSignature();
     }
 
-    protected static MethodSignature getMethodSignatureFromString(String signature, TypeAliases typeAliases) throws InvalidMethodSignatureException {
-        String[] temp = signature.split(":");
+    protected static MethodSignature getMethodSignatureFromString(String signature, TypeAliases typeAliases) {
+        int colonIndex = signature.indexOf(":");
+        int openParenthesesIndex = signature.indexOf("(");
+        int closeParenthesesIndex = signature.lastIndexOf(")");
+
+        if (colonIndex == -1 || // If you support sub-signature then we need to remove this sub-condition
+                colonIndex == 0 ||
+                openParenthesesIndex == -1 ||
+                colonIndex >= openParenthesesIndex ||
+                signature.charAt(signature.length() - 1) != ')') {
+            throw new InvalidMethodSignatureException(signature);
+        }
+
+        String[] temp = signature.toString().split(":");
 
         if (temp.length != 2) {
             throw new InvalidMethodSignatureException(signature);
         }
 
-        String fullyQualifiedClassName = temp[0].replaceAll("\\s+", "");
-        String remainingString = temp[1].trim();
+        // FullyQualifiedClassName
+        String fullyQualifiedClassName = temp[0].replaceAll("\\s++", "");
 
-        temp = remainingString.split(" ");
+        if (temp[1].replaceAll("\\s++", "").startsWith("(")) {
+            openParenthesesIndex = signature.indexOf("(", openParenthesesIndex + 1);
+        }
 
-        if (temp.length < 2) {
+        if (signature.charAt(openParenthesesIndex - 1) == ' ') {
             throw new InvalidMethodSignatureException(signature);
         }
 
+        String temporary = signature.
+                substring(colonIndex + 1, openParenthesesIndex)
+                .replaceAll("\\s++", "<S_R>");
+
+        int lastIndex = temporary.lastIndexOf("<S_R>");
+
+        temporary = (
+                temporary.substring(0, lastIndex) +
+                        "," +
+                        temporary.substring(lastIndex + 5)
+        ).replaceAll("<S_R>", "");
+
+        temp = KotlinFunctionTypeMatcherUtility.replaceFunctionTypeForReturnType(temporary)
+                .split(",");
+
+        if (temp.length != 2) {
+            throw new InvalidMethodSignatureException(signature);
+        }
+
+        // ReturnType
         String returnType = temp[0];
-        temp[0] = "";
-        remainingString = String.join("", temp).trim();
+        // MethodName
+        String methodName = temp[1];
 
-        temp = remainingString.split("\\(");
+        String parameters = signature.substring(openParenthesesIndex + 1, closeParenthesesIndex);
 
-        if (temp.length != 2) {
-            throw new InvalidMethodSignatureException(signature);
-        }
+        parameters = KotlinFunctionTypeMatcherUtility.replaceFunctionType(parameters);
 
-        String methodName = temp[0].replaceAll("\\s+", "");
-        remainingString = temp[1].replaceAll("\\s+", "");
+        temp = parameters.split(",");
 
-        if (remainingString.charAt(remainingString.length() - 1) != ')') {
-            throw new InvalidMethodSignatureException(signature);
-        }
-
-        //TODO: Currently this replaces all the occurrence of ) to empty
-        // Change this to below implementation
-        // Replace only the last character that should be ) to empty
-        // Then check each element i.e. fullyQualifiedClassName, returnType, methodName and parametersType should be valid
-        // i.e. it should not contains any invalid character
-        // Do this here or in the MethodSignature
-        remainingString = remainingString.replace(")", "");
-
-        temp = remainingString.split(",");
-
+        // Parameters Type
         List<String> parametersType = new ArrayList<>();
 
         for (String elem : temp) {

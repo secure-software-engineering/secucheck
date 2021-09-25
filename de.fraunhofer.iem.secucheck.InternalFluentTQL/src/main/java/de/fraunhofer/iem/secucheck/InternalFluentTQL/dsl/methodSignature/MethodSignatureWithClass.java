@@ -4,6 +4,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.exception.runTimeExcept
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.kotlin.kotlinTypeAlias.TypeAliases;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 import de.fraunhofer.iem.secucheck.kotlinDataTypeTransformerUtility.KotlinDataTypeTransformer;
+import de.fraunhofer.iem.secucheck.kotlinFunctionTypeMatcher.KotlinFunctionTypeMatcherUtility;
 import de.fraunhofer.iem.secucheck.kotlinTypeAliasUtility.KotlinTypeAliasChecker;
 
 import java.util.Objects;
@@ -51,7 +52,7 @@ public class MethodSignatureWithClass {
         }
 
         return new MethodSignatureWithClassAndReturn(
-                originalReturnType,
+                KotlinFunctionTypeMatcherUtility.replaceFunctionType(originalReturnType),
                 methodSignature,
                 typeAliases,
                 kotlinTypeAliasChecker,
