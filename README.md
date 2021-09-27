@@ -1,6 +1,6 @@
 # secucheck
 
-SecuCheck is a configurable taint analysis that can run on top of the [Boomerang](https://github.com/CodeShield-Security/SPDS) (implementation of SPDS) or the [FlowDroid](https://github.com/secure-software-engineering/FlowDroid) (implementation of IFDS) data-flow solvers runnin on top of the [Soot framework](https://github.com/soot-oss/soot). 
+SecuCheck is a configurable taint analysis that can run on top of the [Boomerang](https://github.com/CodeShield-Security/SPDS) (implementation of SPDS) or the [FlowDroid](https://github.com/secure-software-engineering/FlowDroid) (implementation of IFDS) data-flow solvers running on top of the [Soot framework](https://github.com/soot-oss/soot). 
 
 This repository contains an IDE tool and a command-line tool of SecuCheck. 
 If you are new to SecuCheck follow the introductory video:
