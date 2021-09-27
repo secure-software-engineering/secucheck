@@ -1,3 +1,23 @@
+# secucheck
+
+SecuCheck is a configurable taint analysis that can run on top of the [Boomerang](https://github.com/CodeShield-Security/SPDS) (implementation of SPDS) or the [FlowDroid](https://github.com/secure-software-engineering/FlowDroid) (implementation of IFDS) data-flow solvers runnin on top of the [Soot framework](https://github.com/soot-oss/soot). 
+
+This repository contains an IDE tool and a command-line tool of SecuCheck. 
+If you are new to SecuCheck follow the introductory video:
+
+[Getting Started with SecuCheck](https://www.youtube.com/embed/3ivgsibOmXo)
+
+
+# secucheck as an IDE plugin
+The plugin support for wide-range of IDEs is implemented with [MagpieBridge](https://github.com/MagpieBridge/MagpieBridge). Check our wiki for further documentation. 
+Check our demo video on how to run the analysis in the IDE: [link to video](https://www.youtube.com/watch?v=6_GYxLu5Ay4)
+
+# secucheck-core analysis
+The core analysis is in [this repository](https://github.com/secure-software-engineering/secucheck-core). 
+
+# fluentTQL
+To start with our simple Java-internal DSL and write or customize your rules, follow [this video](https://www.youtube.com/watch?v=EJj5AxwEzAw). 
+
 ## How to build SecuCheck manually
 
 * First build the SecuCheck-Core analysis using the [link](https://github.com/secure-software-engineering/secucheck-core/tree/SCC-1.1.0#how-to-build-secucheck-core-manually).
@@ -27,9 +47,12 @@ mvn clean install -DskipTests
 
 ## How to install SecuCheck in Eclipse
 
-To install SecuCheck in Eclipse, use this [link](https://github.com/secure-software-engineering/secucheck/wiki/Use-SecuCheck-in-Eclipse-IDE.)
+To install SecuCheck in Eclipse, use this [link](https://github.com/secure-software-engineering/secucheck/wiki/Use-SecuCheck-in-Eclipse-IDE.) or check out the video: [Installing SecuCheck](https://www.youtube.com/watch?v=1GM29GFMH4A)
+
 
 ## How to use SecuCheck through command line
+
+Chech our [video](https://www.youtube.com/watch?v=c3V3zP5UY8U) or follow the guidelines below. 
 
 Use the secucheck-cmd jar from the [release](https://github.com/secure-software-engineering/secucheck/releases/tag/SC-1.1.0) or use the manually built jar-with-dependecy jar from the module **de.fraunhofer.iem.secucheck.secucheck-cmd** project in the target directory.
 
