@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.VARIABLE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ClassEntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodEntryPoint;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
@@ -22,6 +23,7 @@ import java.util.List;
  * Utility for the SecuCheck-core, used in the secucheck-magpiebridge in order to get the things required for the secuchcek-core
  *
  * @author Ranjith Krishnamurthy
+ * @author Enri Ozuni
  */
 public final class SecuCheckCoreQueryUtility {
     /**
@@ -127,7 +129,7 @@ public final class SecuCheckCoreQueryUtility {
         TaintFlowImpl taintFlowQuery = new TaintFlowImpl();
 
         if (taintFlow.getFrom() != null) {
-            for (MethodImpl method : constructMethodsFromParticipant(taintFlow.getFrom())) {
+            for (TaintFlowElement method : constructMethodsFromParticipantForSource(taintFlow.getFrom())) {
                 taintFlowQuery.addFrom(method);
             }
         }
@@ -154,9 +156,9 @@ public final class SecuCheckCoreQueryUtility {
     }
 
     /**
-     * Builds the secucheck-core methods from the InternalFluentTQL flowparticipants
+     * Builds the secucheck-core methods from the InternalFluentTQL flow participants
      *
-     * @param participants InternalFluentTQL flowparticipants
+     * @param participants InternalFluentTQL flow participants
      * @return secucheck-core methods
      */
     public static List<MethodImpl> constructMethodsFromParticipants(List<FlowParticipant> participants) {
@@ -170,9 +172,9 @@ public final class SecuCheckCoreQueryUtility {
     }
 
     /**
-     * Builds the secucheck-core methods from the single InternalFluentTQL flowparticipant
+     * Builds the secucheck-core methods from the single InternalFluentTQL flow participant
      *
-     * @param participant Single InternalFluentTQL flowparticipant
+     * @param participant Single InternalFluentTQL flow participant
      * @return secucheck-core methods
      */
     public static List<MethodImpl> constructMethodsFromParticipant(FlowParticipant participant) {
@@ -192,6 +194,51 @@ public final class SecuCheckCoreQueryUtility {
         }
 
         return methodImpls;
+    }
+    
+    /**
+     * Builds the secucheck-core methods from the single InternalFluentTQL flow participant for sources
+     *
+     * @param participant Single InternalFluentTQL flow participant
+     * @return secucheck-core methods
+     */
+    public static List<TaintFlowElement> constructMethodsFromParticipantForSource(FlowParticipant participant) {
+    	List<Method> methods = new ArrayList<Method>();
+    	List<TaintFlowElement> flowElements = new ArrayList<TaintFlowElement>();
+    	
+        if (participant instanceof Method) {
+            methods.add((Method) participant);
+        } else if (participant instanceof MethodSet) {
+            MethodSet set = (MethodSet) participant;
+            methods.addAll(set.getMethods());
+        } else if (participant instanceof VARIABLE) {
+        	flowElements.add(getVariable((VARIABLE)participant));
+        }
+        
+        if(!methods.isEmpty()) {
+        	for (Method method : methods) {
+        		flowElements.add(getMethodImpl(method));
+            }
+        }
+        
+        return flowElements;
+    	
+    }
+    
+    /**
+     * Converts the InternalFluentTQL VARIABLE into secucheck-core Variable
+     *
+     * @param variable InternalFluentTQL VARIABLE
+     * @return secucheck-core Variable
+     */
+    public static Variable getVariable(VARIABLE variable) {
+    	switch(variable) {
+    	case HARDCODED:
+    		return Variable.HARDCODED;
+    	case NULL:
+    		return Variable.NULL;
+    	}
+		return null;
     }
 
     /**

@@ -7,6 +7,7 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPacka
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.VARIABLE
 
 class BriefFluentTQL2Eng {
 	def String multipleTaintFlows(List<TaintFlow> taintFlow) {
@@ -33,6 +34,8 @@ class BriefFluentTQL2Eng {
 		
 		if(source instanceof Method)
 			taintFlowInEnglish += "from the source Method: " + (source as Method).getSignature() + "\n\t"
+		else if(source instanceof VARIABLE)
+			taintFlowInEnglish += "from the hard-coded/null variable serving as source\n\t"
 		else 
 			taintFlowInEnglish += "one of the source in the MethodSet: " + (source as MethodSet).getName() + "\n\t"
 			
