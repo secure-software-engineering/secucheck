@@ -28,5 +28,12 @@ public class Test {
                 .getter();
 
         System.out.println(sig1);
+
+        MethodSignature sinkSig = new MethodSignatureBuilder()
+                .atClass("javax.persistence.TypedQuery")
+                .property("singleResult", "Any")
+                .getter();
+
+        System.out.println(sinkSig);
     }
 }
