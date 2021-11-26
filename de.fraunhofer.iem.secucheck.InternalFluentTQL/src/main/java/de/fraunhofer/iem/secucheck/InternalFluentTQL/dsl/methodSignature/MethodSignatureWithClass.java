@@ -79,4 +79,63 @@ public class MethodSignatureWithClass {
                 isApplyTypeAliases);
     }
 
+    public MethodSignatureOfProperty property(String propertyName, String propertyType) {
+        Objects.requireNonNull(propertyType, "given propertyType to property() is null");
+        Objects.requireNonNull(propertyType, "given propertyName to property() is null");
+
+        String originalPropertyType = propertyType;
+
+        if (isApplyTypeAliases) {
+            originalPropertyType = kotlinTypeAliasChecker.getOriginalTypeName(originalPropertyType, typeAliases);
+
+            if (originalPropertyType == null) {
+                throw new CyclicTypeAliasException(propertyType);
+            }
+        }
+
+        return new MethodSignatureOfProperty(
+                propertyName,
+                KotlinDataTypeTransformer.replaceFunctionType(originalPropertyType),
+                methodSignature,
+                typeAliases,
+                kotlinTypeAliasChecker,
+                isApplyTypeAliases
+        );
+    }
+
+    public MethodSignatureOfPropertyWithExtensionEnabled extensionProperty(String receiverType, String propertyName, String propertyType) {
+        Objects.requireNonNull(receiverType, "given receiverType to extensionProperty() is null");
+        Objects.requireNonNull(propertyType, "given propertyType to extensionProperty() is null");
+        Objects.requireNonNull(propertyType, "given propertyName to extensionProperty() is null");
+
+        String originalReceiverType = receiverType;
+
+        if (isApplyTypeAliases) {
+            originalReceiverType = kotlinTypeAliasChecker.getOriginalTypeName(originalReceiverType, typeAliases);
+
+            if (originalReceiverType == null) {
+                throw new CyclicTypeAliasException(receiverType);
+            }
+        }
+
+        String originalPropertyType = propertyType;
+
+        if (isApplyTypeAliases) {
+            originalPropertyType = kotlinTypeAliasChecker.getOriginalTypeName(originalPropertyType, typeAliases);
+
+            if (originalPropertyType == null) {
+                throw new CyclicTypeAliasException(propertyType);
+            }
+        }
+
+        return new MethodSignatureOfPropertyWithExtensionEnabled(
+                originalReceiverType,
+                propertyName,
+                KotlinDataTypeTransformer.replaceFunctionType(originalPropertyType),
+                methodSignature,
+                typeAliases,
+                kotlinTypeAliasChecker,
+                isApplyTypeAliases
+        );
+    }
 }
