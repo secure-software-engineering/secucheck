@@ -3,6 +3,7 @@ package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge;
 import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.SecuHttpServer;
 import magpiebridge.core.*;
 import magpiebridge.projectservice.java.JavaProjectService;
+import magpiebridge.projectservice.java.KotlinProjectService;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 
 /**
@@ -40,9 +41,9 @@ public class FluentTQLMagpieBridgeMainServer {
         fluentTQLMagpieServer = new MagpieServer(defaultConfig);
 
         String language = "java";
-        IProjectService javaProjectService = new JavaProjectService();
+        IProjectService kotlinProjectService = new KotlinProjectService();
 
-        fluentTQLMagpieServer.addProjectService(language, javaProjectService);
+        fluentTQLMagpieServer.addProjectService(language, kotlinProjectService);
 
         //Todo: If necessary (Very Important)
         // Currently, Analysis settings and calling analysis is done through the HttpHandlers in the package SecucheckHttpServer/handler
