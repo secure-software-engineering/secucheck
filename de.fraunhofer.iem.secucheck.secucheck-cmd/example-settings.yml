@@ -1,6 +1,6 @@
-classPath: 'D:\Master\Fifth_sem\Thesis\spring-evaluation-project\master-thesis-of-ranjith-krishnamurthy\spring-petclinic-kotlin\build\classes\kotlin\main'
+classPath: '/Volumes/Ranjith/Work/MagpieBridgeWork/MagpieForKotlin/spring-petclinic-kotlin/build/classes/kotlin/main'
 entryPoints:
-specPath: 'D:\Master\Fifth_sem\Thesis\SecuCheck-Kotlin\secucheck-catalog\PetClinicSpecifications\target'
+specPath: '/Volumes/Ranjith/Work/MagpieBridgeWork/MagpieForKotlin/secucheck-catalog/PetClinicSpecifications/target'
 selectedSpecs:
 asSpecFile: false
 solver: "Boomerang3"
