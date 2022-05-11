@@ -517,17 +517,21 @@ public class FluentTQLAnalysisConfigurator {
     }
 
     public static void printForNow() {
-        System.out.println("***************************************************\n\n");
-        System.out.println("TaintFlowQueries = " + taintFlowQueries);
-        System.out.println("EntryPoint = " + entryPoints);
-        System.out.println("Class Path = " + classPath);
-        System.out.println("Library Path = " + libraryPath);
-        System.out.println("Project Root path = " + projectRootPath.toAbsolutePath().toString());
-        System.out.println("\n\n***************************************************");
+        PrintUtility.printMessageInIDE(MessageType.Info, "***************************************************\n\n");
+        PrintUtility.printMessageInIDE(MessageType.Info, "TaintFlowQueries = " + taintFlowQueries);
+        PrintUtility.printMessageInIDE(MessageType.Info, "EntryPoint = " + entryPoints);
+        PrintUtility.printMessageInIDE(MessageType.Info, "Class Path = " + classPath);
+        PrintUtility.printMessageInIDE(MessageType.Info, "Library Path = " + libraryPath);
+        PrintUtility.printMessageInIDE(MessageType.Info, "Project Root path = " + projectRootPath.toAbsolutePath().toString());
+        PrintUtility.printMessageInIDE(MessageType.Info, "\n\n***************************************************");
     }
 
     public static void runAnalysis() {
+        PrintUtility.printMessageInIDE(MessageType.Info, "Hello, Welcome to SecuCheck-Kotlin");
+
         SecuCheckAnalysisConfigurator.run(taintFlowQueries, analysisSolver);
+
+        printForNow();
     }
 
     public static String getClassPathAsString() {
