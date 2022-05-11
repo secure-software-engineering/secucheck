@@ -15,6 +15,8 @@ public class FluentTQLMagpieBridgeMainServer {
 
     public static MagpieServer fluentTQLMagpieServer;
 
+    public static KotlinProjectService kotlinProjectService;
+
     /**
      * Main method of the FluentTQL Magpie bridge server.
      *
@@ -41,7 +43,7 @@ public class FluentTQLMagpieBridgeMainServer {
         fluentTQLMagpieServer = new MagpieServer(defaultConfig);
 
         String language = "java";
-        IProjectService kotlinProjectService = new KotlinProjectService();
+        kotlinProjectService = new KotlinProjectService();
 
         fluentTQLMagpieServer.addProjectService(language, kotlinProjectService);
 

@@ -3,6 +3,7 @@ package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.internal;
 import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLAnalysisConfigurator;
 import de.fraunhofer.iem.secucheck.FluentTQLUtility;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.FluentTQLMagpieBridgeMainServer;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.SameTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.query.*;
@@ -187,14 +188,19 @@ public final class Utility {
         reportPosition.setFirstCol(1);
         reportPosition.setLastCol(1);
 
+        HashMap<String, String> classToFileRelation = FluentTQLMagpieBridgeMainServer.kotlinProjectService.getClassToFileRelation();
+
         for (Path sourcePath : FluentTQLAnalysisConfigurator.getSourcePath()) {
-            String fqn = sourcePath +
-                    File.separator +
-                    locationInfo.getUsageClassName().replace(
-                            ".",
-                            File.separator
-                    ) +
-                    ".java";
+            System.out.println("---> " + classToFileRelation.get(locationInfo.getUsageClassName()));
+            String fqn = classToFileRelation.get(locationInfo.getUsageClassName());
+
+//            String fqn = sourcePath +
+//                    File.separator +
+//                    locationInfo.getUsageClassName().replace(
+//                            ".",
+//                            File.separator
+//                    ) +
+//                    ".java";
 
             File file = new File(fqn);
 
