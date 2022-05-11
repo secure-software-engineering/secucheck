@@ -190,10 +190,23 @@ public final class Utility {
 
         HashMap<String, String> classToFileRelation = FluentTQLMagpieBridgeMainServer.kotlinProjectService.getClassToFileRelation();
 
-        for (Path sourcePath : FluentTQLAnalysisConfigurator.getSourcePath()) {
-            System.out.println("---> " + classToFileRelation.get(locationInfo.getUsageClassName()));
-            String fqn = classToFileRelation.get(locationInfo.getUsageClassName());
+        // TODO: Check if classToFileRelation returns null
+        String fqn = classToFileRelation.get(locationInfo.getUsageClassName());
 
+        File file = new File(fqn);
+
+        if (file.exists()) {
+            try {
+                reportPosition.setUrl(file.toURI().toURL());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+
+//        for (Path sourcePath : FluentTQLAnalysisConfigurator.getSourcePath()) {
+//            System.out.println("---> " + classToFileRelation.get(locationInfo.getUsageClassName()));
+//            String fqn = classToFileRelation.get(locationInfo.getUsageClassName());
+//
 //            String fqn = sourcePath +
 //                    File.separator +
 //                    locationInfo.getUsageClassName().replace(
@@ -202,24 +215,16 @@ public final class Utility {
 //                    ) +
 //                    ".java";
 
-            File file = new File(fqn);
-
-            if (file.exists()) {
-                try {
-                    reportPosition.setUrl(file.toURI().toURL());
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        // Some other source info already available for use
-        // sourceLocation.getClassName();
-        // sourceLocation.getMethodSignature();
-        // sourceLocation.getType();
-
-        // Poisition info still is missing about the source file name,
-        // maybe infer it from the class name...
+//            File file = new File(fqn);
+//
+//            if (file.exists()) {
+//                try {
+//                    reportPosition.setUrl(file.toURI().toURL());
+//                } catch (MalformedURLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
 
         return reportPosition;
     }
