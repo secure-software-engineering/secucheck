@@ -80,10 +80,13 @@ public class SecuCheckAnalysisConfigurator {
                             FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer.consume(result, "secucheck-analysis");
                             PrintUtility.printMessageInIDE(MessageType.Info, "SecuCheck’s Analysis has completed.");
                         } else {
-                            System.out.println("\n\n\nInterrupted = " + result.size() + "\n\n\n");
+                            PrintUtility.printMessageInIDE(MessageType.Info, "\n\n\nInterrupted = " + result.size() + "\n\n\n");
                         }
                     } catch (Exception ex) {
-                        ex.printStackTrace();
+                        FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
+                                .forwardMessageToClient(new MessageParams(MessageType.Error,
+                                        "Problem occured while running the analysis: " + ex.getMessage()));
+                        logger.log(Level.SEVERE, "Problem occured while running the analysis: " + ex.getMessage());
                     }
                 } catch (Exception e) {
                     FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer
