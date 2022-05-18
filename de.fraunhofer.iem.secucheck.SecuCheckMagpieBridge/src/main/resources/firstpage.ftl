@@ -36,7 +36,6 @@
         function getFullURL(path, formID) {
             const fullURL = 'http://localhost:' + ${port} + "/" + path;
 
-            alert(fullURL)
             document.getElementById(formID).action = fullURL;
         }
     </script>
