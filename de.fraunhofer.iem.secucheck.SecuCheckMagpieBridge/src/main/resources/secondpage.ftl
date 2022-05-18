@@ -35,6 +35,12 @@
         }
     </style>
     <script>
+        function getFullURL(path, formID) {
+            const fullURL = 'http://localhost:' + window.location.port + "/" + path;
+
+            document.getElementById(formID).action = fullURL;
+        }
+
         function searchFunction(myInput, myUL, clearer) {
             // Declare variables
             let myClearer = document.getElementById(clearer);
@@ -157,7 +163,7 @@
     </ul>
     <div class="tab-content">
         <iframe name="myForm" style="display:none;"></iframe>
-        <form id="secondForm" method="POST" action="/configSubmit" target="myForm">
+        <form id="secondForm" method="POST" onsubmit="getFullURL('configSubmit', 'secondForm')" target="myForm">
             <div class="tab-content"
                  style="border-bottom: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;">
                 <div id="fluentSpec" class="tab-pane fade in active checkboxes" style="font-size: 18px">

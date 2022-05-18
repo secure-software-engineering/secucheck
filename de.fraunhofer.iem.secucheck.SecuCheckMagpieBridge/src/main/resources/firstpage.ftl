@@ -32,6 +32,14 @@
         }
     </style>
 
+    <script type = "text/javascript">
+        function getFullURL(path, formID) {
+            const fullURL = 'http://localhost:' + ${port} + "/" + path;
+
+            alert(fullURL)
+            document.getElementById(formID).action = fullURL;
+        }
+    </script>
 </head>
 <body>
 
@@ -54,7 +62,7 @@
     </ul>
 
     <div class="tab-content">
-        <form id="specform" method="POST" action="/specPathResponse" class="navbar-form" role="search"
+        <form id="specform" method="POST" onsubmit="getFullURL('specPathResponse', 'specform')" class="navbar-form" role="search"
               style="text-align:center;">
             <div class="tab-content"
                  style="border-bottom: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;">

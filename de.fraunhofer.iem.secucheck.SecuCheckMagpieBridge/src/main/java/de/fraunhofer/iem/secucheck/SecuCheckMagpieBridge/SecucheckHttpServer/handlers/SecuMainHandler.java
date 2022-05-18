@@ -2,6 +2,7 @@ package de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge.SecucheckHttpServer.ha
 
 import java.io.*;
 import java.net.URI;
+import java.net.URL;
 import java.nio.file.Files;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -39,8 +40,12 @@ public class SecuMainHandler implements HttpHandler {
                 //Todo: verify do we need to cancel the previous analyis run
                 SecuCheckAnalysisConfigurator.cancel();
 
+                String requestedURL = "http://"+t.getRequestHeaders().getFirst("Host") + t.getRequestURI();
+                URL u = new URL(requestedURL);
+
                 response = FreeMarkerUtility.setFirstPageFile(
-                        FluentTQLAnalysisConfigurator.getSource());
+                        FluentTQLAnalysisConfigurator.getSource(),
+                        u.getPort());
                 t.sendResponseHeaders(HTTP_OK_STATUS, response.getBytes().length);
                 os.write(response.getBytes());
                 os.close();

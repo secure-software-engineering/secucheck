@@ -13,7 +13,7 @@ import java.util.Map;
  * @author Ranjith Krishnamurthy
  */
 public class FreeMarkerUtility {
-    public static String setFirstPageFile(String projectName) {
+    public static String setFirstPageFile(String projectName, int port) {
 
         String resolvedProjectName = "null";
 
@@ -33,6 +33,7 @@ public class FreeMarkerUtility {
             //Port number and query file to insert into benchmark template
             Map<String, Object> templateData = new HashMap<>();
             templateData.put("projectName", resolvedProjectName);
+            templateData.put("port", Integer.toString(port));
 
             StringWriter out = new StringWriter();
             template.process(templateData, out);
