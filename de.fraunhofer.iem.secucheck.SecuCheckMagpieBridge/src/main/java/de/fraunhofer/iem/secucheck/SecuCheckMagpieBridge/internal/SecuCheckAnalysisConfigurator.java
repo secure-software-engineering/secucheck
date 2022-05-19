@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SecuCheckAnalysisConfigurator {
-    private static final Logger logger = Logger.getLogger("SecuCheck Analysis Configurator");
+    private static final Logger logger = Logger.getLogger("SecuCheck-Kotlin Analysis Configurator");
     private static Future<?> lastAnalysisTask;
     private static final ExecutorService execService = Executors.newSingleThreadExecutor();
 
@@ -77,8 +77,8 @@ public class SecuCheckAnalysisConfigurator {
 
                         if (!Thread.currentThread().isInterrupted()) {
                             FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer.cleanUp();
-                            FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer.consume(result, "secucheck-analysis");
-                            PrintUtility.printMessageInIDE(MessageType.Info, "SecuCheck’s Analysis has completed.");
+                            FluentTQLMagpieBridgeMainServer.fluentTQLMagpieServer.consume(result, "secucheck-kotlin-analysis");
+                            PrintUtility.printMessageInIDE(MessageType.Info, "SecuCheck-Kotlin’s Analysis has completed.");
                         } else {
                             PrintUtility.printMessageInIDE(MessageType.Info, "\n\n\nInterrupted = " + result.size() + "\n\n\n");
                         }

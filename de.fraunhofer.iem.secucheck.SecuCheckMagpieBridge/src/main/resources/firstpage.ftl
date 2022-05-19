@@ -48,7 +48,7 @@
 
     <!-- page-header adds space aroundtext and enlarges it. It also adds an underline at the end -->
     <div class="page-header">
-        <h1 style="font-family: 'Impact, Charcoal, sans-serif'; text-shadow: 1px 1px 15px #a6a2a2;text-align:center"><i><b>SecuCheck</b></br>${projectName}
+        <h1 style="font-family: 'Impact, Charcoal, sans-serif'; text-shadow: 1px 1px 15px #a6a2a2;text-align:center"><i><b>SecuCheck-Kotlin</b></br>${projectName}
             </i></h1>
     </div>
 </div>
