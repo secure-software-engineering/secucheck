@@ -523,6 +523,7 @@ public class FluentTQLAnalysisConfigurator {
         PrintUtility.printMessageInIDE(MessageType.Info, "Class Path = " + classPath);
         PrintUtility.printMessageInIDE(MessageType.Info, "Library Path = " + libraryPath);
         PrintUtility.printMessageInIDE(MessageType.Info, "Project Root path = " + projectRootPath.toAbsolutePath().toString());
+        PrintUtility.printMessageInIDE(MessageType.Info, "Source path = " + sourcePath);
         PrintUtility.printMessageInIDE(MessageType.Info, "\n\n***************************************************");
     }
 
