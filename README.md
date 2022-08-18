@@ -27,7 +27,7 @@ mvn clean install -DskipTests
 
 ## How to install SecuCheck in Eclipse
 
-To install SecuCheck in Eclipse, use this [link](https://github.com/secure-software-engineering/secucheck/wiki/Use-SecuCheck-in-Eclipse-IDE.)
+Currently, SecuCheck-Kotlin works only for command-line. For IDE integration, we are working on it.
 
 ## How to use SecuCheck through command line
 
