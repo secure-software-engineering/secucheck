@@ -1,6 +1,6 @@
 ## How to build SecuCheck manually
 
-* First build the SecuCheck-Core analysis using the [link]([https://github.com/secure-software-engineering/secucheck-core/tree/SCCK-1.0.0#how-to-build-secucheck-core-manually](https://github.com/secure-software-engineering/secucheck-core/tree/feature/SecuCheck-Kotlin)).
+* First build the SecuCheck-Core analysis using the [link]([https://github.com/secure-software-engineering/secucheck-core/tree/SCCK-1.0.0#how-to-build-secucheck-core-manually](https://github.com/secure-software-engineering/secucheck-core/tree/feature/SecuCheck-Kotlin).
 
 * Then build the SecuCheck
 * Git clone the SecuCheck repository
