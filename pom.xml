@@ -7,7 +7,7 @@
     <groupId>de.fraunhofer.iem.secucheck</groupId>
     <artifactId>secucheck</artifactId>
     <packaging>pom</packaging>
-    <version>SC-1.2.0</version>
+    <version>1.3.0</version>
     <name>SecuCheck</name>
 
     <properties>
@@ -16,18 +16,18 @@
 
         <!--The whole project uses the currently working project version-->
         <secucheck.version>${project.version}</secucheck.version>
-        <secucheck.core.version>SCC-1.2.0</secucheck.core.version>
+        <secucheck.core.version>1.3.0</secucheck.core.version>
     </properties>
 
     <modules>
-        <module>de.fraunhofer.iem.secucheck.InternalFluentTQL</module>
-        <module>de.fraunhofer.iem.secucheck.secucheck-commons-utility</module>
-        <module>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</module>
+        <module>fluenttql</module>
+        <module>commons-utility</module>
+        <module>fluenttql-class-loader</module>
         <module>fluenttql-maven-plugin</module>
-        <module>de.fraunhofer.iem.secucheck.fluentTQL2English</module>
-        <module>de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge</module>
-        <module>de.fraunhofer.iem.secucheck.SecuCheckSARIF</module>
-        <module>de.fraunhofer.iem.secucheck.secucheck-cmd</module>
+        <module>fluenttql-english</module>
+        <module>magpie-bridge</module>
+        <module>sarif</module>
+        <module>cmd</module>
     </modules>
 
 
