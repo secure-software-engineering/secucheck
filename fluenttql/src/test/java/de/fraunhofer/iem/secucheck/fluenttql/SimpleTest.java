@@ -3,12 +3,11 @@ package de.fraunhofer.iem.secucheck.fluenttql;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.QueriesSet;
 import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.FluentTQLSpecification;
-import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.*;
+import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.*;
 import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.FlowParticipant;
 import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.TaintFlow;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.*;
 import org.junit.Test;
 
 import java.util.List;
