@@ -31,21 +31,18 @@ public class Tool {
      */
     private String language;
 
-    /**
-     * Tool properties that contains the copyright
-     */
-    private ToolProperties properties;
+    private Driver driver;
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public String getFullName() {
-        return fullName;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     public void setFullName(String fullName) {

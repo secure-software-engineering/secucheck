@@ -235,17 +235,12 @@ public class SarifGenerator {
         Tool tool = new Tool();
         ApplicationPropertiesUtility.loadApplicationProperties();
 
-        tool.setName(ApplicationPropertiesUtility.getName());
-        tool.setFullName(ApplicationPropertiesUtility.getFullName());
-        tool.setVersion(ApplicationPropertiesUtility.getVersion());
-        tool.setSemanticVersion(ApplicationPropertiesUtility.getSemanticVersion());
-        tool.setLanguage(ApplicationPropertiesUtility.getLanguage());
+        Driver driver = new Driver();
+        driver.setName(ApplicationPropertiesUtility.getName());
+        driver.setFullName(ApplicationPropertiesUtility.getFullName());
+        driver.setVersion(ApplicationPropertiesUtility.getVersion());
 
-        ToolProperties properties = new ToolProperties();
-        properties.setCopyright(ApplicationPropertiesUtility.getCopyright());
-
-        tool.setProperties(properties);
-
+        tool.setDriver(driver);
         return tool;
     }
 }
