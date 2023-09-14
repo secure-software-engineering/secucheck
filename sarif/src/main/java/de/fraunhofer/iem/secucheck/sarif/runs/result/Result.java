@@ -17,16 +17,6 @@ public class Result {
     private String ruleId;
 
     /**
-     * Message ID: Location with the BriefFluentTQL2English
-     */
-    private String ruleMessageId;
-
-    /**
-     * RichMessage ID: Location with the FluentTQL2English
-     */
-    private String richMessageId;
-
-    /**
      * Report message
      */
     private Message message;
@@ -47,22 +37,6 @@ public class Result {
 
     public void setRuleId(String ruleId) {
         this.ruleId = ruleId;
-    }
-
-    public String getRuleMessageId() {
-        return ruleMessageId;
-    }
-
-    public void setRuleMessageId(String ruleMessageId) {
-        this.ruleMessageId = ruleMessageId;
-    }
-
-    public String getRichMessageId() {
-        return richMessageId;
-    }
-
-    public void setRichMessageId(String richMessageId) {
-        this.richMessageId = richMessageId;
     }
 
     public Message getMessage() {

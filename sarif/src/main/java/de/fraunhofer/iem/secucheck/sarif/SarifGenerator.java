@@ -117,27 +117,22 @@ public class SarifGenerator {
         TaintFlowQuery taintFlowQuery = FluentTQLUtility.getTaintFlowQueryFromID(taintFlowQueries, result.getFirst().getId());
 
         String briefFluentTQL2Eng = "";
-        String fluentTQL2English = "";
 
         if (taintFlowQuery != null) {
             briefFluentTQL2Eng = new BriefFluentTQL2Eng().translate(taintFlowQuery);
-            fluentTQL2English = new FluentTQL2English().translate(taintFlowQuery);
         }
 
         // This loop is for and operator. If only one then no and operator.
         for (DifferentTypedPair<TaintFlowImpl, TaintFlowResult> taintFlowResultWithAndOp : result.getSecond().getResults()) {
             // This loop is for the single taintflow there are multiple instance are found in the source.
             for (DifferentTypedPair<TaintFlowImpl, SingleTaintFlowAnalysisResult> taintFlowResult : taintFlowResultWithAndOp.getSecond().getQueryResultMap()) {
-                Result res = new Result();
 
+                Result res = new Result();
                 res.setRuleId(taintFlowQuery.getId());
-                res.setRuleMessageId(taintFlowQuery.getReportLocation() + " : \n" + briefFluentTQL2Eng);
-                res.setRichMessageId(taintFlowQuery.getReportLocation() + " : \n" + fluentTQL2English);
 
                 Message message = new Message();
-                message.setText(taintFlowQuery.getReportMessage());
+                message.setText(taintFlowQuery.getReportMessage() + briefFluentTQL2Eng);
                 res.setMessage(message);
-
                 res.setLevel("error");
 
                 List<Location> locations = new ArrayList<>();
@@ -153,7 +148,6 @@ public class SarifGenerator {
                 }
 
                 res.setLocations(locations);
-
                 results.add(res);
             }
         }
