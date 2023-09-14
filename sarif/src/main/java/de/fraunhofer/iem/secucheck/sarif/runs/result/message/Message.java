@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.result.message;
+package de.fraunhofer.iem.secucheck.sarif.runs.result.message;
 
 /**
  * Message item in the SARIF format

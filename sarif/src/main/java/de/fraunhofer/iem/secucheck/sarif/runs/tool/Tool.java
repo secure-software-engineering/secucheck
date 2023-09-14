@@ -1,6 +1,4 @@
-package de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.tool;
-
-import de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.tool.toolProperties.ToolProperties;
+package de.fraunhofer.iem.secucheck.sarif.runs.tool;
 
 /**
  * Tool item in the SARIF format

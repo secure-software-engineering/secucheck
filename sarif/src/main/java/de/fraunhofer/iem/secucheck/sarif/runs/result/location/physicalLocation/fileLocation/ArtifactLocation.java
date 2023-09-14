@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.result.location.physicalLocation.fileLocation;
+package de.fraunhofer.iem.secucheck.sarif.runs.result.location.physicalLocation.fileLocation;
 
 /**
  * File location item in the SARIF

@@ -1,7 +1,6 @@
-package de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.result.location;
+package de.fraunhofer.iem.secucheck.sarif.runs.result.location;
 
-import de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.result.location.physicalLocation.PhysicalLocation;
-import de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.result.location.region.Region;
+import de.fraunhofer.iem.secucheck.sarif.runs.result.location.physicalLocation.PhysicalLocation;
 
 /**
  * Location item in the SARIF format

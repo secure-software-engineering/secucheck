@@ -1,7 +1,7 @@
-package de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run;
+package de.fraunhofer.iem.secucheck.sarif.runs;
 
-import de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.result.Result;
-import de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.tool.Tool;
+import de.fraunhofer.iem.secucheck.sarif.runs.result.Result;
+import de.fraunhofer.iem.secucheck.sarif.runs.tool.Tool;
 
 import java.util.List;
 

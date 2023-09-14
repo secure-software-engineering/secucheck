@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.tool.toolProperties;
+package de.fraunhofer.iem.secucheck.sarif.runs;
 
 /**
  * properties item in the SARIF format

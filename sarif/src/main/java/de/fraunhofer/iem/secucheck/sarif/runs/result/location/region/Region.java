@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.result.location.region;
+package de.fraunhofer.iem.secucheck.sarif.runs.result.location.region;
 
 /**
  * Region item in the SARIF format
