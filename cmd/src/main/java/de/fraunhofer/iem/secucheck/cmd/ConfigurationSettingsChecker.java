@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  *
  * @author Ranjith Krishnamurthy
  */
-public class SecuCheckConfigurationSettingsChecker {
+public class ConfigurationSettingsChecker {
     /**
      * HashMap, contains the FluentTQL specification file name and its corresponding FluentTQLUserInterface object.
      */
@@ -68,16 +68,16 @@ public class SecuCheckConfigurationSettingsChecker {
     /**
      * Checks the Secucheck configuration settings file.
      *
-     * @param secuCheckConfiguration SecuCheckConfiguration settings
+     * @param configuration SecuCheckConfiguration settings
      * @param baseDir                Output directory provided by the user
      */
-    public static void check(SecuCheckConfiguration secuCheckConfiguration, String baseDir) throws DuplicateTaintFlowQueryIDException {
-        String classPath = secuCheckConfiguration.getClassPath();
-        List<String> entryPoints = secuCheckConfiguration.getEntryPoints();
-        String specPath = secuCheckConfiguration.getSpecPath();
-        List<String> selectedSpecs = secuCheckConfiguration.getSelectedSpecs();
-        String solver = secuCheckConfiguration.getSolver();
-        boolean isPostProcessResult = secuCheckConfiguration.getIsPostProcessResult();
+    public static void check(Configuration configuration, String baseDir) throws DuplicateTaintFlowQueryIDException {
+        String classPath = configuration.getClassPath();
+        List<String> entryPoints = configuration.getEntryPoints();
+        String specPath = configuration.getSpecPath();
+        List<String> selectedSpecs = configuration.getSelectedSpecs();
+        String solver = configuration.getSolver();
+        boolean isPostProcessResult = configuration.getIsPostProcessResult();
 
         // Check for the classPath null or empty
         if (classPath == null || "".equals(classPath.trim())) {
@@ -95,10 +95,10 @@ public class SecuCheckConfigurationSettingsChecker {
 
         System.out.println("Verifying the classPath and the entryPoints");
         // Check for the classPath validness
-        checkClassPath(classPath, entryPoints, secuCheckConfiguration);
+        checkClassPath(classPath, entryPoints, configuration);
 
         // Check for the asSpecFile
-        if (secuCheckConfiguration.isAsSpecFile()) {
+        if (configuration.isAsSpecFile()) {
             System.out.println("Given selectedSpecs are Specification files.");
         } else {
             System.out.println("Given selectedSpecs are TaintFlowQueries ID.");
@@ -106,7 +106,7 @@ public class SecuCheckConfigurationSettingsChecker {
 
         System.out.println("Verifying the specPath and the selectedSpecs");
         // Check for the specPath validness
-        checkSpecPath(specPath, selectedSpecs, baseDir, secuCheckConfiguration);
+        checkSpecPath(specPath, selectedSpecs, baseDir, configuration);
 
         System.out.println("Verifying solver");
         // Check for the solver validness
@@ -159,7 +159,7 @@ public class SecuCheckConfigurationSettingsChecker {
      * @param classPath   Class path that needs to be analyzed
      * @param entryPoints Entry points (List of class names)
      */
-    private static void checkClassPath(String classPath, List<String> entryPoints, SecuCheckConfiguration secuCheckConfiguration) {
+    private static void checkClassPath(String classPath, List<String> entryPoints, Configuration configuration) {
         File file = new File(classPath);
         if (!file.exists()) {
             System.err.println("Given class-path " + classPath + " does not exist.\n" +
@@ -183,7 +183,7 @@ public class SecuCheckConfigurationSettingsChecker {
                         .map(a -> a.replace(classPath, "").replace(File.separator, ".").replaceAll("^\\.", "").replaceAll("\\.class$", ""))
                         .collect(Collectors.toList());
 
-                secuCheckConfiguration.setEntryPoints(classes);
+                configuration.setEntryPoints(classes);
                 entryPoints = classes;
             } catch (IOException e) {
                 System.err.println("Something went wrong.\n" + e.getMessage());
@@ -209,7 +209,7 @@ public class SecuCheckConfigurationSettingsChecker {
      * @param selectedSpecs List of specification selected by the user
      * @param baseDir       Output  directory given by the user
      */
-    private static void checkSpecPath(String specPath, List<String> selectedSpecs, String baseDir, SecuCheckConfiguration secuCheckConfiguration) throws DuplicateTaintFlowQueryIDException {
+    private static void checkSpecPath(String specPath, List<String> selectedSpecs, String baseDir, Configuration configuration) throws DuplicateTaintFlowQueryIDException {
         File file = new File(specPath);
 
         if (file.exists()) {
@@ -238,17 +238,17 @@ public class SecuCheckConfigurationSettingsChecker {
                 HashMap<String, TaintFlowQuery> specWithID = storeCompleteTaintFlowQueries(specs);
 
                 if (selectedSpecs == null) {
-                    if (secuCheckConfiguration.isAsSpecFile()) {
+                    if (configuration.isAsSpecFile()) {
                         selectedSpecs = new ArrayList<>(specs.keySet());
                     } else {
                         selectedSpecs = new ArrayList<>(specWithID.keySet());
                     }
 
-                    secuCheckConfiguration.setSelectedSpecs(selectedSpecs);
+                    configuration.setSelectedSpecs(selectedSpecs);
                 }
 
                 for (String spec : selectedSpecs) {
-                    if (secuCheckConfiguration.isAsSpecFile()) {
+                    if (configuration.isAsSpecFile()) {
                         if (!specs.containsKey(spec)) {
                             System.err.println(spec + " is not found in the given FluentTQL specifications (Path: " +
                                     file.getAbsolutePath() + ")");

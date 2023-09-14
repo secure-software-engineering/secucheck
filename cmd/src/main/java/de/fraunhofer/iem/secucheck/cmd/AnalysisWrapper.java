@@ -15,10 +15,10 @@ import java.util.List;
  *
  * @author Ranjith Krishnamurthy
  */
-public class SecuCheckAnalysisWrapper {
+public class AnalysisWrapper {
     private final SecucheckAnalysis analysis;
 
-    public SecuCheckAnalysisWrapper(SecucheckAnalysisConfiguration configuration) {
+    public AnalysisWrapper(SecucheckAnalysisConfiguration configuration) {
         analysis = new SecucheckTaintAnalysis();
         analysis.setConfiguration(configuration);
     }

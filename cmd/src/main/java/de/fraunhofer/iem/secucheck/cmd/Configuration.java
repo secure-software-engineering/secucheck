@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Ranjith Krishnamurthy
  */
-public class SecuCheckConfiguration {
+public class Configuration {
     /**
      * Path of the classes that SecuCheck analysis should analyze
      */

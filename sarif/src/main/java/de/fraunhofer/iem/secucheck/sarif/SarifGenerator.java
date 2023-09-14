@@ -21,8 +21,17 @@ import de.fraunhofer.iem.secucheck.analysis.query.SecucheckTaintFlowQueryImpl;
 import de.fraunhofer.iem.secucheck.analysis.query.TaintFlowImpl;
 import de.fraunhofer.iem.secucheck.analysis.result.*;
 import de.fraunhofer.iem.secucheck.fluenttql.english.BriefFluentTQL2Eng;
-import de.fraunhofer.iem.secucheck.fluenttql.english.FluentTQL2English;
 import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.sarif.runs.Runs;
+import de.fraunhofer.iem.secucheck.sarif.runs.result.Result;
+import de.fraunhofer.iem.secucheck.sarif.runs.result.location.Location;
+import de.fraunhofer.iem.secucheck.sarif.runs.result.location.physicalLocation.PhysicalLocation;
+import de.fraunhofer.iem.secucheck.sarif.runs.result.location.physicalLocation.fileLocation.ArtifactLocation;
+import de.fraunhofer.iem.secucheck.sarif.runs.result.location.region.Region;
+import de.fraunhofer.iem.secucheck.sarif.runs.result.message.Message;
+import de.fraunhofer.iem.secucheck.sarif.runs.tool.Driver;
+import de.fraunhofer.iem.secucheck.sarif.runs.tool.Tool;
+import de.fraunhofer.iem.secucheck.sarif.runs.Properties;
 
 import java.io.File;
 import java.util.ArrayList;

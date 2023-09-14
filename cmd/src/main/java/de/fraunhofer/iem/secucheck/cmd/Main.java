@@ -127,12 +127,12 @@ public class Main {
             return;
         }
 
-        SecuCheckConfiguration secuCheckConfiguration = null;
+        Configuration configuration = null;
 
         try {
             System.out.println("Loading the Yaml settings file.");
             // Load the SecuCheck configuration yaml file
-            secuCheckConfiguration = YamlUtils.loadYamlAndGetSecuCheckConfiguration(secuCheckConfigurationFilePath);
+            configuration = YamlUtils.loadYamlAndGetSecuCheckConfiguration(secuCheckConfigurationFilePath);
         } catch (Exception | Error ex) {
             System.err.println("Could not load the configuration file(" + secuCheckConfigurationFilePath + ").\n" +
                     ex.getMessage());
@@ -141,7 +141,7 @@ public class Main {
 
         // Check for the valid Secucheck configuration settings
         try {
-            SecuCheckConfigurationSettingsChecker.check(secuCheckConfiguration, commandLine.getOptionValue(OUT_DIR_LONG));
+            ConfigurationSettingsChecker.check(configuration, commandLine.getOptionValue(OUT_DIR_LONG));
         } catch (DuplicateTaintFlowQueryIDException e) {
             System.err.println(e.getMessage());
             return;
@@ -159,12 +159,12 @@ public class Main {
             operatingSystem = OS.OTHER;
 
         // Create SecuCheckAnalysisConfigurator and run the analysis
-        SecuCheckAnalysisConfigurator secuCheckAnalysisConfigurator = new SecuCheckAnalysisConfigurator(secuCheckConfiguration);
+        AnalysisConfigurator secuCheckAnalysisConfigurator = new AnalysisConfigurator(configuration);
 
         SecucheckTaintAnalysisResult secucheckTaintAnalysisResult;
         try {
-            secucheckTaintAnalysisResult = secuCheckAnalysisConfigurator.run(SecuCheckConfigurationSettingsChecker.getTaintFlowQueries(),
-                    SecuCheckConfigurationSettingsChecker.getAnalysisSolver(),
+            secucheckTaintAnalysisResult = secuCheckAnalysisConfigurator.run(ConfigurationSettingsChecker.getTaintFlowQueries(),
+                    ConfigurationSettingsChecker.getAnalysisSolver(),
                     operatingSystem);
         } catch (Exception exception) {
             System.err.println("Something went wrong while running analysis:\n" + exception.getMessage());
@@ -175,7 +175,7 @@ public class Main {
         String result = "";
 
         try {
-            result = SarifGenerator.getSarifAsJsonString(secucheckTaintAnalysisResult, SecuCheckConfigurationSettingsChecker.getTaintFlowQueries(), secuCheckConfiguration.getClassPath());
+            result = SarifGenerator.getSarifAsJsonString(secucheckTaintAnalysisResult, ConfigurationSettingsChecker.getTaintFlowQueries(), configuration.getClassPath());
         } catch (JsonProcessingException e) {
             System.err.println("Something went wrong while generating SARIF\n" + e.getMessage());
             return;
@@ -193,12 +193,12 @@ public class Main {
 
         createAdditionalInformationFile(additionalFile,
                 secucheckTaintAnalysisResult,
-                secuCheckConfiguration);
+                configuration);
     }
 
     private static void createAdditionalInformationFile(File additionalFile,
                                                         SecucheckTaintAnalysisResult secucheckTaintAnalysisResult,
-                                                        SecuCheckConfiguration secuCheckConfiguration) {
+                                                        Configuration configuration) {
         if (additionalFile.isDirectory()) {
             try {
                 FileUtils.deleteDirectory(additionalFile);
@@ -229,7 +229,7 @@ public class Main {
         root.put("totalSeedCount", secucheckTaintAnalysisResult.getTotalSeedCount());
 
         // Solver
-        root.put("solver", secuCheckConfiguration.getSolver());
+        root.put("solver", configuration.getSolver());
 
         ArrayList<LinkedHashMap<String, Object>> taintFlowQueryInfo = new ArrayList<>();
 
@@ -261,10 +261,10 @@ public class Main {
         root.put("result", taintFlowQueryInfo);
 
         // Entry points
-        root.put("entryPoints", secuCheckConfiguration.getEntryPoints().iterator());
+        root.put("entryPoints", configuration.getEntryPoints().iterator());
 
         // Selected Specs
-        root.put("selectedSpecs", secuCheckConfiguration.getSelectedSpecs());
+        root.put("selectedSpecs", configuration.getSelectedSpecs());
 
         try {
             PrintWriter printWriter = new PrintWriter(additionalFile);

@@ -19,17 +19,17 @@ public class YamlUtils {
      * @param secuCheckConfigurationFilePath SecuCheck configuration Yaml file path
      * @return loaded SecuCheckConfiguration
      */
-    public static SecuCheckConfiguration loadYamlAndGetSecuCheckConfiguration(String secuCheckConfigurationFilePath) throws FileNotFoundException {
+    public static Configuration loadYamlAndGetSecuCheckConfiguration(String secuCheckConfigurationFilePath) throws FileNotFoundException {
         InputStream inputStream = null;
 
         inputStream = new FileInputStream(secuCheckConfigurationFilePath);
 
-        Yaml yaml = new Yaml(new Constructor(SecuCheckConfiguration.class));
+        Yaml yaml = new Yaml(new Constructor(Configuration.class));
 
-        SecuCheckConfiguration secuCheckConfiguration = null;
+        Configuration configuration = null;
 
-        secuCheckConfiguration = yaml.load(inputStream);
+        configuration = yaml.load(inputStream);
 
-        return secuCheckConfiguration;
+        return configuration;
     }
 }

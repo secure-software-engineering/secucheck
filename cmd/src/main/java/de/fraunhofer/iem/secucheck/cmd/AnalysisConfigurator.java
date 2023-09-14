@@ -23,14 +23,14 @@ import java.util.List;
  *
  * @author Ranjith Krishnamurthy
  */
-public class SecuCheckAnalysisConfigurator {
+public class AnalysisConfigurator {
     /**
      * Secucheck configuration settings provided by user through yaml file
      */
-    private final SecuCheckConfiguration secuCheckConfiguration;
+    private final Configuration configuration;
 
-    public SecuCheckAnalysisConfigurator(SecuCheckConfiguration secuCheckConfiguration) {
-        this.secuCheckConfiguration = secuCheckConfiguration;
+    public AnalysisConfigurator(Configuration configuration) {
+        this.configuration = configuration;
     }
 
     /**
@@ -43,7 +43,7 @@ public class SecuCheckAnalysisConfigurator {
     public SecucheckTaintAnalysisResult run(List<TaintFlowQuery> taintFlowQueries, Solver analysisSolver, OS operatingSystem) throws Exception {
 
         SecucheckAnalysisConfiguration configuration = getAnalysisConfiguration(analysisSolver, operatingSystem);
-        SecuCheckAnalysisWrapper secucheckAnalysis = new SecuCheckAnalysisWrapper(configuration);
+        AnalysisWrapper secucheckAnalysis = new AnalysisWrapper(configuration);
 
         //List<CompositeTaintFlowQueryImpl> compositeQueries = FluentTQLUtility.getCompositeTaintFlowQueries(taintFlowQueries);
         SecucheckTaintAnalysisResult result = secucheckAnalysis.run(taintFlowQueries);
@@ -71,7 +71,7 @@ public class SecuCheckAnalysisConfigurator {
      * @return EntryPoints
      */
     private List<EntryPoint> getEntryPoints() {
-        List<String> typeNames = secuCheckConfiguration.getEntryPoints();
+        List<String> typeNames = configuration.getEntryPoints();
 
         List<EntryPoint> entryPoints = new ArrayList<EntryPoint>();
 
@@ -98,14 +98,14 @@ public class SecuCheckAnalysisConfigurator {
         configuration.setOs(os);
         configuration.setSolver(solver);
         configuration.setAnalysisEntryPoints(getEntryPoints());
-        configuration.setApplicationClassPath(secuCheckConfiguration.getClassPath());
+        configuration.setApplicationClassPath(this.configuration.getClassPath());
         configuration.setSootClassPathJars(getSootClassPath());
         configuration.setListener(resultListener);
-        configuration.setIsPostProcessResult(secuCheckConfiguration.getIsPostProcessResult());
+        configuration.setIsPostProcessResult(this.configuration.getIsPostProcessResult());
 
         List<MethodImpl> generalPropagators = new ArrayList<>();
 
-        for (Method method : SecuCheckConfigurationSettingsChecker.getGeneralPropagators()) {
+        for (Method method : ConfigurationSettingsChecker.getGeneralPropagators()) {
             generalPropagators.add(SecuCheckCoreQueryUtility.getMethodImpl(method));
         }
 
