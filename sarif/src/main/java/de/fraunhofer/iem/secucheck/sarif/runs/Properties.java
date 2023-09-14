@@ -5,7 +5,7 @@ package de.fraunhofer.iem.secucheck.sarif.runs;
  *
  * @author Ranjith Krishnamurthy
  */
-public class ToolProperties {
+public class Properties {
     /**
      * Tool copyright
      */
