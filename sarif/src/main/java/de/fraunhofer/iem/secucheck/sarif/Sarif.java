@@ -1,8 +1,7 @@
 package de.fraunhofer.iem.secucheck.sarif;
 
-import de.fraunhofer.iem.secucheck.SecuCheckSARIFRepresentations.run.Run;
-
 import java.util.List;
+import de.fraunhofer.iem.secucheck.sarif.runs.Runs;
 
 /**
  * The top level in the SARIF format
@@ -23,7 +22,7 @@ public class Sarif {
     /**
      * Analysis runs, In our case it is always one.
      */
-    private List<Run> runs;
+    private List<Runs> runs;
 
     public String getVersion() {
         return version;
@@ -41,11 +40,11 @@ public class Sarif {
         this.$schema = $schema;
     }
 
-    public List<Run> getRun() {
+    public List<Runs> getRuns() {
         return runs;
     }
 
-    public void setRun(List<Run> runs) {
+    public void setRuns(List<Runs> runs) {
         this.runs = runs;
     }
 }

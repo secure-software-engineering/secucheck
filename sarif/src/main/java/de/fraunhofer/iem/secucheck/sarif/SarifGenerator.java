@@ -69,10 +69,10 @@ public class SarifGenerator {
         sarif.setVersion("2.1.0");
         sarif.set$schema("http://json.schemastore.org/sarif-2.1.0");
 
-        List<Run> run = new ArrayList<>();
-        run.add(getRun());
+        List<Runs> runs = new ArrayList<>();
+        runs.add(getRuns());
 
-        sarif.setRun(run);
+        sarif.setRuns(runs);
 
         return sarif;
     }
@@ -82,11 +82,12 @@ public class SarifGenerator {
      *
      * @return Run
      */
-    private static Run getRun() {
-        Run run = new Run();
+    private static Runs getRuns() {
+        Runs runs = new Runs();
 
         Tool tool = getTool();
-        run.setTool(tool);
+        runs.setTool(tool);
+        runs.setLanguage(ApplicationPropertiesUtility.getLanguage());
 
         ArrayList<Result> results = new ArrayList<>();
 
@@ -94,9 +95,14 @@ public class SarifGenerator {
             results.addAll(getResult(result));
         }
 
-        run.setResults(results);
+        runs.setResults(results);
 
-        return run;
+        Properties properties = new Properties();
+        properties.setCopyright(ApplicationPropertiesUtility.getCopyright());
+
+        runs.setProperties(properties);
+
+        return runs;
     }
 
     /**
