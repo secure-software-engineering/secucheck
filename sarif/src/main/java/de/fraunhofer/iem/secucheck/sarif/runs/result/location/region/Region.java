@@ -16,15 +16,9 @@ public class Region {
      */
     private int startColumn;
 
-    /**
-     * End line
-     */
-    private int endLine;
+    private int charLength;
 
-    /**
-     * End column
-     */
-    private int endColumn;
+    private String sourceLanguage;
 
     public int getStartLine() {
         return startLine;
@@ -42,19 +36,20 @@ public class Region {
         this.startColumn = startColumn;
     }
 
-    public int getEndLine() {
-        return endLine;
+    public int getCharLength() {
+        return charLength;
     }
 
-    public void setEndLine(int endLine) {
-        this.endLine = endLine;
+    public void setCharLength(int charLength) {
+        this.charLength = charLength;
     }
 
-    public int getEndColumn() {
-        return endColumn;
+
+    public String getSourceLanguage() {
+        return sourceLanguage;
     }
 
-    public void setEndColumn(int endColumn) {
-        this.endColumn = endColumn;
+    public void setSourceLanguage(String sourceLanguage) {
+        this.sourceLanguage = sourceLanguage;
     }
 }

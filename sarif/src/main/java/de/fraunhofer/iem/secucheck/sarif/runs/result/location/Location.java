@@ -13,11 +13,6 @@ public class Location {
      */
     private PhysicalLocation physicalLocation;
 
-    /**
-     * Region
-     */
-    private Region region;
-
     public PhysicalLocation getPhysicalLocation() {
         return physicalLocation;
     }
@@ -26,11 +21,4 @@ public class Location {
         this.physicalLocation = physicalLocation;
     }
 
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
 }

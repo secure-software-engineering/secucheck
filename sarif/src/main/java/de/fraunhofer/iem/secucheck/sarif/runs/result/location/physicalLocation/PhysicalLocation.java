@@ -12,15 +12,21 @@ public class PhysicalLocation {
     /**
      * File location
      */
-    private FileLocation fileLocation;
     private ArtifactLocation artifactLocation;
 
-    public FileLocation getFileLocation() {
-        return fileLocation;
+    /**
+     * Region
+     */
+    private Region region;
+
+    public Region getRegion() {
+        return region;
     }
 
-    public void setFileLocation(FileLocation fileLocation) {
-        this.fileLocation = fileLocation;
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
     public ArtifactLocation getArtifactLocation() {
         return artifactLocation;
     }
