@@ -143,78 +143,12 @@ public class SarifGenerator {
                 List<Location> locations = new ArrayList<>();
 
                 if (taintFlowQuery.getReportLocation() == LOCATION.SOURCE || taintFlowQuery.getReportLocation() == LOCATION.SOURCEANDSINK) {
-                    Location location = new Location();
-
-                    PhysicalLocation physicalLocation = new PhysicalLocation();
-                    FileLocation fileLocation = new FileLocation();
-
-                    LocationDetails sourceDetails = taintFlowResult.getSecond().getLocationDetails().getSecond().getFirst();
-
-                    String fqn = baseDir +
-                            File.separator +
-                            sourceDetails.getUsageClassName().replace(
-                                    ".",
-                                    File.separator
-                            ) +
-                            ".class";
-
-                    File file = new File(fqn);
-
-                    if (file.exists()) {
-                        fileLocation.setUri(file.getAbsolutePath());
-                    } else {
-                        fileLocation.setUri(sourceDetails.getUsageClassName().replace(".", File.separator) + ".class");
-                    }
-
-                    physicalLocation.setFileLocation(fileLocation);
-                    location.setPhysicalLocation(physicalLocation);
-
-                    Region region = new Region();
-
-                    region.setStartColumn(sourceDetails.getUsageStartColumnNumber());
-                    region.setEndColumn(sourceDetails.getUsageEndColumnNumber());
-                    region.setStartLine(sourceDetails.getUsageStartLineNumber());
-                    region.setEndLine(sourceDetails.getUsageEndLineNumber());
-
-                    location.setRegion(region);
+                    Location location = getLocation(taintFlowResult.getSecond().getLocationDetails().getSecond().getFirst());
                     locations.add(location);
                 }
 
                 if (taintFlowQuery.getReportLocation() == LOCATION.SINK || taintFlowQuery.getReportLocation() == LOCATION.SOURCEANDSINK) {
-                    Location location = new Location();
-
-                    PhysicalLocation physicalLocation = new PhysicalLocation();
-                    FileLocation fileLocation = new FileLocation();
-
-                    LocationDetails sinDetails = taintFlowResult.getSecond().getLocationDetails().getSecond().getSecond();
-
-                    String fqn = baseDir +
-                            File.separator +
-                            sinDetails.getUsageClassName().replace(
-                                    ".",
-                                    File.separator
-                            ) +
-                            ".class";
-
-                    File file = new File(fqn);
-
-                    if (file.exists()) {
-                        fileLocation.setUri(file.getAbsolutePath());
-                    } else {
-                        fileLocation.setUri(sinDetails.getUsageClassName().replace(".", File.separator) + ".class");
-                    }
-
-                    physicalLocation.setFileLocation(fileLocation);
-                    location.setPhysicalLocation(physicalLocation);
-
-                    Region region = new Region();
-
-                    region.setStartColumn(sinDetails.getUsageStartColumnNumber());
-                    region.setEndColumn(sinDetails.getUsageEndColumnNumber());
-                    region.setStartLine(sinDetails.getUsageStartLineNumber());
-                    region.setEndLine(sinDetails.getUsageEndLineNumber());
-
-                    location.setRegion(region);
+                    Location location = getLocation(taintFlowResult.getSecond().getLocationDetails().getSecond().getSecond());
                     locations.add(location);
                 }
 
@@ -224,6 +158,50 @@ public class SarifGenerator {
             }
         }
         return results;
+    }
+
+    private static Location getLocation(LocationDetails locationDetails) {
+        Location location = new Location();
+
+        PhysicalLocation physicalLocation = new PhysicalLocation();
+        ArtifactLocation artifactLocation = getArtifactLocation(locationDetails);
+        physicalLocation.setArtifactLocation(artifactLocation);
+
+        Region region = new Region();
+        int startColumn = locationDetails.getUsageStartColumnNumber();
+
+        if (locationDetails.getUsageStartColumnNumber() < 0)
+            startColumn = 1;
+
+        region.setStartColumn(startColumn);
+        region.setStartLine(locationDetails.getUsageStartLineNumber());
+        region.setCharLength(startColumn - locationDetails.getUsageEndColumnNumber());
+        region.setSourceLanguage("JAVA");
+        physicalLocation.setRegion(region);
+
+        location.setPhysicalLocation(physicalLocation);
+        return location;
+    }
+
+    private static ArtifactLocation getArtifactLocation(LocationDetails locationDetails) {
+        ArtifactLocation artifactLocation = new ArtifactLocation();
+
+        String fqn = baseDir +
+                File.separator +
+                locationDetails.getUsageClassName().replace(
+                        ".",
+                        File.separator
+                ) +
+                ".class";
+
+        File file = new File(fqn);
+
+        if (file.exists()) {
+            artifactLocation.setUri(file.getAbsolutePath());
+        } else {
+            artifactLocation.setUri(locationDetails.getUsageClassName().replace(".", File.separator) + ".class");
+        }
+        return artifactLocation;
     }
 
     /**

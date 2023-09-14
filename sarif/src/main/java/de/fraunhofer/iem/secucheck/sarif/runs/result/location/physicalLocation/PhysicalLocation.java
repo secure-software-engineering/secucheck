@@ -13,6 +13,7 @@ public class PhysicalLocation {
      * File location
      */
     private FileLocation fileLocation;
+    private ArtifactLocation artifactLocation;
 
     public FileLocation getFileLocation() {
         return fileLocation;
@@ -20,5 +21,11 @@ public class PhysicalLocation {
 
     public void setFileLocation(FileLocation fileLocation) {
         this.fileLocation = fileLocation;
+    public ArtifactLocation getArtifactLocation() {
+        return artifactLocation;
+    }
+
+    public void setArtifactLocation(ArtifactLocation artifactLocation) {
+        this.artifactLocation = artifactLocation;
     }
 }

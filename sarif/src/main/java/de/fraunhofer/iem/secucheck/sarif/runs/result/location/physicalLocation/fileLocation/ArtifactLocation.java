@@ -5,7 +5,7 @@ package de.fraunhofer.iem.secucheck.sarif.runs.result.location.physicalLocation.
  *
  * @author Ranjith Krishnamurthy
  */
-public class FileLocation {
+public class ArtifactLocation {
     /**
      * Uri to the file: In secucheck-cmd its the class file
      */
