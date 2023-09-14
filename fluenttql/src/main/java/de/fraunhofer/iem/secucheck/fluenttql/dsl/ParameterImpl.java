@@ -1,6 +1,6 @@
 package de.fraunhofer.iem.secucheck.fluenttql.dsl;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.Parameter;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.Parameter;
 
 /**
  * Implementaion of {@link Parameter}

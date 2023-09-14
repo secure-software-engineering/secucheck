@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage;
+package de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage;
 
 import java.util.List;
 

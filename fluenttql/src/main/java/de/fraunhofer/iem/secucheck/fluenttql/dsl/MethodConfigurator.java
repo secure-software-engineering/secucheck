@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.fluenttql.dsl;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.MethodSignature;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.MethodSignature;
 
 /**
  * Configurator for the {@link Method}

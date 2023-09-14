@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage;
+package de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage;
 
 import java.util.List;
 

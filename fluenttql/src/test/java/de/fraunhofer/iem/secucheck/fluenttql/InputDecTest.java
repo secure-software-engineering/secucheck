@@ -1,6 +1,6 @@
 package de.fraunhofer.iem.secucheck.fluenttql;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.InputDeclaration;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.InputDeclaration;
 import org.junit.Test;
 
 public class InputDecTest {

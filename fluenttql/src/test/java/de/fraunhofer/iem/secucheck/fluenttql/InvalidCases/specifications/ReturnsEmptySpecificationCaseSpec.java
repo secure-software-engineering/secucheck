@@ -1,8 +1,8 @@
 package de.fraunhofer.iem.secucheck.fluenttql.InvalidCases.specifications;
 
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.FluentTQLSpecificationClass;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.FluentTQLSpecification;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.SpecificationInterface.FluentTQLUserInterface;
 
 import java.util.ArrayList;
 import java.util.List;

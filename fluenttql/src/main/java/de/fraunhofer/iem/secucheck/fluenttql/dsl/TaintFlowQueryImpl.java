@@ -1,8 +1,8 @@
 package de.fraunhofer.iem.secucheck.fluenttql.dsl;
 
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.TaintFlow;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage.TaintFlow;
 
 import java.util.*;
 

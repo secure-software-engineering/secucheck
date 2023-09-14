@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.cmd;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.commons.SecuCheckCoreQueryUtility;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisConfiguration;
 import de.fraunhofer.iem.secucheck.analysis.configuration.SecucheckAnalysisDefaultConfiguration;

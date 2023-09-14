@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.fluenttql;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.Input;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.Output;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.Input;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.Output;
 import org.junit.Test;
 
 public class ThisObjectTest {

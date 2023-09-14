@@ -5,8 +5,8 @@ import de.fraunhofer.iem.secucheck.fluenttql.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.FluentTQLRepositoryClass;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.ImportAndProcessOnlyStaticFields;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.FluentTQLSpecification;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
 
 import java.util.ArrayList;
 import java.util.List;

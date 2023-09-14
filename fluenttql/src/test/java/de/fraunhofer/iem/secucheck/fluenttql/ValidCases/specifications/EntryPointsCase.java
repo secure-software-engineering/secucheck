@@ -5,7 +5,7 @@ import de.fraunhofer.iem.secucheck.fluenttql.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.AnalysisEntryPoint;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.FluentTQLRepositoryClass;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.OutFlowReturnValue;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
 
 @FluentTQLRepositoryClass
 public class EntryPointsCase {

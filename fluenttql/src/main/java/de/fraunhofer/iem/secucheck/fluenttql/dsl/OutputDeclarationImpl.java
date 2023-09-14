@@ -1,8 +1,8 @@
 package de.fraunhofer.iem.secucheck.fluenttql.dsl;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.Output;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.OutputDeclaration;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.ThisObject;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.Output;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.OutputDeclaration;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.ThisObject;
 
 import java.util.*;
 

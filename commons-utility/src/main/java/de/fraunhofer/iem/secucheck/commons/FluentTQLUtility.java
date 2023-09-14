@@ -1,6 +1,6 @@
 package de.fraunhofer.iem.secucheck.commons;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
 
 import java.util.List;
 

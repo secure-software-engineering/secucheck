@@ -1,9 +1,9 @@
 package de.fraunhofer.iem.secucheck.fluenttql.dsl;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.InputDeclaration;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.OutputDeclaration;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.MethodSignature;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.InputDeclaration;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.OutputDeclaration;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.MethodSignature;
 
 /**
  * Implementation of the {@link Method}

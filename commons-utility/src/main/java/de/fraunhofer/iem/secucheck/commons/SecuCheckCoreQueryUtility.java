@@ -2,11 +2,11 @@ package de.fraunhofer.iem.secucheck.commons;
 
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.MethodSet;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.*;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.FlowParticipant;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.TaintFlow;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.*;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage.FlowParticipant;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage.TaintFlow;
 import de.fraunhofer.iem.secucheck.analysis.query.*;
 
 import java.util.ArrayList;

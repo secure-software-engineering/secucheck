@@ -1,6 +1,6 @@
 package de.fraunhofer.iem.secucheck.fluenttql;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
 import org.junit.Test;
 
 public class TaintFlowQueryTest {

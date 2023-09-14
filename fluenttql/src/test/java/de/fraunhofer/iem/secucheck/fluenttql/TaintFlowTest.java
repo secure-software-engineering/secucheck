@@ -1,8 +1,8 @@
 package de.fraunhofer.iem.secucheck.fluenttql;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.FluentTQLSpecification;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.TaintFlow;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage.TaintFlow;
 import org.junit.Test;
 
 import java.util.List;

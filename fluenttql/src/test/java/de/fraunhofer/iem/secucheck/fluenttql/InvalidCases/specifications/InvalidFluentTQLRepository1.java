@@ -3,7 +3,7 @@ package de.fraunhofer.iem.secucheck.fluenttql.InvalidCases.specifications;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.InFlowParam;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.OutFlowReturnValue;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
 
 public class InvalidFluentTQLRepository1 {  //Fixme: This is the problem/error. Not declared as FluentTQL related class
     @OutFlowReturnValue

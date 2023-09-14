@@ -2,7 +2,7 @@ package de.fraunhofer.iem.secucheck.fluenttql.dsl;
 
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.AnalysisEntryPoint;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.exception.*;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

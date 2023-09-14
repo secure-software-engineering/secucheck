@@ -1,9 +1,9 @@
-package de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage;
+package de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage;
 
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.MethodSet;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.InputDeclaration;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.OutputDeclaration;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.FlowParticipant;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.InputDeclaration;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.OutputDeclaration;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage.FlowParticipant;
 
 /**
  * Interface for Method

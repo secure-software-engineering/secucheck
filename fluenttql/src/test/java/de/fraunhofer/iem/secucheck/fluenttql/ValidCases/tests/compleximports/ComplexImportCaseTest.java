@@ -5,11 +5,11 @@ import de.fraunhofer.iem.secucheck.fluenttql.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.exception.FluentTQLException;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.Return;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.ThisObject;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.TaintFlow;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.Return;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.ThisObject;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.SpecificationInterface.FluentTQLUserInterface;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage.TaintFlow;
 import org.junit.Assert;
 import org.junit.Test;
 

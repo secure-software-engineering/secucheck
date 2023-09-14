@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.cmd;
 
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.MethodConfigurator;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.analysis.query.MethodImpl;
 import de.fraunhofer.iem.secucheck.commons.SecuCheckCoreQueryUtility;
 

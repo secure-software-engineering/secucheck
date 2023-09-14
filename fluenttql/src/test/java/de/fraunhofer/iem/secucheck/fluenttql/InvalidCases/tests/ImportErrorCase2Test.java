@@ -4,7 +4,7 @@ import de.fraunhofer.iem.secucheck.fluenttql.InvalidCases.specifications.ImportE
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.exception.FluentTQLException;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.exception.ImportAndProcessAnnotationException;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.SpecificationInterface.FluentTQLUserInterface;
 import org.junit.Test;
 
 public class ImportErrorCase2Test {

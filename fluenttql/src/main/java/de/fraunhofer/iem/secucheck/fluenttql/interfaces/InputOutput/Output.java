@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput;
+package de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput;
 
 /**
  * Interface between {@link OutputDeclaration} and {@link Return}, {@link ThisObject}, {@link Parameter}

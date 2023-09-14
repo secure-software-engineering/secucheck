@@ -1,6 +1,6 @@
 package de.fraunhofer.iem.secucheck.magpiebridge.internal;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
 import magpiebridge.core.AnalysisResult;
 
 import java.util.Collection;

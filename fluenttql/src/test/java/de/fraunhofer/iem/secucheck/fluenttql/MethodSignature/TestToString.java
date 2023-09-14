@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.fluenttql.MethodSignature;
 
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.methodSignature.MethodSignatureBuilder;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.MethodSignature;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.MethodSignature;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

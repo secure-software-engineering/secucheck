@@ -1,12 +1,12 @@
 package de.fraunhofer.iem.secucheck.fluenttql.english
 
 import java.util.List
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.FlowParticipant
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage.FlowParticipant
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.MethodSet
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.TaintFlow
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage.TaintFlow
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.CONSTANTS.LOCATION
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery
 
 class FluentTQL2English {
 	def String printSingleMethod(Method method) {

@@ -1,6 +1,6 @@
 package de.fraunhofer.iem.secucheck.magpiebridge;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.SpecificationInterface.FluentTQLUserInterface;
 import net.openhft.compiler.CompilerUtils;
 import org.eclipse.lsp4j.MessageParams;
 import org.eclipse.lsp4j.MessageType;

@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput;
+package de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput;
 
 import java.util.List;
 import java.util.Set;

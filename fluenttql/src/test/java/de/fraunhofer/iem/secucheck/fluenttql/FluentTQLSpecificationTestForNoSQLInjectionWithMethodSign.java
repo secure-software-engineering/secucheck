@@ -7,11 +7,11 @@ import de.fraunhofer.iem.secucheck.fluenttql.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.methodSignature.MethodSignatureBuilder;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.CONSTANTS.LOCATION;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.FluentTQLSpecification;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.MethodSignature;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.MethodSignature;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.SpecificationInterface.FluentTQLUserInterface;
 
 public class FluentTQLSpecificationTestForNoSQLInjectionWithMethodSign implements FluentTQLUserInterface {
 	public List<FluentTQLSpecification> getFluentTQLSpecification() {

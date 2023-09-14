@@ -2,16 +2,14 @@ package de.fraunhofer.iem.secucheck.fluenttql.dsl;
 
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.*;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.exception.*;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.FluentTQLSpecification;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.Input;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.Output;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.FlowParticipant;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.TaintFlowPackage.TaintFlow;
-import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.*;
-import de.fraunhofer.iem.secucheck.fluenttql.dsl.exception.*;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.Input;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.Output;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.SpecificationInterface.FluentTQLUserInterface;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage.FlowParticipant;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.TaintFlowPackage.TaintFlow;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;

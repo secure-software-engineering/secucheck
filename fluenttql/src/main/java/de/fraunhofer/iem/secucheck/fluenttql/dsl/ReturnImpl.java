@@ -1,6 +1,6 @@
 package de.fraunhofer.iem.secucheck.fluenttql.dsl;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.InputOutput.Return;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.InputOutput.Return;
 
 /**
  * Implementation of {@link Return} value

@@ -4,7 +4,7 @@ import de.fraunhofer.iem.secucheck.fluenttql.InvalidCases.specifications.InCompl
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.ProcessAnnotatedClass;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.exception.FluentTQLException;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.exception.IncompleteMethodDeclarationException;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.SpecificationInterface.FluentTQLUserInterface;
 import org.junit.Test;
 
 public class InCompleteMethodCaseTest {

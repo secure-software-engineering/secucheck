@@ -1,6 +1,6 @@
-package de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.SpecificationInterface;
+package de.fraunhofer.iem.secucheck.fluenttql.interfaces.SpecificationInterface;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.FluentTQLSpecification;
 
 import java.util.List;
 

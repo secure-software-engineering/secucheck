@@ -2,7 +2,7 @@ package de.fraunhofer.iem.secucheck.magpiebridge.internal;
 
 import de.fraunhofer.iem.secucheck.magpiebridge.FluentTQLAnalysisConfigurator;
 import de.fraunhofer.iem.secucheck.commons.FluentTQLUtility;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.Query.TaintFlowQuery;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.DifferentTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.datastructures.SameTypedPair;
 import de.fraunhofer.iem.secucheck.analysis.query.*;

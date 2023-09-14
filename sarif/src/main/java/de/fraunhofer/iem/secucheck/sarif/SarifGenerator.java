@@ -22,6 +22,7 @@ import de.fraunhofer.iem.secucheck.analysis.query.TaintFlowImpl;
 import de.fraunhofer.iem.secucheck.analysis.result.*;
 import de.fraunhofer.iem.secucheck.fluenttql.english.BriefFluentTQL2Eng;
 import de.fraunhofer.iem.secucheck.fluenttql.english.FluentTQL2English;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.Query.TaintFlowQuery;
 
 import java.io.File;
 import java.util.ArrayList;

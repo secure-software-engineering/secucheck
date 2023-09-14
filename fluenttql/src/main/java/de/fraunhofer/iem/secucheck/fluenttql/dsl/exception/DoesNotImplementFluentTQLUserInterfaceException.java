@@ -1,7 +1,7 @@
 package de.fraunhofer.iem.secucheck.fluenttql.dsl.exception;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.FluentTQLSpecification;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.SpecificationInterface.FluentTQLUserInterface;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.FluentTQLSpecification;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.SpecificationInterface.FluentTQLUserInterface;
 
 /**
  * This exception indicates that the given class does not implement {@link FluentTQLUserInterface}, therefore {@link FluentTQLSpecification} can not

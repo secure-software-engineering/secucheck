@@ -1,6 +1,6 @@
 package de.fraunhofer.iem.secucheck.fluenttql.dsl.methodSignature;
 
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.MethodSignature;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.MethodSignature;
 
 /**
  * This class represents that it contains {@link MethodSignature} with class name operator.

@@ -6,7 +6,7 @@ import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.FluentTQLRepository
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.ImportAndProcessAnnotation;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.InFlowThisObject;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.OutFlowReturnValue;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
 
 @FluentTQLRepositoryClass
 public class SanitizerRepo2 {

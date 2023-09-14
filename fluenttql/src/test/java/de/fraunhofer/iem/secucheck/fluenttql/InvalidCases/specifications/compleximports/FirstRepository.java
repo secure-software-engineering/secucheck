@@ -4,7 +4,7 @@ import de.fraunhofer.iem.secucheck.fluenttql.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.FluentTQLRepositoryClass;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.ImportAndProcessAnnotation;
 import de.fraunhofer.iem.secucheck.fluenttql.dsl.annotations.OutFlowReturnValue;
-import de.fraunhofer.iem.secucheck.fluenttql.fluentInterface.MethodPackage.Method;
+import de.fraunhofer.iem.secucheck.fluenttql.interfaces.MethodPackage.Method;
 
 @FluentTQLRepositoryClass
 public class FirstRepository {
