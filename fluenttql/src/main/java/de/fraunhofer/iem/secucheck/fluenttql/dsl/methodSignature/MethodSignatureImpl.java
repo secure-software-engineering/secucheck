@@ -28,7 +28,8 @@ class MethodSignatureImpl implements MethodSignature {
 
         if (parametersType.size() >= 1) {
             str.deleteCharAt(str.length() - 1);
-            str.deleteCharAt(str.length() - 1);
+            //TODO: Identify why the below statement is redundantly added.
+            //str.deleteCharAt(str.length() - 1);
         }
 
         str.append(")");
