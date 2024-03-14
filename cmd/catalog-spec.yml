@@ -1,0 +1,7 @@
+classPath: '/root/work/ai_dev_assist/secucheck-catalog/catalog/target/classes'
+entryPoints:
+specPath: '/root/work/ai_dev_assist/secucheck-catalog/catalogSpecifications/target'
+selectedSpecs:
+asSpecFile: false
+solver: "Boomerang3"
+isPostProcessResult: true
