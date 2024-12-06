@@ -16,6 +16,7 @@ public enum CWE {
     CWE643("CWE643", "XPath Injection: Improper Neutralization of Data within XPath Expressions"),
     CWE79("CWE79", "Cross-site Scripting: Improper Neutralization of Input During Web Page Generation"),
     CWE200("CWE200", "Information leak: Exposure of Sensitive Information to an Unauthorized Actor"),
+    CWE311("CWE311", "Missing Encryption of Sensitive Data"),
 
     // Related to XML Injection
     CWE91("CWE91", "XML Injection: aka Blind XPath Injection"),
