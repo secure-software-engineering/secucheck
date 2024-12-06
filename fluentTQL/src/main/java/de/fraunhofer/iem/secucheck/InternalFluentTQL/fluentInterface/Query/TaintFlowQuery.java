@@ -1,5 +1,6 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.Query;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.ReportMessage;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.QueriesSet;
@@ -32,7 +33,7 @@ public interface TaintFlowQuery extends FluentTQLSpecification {
      *
      * @return Report Message
      */
-    String getReportMessage();
+    ReportMessage getReportMessage();
 
     /**
      * Returns the QueriesSet

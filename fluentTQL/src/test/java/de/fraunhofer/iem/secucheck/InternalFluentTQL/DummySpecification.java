@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.FluentTQLSpecification;
@@ -90,7 +91,7 @@ public class DummySpecification {
                 .notThrough(method4)
                 .notThrough(method5)
                 .to(method6)
-                .report("Dummy")
+                .report("Dummy", CWE.CWE89)
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
@@ -101,7 +102,7 @@ public class DummySpecification {
                 .through(method2)
                 .through(method3)
                 .to(method6)
-                .report("Dummy")
+                .report("Dummy", CWE.CWE89)
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 
@@ -112,7 +113,7 @@ public class DummySpecification {
                 .notThrough(method1)
                 .notThrough(method3)
                 .to(method6)
-                .report("Dummy")
+                .report("Dummy", CWE.CWE89)
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 

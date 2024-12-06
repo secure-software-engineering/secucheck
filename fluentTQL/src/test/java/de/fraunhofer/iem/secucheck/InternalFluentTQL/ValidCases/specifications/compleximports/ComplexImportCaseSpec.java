@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.ValidCases.specifications.compleximports;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.ImportAndProcessAnnotation;
@@ -25,7 +26,7 @@ public class ComplexImportCaseSpec implements FluentTQLUserInterface {
                 .from(SecondRepository.methodSet)
                 .notThrough(SanitizerRepo2.sanitizers)
                 .to(simpleRepository.sinks)
-                .report("This is complex import spec example")
+                .report("This is complex import spec example", CWE.CWE89)
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 

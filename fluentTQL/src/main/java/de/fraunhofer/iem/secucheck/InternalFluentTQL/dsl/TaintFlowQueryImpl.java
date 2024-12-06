@@ -13,7 +13,7 @@ import java.util.*;
  */
 class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlowQuery {
     private final Set<TaintFlow> taintFlows = new LinkedHashSet<>();
-    private String reportMessage = "";
+    private ReportMessage reportMessage;
     private LOCATION reportLocation = LOCATION.SOURCEANDSINK;
     private QueriesSet queriesSet;
     private final String id;
@@ -39,11 +39,11 @@ class TaintFlowQueryImpl extends FluentTQLSpecificationImpl implements TaintFlow
         return taintFlowsAsList;
     }
 
-    public String getReportMessage() {
+    public ReportMessage getReportMessage() {
         return reportMessage;
     }
 
-    public void setReportMessage(String reportMessage) {
+    public void setReportMessage(ReportMessage reportMessage) {
         this.reportMessage = reportMessage;
     }
 

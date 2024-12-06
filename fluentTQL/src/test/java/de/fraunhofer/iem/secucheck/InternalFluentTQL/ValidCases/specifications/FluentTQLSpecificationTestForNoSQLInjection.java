@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.ValidCases.specifications;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.ImportAndProcessOnlyStaticFields;
@@ -22,7 +23,7 @@ public class FluentTQLSpecificationTestForNoSQLInjection implements FluentTQLUse
                 .from(MethodDeclarationForNoSQLInjection.source2).notThrough(MethodDeclarationForNoSQLInjection.sanitizer).through(MethodDeclarationForNoSQLInjection.requiredPropagator1).to(MethodDeclarationForNoSQLInjection.sink)
                 .and()
                 .from(MethodDeclarationForNoSQLInjection.source3).notThrough(MethodDeclarationForNoSQLInjection.sanitizer).through(MethodDeclarationForNoSQLInjection.requiredPropagator2).to(MethodDeclarationForNoSQLInjection.sink)
-                .report("There is a No-SQL-Injection (CWE943) with multiple sources")
+                .report("There is a No-SQL-Injection (CWE943) with multiple sources", CWE.CWE943)
                 .at(LOCATION.SOURCE)
                 .build();
 

@@ -45,7 +45,7 @@ public final class SecuCheckCoreQueryUtility {
      */
     public static SecucheckTaintFlowQueryImpl getCompositeTaintFlowQuery(TaintFlowQuery taintFlowQuery) {
         SecucheckTaintFlowQueryImpl compositeQuery = new SecucheckTaintFlowQueryImpl(taintFlowQuery.getId());
-        compositeQuery.setReportMessage(taintFlowQuery.getReportMessage());
+        compositeQuery.setReportMessage(new ReportMessageWithCwe(taintFlowQuery.getReportMessage().getMessage(), taintFlowQuery.getReportMessage().getCwe().getCategory()));
         compositeQuery.setReportLocation(getReportLocation(taintFlowQuery.getReportLocation()));
 
         for (TaintFlow taintFlow : taintFlowQuery.getTaintFlows()) {

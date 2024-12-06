@@ -28,7 +28,7 @@ public class NullInReportMethodCaseSpec implements FluentTQLUserInterface {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder("id10")
                 .from(source)
                 .to(sink)
-                .report(null)   //Fixme: This is the problem/error
+                .report(null, null)   //Fixme: This is the problem/error
                 .at(LOCATION.SINK)
                 .build();
 

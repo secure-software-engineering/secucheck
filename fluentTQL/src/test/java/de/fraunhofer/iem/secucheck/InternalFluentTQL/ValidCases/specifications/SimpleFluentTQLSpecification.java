@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.ValidCases.specifications;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
@@ -46,7 +47,7 @@ public class SimpleFluentTQLSpecification implements FluentTQLUserInterface {
                 .from(source)
                 .notThrough(sanitizer)
                 .to(sink)
-                .report("There is a SQL Injection - CWE89!!!")
+                .report("There is a SQL Injection - CWE89!!!", CWE.CWE89)
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 

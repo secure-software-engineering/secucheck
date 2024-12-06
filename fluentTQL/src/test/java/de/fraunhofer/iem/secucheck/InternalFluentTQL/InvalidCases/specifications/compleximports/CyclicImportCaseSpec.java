@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.InvalidCases.specifications.compleximports;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.ImportAndProcessOnlyStaticFields;
@@ -19,7 +20,7 @@ public class CyclicImportCaseSpec implements FluentTQLUserInterface {
         TaintFlowQuery noSQLInjection = new TaintFlowQueryBuilder("id1")
                 .from(FirstRepository.source1)
                 .to(FirstRepository.sink1)
-                .report("This is a cyclic import example")
+                .report("This is a cyclic import example", CWE.CWE89)
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 

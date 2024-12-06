@@ -3,6 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.methodSignature.MethodSignatureBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
@@ -82,7 +83,7 @@ public class FluentTQLSpecificationTestForNoSQLInjectionWithMethodSign implement
                 .from(source2).notThrough(sanitizer).through(requiredPropagator1).to(sink)
                 .and()
                 .from(source3).notThrough(sanitizer).through(requiredPropagator2).to(sink)
-                .report("There is a No-SQL-Injection (CWE943) with multiple sources")
+                .report("There is a No-SQL-Injection (CWE943) with multiple sources", CWE.CWE943)
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 

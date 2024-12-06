@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.InvalidCases.specifications;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
@@ -26,7 +27,7 @@ public class InCompleteMethodCaseSpec implements FluentTQLUserInterface {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder("id5")
                 .from(source)
                 .to(sink)
-                .report("There is a dummy Information leak!!!")
+                .report("There is a dummy Information leak!!!", CWE.CWE89)
                 .at(LOCATION.SOURCE)
                 .build();
 

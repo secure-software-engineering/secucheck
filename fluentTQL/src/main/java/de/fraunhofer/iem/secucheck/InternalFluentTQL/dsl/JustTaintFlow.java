@@ -19,10 +19,10 @@ public class JustTaintFlow {
         this.taintFlowQuery = (TaintFlowQueryImpl) taintFlowQuery;
     }
 
-    public TaintFlowWithReportMessage report(String reportMessage) {
+    public TaintFlowWithReportMessage report(String reportMessage, CWE cwe) {
         Objects.requireNonNull(reportMessage, "report() method's argument is null.");
 
-        taintFlowQuery.setReportMessage(reportMessage);
+        taintFlowQuery.setReportMessage(new ReportMessage(reportMessage, cwe));
         return new TaintFlowWithReportMessage(taintFlowQuery, taintFlow);
     }
 

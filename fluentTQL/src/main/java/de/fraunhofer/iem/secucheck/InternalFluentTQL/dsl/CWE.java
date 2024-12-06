@@ -1,4 +1,4 @@
-package de.fraunhofer.iem.secucheck.analysis.query;
+package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 
 public enum CWE {
     // Related to command injection

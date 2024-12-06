@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
@@ -38,7 +39,7 @@ public class SimpleFluentTQLSpecification implements FluentTQLUserInterface {
                 .from(source)
                 .notThrough(sanitizer)
                 .to(sink)
-                .report("A simple TaintFlow is present here!!!")
+                .report("A simple TaintFlow is present here!!!", CWE.CWE89)
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 

@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.InvalidCases.specifications;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.ImportAndProcessOnlyStaticFields;
@@ -19,7 +20,7 @@ public class ImportErrorCase1Spec implements FluentTQLUserInterface {
         TaintFlowQuery myTF = new TaintFlowQueryBuilder("id3")
                 .from(InvalidFluentTQLRepository1.source)
                 .to(InvalidFluentTQLRepository1.sink)
-                .report("There is a dummy Information leak!!!")
+                .report("There is a dummy Information leak!!!", CWE.CWE89)
                 .at(LOCATION.SOURCE)
                 .build();
 

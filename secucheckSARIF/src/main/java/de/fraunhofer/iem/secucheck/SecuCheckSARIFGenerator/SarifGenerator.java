@@ -131,7 +131,7 @@ public class SarifGenerator {
                 res.setRichMessageId(taintFlowQuery.getReportLocation() + " : \n" + fluentTQL2English);
 
                 Message message = new Message();
-                message.setText(taintFlowQuery.getReportMessage());
+                message.setText(taintFlowQuery.getReportMessage().getCwe() + ": " + taintFlowQuery.getReportMessage().getMessage());
                 res.setMessage(message);
 
                 res.setLevel("error");

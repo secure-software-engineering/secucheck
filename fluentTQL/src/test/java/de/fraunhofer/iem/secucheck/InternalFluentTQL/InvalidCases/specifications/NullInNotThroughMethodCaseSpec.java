@@ -1,6 +1,7 @@
 package de.fraunhofer.iem.secucheck.InternalFluentTQL.InvalidCases.specifications;
 
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CONSTANTS.LOCATION;
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSelector;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.TaintFlowQueryBuilder;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.annotations.FluentTQLSpecificationClass;
@@ -29,7 +30,7 @@ public class NullInNotThroughMethodCaseSpec implements FluentTQLUserInterface {
                 .from(source)
                 .notThrough(null)        //Fixme: This is the problem/error
                 .to(sink)
-                .report("There is a dummy Information leak!!!")
+                .report("There is a dummy Information leak!!!", CWE.CWE89)
                 .at(LOCATION.SINK)
                 .build();
 

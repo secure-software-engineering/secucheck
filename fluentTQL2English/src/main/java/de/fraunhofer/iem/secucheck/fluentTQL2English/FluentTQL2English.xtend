@@ -179,7 +179,7 @@ class FluentTQL2English {
 			fluentTQL2E += "\n\nIf, above all the TaintFlows are present in the given program then report the below error message at "
 		}
 
-		var String reportMessage = taintFlowQuery.getReportMessage()
+		var String reportMessage = taintFlowQuery.getReportMessage().getCwe() + ": " + taintFlowQuery.getReportMessage().getMessage()
 
 
 

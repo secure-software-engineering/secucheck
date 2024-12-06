@@ -3,6 +3,7 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.CWE;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodConfigurator;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.MethodSet;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl.methodSignature.MethodSignatureBuilder;
@@ -50,7 +51,7 @@ public class SimpleFluentTQLSpecificationWithMethodSign implements FluentTQLUser
                 .from(source)
                 .notThrough(sanitizer)
                 .to(sink)
-                .report("A simple TaintFlow is present here!!!")
+                .report("A simple TaintFlow is present here!!!", CWE.CWE89)
                 .at(LOCATION.SOURCEANDSINK)
                 .build();
 

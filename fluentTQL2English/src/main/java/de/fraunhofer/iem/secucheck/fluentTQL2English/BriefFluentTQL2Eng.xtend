@@ -74,7 +74,7 @@ class BriefFluentTQL2Eng {
 			fluentTQL2E += "\nIf, above all the TaintFlows are present in the given program then report the error message\n"
 		}
 			
-		fluentTQL2E += '''"''' + taintFlowQuery.getReportMessage() + '''"''' + " at "
+		fluentTQL2E += '''"''' + taintFlowQuery.getReportMessage().getCwe() + ": " + taintFlowQuery.getReportMessage().getMessage() + '''"''' + " at "
 		
 		
 		
