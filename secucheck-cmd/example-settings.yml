@@ -1,0 +1,7 @@
+classPath: 'D:\Work\secucheck\secucheck-catalog\microCatalog\target\classes'
+entryPoints:
+specPath: 'D:\Work\secucheck\secucheck-catalog\microCatalogSpecifications\target'
+selectedSpecs:
+asSpecFile: false
+solver: "Boomerang3"
+isPostProcessResult: true

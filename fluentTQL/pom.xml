@@ -9,8 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</artifactId>
+    <artifactId>fluentTQL</artifactId>
     <packaging>jar</packaging>
+
+    <name>de.fraunhofer.iem.secucheck.InternalFluentTQL</name>
+    <url>https://maven.apache.org</url>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -18,22 +21,12 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
-            <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.InternalFluentTQL</artifactId>
-            <version>${secucheck.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/de.scrum-master/jar-class-loader -->
-        <dependency>
-            <groupId>org.xeustechnologies</groupId>
-            <artifactId>jcl-core</artifactId>
-            <version>2.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.11</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.4</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>

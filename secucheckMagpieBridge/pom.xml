@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge</artifactId>
+    <artifactId>secucheckMagpieBridge</artifactId>
     <packaging>jar</packaging>
 
     <name>de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge</name>
@@ -38,7 +38,7 @@
         </dependency>
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.InternalFluentTQL</artifactId>
+            <artifactId>fluentTQL</artifactId>
             <version>${secucheck.version}</version>
         </dependency>
         <dependency>
@@ -49,30 +49,30 @@
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
             <version>${secucheck.core.version}</version>
-            <artifactId>de.fraunhofer.iem.secucheck.analysis</artifactId>
+            <artifactId>analysis</artifactId>
         </dependency>
 
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.analysis.configuration</artifactId>
+            <artifactId>configuration</artifactId>
             <version>${secucheck.core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.analysis.result</artifactId>
+            <artifactId>result</artifactId>
             <version>${secucheck.core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.analysis.query</artifactId>
+            <artifactId>query</artifactId>
             <version>${secucheck.core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.analysis.datastructures</artifactId>
+            <artifactId>datastructures</artifactId>
             <version>${secucheck.core.version}</version>
         </dependency>
 
@@ -84,7 +84,7 @@
         </dependency>
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.FluentTQLClassLoader</artifactId>
+            <artifactId>fluentTQLClassLoader</artifactId>
             <version>${secucheck.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.rapidoid/rapidoid-rest -->
@@ -107,12 +107,12 @@
 
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.fluentTQL2English</artifactId>
+            <artifactId>fluentTQL2English</artifactId>
             <version>${secucheck.version}</version>
         </dependency>
         <dependency>
             <groupId>de.fraunhofer.iem.secucheck</groupId>
-            <artifactId>de.fraunhofer.iem.secucheck.secucheck-commons-utility</artifactId>
+            <artifactId>secucheck-commons-utility</artifactId>
             <version>${secucheck.version}</version>
         </dependency>
     </dependencies>
