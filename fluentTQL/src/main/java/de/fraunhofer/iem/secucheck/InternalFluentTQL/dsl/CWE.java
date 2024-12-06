@@ -17,6 +17,7 @@ public enum CWE {
     CWE79("CWE79", "Cross-site Scripting: Improper Neutralization of Input During Web Page Generation"),
     CWE200("CWE200", "Information leak: Exposure of Sensitive Information to an Unauthorized Actor"),
     CWE311("CWE311", "Missing Encryption of Sensitive Data"),
+    CWE20("CWE20", "Improper Input Validation"),
 
     // Related to XML Injection
     CWE91("CWE91", "XML Injection: aka Blind XPath Injection"),
