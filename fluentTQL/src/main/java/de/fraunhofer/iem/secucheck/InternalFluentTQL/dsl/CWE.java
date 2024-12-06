@@ -23,7 +23,9 @@ public enum CWE {
     CWE91("CWE91", "XML Injection: aka Blind XPath Injection"),
     CWE116("CWE116", "XML Injection: Improper Encoding or Escaping of Output"),
     CWE611("CWE611", "XML Injection: Improper Restriction of XML External Entity Reference ('XXE')"),
-    CWE776("CWE776", "XML Injection: Improper Restriction of Recursive Entity References in DTDs ('XML Entity Expansion')");
+    CWE776("CWE776", "XML Injection: Improper Restriction of Recursive Entity References in DTDs ('XML Entity Expansion')"),
+
+    ATTACK_SURFACE("ATTACK_SURFACE", "This indicates the sources such as user input");
 
     private final String category;
 
