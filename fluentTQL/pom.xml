@@ -15,11 +15,6 @@
     <name>de.fraunhofer.iem.secucheck.InternalFluentTQL</name>
     <url>https://maven.apache.org</url>
 
-    <properties>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-    </properties>
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>

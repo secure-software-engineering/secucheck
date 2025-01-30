@@ -15,11 +15,6 @@
     <name>de.fraunhofer.iem.secucheck.SecuCheckMagpieBridge</name>
     <url>https://maven.apache.org</url>
 
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
