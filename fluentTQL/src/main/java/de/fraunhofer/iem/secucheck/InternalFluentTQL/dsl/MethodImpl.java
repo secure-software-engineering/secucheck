@@ -5,6 +5,11 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * Implementation of the {@link Method}
  *
@@ -17,6 +22,7 @@ class MethodImpl implements Method {
     private MethodSet methodSet;
     private InputDeclaration inputDeclaration = new InputDeclarationImpl();
     private OutputDeclaration outputDeclaration = new OutputDeclarationImpl();
+    private Set<String> associatedCwes = new HashSet<>();
 
     public String getSignature() {
         return signature;
@@ -58,6 +64,14 @@ class MethodImpl implements Method {
         this.outputDeclaration = outputDeclaration;
     }
 
+    public Set<String> getAssociatedCwes() {
+        return associatedCwes;
+    }
+
+    public void setAssociatedCwes(Set<String> associatedCwes) {
+        this.associatedCwes.addAll(associatedCwes);
+    }
+
     public MethodImpl(String methodSignature) {
         this.signature = methodSignature;
     }
@@ -65,6 +79,32 @@ class MethodImpl implements Method {
     public MethodImpl(MethodSignature methodSignature) {
         this.methodSignature = methodSignature;
         this.signature = this.methodSignature.getCompleteMethodSignature();
+    }
+
+    public MethodImpl(String methodSignature, Set<String> associatedCwes) {
+        this.signature = methodSignature;
+        this.associatedCwes.addAll(associatedCwes);
+    }
+
+    public MethodImpl(MethodSignature methodSignature, Set<String> associatedCwes) {
+        this.methodSignature = methodSignature;
+        this.signature = this.methodSignature.getCompleteMethodSignature();
+        this.associatedCwes.addAll(associatedCwes);
+    }
+
+    public MethodImpl(String methodSignature, String... associatedCwes) {
+        this.signature = methodSignature;
+        this.associatedCwes.addAll(
+                Arrays.stream(associatedCwes).collect(Collectors.toSet())
+        );
+    }
+
+    public MethodImpl(MethodSignature methodSignature, String... associatedCwes) {
+        this.methodSignature = methodSignature;
+        this.signature = this.methodSignature.getCompleteMethodSignature();
+        this.associatedCwes.addAll(
+                Arrays.stream(associatedCwes).collect(Collectors.toSet())
+        );
     }
 
     @Override

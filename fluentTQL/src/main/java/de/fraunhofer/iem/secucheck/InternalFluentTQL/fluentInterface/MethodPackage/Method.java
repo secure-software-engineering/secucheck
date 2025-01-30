@@ -5,6 +5,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput.OutputDeclaration;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.TaintFlowPackage.FlowParticipant;
 
+import java.util.Set;
+
 /**
  * Interface for Method
  *
@@ -47,4 +49,11 @@ public interface Method extends FlowParticipant {
      * @return OutputDeclaration
      */
     OutputDeclaration getOutputDeclaration();
+
+    /**
+     * Returns all the associated CWEs to this SRM.
+     *
+     * @return Set of CWEs associated to this SRM
+     */
+    Set<String> getAssociatedCwes();
 }

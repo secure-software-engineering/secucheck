@@ -7,10 +7,8 @@ import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.InputOutput
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * This class is used to instantiate the {@link Method}, that can be annotated with the FluentTQL annotation to configure the method
@@ -24,6 +22,7 @@ public class MethodSelector implements Method {
     private MethodSet methodSet;
     private InputDeclaration inputDeclaration = new InputDeclarationImpl();
     private OutputDeclaration outputDeclaration = new OutputDeclarationImpl();
+    private Set<String> associatedCwes = new HashSet<>();
 
     /**
      * This returns the method signature.
@@ -81,6 +80,14 @@ public class MethodSelector implements Method {
         return outputDeclaration;
     }
 
+    public Set<String> getAssociatedCwes() {
+        return associatedCwes;
+    }
+
+    public void setAssociatedCwes(Set<String> associatedCwes) {
+        this.associatedCwes.addAll(associatedCwes);
+    }
+
     /**
      * Constructors that sets the method signature.
      *
@@ -91,6 +98,18 @@ public class MethodSelector implements Method {
 
         this.signature = methodSignature;
         this.methodSignature = getMethodSignatureFromString(methodSignature);
+    }
+
+    public MethodSelector(String methodSignature, Set<String> associatedCwes) {
+        this(methodSignature);
+        this.associatedCwes.addAll(associatedCwes);
+    }
+
+    public MethodSelector(String methodSignature, String... associatedCwes) {
+        this(methodSignature);
+        this.associatedCwes.addAll(
+                Arrays.stream(associatedCwes).collect(Collectors.toSet())
+        );
     }
 
     protected static MethodSignature getMethodSignatureFromString(String signature) throws InvalidMethodSignatureException {
