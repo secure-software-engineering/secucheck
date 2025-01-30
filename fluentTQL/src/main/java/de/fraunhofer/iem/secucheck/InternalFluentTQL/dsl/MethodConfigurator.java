@@ -3,6 +3,8 @@ package de.fraunhofer.iem.secucheck.InternalFluentTQL.dsl;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method;
 import de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.MethodSignature;
 
+import java.util.Set;
+
 /**
  * Configurator for the {@link Method}
  *
@@ -17,8 +19,26 @@ public class MethodConfigurator {
         method = new MethodImpl(MethodSelector.getMethodSignatureFromString(methodSignature));
     }
 
+    public MethodConfigurator(String methodSignature, Set<String> associatedCwes) {
+        //method = new MethodImpl(methodSignature);
+        method = new MethodImpl(MethodSelector.getMethodSignatureFromString(methodSignature), associatedCwes);
+    }
+
+    public MethodConfigurator(String methodSignature, String... associatedCwes) {
+        //method = new MethodImpl(methodSignature);
+        method = new MethodImpl(MethodSelector.getMethodSignatureFromString(methodSignature), associatedCwes);
+    }
+
     public MethodConfigurator(MethodSignature methodSignature) {
         method = new MethodImpl(methodSignature);
+    }
+
+    public MethodConfigurator(MethodSignature methodSignature, Set<String> associatedCwes) {
+        method = new MethodImpl(methodSignature, associatedCwes);
+    }
+
+    public MethodConfigurator(MethodSignature methodSignature, String... associatedCwes) {
+        method = new MethodImpl(methodSignature, associatedCwes);
     }
 
     public MethodWithIn in() {
